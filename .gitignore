@@ -20,6 +20,9 @@
 *.xbb
 *.bcf
 *.run.xml
+*.synctex.gz
+*.xdv
+*.synctex(busy)
 
 _*_.synctex.gz
 _*_.tex
