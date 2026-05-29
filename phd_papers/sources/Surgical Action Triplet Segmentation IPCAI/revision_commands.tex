@@ -1,0 +1,56 @@
+%%%%
+\ifdefined\showrevision
+%%%%
+
+% to change the colour of text
+\usepackage{xcolor}
+% to strike through text
+\usepackage[normalem]{ulem}
+%\usepackage{soulutf8}
+%\soulregister\ref{7}
+%\soulregister\cite{7}
+% to have a note linking back to the review comment
+\usepackage{marginnote}
+% to deal with proper spacing after \rexx commands
+\usepackage{xspace}
+
+\newcommand{\revref}[2]{%
+  \marginpar{\raggedright$\scriptstyle R_{#1}C_{#2}$}%
+}
+% marginnote does not work nicely inside captions.
+% See http://www.texfaq.org/FAQ-protect
+% Not sure what the downside of DeclareRobustCommand is.
+% Maybe it gets expanded in the list of figures or similar.
+\DeclareRobustCommand{\robustrevref}[2]{%
+\revref{#1}{#2}
+}
+
+\newcommand{\revmod}[1]{%
+{\color{blue}#1}\xspace
+}
+
+\newcommand{\revnew}[1]{%
+{\color{orange}#1}\xspace
+}
+
+\newcommand{\revdel}[1]{%
+{\color{darkgray}\sout{#1}}\xspace
+}
+
+%%%%
+\else
+%%%%
+
+% to deal with proper spacing after \rexx commands
+\usepackage{xspace}
+
+\newcommand{\marginnote}[1]{\ignorespaces}
+\newcommand{\revref}[2]{\ignorespaces}
+\newcommand{\robustrevref}[2]{\ignorespaces}
+\newcommand{\revmod}[1]{#1\xspace}
+\newcommand{\revnew}[1]{#1\xspace}
+\newcommand{\revdel}[1]{\ignorespaces}
+
+%%%%
+\fi
+%%%%

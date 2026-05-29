@@ -1,0 +1,22 @@
+Host lagomera
+    HostName 10.42.0.1
+    User hvs
+    Port 22223
+    ForwardAgent yes
+    SendEnv GIT_AUTHOR_NAME GIT_AUTHOR_EMAIL GIT_COMMITTER_NAME GIT_COMMITTER_EMAIL
+    IdentityFile ~/.ssh/id_ed25519
+
+Host onyx-tosin
+    HostName onyx-tosin.compute.hypervisionsurgical.com
+    User onyx
+    ForwardAgent yes
+    SendEnv GIT_AUTHOR_NAME GIT_AUTHOR_EMAIL GIT_COMMITTER_NAME GIT_COMMITTER_EMAIL
+    IdentityFile ~/.ssh/id_ed25519
+
+Host storage-server
+    HostName storage.hypervisionsurgical.com
+    User onyx
+    ForwardAgent yes
+    SendEnv GIT_AUTHOR_NAME GIT_AUTHOR_EMAIL GIT_COMMITTER_NAME GIT_COMMITTER_EMAIL
+    IdentityFile ~/.ssh/id_ed25519
+    

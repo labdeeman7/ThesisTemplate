@@ -1,0 +1,70 @@
+% to change the colour of text
+\usepackage{xcolor}
+% to strike through text
+\usepackage[normalem]{ulem}
+% to frame text
+\usepackage{framed}
+
+% to help with quoting added material in the revised paper 
+\usepackage{quoting}
+% \newcommand{\say}[1]{%
+% \begin{quoting}
+% #1
+% \end{quoting}
+% }
+
+\newcommand{\sayold}[1]{%
+{\color{olive}#1}
+}
+
+
+
+\newcommand{\saydel}[1]{%
+{\color{darkgray}\sout{#1}}}
+
+\newcommand{\saymod}[1]{%
+  \texorpdfstring{\textcolor{blue}{#1}}{#1}%
+}
+
+% \newcommand{\saymod}[1]{#1}
+
+
+\newcommand{\sayintro}[1]{%
+  \texorpdfstring{\textcolor{olive}{#1}}{#1}%
+}
+
+\newcommand{\saynew}[1]{%
+{\color{orange}#1}}
+
+\newcommand{\reviewcomment}[3]{%
+\vspace{4mm}
+\textbf{C[$R_{#1}C_{#2}$]:} {\it #3}
+\vspace{2mm}
+}
+
+\newcommand{\response}[1]{%
+{\textbf{R:}} {#1}
+}
+
+% Change the default figure/table numbering to avoid confusion with main manuscript
+\renewcommand{\figurename}{Fig.}
+\renewcommand{\thefigure}{L\arabic{figure}}
+\renewcommand{\thetable}{L\arabic{table}} 
+\newcommand{\figref}[1]{\figurename~\ref{#1}}
+\newcommand{\tabref}[1]{\tablename~\ref{#1}}
+\newcommand{\subresponse}[1]{\underline{\MakeUppercase{#1}}}
+% \newcommand{\enclose}[1]{\par\indent """  #1   \indent """\par}
+
+\newcommand{\enclose}[1]{%
+%    \smallskip
+%    \par
+%    \noindent%
+%    \fbox{%
+%        \begin{minipage}{\dimexpr\linewidth-2\fboxsep-2\fboxrule\relax}#1 
+%        \end{minipage}%
+%    }%
+%    \par
+\begin{framed}
+#1
+\end{framed}
+}

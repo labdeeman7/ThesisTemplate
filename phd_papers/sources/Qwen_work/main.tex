@@ -1,0 +1,554 @@
+\documentclass[11pt]{article}
+
+\usepackage[a4paper,margin=1in]{geometry}
+\usepackage{graphicx}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{booktabs}
+\usepackage{array}
+\usepackage{float}
+\usepackage{hyperref}
+\usepackage{enumitem}
+\usepackage{setspace}
+\usepackage{titlesec}
+\usepackage{xcolor}
+
+\newcommand{\figref}[1]{\figurename~\ref{#1}}
+\newcommand{\tabref}[1]{\tablename~\ref{#1}}
+\newcommand{\secref}[1]{Section~\ref{#1}}
+
+\hypersetup{
+    colorlinks=true,
+    linkcolor=blue,
+    urlcolor=blue,
+    citecolor=blue
+}
+
+\setstretch{1.08}
+
+\title{From Target Fusion to Target Reasoning: Leveraging Weak Anatomical Priors through Vision-Language Models for Surgical Action Triplet Recognition}
+
+\author{Oluwatosin Alabi}
+\date{}
+
+\newcommand{\todo}[1]{\textcolor{red}{\textbf{TODO: #1}}}
+
+\begin{document}
+
+\maketitle
+
+
+
+
+\begin{abstract}
+
+Surgical action triplet recognition aims to identify instrument--verb--target (IVT) interactions from laparoscopic images. While recent approaches have achieved strong performance for instrument recognition and moderate performance for action recognition, target prediction remains the dominant bottleneck. Existing methods primarily treat this challenge as a representation learning problem, introducing anatomy-aware architectures and feature fusion mechanisms to improve target discrimination. However, gains remain limited, suggesting that target identification may require explicit reasoning about anatomy, context, and surgical intent.
+
+In this work, we investigate whether surgical target prediction is fundamentally a reasoning problem rather than a representation problem. We propose a reasoning-based framework for grounded surgical action triplet recognition built upon instrument instance segmentation and multimodal large language models. Our approach introduces Target-Centric Chain-of-Thought (TC-CoT), a structured reasoning strategy that explicitly analyses visual evidence, anatomical context, ambiguities, and alternative hypotheses before producing triplet predictions. Furthermore, we investigate whether weak anatomical priors are more effectively incorporated through explicit reasoning than through traditional feature fusion.
+
+Experiments on CholecTripletSeg demonstrate that reasoning-based approaches substantially outperform previous instance-grounded triplet recognition methods. Our findings suggest that future progress in surgical interaction understanding may depend less on increasingly sophisticated feature representations and more on explicit reasoning over anatomy and surgical context.
+
+\end{abstract}
+
+\section{Introduction}
+
+Understanding surgical interactions remains one of the central challenges in computer-assisted intervention. While significant progress has been achieved in surgical tool detection, workflow analysis, and phase recognition, comprehensive scene understanding requires identifying not only which instruments are present, but also how they interact with anatomical structures throughout a procedure.
+
+Surgical action triplets have emerged as a powerful representation for modelling these interactions. In this formulation, each interaction is represented as an instrument--verb--target (IVT) tuple describing which instrument performs which action on which anatomical structure. The introduction of CholecT50 established triplet recognition as an important benchmark for surgical scene understanding and motivated the development of interaction-aware recognition models.
+
+Recently, attention has shifted towards grounded interaction understanding. Rather than predicting a single global triplet label for an image, grounded approaches seek to associate triplet predictions with individual instrument instances. This formulation more closely reflects how surgeons interpret operative scenes and enables finer-grained modelling of simultaneous interactions. CholecTripletSeg extended this paradigm by combining instrument instance segmentation annotations with triplet labels, enabling instance-grounded triplet recognition at scale.
+
+Despite substantial progress, target prediction remains the dominant source of error across virtually all triplet recognition approaches. Instrument recognition performance has reached relatively high levels, while action recognition has achieved moderate success. In contrast, target prediction remains significantly more challenging. This limitation persists across convolutional architectures, transformer-based methods, and recent instance-aware frameworks.
+
+One possible explanation is that existing methods primarily treat target prediction as a representation learning problem. Recent work has attempted to improve target recognition through anatomy-aware architectures and target-aware feature fusion mechanisms. In our previous work, TargetFusionNet introduced anatomical priors into a Mask2Former-based framework using target-aware fusion modules. While this approach produced measurable improvements, gains remained relatively modest and inconsistent across different configurations. More importantly, target prediction continued to be the primary bottleneck.
+
+These observations motivate an alternative hypothesis. Human observers rarely identify surgical targets solely from local appearance. Instead, target identification requires reasoning about anatomical landmarks, instrument position, procedural context, and surgical intent. We therefore hypothesise that target prediction is fundamentally a reasoning problem rather than a representation problem.
+
+Recent multimodal large language models provide an opportunity to investigate this hypothesis. Unlike conventional recognition architectures that directly map visual features to class predictions, vision-language models are capable of generating intermediate reasoning processes before producing final outputs. Such reasoning may be particularly valuable in surgical environments where ambiguity is common and multiple plausible interpretations often exist.
+
+In this work, we propose a reasoning-based framework for grounded surgical action triplet recognition. Instrument instances are first obtained using an instance segmentation model and subsequently analysed using a multimodal large language model. We introduce Target-Centric Chain-of-Thought (TC-CoT), a structured reasoning framework that explicitly encourages the model to reason about anatomical targets before predicting final triplets.
+
+Furthermore, we revisit the role of anatomical priors. Rather than directly fusing target information into visual representations, we investigate whether weak anatomical predictions can be used as contextual evidence during reasoning. This perspective transforms anatomical priors from supervision signals into interpretable reasoning cues.
+
+The contributions of this work are fourfold:
+
+\begin{itemize}
+\item We formulate grounded surgical action triplet recognition as a reasoning problem.
+\item We introduce Target-Centric Chain-of-Thought (TC-CoT) for structured surgical target reasoning.
+\item We investigate the integration of weak anatomical priors within reasoning-based frameworks.
+\item We establish strong performance on CholecTripletSeg and provide insights into the limitations of current target recognition approaches.
+\end{itemize}
+
+\section{Related Work}
+
+\subsection{Surgical Action Triplet Recognition}
+
+Surgical action triplet recognition was introduced through the CholecT50 benchmark, which models surgical interactions as instrument--verb--target tuples. Early approaches focused on global frame-level interaction prediction using convolutional architectures. Subsequent methods incorporated temporal modelling, transformers, and attention mechanisms to improve interaction understanding.
+
+Rendezvous remains one of the most influential architectures in this area, introducing a dedicated framework for modelling interactions between instruments, actions, and anatomical targets. More recent approaches have explored transformer-based interaction reasoning and multi-task learning formulations.
+
+Despite these advances, target recognition remains substantially more difficult than instrument or action recognition, suggesting that current architectures struggle to capture the contextual information required for anatomical understanding.
+
+\subsection{Grounded Surgical Interaction Understanding}
+
+Most triplet recognition methods operate at the image level and do not explicitly associate interactions with individual instrument instances. However, many surgical scenes contain multiple instruments performing distinct actions simultaneously.
+
+Recent work on CholecTripletSeg introduced the problem of grounded triplet recognition by combining CholecT50 interaction labels with instrument instance segmentation annotations. This formulation enables instance-level reasoning and provides a more realistic representation of surgical interactions.
+
+\subsection{Anatomy-Aware Surgical Models}
+
+Several works have explored the use of anatomical information to improve surgical understanding. Anatomy segmentation models and anatomy-aware representations have been proposed for navigation, workflow analysis, and scene understanding.
+
+TargetFusionNet extended this direction by introducing target-aware fusion mechanisms into a Mask2Former framework. The underlying assumption was that stronger anatomical representations would directly improve target prediction performance. While promising improvements were observed, gains remained relatively limited, motivating the investigation of alternative approaches.
+
+\subsection{Vision-Language Models in Surgery}
+
+Recent years have witnessed growing interest in multimodal large language models for surgical applications. Approaches such as SurgicalGPT, EndoChat, and other vision-language frameworks have demonstrated strong capabilities for surgical question answering, report generation, and scene interpretation.
+
+However, relatively little work has explored structured reasoning for grounded surgical interaction recognition. Most existing approaches focus on direct prediction or free-form textual descriptions rather than explicit reasoning about anatomical targets.
+
+\subsection{Chain-of-Thought Reasoning}
+
+Chain-of-thought prompting has emerged as an effective technique for improving reasoning capabilities in large language models. By encouraging intermediate reasoning steps, chain-of-thought approaches have demonstrated improvements across a wide range of tasks including mathematics, commonsense reasoning, and visual question answering.
+
+More recently, multimodal reasoning frameworks have extended these concepts to vision-language models. Nevertheless, the application of structured reasoning to surgical target identification remains largely unexplored.
+
+\section{Method}
+
+\subsection{Problem Formulation}
+
+Given an image containing a set of instrument instances
+
+[
+$S=\{s_1,s_2,\ldots,s_n\},$
+]
+
+our objective is to predict an interaction triplet
+
+[
+(instrument,verb,target)
+]
+
+for every instance.
+
+Unlike previous approaches that directly predict triplet labels from visual representations, we decompose the problem into grounding and reasoning stages.
+
+\subsection{Instrument Grounding}
+
+Instrument instances are first obtained using Mask2Former trained on CholecTripletSeg. For each instance, the model provides a segmentation mask, instrument category, and unique identifier.
+
+These grounded instrument instances provide explicit object-level context and form the inputs to the reasoning stage.
+
+\begin{figure}[t]
+\centering
+\fbox{\parbox{0.85\linewidth}{
+TODO: Overview of instrument grounding pipeline.
+}}
+\caption{Grounded instrument instances generated using Mask2Former.}
+\label{fig:grounding}
+\end{figure}
+
+\subsection{Target-Centric Chain-of-Thought Reasoning}
+
+The central contribution of this work is Target-Centric Chain-of-Thought (TC-CoT).
+
+Rather than directly predicting triplets, the model first reasons about the observed scene through a structured sequence of intermediate steps:
+
+\begin{enumerate}
+\item Visible Evidence
+\item Likely Anatomical Region
+\item Surgical Interpretation
+\item Ambiguity Analysis
+\item Alternative Hypotheses
+\item Final Justification
+\end{enumerate}
+
+The resulting reasoning trace is then used to produce the final triplet prediction.
+
+\begin{figure}[t]
+\centering
+\fbox{\parbox{0.85\linewidth}{
+TODO: Illustration of Target-Centric Chain-of-Thought prompting framework.
+}}
+\caption{Overview of the proposed Target-Centric Chain-of-Thought framework.}
+\label{fig:tccot}
+\end{figure}
+
+\subsection{Weak Anatomical Priors}
+
+Previous work incorporated anatomical information through feature fusion. In contrast, we investigate whether weak anatomical priors are more effectively used as contextual evidence within a reasoning process.
+
+Predicted anatomical information is supplied alongside the image and instrument instances, allowing the reasoning model to selectively utilise, ignore, or reinterpret anatomical cues depending on the surrounding context.
+
+This formulation enables a direct comparison between representation-centric and reasoning-centric approaches to anatomical integration.
+
+\section{Experimental Setup}
+
+\subsection{Dataset}
+
+We evaluate all methods on CholecTripletSeg, an instance-grounded surgical interaction benchmark constructed from CholecT50 and CholecInstanceSeg.
+
+\todo{Add dataset statistics.}
+
+\subsection{Evaluation Metrics}
+
+Performance is measured using AP$*I$, AP$*V$, AP$*T$, AP$*{IV}$, AP$*{IT}$, and AP$*{IVT}$ following the CholecTripletSeg evaluation protocol.
+
+\todo{Add formal metric definitions.}
+
+\subsection{Research Hypotheses}
+
+The experiments are designed to evaluate three hypotheses:
+
+\textbf{H1:} Weak anatomical priors are too noisy to be useful.
+
+\textbf{H2:} Weak anatomical priors are most effective when incorporated through feature fusion.
+
+\textbf{H3:} Weak anatomical priors are most effective when incorporated through explicit reasoning.
+
+\section{Planned Experimental Matrix}
+This section summarises the experiments required to evaluate the central hypothesis of this work. The experiments are designed to isolate the effects of direct prediction, explicit reasoning, target-centric reasoning, weak anatomical priors, and instrument grounding quality.
+
+\subsection{Experiment 1: Direct Supervised Fine-Tuning Baseline}
+
+\textbf{Purpose.}
+This experiment establishes the baseline performance of a multimodal large language model trained to directly predict surgical triplets without explicit reasoning.
+
+\textbf{Input.}
+The model receives the laparoscopic image and a list of instrument instance identifiers.
+
+\textbf{Output.}
+The model directly predicts one triplet for each instrument instance.
+
+\textbf{Interpretation.}
+This baseline answers the question: \emph{How well can the model perform when trained only to map image evidence and instrument instances directly to triplet labels?}
+
+\begin{table}[H]
+\centering
+\caption{Direct supervised fine-tuning baseline.}
+\begin{tabular}{lcccccc}
+\toprule
+Setting & AP$*I$ & AP$*V$ & AP$*T$ & AP$*{IV}$ & AP$*{IT}$ & AP$*{IVT}$ \\
+\midrule
+Direct SFT + Ground-Truth Instruments & 100.00 & 58.57 & 28.45 & 33.28 & 20.61 & 15.04 \\
+Direct SFT + Predicted Instruments & 80.64 & 51.89 & 27.27 & 29.01 & 19.73 & 12.92 \\
+\bottomrule
+\end{tabular}
+\label{tab:direct_sft}
+\end{table}
+
+\subsection{Experiment 2: Generic Chain-of-Thought Reasoning}
+
+\textbf{Purpose.}
+This experiment tests whether adding reasoning in a generic form improves triplet recognition.
+
+\textbf{Input.}
+The model receives the image and instrument instance identifiers.
+
+\textbf{Output.}
+The model first generates a generic reasoning statement and then predicts the final triplet.
+
+\textbf{Interpretation.}
+This experiment answers the question: \emph{Does reasoning itself improve performance, or is target-specific reasoning required?}
+
+\begin{table}[H]
+\centering
+\caption{Generic chain-of-thought reasoning.}
+\begin{tabular}{lcccccc}
+\toprule
+Setting & AP$*I$ & AP$*V$ & AP$*T$ & AP$*{IV}$ & AP$*{IT}$ & AP$*{IVT}$ \\
+\midrule
+Generic CoT + Ground-Truth Instruments & & & & & & \\
+Generic CoT + Predicted Instruments & & & & & & \\
+\bottomrule
+\end{tabular}
+\label{tab:generic_cot}
+\end{table}
+
+\subsection{Experiment 3: Target-Centric Chain-of-Thought Reasoning}
+
+\textbf{Purpose.}
+This experiment evaluates the main proposed method: Target-Centric Chain-of-Thought reasoning.
+
+\textbf{Input.}
+The model receives the image and instrument instance identifiers.
+
+\textbf{Output.}
+For each instrument instance, the model generates structured reasoning about visible evidence, anatomical region, surgical interpretation, ambiguity, alternative hypotheses, and final justification before predicting the final triplet.
+
+\textbf{Interpretation.}
+This experiment answers the central question of the paper: \emph{Does explicit target-centric reasoning improve surgical action triplet recognition?}
+
+\begin{table}[H]
+\centering
+\caption{Target-Centric Chain-of-Thought reasoning.}
+\begin{tabular}{lcccccc}
+\toprule
+Setting & AP$*I$ & AP$*V$ & AP$*T$ & AP$*{IV}$ & AP$*{IT}$ & AP$*{IVT}$ \\
+\midrule
+TC-CoT + Ground-Truth Instruments & & & & & & \\
+TC-CoT + Predicted Instruments & & & & & & \\
+\bottomrule
+\end{tabular}
+\label{tab:tccot}
+\end{table}
+
+\subsection{Experiment 4: Direct Prediction with Weak Anatomical Priors}
+
+\textbf{Purpose.}
+This experiment evaluates whether weak anatomical target information improves direct triplet prediction.
+
+\textbf{Input.}
+The model receives the image, instrument instance identifiers, and weak anatomical target priors.
+
+\textbf{Output.}
+The model directly predicts triplets without generating explicit reasoning.
+
+\textbf{Interpretation.}
+This experiment tests whether weak target information is useful when simply provided as additional input. It also helps distinguish whether gains are due to anatomical information alone or due to reasoning over that information.
+
+\begin{table}[H]
+\centering
+\caption{Direct prediction with weak anatomical priors.}
+\begin{tabular}{lcccccc}
+\toprule
+Setting & AP$*I$ & AP$*V$ & AP$*T$ & AP$*{IV}$ & AP$*{IT}$ & AP$*{IVT}$ \\
+\midrule
+Direct SFT + Target Priors + Ground-Truth Instruments & & & & & & \\
+Direct SFT + Target Priors + Predicted Instruments & & & & & & \\
+\bottomrule
+\end{tabular}
+\label{tab:direct_priors}
+\end{table}
+
+\subsection{Experiment 5: Target-Centric Reasoning with Weak Anatomical Priors}
+
+\textbf{Purpose.}
+This experiment evaluates whether weak anatomical priors are most useful when incorporated into an explicit reasoning process.
+
+\textbf{Input.}
+The model receives the image, instrument instance identifiers, and weak anatomical target priors.
+
+\textbf{Output.}
+The model generates target-centric reasoning and then predicts final triplets.
+
+\textbf{Interpretation.}
+This is one of the most important experiments in the paper. It answers the question: \emph{Are weak anatomical priors more useful as contextual evidence for reasoning than as direct visual features or additional input tokens?}
+
+If this setting outperforms both direct prediction with priors and TC-CoT without priors, it supports the claim that weak anatomical information is best exploited through reasoning.
+
+\begin{table}[H]
+\centering
+\caption{Target-centric reasoning with weak anatomical priors.}
+\begin{tabular}{lcccccc}
+\toprule
+Setting & AP$*I$ & AP$*V$ & AP$*T$ & AP$*{IV}$ & AP$*{IT}$ & AP$*{IVT}$ \\
+\midrule
+TC-CoT + Target Priors + Ground-Truth Instruments & & & & & & \\
+TC-CoT + Target Priors + Predicted Instruments & & & & & & \\
+\bottomrule
+\end{tabular}
+\label{tab:tccot_priors}
+\end{table}
+
+\subsection{Experiment 6: ResNet-Based Recognition Baselines}
+
+\textbf{Purpose.}
+This experiment revives the ResNet-based baselines and evaluates whether weak anatomical priors benefit conventional discriminative models.
+
+\textbf{Input.}
+The ResNet models receive image features, instrument information, and optionally weak anatomical target priors.
+
+\textbf{Output.}
+The models predict verb, target, and/or triplet labels through classification heads.
+
+\textbf{Interpretation.}
+This experiment provides a conventional non-language-model comparison. It is particularly useful for testing whether weak anatomical priors improve all models equally or whether they are more beneficial when used inside a reasoning model.
+
+\begin{table}[H]
+\centering
+\caption{ResNet-based recognition baselines.}
+\begin{tabular}{lcccccc}
+\toprule
+Method & AP$*I$ & AP$*V$ & AP$*T$ & AP$*{IV}$ & AP$*{IT}$ & AP$*{IVT}$ \\
+\midrule
+ResNet FC Verb-Target & 80.10 & 36.39 & 15.77 & 19.61 & 10.51 & 6.34 \\
+ResNet FC Verb-Target + Targets & 80.10 & 44.71 & 20.21 & 23.06 & 14.90 & 9.31 \\
+ResNet Verb-Target Transformer & 80.10 & 41.00 & 18.55 & 24.89 & 11.94 & 8.34 \\
+ResNet Multitask & 80.10 & 42.08 & 19.07 & 21.59 & 11.92 & 8.19 \\
+ResNet Multitask Transformer & 80.10 & 42.53 & 15.07 & 20.81 & 9.13 & 6.49 \\
+\bottomrule
+\end{tabular}
+\label{tab:resnet_baselines}
+\end{table}
+
+\subsection{Experiment 7: Target Prior Representation Ablation}
+
+\textbf{Purpose.}
+This experiment evaluates how weak anatomical priors should be represented for the reasoning model.
+
+\textbf{Compared Representations.}
+
+\begin{itemize}
+\item \textbf{Mask overlay:} anatomical masks are rendered visually on the input image.
+\item \textbf{Textual target summary:} top predicted anatomical targets are provided as text for each instrument instance.
+\item \textbf{Mask overlay + textual summary:} both visual and textual priors are provided.
+\end{itemize}
+
+\textbf{Interpretation.}
+This experiment answers the question: \emph{Should weak anatomical priors be communicated visually, textually, or both?}
+
+\begin{table}[H]
+\centering
+\caption{Ablation of target-prior representations.}
+\begin{tabular}{lcccccc}
+\toprule
+Target Prior Format & AP$*I$ & AP$*V$ & AP$*T$ & AP$*{IV}$ & AP$*{IT}$ & AP$*{IVT}$ \\
+\midrule
+No Target Priors & & & & & & \\
+Mask Overlay & & & & & & \\
+Textual Target Summary & & & & & & \\
+Mask Overlay + Textual Summary & & & & & & \\
+\bottomrule
+\end{tabular}
+\label{tab:prior_format}
+\end{table}
+
+\subsection{Experiment 8: Reasoning Component Ablation}
+
+\textbf{Purpose.}
+This experiment evaluates which components of Target-Centric Chain-of-Thought contribute most to performance.
+
+\textbf{Ablated Components.}
+
+\begin{itemize}
+\item Visible evidence.
+\item Likely anatomical region.
+\item Surgical interpretation.
+\item Ambiguity analysis.
+\item Alternative hypotheses.
+\item Final justification.
+\end{itemize}
+
+\textbf{Interpretation.}
+This experiment answers the question: \emph{Which reasoning fields are useful, and which merely increase output length?}
+
+\begin{table}[H]
+\centering
+\caption{Ablation of Target-Centric Chain-of-Thought components.}
+\begin{tabular}{lcccccc}
+\toprule
+Method & AP$*I$ & AP$*V$ & AP$*T$ & AP$*{IV}$ & AP$*{IT}$ & AP$*{IVT}$ \\
+\midrule
+Full TC-CoT & & & & & & \\
+Without Visible Evidence & & & & & & \\
+Without Anatomical Region & & & & & & \\
+Without Surgical Interpretation & & & & & & \\
+Without Ambiguity Analysis & & & & & & \\
+Without Alternative Hypotheses & & & & & & \\
+Without Final Justification & & & & & & \\
+\bottomrule
+\end{tabular}
+\label{tab:reasoning_components}
+\end{table}
+
+\subsection{Experiment 9: Constrained versus Unconstrained Decoding}
+
+\textbf{Purpose.}
+This experiment evaluates whether enforcing valid triplet combinations improves performance.
+
+\textbf{Input.}
+The model receives the image and instrument instances under either unconstrained or constrained output settings.
+
+\textbf{Output.}
+The constrained setting restricts predictions to clinically valid instrument--verb--target combinations.
+
+\textbf{Interpretation.}
+This experiment tests whether errors arise from visual reasoning failures or from invalid label combinations that can be removed through structured decoding.
+
+\begin{table}[H]
+\centering
+\caption{Effect of valid triplet constraints.}
+\begin{tabular}{lcccccc}
+\toprule
+Method & AP$*I$ & AP$*V$ & AP$*T$ & AP$*{IV}$ & AP$*{IT}$ & AP$*{IVT}$ \\
+\midrule
+Direct SFT & 100.00 & 58.57 & 28.45 & 33.28 & 20.61 & 15.04 \\
+Direct SFT + Constraint & 100.00 & 55.81 & 24.48 & 33.07 & 20.68 & 14.44 \\
+Predicted Instruments + Constraint & 80.64 & 50.49 & 23.63 & 27.35 & 19.40 & 12.79 \\
+TC-CoT & & & & & & \\
+TC-CoT + Constraint & & & & & & \\
+\bottomrule
+\end{tabular}
+\label{tab:constraints}
+\end{table}
+
+\subsection{Experiment 10: Preliminary Temporal Context Analysis}
+
+\textbf{Purpose.}
+This experiment is not part of the main contribution but is included to acknowledge the importance of temporal context.
+
+\textbf{Input.}
+The model receives either the current frame only or limited neighbouring-frame information.
+
+\textbf{Output.}
+The model predicts the triplet for the current frame.
+
+\textbf{Interpretation.}
+This experiment answers a limited scope question: \emph{Does temporal context appear promising for future work?}
+
+The goal is not to introduce a full temporal model. Instead, this analysis demonstrates that temporal reasoning is a natural next direction while preserving the focus of the present paper on single-frame target-centric reasoning.
+
+\begin{table}[H]
+\centering
+\caption{Preliminary temporal context analysis.}
+\begin{tabular}{lcccccc}
+\toprule
+Input Context & AP$*I$ & AP$*V$ & AP$*T$ & AP$*{IV}$ & AP$*{IT}$ & AP$*{IVT}$ \\
+\midrule
+Current Frame Only & & & & & & \\
+Current Frame + Previous Prediction & & & & & & \\
+Current Frame + Neighbouring Predictions & & & & & & \\
+Current Frame + Neighbouring Frames & & & & & & \\
+\bottomrule
+\end{tabular}
+\label{tab:temporal_preliminary}
+\end{table}
+
+\paragraph{Scope.}
+Temporal modelling is not the central aim of this work. The purpose of this paper is to determine whether explicit target-centric reasoning improves single-frame target prediction. Temporal reasoning is expected to be complementary and is left as a primary direction for future work.
+
+\section{Summary of Experimental Questions}
+
+The experimental matrix is designed around the following questions:
+
+\begin{enumerate}
+\item Does a multimodal large language model outperform conventional grounded triplet recognition baselines?
+\item Does generic reasoning improve over direct prediction?
+\item Does target-centric reasoning improve over generic reasoning?
+\item Do weak anatomical priors improve direct prediction?
+\item Do weak anatomical priors improve target-centric reasoning?
+\item Are weak anatomical priors more useful for reasoning models than for conventional discriminative models?
+\item Which representation of target priors is most effective?
+\item Which reasoning components are necessary?
+\item Do valid triplet constraints improve prediction?
+\item Is temporal reasoning a promising future extension?
+\end{enumerate}
+
+
+
+\section{Scope: Single-Frame Reasoning}
+
+This work focuses on single-frame target reasoning rather than temporal modelling. This design choice is intentional. The central question addressed in this paper is whether explicit target-centric reasoning improves surgical action triplet recognition compared with direct prediction and representation-based target fusion.
+
+Temporal context is clearly important for surgical scene understanding. Many targets that appear ambiguous in a single frame become easier to identify when neighbouring frames reveal instrument motion, tissue deformation, procedural progression, or the continuation of an interaction. However, incorporating temporal information would introduce an additional source of performance gain and make it more difficult to isolate the effect of target-centric reasoning.
+
+We therefore restrict the main experiments to single-frame reasoning. This allows us to directly evaluate whether explicit reasoning over anatomy, visual evidence, and surgical context improves target identification under the same visual information available to previous frame-level methods.
+
+Temporal reasoning is a natural extension of this work. Future models could reason over short temporal windows, combining the proposed target-centric reasoning framework with motion cues and neighbouring-frame evidence. We expect this to be particularly valuable for resolving ambiguous targets and distinguishing visually similar actions.
+
+
+\bibliographystyle{splncs04}
+\bibliography{mybibliography}
+
+\end{document}

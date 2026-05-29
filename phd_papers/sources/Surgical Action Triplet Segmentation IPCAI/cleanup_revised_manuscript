@@ -1,0 +1,51 @@
+#!/bin/sh
+
+# Sanity checks
+if ! [ -x "$(command -v latexpand)" ]; then
+    echo "latexpand is not installed -> exit"
+    echo "NOTE: latexpand can be installed with texlive"
+    exit 1
+fi
+
+if ! [ -x "$(command -v arxiv_latex_cleaner)" ]; then
+    echo "arxiv_latex_cleaner is not installed -> exit"
+    echo "NOTE: arxiv_latex_cleaner can be installed with pip"
+    exit 1
+fi
+
+if [[ $# -eq 0 ]]; then
+    echo "Input file argument is missing -> exit"
+    exit 1
+fi
+
+scriptdir="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"
+echo "Running from: " $scriptdir
+
+filename=$(basename $1)
+filenamenoext=${filename%.*}
+filedir="$( cd "$( dirname "$1" )" >/dev/null 2>&1 && pwd )"
+inputfile="$filedir/$filename"
+
+outputdir="${filedir}_arXiv"
+outputfile="$outputdir/$filenamenoext-clean.tex"
+
+echo "Processing $inputfile to $outputfile"
+
+if ! [ -f $inputfile ]; then
+    echo "$inputfile does not exist on your filesystem -> exit"
+    exit 1
+fi
+
+if [[ -f $outputfile ]]; then
+    echo "$outputfile already exists on your filesystem -> exit"
+    echo "Note: delete $outputfile first"
+    exit 1
+fi
+
+arxiv_latex_cleaner "$filedir" --config $scriptdir/arxiv_cleaner_config.yaml --keep_bib
+
+cd "$outputdir"
+latexpand "$filename" > "$outputfile-tmp"
+
+rm -f *.tex *.md *.yaml
+mv "$outputfile-tmp" "$outputfile"

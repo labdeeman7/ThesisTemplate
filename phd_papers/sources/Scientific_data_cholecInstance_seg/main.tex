@@ -1,0 +1,87 @@
+\documentclass[fleqn,10pt]{wlscirep}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{lineno}
+\usepackage{colortbl}
+\usepackage{hyperref}
+\usepackage{ifthen}
+
+%%%%set to false when you want to remove
+
+\newboolean{revised}
+\setboolean{revised}{false}
+
+\input{revision_commands}
+
+
+\newcommand{\figref}[1]{\figurename~\ref{#1}}
+\newcommand{\tabref}[1]{\tablename~\ref{#1}}
+\newcommand{\secref}[1]{Section~\ref{#1}}
+\newcommand{\chaptref}[1]{Chapter~\ref{#1}}
+\newcommand{\greencheck}{{\color{green}\checkmark}}
+% \linenumbers
+
+\title{CholecInstanceSeg: A Tool Instance Segmentation Dataset for Laparoscopic Surgery}
+
+\author[1]{Oluwatosin Alabi}
+\author[2]{Ko Ko Zayar Toe}
+\author[4]{Zijian Zhou}
+\author[1]{Charlie Budd}
+\author[1]{Nicholas Raison}
+\author[3,*]{Miaojing Shi}
+\author[1]{Tom Vercauteren}
+\affil[1]{Kings College London,  Surgical \& Interventional Engineering, London, SE1 7EU
+, United Kingdom}
+\affil[2]{Kings College Hospital Denmark Hill, department, London, SE5 9RS, United Kingdom}
+\affil[3]{Tongji University, College of Electronic and Information Engineering, Shanghai, 200092, China}
+\affil[4]{Department of Informatics, King’s College London}
+
+\affil[*]{Corresponding author(s)}
+
+
+% \affil[$\dag$]{these authors contributed equally to this work}
+
+
+\input{chapters/abstract}
+
+
+\begin{document}
+
+\flushbottom
+\maketitle
+%  Click the title above to edit the author information and abstract
+
+\thispagestyle{empty}
+
+% \noindent Please note: Abbreviations should be introduced at the first mention in the main text – no abbreviations lists or tables should be included. Structure of the main text is provided below.
+
+\input{chapters/background_summary}
+
+\input{chapters/methods}
+
+
+\input{chapters/data_records}
+\input{chapters/technical_validation}
+\input{chapters/usage_notes}
+\input{chapters/code_availability}
+
+
+
+\bibliography{sample}
+
+\section*{Acknowledgements}
+\textbf{Data Sources}: We would like to thank the CAMMA research group at the University of Strasbourg for publishing the data sources without which CholecInstanceSeg would not be possible.
+\textbf{Funding Sources} This work was supported by core funding from the Wellcome/EPSRC [WT203148/Z/16/Z; NS/A000049/1] and , Tongji Fundamental Research Funds for the Central Universities. OA is supported by the EPSRC CDT
+[EP/S022104/1].
+%TV is supported by a Medtronic / RAEng Research Chair [RCSRF1819{\textbackslash}7{\textbackslash}34].
+For the purpose of open access, the authors have applied a CC BY public copyright licence to any Author Accepted Manuscript version arising from this submission.
+
+\section*{Author contributions statement}
+
+O.A. wrote the original draft, was the primary annotator, and conducted the experiments and tasks that led to this dataset, K.Z.T. was the secondary annotator for this project, assisted with quality control, and the creation of the annotation guide. Z.Z., C.B., M.S., T.V. were part of the annotation team and mediated ambiguous labels. M.S. and T.V. conceived and supervised this project.  
+
+\section*{Competing interests} 
+TV is a co-founder and shareholder of Hypervision Surgical Ltd, London, UK.
+The authors declare that they have no other conflict of interest.
+
+\end{document}

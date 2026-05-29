@@ -1,0 +1,204 @@
+\section*{Technical Validation}
+We provide an in-depth technical validation of the CholecInstanceSeg dataset, demonstrating its reliability and effectiveness for use in research and development of instance segmentation models. We discuss the validation through three main aspects: Data Analysis, training of baseline models, label agreement statistics, and quality control measures.
+
+\subsection*{Data Analysis}
+\subsubsection*{Tool Class Distribution}
+\figref{fig:instance_tool_spread_chart}(a) shows the distribution of tool classes across the entire dataset. Graspers are the most frequently used tools, followed by hooks. Tools like irrigators, clippers, scissors, and bipolars are used less frequently, with snares being the least used. This indicates a high imbalance in tool class occurrences.
+
+\subsubsection*{Tool Instance Distribution per Frame}
+\figref{fig:instance_tool_spread_chart}(b) illustrates the number of tool instances per frame. The majority of frames contain one or two tools, with a maximum of four tools in a single frame. Approximately 5,328 frames (about one-eighth of the dataset) contain no tools.
+
+\begin{figure}[ht]
+  \centering
+   \includegraphics[width=\linewidth]{imgs/charts_instances_spread_and_class_spread.pdf}
+   \caption{(a) Distribution of each tool class across the dataset. (b) Distribution of the number of tools per frame.}
+   \label{fig:instance_tool_spread_chart}
+\end{figure}
+
+
+\subsubsection*{Partition and Sequence Analysis}
+\tabref{tab:dataset_partition_statistics} provides a summary of the number of sequences, number of frames and amount of annotated tools in each of the dataset partitions.  
+\figref{fig:partition_sequence_chart} provides an analysis of tool instances across different sequences and their partitions. Instance-CholecT50-full has the highest number of tool instances, whereas Instance-CholecT50-sparse has the fewest. This figure highlights the imbalance between densely and sparsely annotated sequences and the presence of a sequence with no tools in Instance-CholecSeg8k.
+
+\begin{table}[ht]
+  \centering
+  \begin{tabular}{|l|l|l|l|l|l|} 
+    \hline
+      & Inst-CholecSeg8k & Inst-CholecT50-sparse & Inst-CholecT50-full &  Inst-Cholec80-sparse & Total \\
+    \hline
+    No of seq  & 17(10 shared) & 35 & 15(10 shared) &  28  & 85  \\
+    \hline
+    No of frames & 8,080 & 2,681 & 28,317  & 2,855  & 41,933  \\
+    \hline
+    No of tools & 10,523 & 4,098 & 45,221  &  4,641 & 64,483   \\
+    \hline    
+  \end{tabular}
+  \caption{Summary of Dataset Partitions in CholecInstanceSeg.} \label{tab:dataset_partition_statistics}
+\end{table}
+ 
+
+\begin{figure}[ht]
+  \centering
+   \includegraphics[width=\linewidth]{imgs/charts_sequence_information.pdf}
+   \caption{Distribution of tool instances across sequences and partitions in CholecInstanceSeg}
+   \label{fig:partition_sequence_chart}
+\end{figure}
+
+
+
+
+
+
+
+
+\subsection*{Training and Evaluation of Baseline Models}
+
+\subsubsection*{Models}
+To validate the usability of the CholecInstanceSeg dataset, two baseline instance segmentation models, The Mask R-CNN \cite{he2017mask} and the Mask2Former \cite{cheng2021mask2former} were trained. Since the objective was to establish benchmark performance metrics that future researchers can use for comparison, we decided to utilize more generalizable baseline models instead of optimized tool-specific models like \cite{baby2023forks,zhou2023text}. These models were trained using the training split of CholecInstanceSeg with each model's default hyperparameters. 
+
+\subsubsection*{Recommended Data Splits}
+To facilitate effective training, validation, and testing of neural networks for instance segmentation, we divide CholecInstanceSeg into standard training, validation, and testing subsets. This division considers the partitions and shared sequences within the dataset.
+
+For the training dataset, we included the entire Instance-CholecT50-sparse partition, which consists of 35 sequences with 2,681 frames. This partition offers significant diversity in surgical scenes due to its varied sequence content. Additionally, 10 in Instance-CholecSeg8k and the 10 sequences in Instance-CholecT50 which come from the same video (shared) were included in the training dataset to avoid redundancy in the validation and testing subsets. 
+
+The validation dataset contains 3 out of 7 sequences which are unique to Instance-CholecSeg8k. Similarly, from Instance-CholecT50-full, 1 out of 5 sequences which are unique to Instance-CholecT50 were included in the validation dataset. Additionally, half of the sequences from Instance-Cholec80-sparse were added to the validation dataset to bolster its diversity.
+
+The test dataset includes the remaining 4 unshared sequences from Instance-CholecSeg8k and the remaining 4 unshared sequences from Instance-CholecT50-full. The other half of the sequences from Instance-Cholec80-sparse were also included in the test dataset. This division ensures that the test set includes a wide range of scenarios (sequences), providing a comprehensive assessment of model performance.
+
+The final split for the dataset is as follows: the training set contains 55 sequences (26,830 frames), the testing set includes 23 sequences ( \revnew{10,819} \revdel{11,299}  frames), and the validation set comprises 17 sequences (\revnew{4,284} \revdel{3,804} frames ).
+
+A visual representation of the recommended dataset split can be seen in \figref{fig:recommended_dataset_splits}. We provide scripts to convert the downloaded zip file into a train, test, and validation format based on these recommended splits.
+
+\begin{figure}[ht]
+\centering
+\includegraphics[width=\linewidth]{imgs/train_test_split_dataset_partitions.pdf}
+\caption{Recommended Dataset Splits for CholecInstanceSeg. The diagram shows the distribution of sequences across the training, validation, and testing datasets, highlighting the specific partitions (Instance-CholecT50-sparse, Instance-CholecSeg8k, Instance-CholecT50-full, Instance-Cholec80-sparse) and their corresponding sequences.}
+\label{fig:recommended_dataset_splits}
+\end{figure}
+
+
+\subsubsection*{Recommended Metric}
+To evaluate our models we used the standard COCO mean average precision metric  (COCO mAP 
+ r\revnew{@[0.50:0.95]}).  \revdel{ and a sequence-aware variant, COCO sequence mean average precision (COCO smAP \revnew{@[0.50:0.95]}) }. \robustrevref{2}{4} 
+
+From the dataset analysis, we could tell that our dataset has a class imbalance which is captured by the mean average precision, however, it also has an imbalance among sequences, such that some sequences have a lot of tool instances and images while others do not. 
+Hence we wanted to also have a metric that captured how well models are performing on sequences. 
+
+\revdel{COCO smAP generates the average precision per class over each of the sequences separately and then averages this value for the whole dataset. This metric enables the penalization of models that do not generalize to different sequences and scenes.}  \robustrevref{2}{4} 
+
+
+COCO smAP involves a slight modification of the COCO mAP metric. The sequence average precision(sAP) for a class $j$ over the whole dataset ($sAP_j$) in COCO smAP can be written as 
+$$
+  sAP_j = \frac{\sum{_{s=0}^{N} \int_0^1 p_{seq=s}(j, r) \, dr} }{N}  
+$$
+
+where $s$ represents the current sequence, $N$ represents the number of sequences evaluated, and  \( p_{seq=i}(j, r) \) represents the precision at recall \( r \) for class \( j \) over a sequence $s$. \revnew{Essentially $sAP_j$ is calculated by taking the mean of the COCO average precision for that class for each sequence.} 
+
+
+ \robustrevref{2}{4}\revnew{To measure variability in performance across sequences, we introduced the standard deviation of sequence average precision ($\sigma_{sAP_j}$).  
+$$
+\sigma_{sAP_j} = \sqrt{\frac{1}{N} \sum_{s=0}^{N} \left( \left(\int_0^1 p_{seq=s}(j, r)\right) \, dr - sAP_j \right)^2}
+$$
+
+where $s$ represents the current sequence, $N$ represents the number of sequences evaluated, and  \( p_{seq=i}(j, r) \) represents the precision at recall \( r \) for class \( j \) over a sequence $s$. $\sigma_{sAP_j}$ is calculated by taking the standard deviation of the COCO average precision for that class for each sequence.
+
+Finally, the COCO smAP is calculated as a mean of the sequence average precisions across all classes
+
+$$
+smAP = \frac{1}{C} \sum_{j=1}^{C} sAP_j
+$$
+}
+
+
+We utilize the official COCO implementation present \href{https://github.com/cocodataset/cocoapi/blob/master/PythonAPI/pycocotools/cocoeval.py}{here} for calculating the COCO mAP and the metric COCO smAP metric. \revdel{To determine the COCO smAP metric, we first compute the COCO mAP for each sequence separately and average the results for all sequences.} 
+
+
+
+
+\subsubsection*{Results}
+The performance results, presented in \revnew{\tabref{tab:baseline_models_map} and \tabref{tab:baseline_models_smap}}, validate the dataset’s effectiveness in training robust instance segmentation models.
+
+ \robustrevref{2}{4}\revnew{Notably, the hook class achieved the highest segmentation performance across both models, likely due to its visually distinct features and higher frequency in the dataset. In contrast, the scissor class exhibited the lowest performance, reflecting its smaller representation and potential challenges in detecting this class. Interestingly, the scissor class demonstrated a higher sequence mAP (smAP) but with significant variability (high standard deviation), suggesting that model performance on this class varies considerably across different sequences.  Increasing the number and diversity of annotated sequences could improve dataset variability and enhance its applicability to a broader range of surgical scenarios, ensuring fewer seen instruments are better recognized by trained models. } 
+  \robustrevref{2}{3}
+
+
+% \begin{figure}[ht]
+%   \centering
+%    \includegraphics[width=\linewidth]{imgs/cholec_qualitative_result.pdf}
+%    \caption{Visual representation of the performance of Mask R-CNN, Mask2former and the expected ground truth.}   \label{fig:maskrcnn_vs_mas2former_vs_gt}
+% \end{figure}
+
+% \begin{table}[ht]
+% \centering
+% \begin{tabular}{|l|l|l|}
+% \hline
+% \rowcolor{lightgray!80}
+% Model & val mAP  & val smAP \\
+% \hline
+% Mask R-CNN & 0.470 & 0.437 \\
+% Mask2Former & 0.682 & 0.655 \\
+% \hline
+% \end{tabular}
+% \caption{Performance of baseline instance segmentation models on CholecInstanceSeg.}
+% \label{tab:baseline_models}
+% \end{table}
+
+
+\begin{table}[htp!]
+    \centering
+    \caption{\robustrevref{2}{4}\revnew{Performance of baseline instance segmentation models on CholecInstanceSeg for the mean average precision metric (mAP) providing the average precision for each class. GR - Grasper, HO - Hook, IR - irrigator, CL - clipper, BI - bipolar, SC - scissors, SN - snare. } }
+    \vspace{-1mm}
+    \resizebox{\linewidth}{!}{
+    \begin{tabular}{l|ccccccc|c}
+    \hline
+        Method & GR & HO & IR & CL & BI & SC &  SN & mAP  \\ \hline
+        Mask-RCNN \cite{he2017mask} & 37.25 & 61.84  & 43.04 & 58.73 & 28.42 & 20.91 & - & 41.70  \\
+        Mask2former \cite{cheng2021mask2former} & 61.10  & 82.16 & 68.38 & 81.30 & 48.02 & 27.89 & - & 61.47  \\
+     \hline
+    \end{tabular}
+    }
+    \vspace{-4mm}
+    \label{tab:baseline_models_map}
+\end{table}
+
+
+\begin{table}[htp!]
+    \centering
+    \caption{\robustrevref{2}{4}\revnew{Performance of baseline instance segmentation models on CholecInstanceSeg for the sequence mean average precision (smAP) providing the sequence average precision for each class j ($sAP_j$). GR - Grasper, HO - Hook, IR - Irrigator, CL - Clipper, BI - Bipolar, SC - Scissors, SN - Snare. The Standard deviation of the sequence average precision $\sigma_{sAP_j}$ is provided using the ($\pm$) symbol.}}
+    \vspace{-1mm}
+    \resizebox{\linewidth}{!}{
+    \begin{tabular}{l|ccccccc|c}
+    \hline
+        Method & GR & HO & IR & CL & BI & SC &  SN & smAP  \\ \hline
+        Mask-RCNN  & $41.65\pm12.74$ & $64.06\pm9.20$  & $52.50\pm20.09$ & $64.85\pm16.20$ & $37.62\pm20.74$ & $40.38\pm23.54$ & - & $50.18$  \\
+        Mask2former & $66.46\pm8.52$  & $88.90\pm7.58$ & $74.51\pm20.35$ & $84.69\pm16.88$ &  $65.20\pm25.36$  & $69.76\pm33.20$  & - & $74.92$  \\
+     \hline
+    \end{tabular}
+    }
+    \vspace{-4mm}
+    \label{tab:baseline_models_smap}
+\end{table}
+
+
+
+
+
+\subsection*{Label Agreement}
+To ensure the accuracy and consistency of the annotations in CholecInstanceSeg, an analysis of label agreement statistics was conducted. Two types of label agreement were calculated. The inter-annotator agreement and manual vs semi-automatic agreement. 
+
+\subsubsection*{Inter-annotator Agreement}
+The inter-annotator agreement was assessed using the Panoptic Quality Metric \cite{kirillov2019panoptic}. Two annotators independently annotated a subset of the dataset, and their annotations were compared. The analysis showed a high level of agreement, with a Panoptic Quality score of 91.2, indicating strong consistency between the annotators. The official implementation of the Panoptic Quality metric, available through the \href{https://github.com/cocodataset/panopticapi/tree/master}{panopticapi} repository, was utilized for this evaluation.
+
+\subsubsection*{Manual vs Semi-automatic Agreement}
+To validate the consistency of our semi-automatic annotation pipeline against the manual annotation process, we measured the agreement between the two methods using the Panoptic Quality Metric. This comparison was crucial to ensure that the increased speed of the semi-automatic pipeline did not compromise annotation quality. The results demonstrated a high level of agreement, with a Panoptic Quality score of 95.7, indicating that the semi-automatic annotations were consistent with the manual annotations.
+
+
+\subsection*{Quality Control}\hypertarget{sec:quality_control}{}
+Our quality control process involved a series of techniques designed to ensure the accuracy and consistency of the CholecInstanceSeg dataset. In addition to manual quality control and a secondary review by another annotator, we leveraged specific properties of CholecInstanceSeg and tool presence labels from Cholec80. The following steps were employed for quality control:
+\begin{enumerate}
+    \item checking images with more than 3 tool instances: During annotation, we observed that the most crowded scenes typically included a maximum of three separate tool instances. Therefore, we reviewed all images with more than three tool instances to identify and correct any noise. This process revealed 26 frames with errors due to noise, which were subsequently rectified.
+    \item utilizing tool presence labels from Cholec80: Tool presence labels from the Cholec80 parent dataset, although noisy and incomplete, were used for cross-referencing. These labels indicate which tools are present in an image but do not specify the number of tools.
+    We cross-referenced our annotations with these tool presence labels to identify frames where an expected tool class from the tool presence labels was missing in CholecInstanceSeg labels. 
+    This method identified 267 frames with errors, achieving an approximately 48\% success rate in detecting inaccuracies.   
+    \item reducing noise for scenes with tool overlap:  To reduce labelling noise for scenes that include tools occluding other tools, we checked instances that had overlaps. We set a fault tolerance of a 0.1 IoU overlap threshold between tools. All images with intersections exceeding this threshold were reviewed and corrected, resulting in the adjustment of 247 frames. 
+\end{enumerate}    

@@ -10,8 +10,8 @@
 \documentclass[british,a4paper,11pt,twoside]{ThesisStyle}
 
 \makeatletter
-\title{Lorem Ipsum}\let\thetitle\@title
-\author{Foo von Bar}\let\theauthor\@author
+\title{Spatially Grounded Surgical Scene Understanding in Minimally Invasive Surgery}\let\thetitle\@title
+\author{Oluwatosin Alabi}\let\theauthor\@author
 \makeatother
 
 \input{FormatAndDefsBasic}
@@ -20,10 +20,10 @@
 \newcommand{\draftnote}{\textcolor[gray]{0.5}{\textbf{DRAFT -- \today}}}
 \input{FormatAndDefsThesisExtra}
 
-\addbibresource{JNFull.bib}
 \addbibresource{ThesisBibliography.bib}
-% xampl.bib is for illustration puposes only
-\addbibresource{xampl.bib}
+\addbibresource{phd_papers/sources/Multitask_Learning_in_Minimally_Invasive_Surgical_Vision__A_Review_submitted/refs.bib}
+\addbibresource{phd_papers/sources/Scientific_data_cholecInstance_seg/sample.bib}
+\addbibresource{phd_papers/sources/Surgical Action Triplet Segmentation IPCAI/sn-bibliography.bib}
 
 \begin{document}
 
@@ -50,6 +50,10 @@ An impact statement is often required.
 \input{Acknowledgments}
 
 \cleardoublepage
+\chapter{Publications arising from this thesis}
+\input{Publications}
+
+\cleardoublepage
 \tableofcontents
 
 % KCL and UCL want a list of tables and figures
@@ -65,11 +69,17 @@ An impact statement is often required.
 
 \mainmatter
 
-\include{Introduction}
+\include{chapters/01_introduction}
 
-\include{Methods}
+\include{chapters/02_background}
 
-\include{Conclusion}
+\include{chapters/03_cholecinstanceseg}
+
+\include{chapters/04_triplet_grounding}
+
+\include{chapters/05_target_reasoning}
+
+\include{chapters/06_discussion_conclusion}
 
 \backmatter
 

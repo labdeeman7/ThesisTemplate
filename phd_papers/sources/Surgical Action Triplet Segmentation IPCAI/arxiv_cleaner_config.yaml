@@ -1,0 +1,45 @@
+patterns_and_insertions:
+    [
+        # Use single ticks for regex patterns
+        # http://blogs.perl.org/users/tinita/2018/03/strings-in-yaml---to-quote-or-not-to-quote.html
+        # You need to escape \ with \\ in the pattern, for instance for \\todo
+        # Use Python named groups https://docs.python.org/3/library/re.html#regular-expression-examples
+        # Escape {{ and }} in the insertion expression
+        # 
+        # Optional:
+        # Set strip_whitespace to n to disable white space stripping while replacing the pattern. (Default: y)
+
+        {
+            "pattern" : '(?:\\revref{\s*)(?P<first>.*?)\s*}\s*{\s*(?P<second>.*?)\s*}',
+            "insertion" : '',
+            "description" : "Remove \\revref{#1}{#2} commands",
+            # "strip_whitespace": n 
+        },
+        {
+            "pattern" : '(?:\\robustrevref{\s*)(?P<first>.*?)\s*}\s*{\s*(?P<second>.*?)\s*}',
+            "insertion" : '',
+            "description" : "Remove \\robustrevref{#1}{#2} commands",
+            # "strip_whitespace": n 
+        },
+        {
+            "pattern" : '\\input{revision_commands}',
+            "insertion" : '',
+            "description" : "Remove \\input{revision_commands} command",
+            # "strip_whitespace": n 
+        },
+        {
+            "pattern" : '\\reversemarginpar',
+            "insertion" : '',
+            "description" : "Remove \\reversemarginpar command",
+            # "strip_whitespace": n 
+        },
+    ]
+verbose: False
+keep_bib: True
+commands_to_delete: [
+    'revdel',
+]
+commands_only_to_delete: [
+    'revnew',
+    'revmod',
+]
