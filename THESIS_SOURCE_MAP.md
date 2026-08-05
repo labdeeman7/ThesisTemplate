@@ -38,16 +38,17 @@ Primary sources:
 - `phd_papers/sources/Surgical Action Triplet Segmentation IPCAI/images/`
 - `phd_papers/sources/Surgical Action Triplet Segmentation IPCAI/appendix_images/`
 
-## Chapter 5: Target Reasoning
+## Chapter 5: Two Stage Surgical Triplet Segmentation
 
-Purpose: evolving capstone chapter on target prediction as reasoning with vision-language models.
+Purpose: capstone chapter on multimodal interaction prediction in a two-stage surgical triplet segmentation framework.
 
 Primary sources:
-- `phd_papers/sources/Qwen_work/main.tex`
-- `phd_papers/sources/Qwen_work/mybibliography.bib`
+- `phd_papers/sources/Two_Stage_Surgical_Triplet_Segmentation/main.tex`
+- `phd_papers/sources/Two_Stage_Surgical_Triplet_Segmentation/mybibliography.bib`
+- `phd_papers/sources/Two_Stage_Surgical_Triplet_Segmentation/figures/`
 
-Figure status:
-- Figures are expected to be added or replaced later.
+Authority note:
+- This source completely replaces `phd_papers/sources/Qwen_work/`, which is obsolete and must not be used for thesis content.
 
 ## Chapter 6: Discussion and Conclusion
 
