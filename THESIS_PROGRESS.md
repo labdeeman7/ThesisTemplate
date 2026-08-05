@@ -16,6 +16,8 @@ This file records the working state of the thesis. It should be updated whenever
 - Reconstructed Chapter 2 around the complete accepted manuscript of the literature review, with a thesis-specific introduction and chapter transition.
 - Archived the previous condensed literature-review chapter at `archive/chapters/02_background_adapted_2026-05-29.tex` rather than deleting it.
 - Verified the reconstructed review chapter with an isolated LaTeX pass; the complete thesis reached 123 pages and all review figures were found.
+- Repaired the bibliography data required for a complete thesis build: removed an unused malformed abstract, replaced invalid pseudo-comments, expanded undefined bibliography macros, corrected citation-key case mismatches, and namespaced duplicate manuscript entries without discarding them.
+- Verified a complete converged `latexmk`/Biber/LaTeX build in an external temporary directory. The resulting thesis is 153 pages with no undefined citations, undefined references, LaTeX errors, or fatal Biber errors.
 
 ## Current Task
 
@@ -29,8 +31,8 @@ This file records the working state of the thesis. It should be updated whenever
 - `Acknowledgments.tex` is nearly empty and the impact statement in `Thesis.tex` is placeholder text.
 - `Publications.tex` still describes the obsolete Qwen-era manuscript.
 - The Two Stage bibliography is not yet connected to the thesis build.
-- The latest available Biber log contains duplicate keys, case-mismatched keys, undefined macros, and malformed bibliography text warnings.
-- A full `latexmk` verification of the reconstructed review chapter is currently blocked by the existing malformed bibliography data; a direct LaTeX pass succeeds, so bibliography repair remains a separate milestone.
+- Biber still reports 12 non-fatal legacy `month` formatting warnings inherited from the review bibliography. These do not prevent a converged build and are outside the current minimal repair scope.
+- The converged build retains inherited layout/template warnings, including overfull and underfull boxes, PDF-version inclusion notices, one obsolete display-math warning, and the template's `\theauthor` redefinition warning.
 - Root-level `Introduction.tex`, `Methods.tex`, and `Conclusion.tex` are not included by the current thesis and require classification before any archival decision.
 - The working tree contains a pre-existing modification to `Thesis.pdf`; this must not be overwritten or included accidentally in unrelated commits.
 

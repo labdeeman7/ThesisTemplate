@@ -223,7 +223,7 @@ The revised Data Records section now reads:
 
 \saynew{%
 \section*{Data Records}
-The CholecInstanceSeg dataset \cite{cholecinstanceseg} is publicly available. Cholec80 and CholecT50 video frames used to generate the dataset can be obtained from the CAMMA research group website(\href{http://camma.u-strasbg.fr/datasets}{http://camma.u-strasbg.fr/datasets}). CholecSeg8k can be obtained at (\href{https://www.kaggle.com/datasets/newslab/cholecseg8k}{https://www.kaggle.com/datasets/newslab/cholecseg8k}).
+The CholecInstanceSeg dataset \cite{cholecinstanceseg} is publicly available. Cholec80 and CholecT50 video frames used to generate the dataset can be obtained from the CAMMA research group website(\href{http://camma.u-strasbg.fr/datasets}{http://camma.u-strasbg.fr/datasets}). CholecSeg8k can be obtained at (\href{https://www.kaggle.com/datasets/newslab/cholecseg8k_cis}{https://www.kaggle.com/datasets/newslab/cholecseg8k_cis}).
 %}
 
 
@@ -277,21 +277,21 @@ We now further discuss the importance of detecting surgical instruments, emphasi
 
 
 \enclose{
-Minimally invasive surgeries (MIS) have gained popularity due to their benefits over open surgeries, such as reduced blood loss, less pain, faster recovery times, and fewer post-surgical complications~\cite{fuchs2002minimally}. However, MIS relies on an endoscope or laparoscope for indirect vision, which provides a limited field of view, making it challenging for surgeons to accurately interpret complex surgical scenes ~\cite{real_time_seg_adverserial}. To overcome this, computer-aided intervention techniques that enhance the information obtained through minimally invasive cameras have been proposed~\cite{vecauteren_cai_4_cai,cv_in_surgery}.
+Minimally invasive surgeries (MIS) have gained popularity due to their benefits over open surgeries, such as reduced blood loss, less pain, faster recovery times, and fewer post-surgical complications~\cite{fuchs2002minimally}. However, MIS relies on an endoscope or laparoscope for indirect vision, which provides a limited field of view, making it challenging for surgeons to accurately interpret complex surgical scenes ~\cite{real_time_seg_adverserial_cis}. To overcome this, computer-aided intervention techniques that enhance the information obtained through minimally invasive cameras have been proposed~\cite{vecauteren_cai_4_cai_cis,cv_in_surgery_cis}.
 At the forefront of this evolution lies the challenge of achieving precise instance segmentation of surgical tools in a minimally invasive surgical scene.
 \saydel{This task is essential for developing assistive surgical technology and autonomous or semi-autonomous surgical systems, which require detailed knowledge of the identification and localization of various tools.}
 \saynew{Detecting and segmenting instances of these instruments is critical to enhance surgical scene understanding, track instrument interactions, and support downstream tasks such as surgical workflow recognition, skill assessment and surgical training, augmented reality overlays, safety and error detection,  and autonomous assistance systems.}
 
 Current publicly available datasets for surgical tool segmentation have several notable limitations.
-Many focus on porcine or ex-vivo surgeries rather than routine human procedures, limiting their applicability to day-to-day clinical settings~\cite{endovis2015,endovis2017,endovis2018}.
-Others are multitask datasets with limited tool segmentation data~\cite{autolaparo}, or they provide only binary instance segmentation for a single tool class~\cite{robustmis2019}. Additionally, available surgical tool segmentation datasets lack instance-specific information ~\cite{endovis2015,endovis2017,endovis2018,autolaparo,psychogyios2023sar,cholecseg8k}, and most offer a relatively small number of annotated segmentation masks. 
-%typically fewer than 10,000~\cite{endovis2017,endovis2018}.
+Many focus on porcine or ex-vivo surgeries rather than routine human procedures, limiting their applicability to day-to-day clinical settings~\cite{endovis2015,endovis2017_cis,endovis2018_cis}.
+Others are multitask datasets with limited tool segmentation data~\cite{autolaparo_cis}, or they provide only binary instance segmentation for a single tool class~\cite{robustmis2019_cis}. Additionally, available surgical tool segmentation datasets lack instance-specific information ~\cite{endovis2015,endovis2017_cis,endovis2018_cis,autolaparo_cis,psychogyios2023sar_cis,cholecseg8k_cis}, and most offer a relatively small number of annotated segmentation masks. 
+%typically fewer than 10,000~\cite{endovis2017_cis,endovis2018_cis}.
 
 
-\saydel{To overcome these challenges, we introduce the CholecInstanceSeg open-access dataset, in which we meticulously annotate 41,933 frames extracted from 85 laparoscopic cholecystectomy procedures from the existing Cholec80 \mbox{~\cite{endonet}}
- and CholecT50 \mbox{~\cite{NWOYE2022102433_rendevous}} datasets.}
+\saydel{To overcome these challenges, we introduce the CholecInstanceSeg open-access dataset, in which we meticulously annotate 41,933 frames extracted from 85 laparoscopic cholecystectomy procedures from the existing Cholec80 \mbox{~\cite{endonet_cis}}
+ and CholecT50 \mbox{~\cite{NWOYE2022102433_rendevous_cis}} datasets.}
 
-To overcome these challenges, we introduce the CholecInstanceSeg open-access dataset, in which we meticulously annotate 41,933 frames from the existing Cholec80~\cite{endonet} and CholecT50~\cite{NWOYE2022102433_rendevous} datasets \saynew{with instance segmentation labels and class labels for 7 instrument classes: Grasper, Bipolar, Hook, Clipper, Scissors, Irrigator, and Snare. 
+To overcome these challenges, we introduce the CholecInstanceSeg open-access dataset, in which we meticulously annotate 41,933 frames from the existing Cholec80~\cite{endonet_cis} and CholecT50~\cite{NWOYE2022102433_rendevous_cis} datasets \saynew{with instance segmentation labels and class labels for 7 instrument classes: Grasper, Bipolar, Hook, Clipper, Scissors, Irrigator, and Snare. 
 CholecInstanceSeg contains frames from 85 videos of Laparoscopic cholecystectomy - a routine surgical procedure for gallbladder removal, commonly performed to treat gallstones or cholecystitis. It is the most common MIS procedure, accounting for approximately a quarter of all MIS procedures~\citep{MATTINGLY202333}.}
 
 
@@ -304,15 +304,15 @@ CholecInstanceSeg contains frames from 85 videos of Laparoscopic cholecystectomy
 % \enclose{
 
 % Minimally invasive surgeries (MIS) have gained popularity due to their benefits over open surgeries, such as reduced blood loss, less pain, faster recovery times, and fewer post-surgical complications~\cite{fuchs2002minimally}.
-% \saydel{However, MIS relies on an endoscope or laparoscope for indirect vision, which provides a limited field of view, making it challenging for surgeons to accurately interpret complex surgical scenes ~\cite{real_time_seg_adverserial}. }
-% \saynew{However, MIS presents numerous challenges for accurate scene interpretation, including limited visual perspective, poor lighting, occlusions, quick motions, and the presence of fluid ~\cite{real_time_seg_adverserial,vecauteren_cai_4_cai,cv_in_surgery}. 
+% \saydel{However, MIS relies on an endoscope or laparoscope for indirect vision, which provides a limited field of view, making it challenging for surgeons to accurately interpret complex surgical scenes ~\cite{real_time_seg_adverserial_cis}. }
+% \saynew{However, MIS presents numerous challenges for accurate scene interpretation, including limited visual perspective, poor lighting, occlusions, quick motions, and the presence of fluid ~\cite{real_time_seg_adverserial_cis,vecauteren_cai_4_cai_cis,cv_in_surgery_cis}. 
 % }
 
 % \saynew{An example of MIS is laparoscopic cholecystectomy, a routine surgical procedure for gallbladder removal, commonly performed to treat gallstones or cholecystitis. In the United States alone, approximately 300,000 cholecystectomies are performed annually \citep{hassler2023laparoscopic}. The procedure requires the use of multiple surgical instruments such as graspers, hooks, and scissors within a constrained workspace. Detecting and segmenting instances of these instruments is critical to enhance scene understanding, track instrument interactions, and support downstream tasks such as surgical workflow recognition, skill assessment, augmented reality overlays, and autonomous assistance systems. 
 % }
 
 % To overcome \saydel{this,} 
-% \saynew{several challenges for accurate surgical scene interpretation, computer-aided intervention techniques that enhance the information obtained through minimally invasive cameras have been proposed ~\cite{vecauteren_cai_4_cai,cv_in_surgery}. At the forefront of this evolution lies the challenge of achieving precise instance segmentation of surgical tools in a minimally invasive surgical scene.
+% \saynew{several challenges for accurate surgical scene interpretation, computer-aided intervention techniques that enhance the information obtained through minimally invasive cameras have been proposed ~\cite{vecauteren_cai_4_cai_cis,cv_in_surgery_cis}. At the forefront of this evolution lies the challenge of achieving precise instance segmentation of surgical tools in a minimally invasive surgical scene.
 % This task is essential for developing assistive surgical technology and autonomous or semi-autonomous surgical systems, which require detailed knowledge of the identification and localization of various tools.
 
 % }
@@ -331,7 +331,7 @@ We thank the reviewer for their comment.
 The names, descriptions, diagrams, rationale for the instrument choices, and additional context for the study are provided in the Labelling Protocol section of the manuscript. However, in response to the reviewer’s suggestion, we have included key details about the number and types of classes directly in the introduction.
 
 \enclose{
-To overcome these challenges, we introduce the CholecInstanceSeg open-access dataset, in which we meticulously annotate 41,933 frames from the existing Cholec80~\cite{endonet} and CholecT50~\cite{NWOYE2022102433_rendevous} datasets \saynew{with instance segmentation labels and class labels for 7 instrument classes: Grasper, Bipolar, Hook, Clipper, Scissors, Irrigator, and Snare. 
+To overcome these challenges, we introduce the CholecInstanceSeg open-access dataset, in which we meticulously annotate 41,933 frames from the existing Cholec80~\cite{endonet_cis} and CholecT50~\cite{NWOYE2022102433_rendevous_cis} datasets \saynew{with instance segmentation labels and class labels for 7 instrument classes: Grasper, Bipolar, Hook, Clipper, Scissors, Irrigator, and Snare. 
 CholecInstanceSeg contains frames from 85 videos of Laparoscopic cholecystectomy - a routine surgical procedure for gallbladder removal, commonly performed to treat gallstones or cholecystitis. It is the most common minimally invasive surgery (MIS) procedure, accounting for approximately a quarter of all MIS procedures~\citep{MATTINGLY202333}.}
 }
 }
@@ -347,7 +347,7 @@ We appreciate the reviewer’s comment.
 As the primary aim of the paper is to introduce CholecInstanceSeg as a dataset descriptor, an in-depth review of past deep learning methodologies is beyond its scope. We have instead added a reference to a recent review paper  \citep{rueckert2024methods} in the introduction for readers that might be interested in learning more about methods and how they relate to datasets. 
 
 \enclose{
-Minimally invasive surgeries (MIS) have gained popularity due to their benefits over open surgeries, such as reduced blood loss, less pain, faster recovery times, and fewer post-surgical complications~\cite{fuchs2002minimally}. However, MIS relies on an endoscope or laparoscope for indirect vision, which provides a limited field of view, making it challenging for surgeons to accurately interpret complex surgical scenes ~\cite{real_time_seg_adverserial}. To overcome this, computer-aided intervention techniques that enhance the information obtained through minimally invasive cameras have been proposed~\cite{vecauteren_cai_4_cai,cv_in_surgery}.
+Minimally invasive surgeries (MIS) have gained popularity due to their benefits over open surgeries, such as reduced blood loss, less pain, faster recovery times, and fewer post-surgical complications~\cite{fuchs2002minimally}. However, MIS relies on an endoscope or laparoscope for indirect vision, which provides a limited field of view, making it challenging for surgeons to accurately interpret complex surgical scenes ~\cite{real_time_seg_adverserial_cis}. To overcome this, computer-aided intervention techniques that enhance the information obtained through minimally invasive cameras have been proposed~\cite{vecauteren_cai_4_cai_cis,cv_in_surgery_cis}.
 At the forefront of this evolution lies the challenge of achieving precise instance segmentation of surgical tools in a minimally invasive surgical scene.
 \saydel{This task is essential for developing assistive surgical technology and autonomous or semi-autonomous surgical systems, which require detailed knowledge of the identification and localization of various tools.}
 \saynew{Detecting and segmenting instances of these instruments is critical to enhance surgical scene understanding, track instrument interactions, and support downstream tasks such as surgical workflow recognition, skill assessment and surgical training, augmented reality overlays, safety and error detection,  and autonomous assistance systems.}
@@ -445,8 +445,8 @@ There are no significant differences in video quality across the datasets, excep
 
 
 \enclose{
-The CholecInstanceSeg dataset is curated using frames extracted from three existing laparoscopic cholecystectomy datasets: Cholec80 \cite{endonet}, CholecT50 \cite{NWOYE2022102433_rendevous}, and CholecSeg8k \cite{cholecseg8k}, containing a total of 85 image sequences.
-These datasets are publicly available subsets of the in-house Cholec120 dataset \cite{twinanda2018rsdnet} from the CAMMA research group \saynew{which was recorded at the University Hospital of Strasbourg \cite{endonet,NWOYE2022102433_rendevous}}. 
+The CholecInstanceSeg dataset is curated using frames extracted from three existing laparoscopic cholecystectomy datasets: Cholec80 \cite{endonet_cis}, CholecT50 \cite{NWOYE2022102433_rendevous_cis}, and CholecSeg8k \cite{cholecseg8k_cis}, containing a total of 85 image sequences.
+These datasets are publicly available subsets of the in-house Cholec120 dataset \cite{twinanda2018rsdnet_cis} from the CAMMA research group \saynew{which was recorded at the University Hospital of Strasbourg \cite{endonet_cis,NWOYE2022102433_rendevous_cis}}. 
 }
  }
 
@@ -693,7 +693,7 @@ The performance results, presented in \saynew{\tabref{tab:baseline_models_map} a
 
 
 Second, we acknowledge that the mAP metric, while widely used for instance segmentation, is not inherently a balanced metric. To address this, we now report mAP and sequence mAP (smAP) per class in the manuscript. 
-To further ensure fairness and transparency, we explicitly report per-class mAP values, allowing performance on minority classes to be evaluated independently. This approach is similar to practices in other popular surgical segmentation datasets, such as EndoVis2017~\cite{endovis2017} and EndoVis2018~\cite{endovis2018}, which report results per class for IoU in semantic segmentation tasks. The updated tables with per-class mAP and smAP values have been added to the manuscript and are reproduced in \tabref{tab:baseline_models_map}, \tabref{tab:baseline_models_smap}.
+To further ensure fairness and transparency, we explicitly report per-class mAP values, allowing performance on minority classes to be evaluated independently. This approach is similar to practices in other popular surgical segmentation datasets, such as EndoVis2017~\cite{endovis2017_cis} and EndoVis2018~\cite{endovis2018_cis}, which report results per class for IoU in semantic segmentation tasks. The updated tables with per-class mAP and smAP values have been added to the manuscript and are reproduced in \tabref{tab:baseline_models_map}, \tabref{tab:baseline_models_smap}.
 
 
 
@@ -805,7 +805,7 @@ The performance results, presented in \saynew{\tabref{tab:baseline_models_map} a
     \begin{tabular}{l|ccccccc|c}
     \hline
         Method & GR & HO & IR & CL & BI & SC &  SN & mAP  \\ \hline
-        Mask-RCNN \cite{he2017mask} & 37.25 & 61.84  & 43.04 & 58.73 & 28.42 & 20.91 & - & 41.70  \\
+        Mask-RCNN \cite{he2017mask_cis} & 37.25 & 61.84  & 43.04 & 58.73 & 28.42 & 20.91 & - & 41.70  \\
         Mask2former \cite{cheng2021mask2former} & 61.10  & 82.16 & 68.38 & 81.30 & 48.02 & 27.89 & - & 61.47  \\
      \hline
     \end{tabular}

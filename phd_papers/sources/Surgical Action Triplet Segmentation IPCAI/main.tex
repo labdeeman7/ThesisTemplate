@@ -272,7 +272,7 @@ To measure performance on this dataset, we introduce Triplet Segmentation mAP, a
 
 Achieving reliable anatomical target prediction remains a major bottleneck. Anatomy is inherently ambiguous and difficult to annotate at the pixel-level, even for expert surgeons. 
 Manual anatomy segmentation masks are also prohibitively expensive to produce. 
-Errors in target prediction usually drive overall triplet accuracy because a triplet is only correct if all three components in \ivttriplet are correct. To address this challenge, we propose TargetFusionNet, a novel architecture that extends Mask2Former \cite{cheng2022masked} with a target-aware fusion mechanism. TargetFusionNet integrates \anatprior logits obtained from a pretrained network into the transformer decoder, improving the association between instruments and their likely targets. We demonstrate that this approach significantly improves target recognition and overall triplet accuracy compared to the existing CAM-based baseline, a standard instance segmentation baseline, and early / late fusion strategies.
+Errors in target prediction usually drive overall triplet accuracy because a triplet is only correct if all three components in \ivttriplet are correct. To address this challenge, we propose TargetFusionNet, a novel architecture that extends Mask2Former \cite{cheng2022masked_tfn} with a target-aware fusion mechanism. TargetFusionNet integrates \anatprior logits obtained from a pretrained network into the transformer decoder, improving the association between instruments and their likely targets. We demonstrate that this approach significantly improves target recognition and overall triplet accuracy compared to the existing CAM-based baseline, a standard instance segmentation baseline, and early / late fusion strategies.
 
 
 Our key contributions are as follows:
@@ -290,14 +290,14 @@ Our key contributions are as follows:
 \mysubsection{Surgical triplet recognition (classification)} 
 Most prior works treat triplet recognition as a frame-level multi-label classification task, focusing on identifying which triplets are present rather than which instrument executes the action. 
 TripNet \cite{nwoye2020recognition} and Rendezvous (RDV) \cite{nwoye2022rendezvous} introduced attention-based models guided by weak spatial priors from class activation maps (CAMs), achieving strong frame-level recognition but lacking spatial grounding. 
-Later studies explored disentangled classification \cite{chen2023surgical}, self-distillation \cite{yamlahi2023self}, and temporal reasoning \cite{sharma2023rendezvous}, yet none localise which instrument performs each action. 
+Later studies explored disentangled classification \cite{chen2023surgical_tfn}, self-distillation \cite{yamlahi2023self}, and temporal reasoning \cite{sharma2023rendezvous}, yet none localise which instrument performs each action. 
 Existing datasets such as CholecT50 \cite{nwoye2022rendezvous} remain limited to frame-level triplet labels without explicit spatial alignment. 
 
 
 \mysubsection{Surgical triplet detection (bounding box grounding)}
 Triplet detection extends recognition by introducing bounding box spatial grounding. 
-The CholecTriplet2022 Challenge~\cite{nwoye2023cholectriplet2022} formalised this via bounding-box localisation from weak supervision. 
-Subsequent work focused on refining frame-level recognition through disentangled classification \cite{chen2023surgical}, self-distillation \cite{yamlahi2023self}, and temporal reasoning \cite{sharma2023rendezvous,pei2025instrument} , but spatial grounding remains coarse since triplets are not explicitly linked to instrument instances. 
+The CholecTriplet2022 Challenge~\cite{nwoye2023cholectriplet2022_tfn} formalised this via bounding-box localisation from weak supervision. 
+Subsequent work focused on refining frame-level recognition through disentangled classification \cite{chen2023surgical_tfn}, self-distillation \cite{yamlahi2023self}, and temporal reasoning \cite{sharma2023rendezvous,pei2025instrument} , but spatial grounding remains coarse since triplets are not explicitly linked to instrument instances. 
 Bounding boxes also only offer poor localisation for elongated instruments in non axis-aligned orientation \cite{han2025robust}.
 \robustrevref{6}{2}\revnew{\cite{younis2024surgical} explored symbolic extensions of surgical action triplets by introducing explicit actor labels for responsibility attribution. However, this formulation does not provide pixel-level instance grounding of actions in the image.}
 
@@ -384,7 +384,7 @@ To avoid data leakage, we follow the CholecInstanceSeg split protocol \cite{alab
 \end{figure}
 
 \mysubsection{TargetFusionNet}\label{sec:targetfusionnet}
-Our TargetFusionNet, illustrated in \figref{fig:target_fusion}, builds on Mask2Former \cite{cheng2022masked}, a transformer based instance segmentation model. 
+Our TargetFusionNet, illustrated in \figref{fig:target_fusion}, builds on Mask2Former \cite{cheng2022masked_tfn}, a transformer based instance segmentation model. 
 We enhance its architecture with a target-aware fusion mechanism with three components:
 %
 \begin{itemize}
@@ -420,7 +420,7 @@ We evaluate TargetFusionNet on the proposed CholecTriplet-Seg benchmark and comp
 \mysubsection{Baselines}
 The following models are used for comparison:
 \begin{itemize}
-    \item RDV-Det~\cite{nwoye2023cholectriplet2022}: the official CholecTriplet2022 baseline extending the RDV framework with class activation maps (CAMs) for weak localisation. It predicts triplets at the frame level and assigns them to instruments via CAM-derived bounding boxes, offering only coarse spatial grounding.  
+    \item RDV-Det~\cite{nwoye2023cholectriplet2022_tfn}: the official CholecTriplet2022 baseline extending the RDV framework with class activation maps (CAMs) for weak localisation. It predicts triplets at the frame level and assigns them to instruments via CAM-derived bounding boxes, offering only coarse spatial grounding.  
     \item RDV + Mask2Former: augments RDV-Det by replacing CAMs with instance masks predicted by a Mask2Former model trained on CholecTriplet-Seg. This isolates the benefit of strong instance segmentation while retaining RDV’s triplet association mechanism.  
     \item Mask2Former-Triplet: extends Mask2Former with a 100-class triplet head that jointly predicts instance masks and triplet labels, removing heuristic matching and providing a strong baseline for comparison with TargetFusionNet.  \robustrevref{4}{4}\revnew{This model serves as an explicit architectural ablation, removing the target-aware fusion module while keeping the backbone, decoder structure, and training protocol unchanged.}
 \end{itemize}
@@ -497,7 +497,7 @@ and
 Additional analyses in the appendix include comparisons of the standard Mask2Former loss versus multitask loss variants and fusion-depth ablations evaluating how many decoder layers benefit from target fusion.
 
 \mysubsection{Implementation details}
-TargetFusionNet was trained in the MMDetection \cite{mmdetection} framework with a ResNet-50 \cite{he2016deep} backbone pretrained for instrument segmentation on data derived from CholecTriplet-Seg, using the AdamW optimiser \cite{loshchilov2017decoupled}. Input images were resized to 1024×1024 with data augmentation comprising random horizontal flipping, cropping, and scaling. Training was performed on a single NVIDIA A100 GPU for 300k iterations, and the best checkpoint was selected based on validation mask mAP. 
+TargetFusionNet was trained in the MMDetection \cite{mmdetection_tfn} framework with a ResNet-50 \cite{he2016deep} backbone pretrained for instrument segmentation on data derived from CholecTriplet-Seg, using the AdamW optimiser \cite{loshchilov2017decoupled}. Input images were resized to 1024×1024 with data augmentation comprising random horizontal flipping, cropping, and scaling. Training was performed on a single NVIDIA A100 GPU for 300k iterations, and the best checkpoint was selected based on validation mask mAP. 
 
 
 
