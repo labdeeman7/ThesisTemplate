@@ -1,0 +1,406 @@
+﻿\section{Extended Dataset Construction and Annotation Protocol}
+This section provides further details on how CholecTriplet-Seg was constructed by aligning CholecT50 and CholecInstanceSeg, as described in ``The CholecTriplet-Seg Dataset" section of the main paper. CholecTriplet-Seg provides spatially grounded triplet annotations $\langle$instrument, verb, target$\rangle$ for laparoscopic cholecystectomy. The dataset was created by aligning annotations from two public datasets: CholecT50~\cite{NWOYE2022102433_rendevous}, which provides frame-level triplets, and CholecInstanceSeg~\cite{cholecinstanceseg}, which contains instance segmentation masks for surgical instruments.
+
+\paragraph{Frame Selection.}  
+We selected 30,955 frames corresponding to the overlapping frames between CholecT50 and CholecInstanceSeg. These frames span 50 laparoscopic cholecystectomy videos, comprising 15 full videos (with all frames overlapping) and 35 sparsely overlapping videos (around 1 frame every 30 frames). 
+
+
+\paragraph{Triplet Vocabulary.}
+Triplets are structured as $\langle$instrument, verb, target$\rangle$, with class vocabularies derived from CholecT50: 6 instruments, 10 verbs, and 15 targets. While this results in 900 theoretically valid combinations, CholecT50 narrowed the annotation space to 100 clinically meaningful triplets based on expert feedback. Of these, 93 are observed in CholecTriplet-Seg. We adopt this clinically informed vocabulary to ensure consistency and comparability with prior work.
+
+\paragraph{Annotation Format.}
+Annotations in CholecTriplet-Seg build directly on the LabelMe-based structure used in CholecInstanceSeg~\cite{cholecinstanceseg}. Each annotated shape originally included a `label' (instrument class), `points' (polygon coordinates), and `group\_id' (instance id). To support grounded action understanding, we extended this schema by introducing two additional fields: `verb' and `target'. These fields assign an action and anatomical target to each instrument instance. If an instrument is represented by multiple polygons, all associated shapes share the same `group\_id', `label', `verb', and `target', thereby forming a single annotated triplet.
+
+
+\paragraph{Annotation Pipeline and Error Resolution.}  
+To construct grounded triplet annotations, we performed initial alignment  by automatically matching instrument classes labels in CholecT50 and CholecInstanceSeg. The process revealed significant inconsistencies that required manual correction. We categorised these inconsistencies into two major types:
+
+\begin{itemize}
+    \item \textbf{Matching errors} — common in frames with multiple identical instruments (typically graspers), each associated with different actions. Because CholecT50 does not ground triplets to specific instances, automatic assignment failed in these cases. Manual matching using a custom GUI tool was necessary to link each triplet to the correct mask. These issues affected \textbf{2,361 frames}.
+    
+    \item \textbf{Conflict errors} — frames where the segmentation and triplet annotations directly disagreed, such as missing masks, redundant triplets, or mismatched class labels. Each case required manual inspection and correction, including adding or removing triplets and masks. A total of \textbf{7,194 frames} were affected.
+\end{itemize}
+
+\paragraph{Visual Examples of Annotation Challenges.}  
+Figures~\ref{fig:matching-errors} and \ref{fig:conflict-errors} show representative examples of each error type. Matching errors typically involve multiple instruments of the same class with conflicting or ambiguous triplet assignments, making automatic matching infeasible. Conflict errors involve hard contradictions between the datasets, requiring the addition or removal of annotations to restore consistency.
+
+\begin{figure}[t!]
+    \centering
+    \includegraphics[width=\linewidth]{appendix_images/matching_errors.pdf}
+    \caption{Examples of matching errors. (a) Multiple graspers with distinct actions cannot be automatically matched to triplets. (b) Similar to A, multiple graspers cannot be automatically matched. Manual matching is required.}
+    \label{fig:matching-errors}
+\end{figure}
+
+\begin{figure}[t!]
+    \centering
+    \includegraphics[width=\linewidth]{appendix_images/conflict_errors.pdf}
+    \caption{Examples of conflict errors. (1) Missing triplet that needs to be added. (2) Redundant triplet with no corresponding mask that must be removed. (3) Missing instrument instance mask needs to be added.}
+    \label{fig:conflict-errors}
+\end{figure}
+
+
+
+
+\paragraph{Annotation Procedure.}  
+A single trained annotator verified and refined the dataset using a modified LabelMe interface that supported visualising both instance masks and triplet annotations. 
+
+\paragraph{Quality Control and Limitations.}  
+After merging, we conducted a full dataset pass to correct inconsistencies and enforce schema constraints. Every instrument instance was checked to ensure it had been assigned a verb and target. While labels are consistent within the dataset, a few limitations remain:
+\begin{itemize}
+    \item Rare triplets are underrepresented due to long-tailed frequency.
+    \item Some actions are visually ambiguous (e.g., The actions \textit{grasp} vs. \textit{retract} involves holding and pulling), which caused uncertainty.
+    \item Annotator decisions were guided by internal rules rather than clinical expert revalidation, which may affect borderline cases.
+\end{itemize}
+
+Despite these issues, the dataset reflects a grounded approach to triplet annotation and is sufficient to benchmark new models for spatially grounded action understanding.
+
+
+\section{Additional Dataset Statistics}
+
+We provide additional statistics for CholecTriplet-Seg to highlight its training splits and class imbalance characteristics.  We adopt the same train/val/test splits as CholecInstanceSeg. In total, CholecTriplet-Seg contains 49,866 annotated triplets. \tabref{tab:dataset-split-stats} gives the statistics of the dataset split
+
+\begin{table}[h!]
+\centering
+\begin{tabular}{lcccc}
+\hline
+\textbf{Split} & \textbf{\# Videos} & \textbf{\# Images} & \textbf{\# Triplets} & \textbf{Avg Triplets / Frame} \\
+\hline
+Train & 45 & 22,818 & 37,591 & 1.65 \\
+Validation & 1 & 2,496 & 3,341   & 1.34 \\
+Test & 4 & 5,641 & 8,934  & 1.58 \\
+\hline
+Total & 50 & 30,955 & 49,866  & 1.61 \\
+\hline
+\end{tabular}
+\caption{Dataset split statistics for triplet annotations.}
+\label{tab:dataset-split-stats}
+\end{table}
+
+
+
+\paragraph{Class distribution.}
+The dataset exhibits a highly imbalanced (long-tailed) distribution, as shown in \figref{fig:dataset-class-distributions}. A few frequent triplets dominate the dataset, while many others occur only sparsely. This pattern is mirrored in the individual instrument, verb, and target class distributions.
+
+
+
+\begin{figure}[t!]
+    \centering
+    % --- Top: Triplet Frequency ---
+    \begin{subfigure}{\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{appendix_images/all_triplets_frequency.png}
+        \caption{Frequency of all triplet classes.}
+        \label{fig:triplet-freq}
+    \end{subfigure}
+
+    \vspace{1em}
+
+    % --- Bottom Row: Instrument, Verb, Target ---
+    \begin{subfigure}{0.32\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{appendix_images/instrument_frequencies.png}
+        \caption{Instrument class frequencies.}
+        \label{fig:instrument-freq}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}{0.32\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{appendix_images/verb_frequencies.png}
+        \caption{Verb class frequencies.}
+        \label{fig:verb-freq}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}{0.32\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{appendix_images/target_frequencies.png}
+        \caption{Target class frequencies.}
+        \label{fig:target-freq}
+    \end{subfigure}
+
+    \caption{Class frequency distributions in the dataset. The top row shows the frequency of all triplet classes (instrument, verb, target combinations), while the bottom row shows the distribution across individual instruments, verbs, and targets.}
+    \label{fig:dataset-class-distributions}
+\end{figure}
+
+\begin{figure}[t]
+    \centering
+
+    % Subfigure A: EndoViT prediction success/failure examples
+    \begin{subfigure}[t]{0.49\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{appendix_images/endovit_targets_visualization.pdf}
+        \caption{EndoViT predictions: success and failure cases.}
+        \label{fig:endovit-predictions}
+    \end{subfigure}
+    \hfill
+    % Subfigure B: Class mapping
+    \begin{subfigure}[t]{0.49\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{appendix_images/Endovit_to_cholecT50.pdf}
+        \caption{Mapping between EndoViT tissue classes and CholecTriplet-Seg targets.}
+        \label{fig:endovit-to-cholecT50}
+    \end{subfigure}
+
+    \caption{
+    (a) EndoViT predictions visualised via \texttt{argmax} over softmax channels. Successful examples show well-aligned anatomical boundaries; failure cases include missing structures and misclassification of out-of-vocabulary classes.
+    (b) Manually defined mapping between EndoViT classes and CholecTriplet-Seg targets. Solid lines indicate strong semantic alignment; dashed lines indicate subset or approximate correspondence.
+    }
+    \label{fig:endovit-fusion-context}
+\end{figure}
+
+
+
+\section{EndoViT Weak Supervision Details}
+To complement the model description in the main text, we analyse the behaviour and alignment of the pseudo-anatomical signals provided by EndoViT. To guide grounded triplet prediction with spatial anatomical cues, we incorporate pseudo-target logits from EndoViT~\cite{batic2024endovit}, a segmentation model trained to identify nine laparoscopic structures (one instrument, two background classes, and six anatomical regions). Although EndoViT was not designed for our target taxonomy, its outputs provide coarse yet informative spatial priors. We opted to retain the full softmax logits during training to the model rather than filtering or masking, as missing logits could lead to more disruptive inconsistencies during training.
+
+\paragraph{Qualitative assessment of EndoViT outputs.}
+\figref{fig:endovit-fusion-context}a illustrates both successful and failed examples of EndoViT’s anatomical predictions. We visualise the predictions by taking the \texttt{argmax} across softmax channels to identify the dominant class per pixel. Examples (a) and (b) demonstrate strong segmentation performance, particularly in distinguishing bladder, liver, fat, and abdominal wall with accurate boundaries. In contrast, examples (c) and (d) highlight failure modes: (c) shows a missed gallbladder due to its position at the image periphery, while (d) depicts the specimen bag misclassified as gallbladder due to EndoViT lacking a dedicated specimen bag class.
+
+\paragraph{Semantic alignment with CholecTriplet-Seg targets.}
+To better understand the relevance of EndoViT predictions to our task, we manually constructed a semantic mapping between EndoViT’s tissue classes and CholecTriplet-Seg targets (\figref{fig:endovit-fusion-context}b). Some mappings are one-to-one (e.g., \textit{liver} to \textit{liver}), while others are approximate or partial overlaps (e.g., EndoViT’s background covering multiple target labels). These observations support our design choice of using gated attention, allowing the model to learn when to trust or ignore weak anatomical signals during decoding.
+
+
+\section{Implementation Details}
+More implementation details are provided here to aid reproducibility and replication. All experiments were implemented using the MMDetection framework, which offers modular training pipelines, flexible configuration management, and support for segmentation architectures such as Mask2Former. All major dependency versions are documented in the released codebase. Training and evaluation were conducted on a single NVIDIA A100 GPU (40GB VRAM).
+
+\paragraph{Model architecture.}
+Our model extends Mask2Former with two core additions: (1) a weak target encoder that processes soft pseudo-target logits from EndoViT, and (2) a gated target fusion module that integrates these features into the transformer decoder. The weak target encoder first applies a $1 \times 1$ convolution to match the transformer’s channel size, then downscales the features using a sequence of $3 \times 3$ convolutions with stride 2,  batch normalisation, and ReLU activations. These multi-scale features are then injected via gated cross-attention at each decoder stage. This can be found in \texttt{downsampler\_encoder.py}
+
+We also introduced new modules to handle fusion and target-specific processing, including: (i) a classification head (\texttt{Mask2FormerTargetFusionHead.py}), (ii) a fusion-aware decoder \newline (\texttt{targetfusionhybrid\_decoder.py}), and (iii) data preprocessing logic to handle EndoViT logits.
+
+\paragraph{Evaluation Library.}
+Evaluation was performed using a customised version of the \texttt{ivtmetrics} library, originally developed for CholecT50~\cite{NWOYE2022102433_rendevous}. Due to compatibility issues, the library depends on specific versions of Python packages to run reliably. We provide a detailed README alongside the codebase, outlining the required environment and installation steps to ensure reproducibility.
+
+
+
+\paragraph{Training Setup.}
+TargetFusionNet was trained with an image resolution of 1024$\times$1024 and a per-GPU batch size of 4. To achieve larger effective batch sizes, we employed gradient accumulation. The classification loss weight was increased from 3.0 to 4.0 to promote sharper and more confident triplet predictions. All other settings followed MMDetection defaults unless otherwise specified.
+
+For models based on Mask2Former, we initialized from a pretrained instance segmentation checkpoint trained on CholecInstanceSeg. To ensure no data leakage and maintain consistency during fine-tuning, we adopted the same train/val/test splits as CholecInstanceSeg.
+
+
+
+\paragraph{Reproducibility.}
+All code, configuration files, and preprocessed pseudo-targets from EndoViT are publicly available at \url{https://github.com/labdeeman7/target_fusion_net}.  Model checkpoints and evaluation scripts will be included to facilitate full reproduction of results.
+
+
+
+\section{Evaluation and Metrics}
+\label{sec:evaluation}
+We evaluate triplet segmentation by measuring both triplet correctness and spatial grounding. To this end, we extend the CholecT50 protocol \cite{NWOYE2022102433_rendevous} with a new \emph{Segmentation mAP} metric that uses instance masks (IoU $\geq 0.5$) to assess spatial grounding with pixel-level precision. 
+This provides a finer measure of instrument–tissue interaction than coarse box-level evaluation. For completeness, we also report detection and recognition metrics.
+Together, we end up with 3 classes of Triplet mAP metrics:
+\begin{description}
+\item[Recognition mAP] 
+$\mAP^{rec}$ evaluates which triplets are present in each frame, regardless of spatial alignment. 
+It is computed using a \textbf{classification} style mean Average Precision (mAP), averaged across triplet classes and videos.  
+
+\item[Detection mAP]
+$\mAP^{det}$ assesses whether each predicted triplet is correctly linked to an instrument instance \textbf{bounding box} using bounding box IoU $\geq 0.5$, following a detection-style mAP.  
+
+\item[Segmentation mAP]
+$\mAP^{seg}$ applies the same criteria using \textbf{instance masks} instead of bounding boxes, following segmentation mAP computation style.
+\end{description}
+
+We report mean Average Precision (mAP), computed per class and averaged across classes and across videos, following the CholecT50 protocol \cite{NWOYE2022102433_rendevous}. Metrics are reported for individual components ($\mAP_I$, $\mAP_V$, $\mAP_T$), component pairs ($\mAP_{IV}$, $\mAP_{IT}$), and full triplets ($\mAP_{IVT}$), with superscript $rec$, $det$, or $seg$ indicating the evaluation mode (e.g., $\mAP_{IVT}^{seg}$). Further implementation details are available in the accompanying codebase.
+
+
+%\paragraph{Primary Metric}  
+While component-level metrics (e.g., $\mAP_{I}$) provide diagnostic insights, $\mAP_{IVT}$ across recognition, detection, and segmentation serves as our main benchmark for fully grounded triplet prediction. The recognition and detection metrics are implemented through the \texttt{ivtmetrics} library; a detailed description of these metrics can be found in the corresponding release paper \cite{nwoye2023datasplitsmetricsmethod}. Our repository extends this framework to include triplet-level segmentation mAP.
+
+
+\section{Ablation Results for More Model Variants}
+We experimented with alternative formulations to evaluate different design choices for triplet prediction. 
+This appendix reports additional results for fusion strategy, multitask learning, and fusion depth variants of TargetFusionNet. 
+These experiments assess whether changes to the fusion design, task formulation, or decoder depth can further improve triplet segmentation performance.
+
+
+\subsection{Fusion Strategy Ablations}
+To complement the segmentation ablation reported in the main text, we provide full results across recognition, detection, and segmentation for different fusion strategies. 
+These variants differ in how weak anatomical priors are integrated: \textbf{Early-concat} fuses logits before the backbone, \textbf{Late-concat} injects them after the transformer decoder, and \textbf{TargetFusionNet} applies gated mid-level fusion. 
+As shown in Table~\ref{tab:fusion_strategy_appendix}, TargetFusionNet achieves the best overall performance across all metrics, confirming that gated mid-level integration offers the most effective balance between spatial guidance and feature learning.
+
+
+
+\begin{table*}[t]
+\centering
+\caption{\textbf{Fusion strategy ablation across recognition, detection, and segmentation.}
+Mean Average Precision ($\mAP$) reported for instruments ($\mAP_I$), verbs ($\mAP_V$), targets ($\mAP_T$), instrument–verb pairs ($\mAP_{IV}$), instrument–target pairs ($\mAP_{IT}$), and full triplets ($\mAP_{IVT}$). 
+\textbf{Bold} indicates the best among fusion variants.}
+\label{tab:fusion_strategy_appendix}
+\begin{tabular}{llcccccc}
+\toprule
+\textbf{Evaluation Type} & \textbf{Method} & $\mAP_I$ & $\mAP_V$ & $\mAP_T$ & $\mAP_{IV}$ & $\mAP_{IT}$ & $\mAP_{IVT}$ \\
+\midrule
+\multirow{3}{*}{\textbf{Segmentation} $\bm{(\mAP^{seg})}$}
+& \textbf{TargetFusionNet }& 67.19 & 46.27 & \textbf{21.55} & 24.93 & \textbf{17.75} & \textbf{13.47} \\
+& Early-concat             & \textbf{69.13} & \textbf{50.74} & 21.52 & \textbf{27.62} & 16.83 & 12.21 \\
+& Late-concat              & 59.90 & 40.65 & 20.21 & 23.17 & 16.07 & 10.99 \\
+\midrule
+\multirow{3}{*}{\textbf{Detection} $\bm{(\mAP^{det})}$}
+& TargetFusionNet & 66.52 & 46.23 & \textbf{23.70} & 24.82 & \textbf{17.74} & \textbf{13.45} \\
+& Early-concat             & \textbf{67.95} & \textbf{49.77} & 23.25 & \textbf{27.05} & 16.56 & 12.04 \\
+& Late-concat              & 59.02 & 40.03 & 19.70 & 22.84 & 15.85 & 10.86 \\
+\midrule
+\multirow{3}{*}{\textbf{Recognition} $\bm{(\mAP^{rec})}$}
+& TargetFusionNet & 86.61 & \textbf{71.93} & \textbf{51.19} & \textbf{44.48} & 43.24 & 34.23 \\
+& Early-concat             & \textbf{88.65} & 66.19 & 51.10 & 44.15 & \textbf{43.41} & \textbf{34.47} \\
+& Late-concat              & 77.91 & 64.32 & 47.26 & 40.87 & 36.66 & 30.33 \\
+\bottomrule
+\end{tabular}
+\end{table*}
+
+
+\begin{table*}[t!]
+\centering
+\caption{Segmentation performance ($\mAP^{seg}$) for Mask2Former-Triplet and multitask learning versions. While multitask variants improve individual component scores (e.g., instrument, verb), they fail to improve overall triplet accuracy ($\mAP_{IVT}^{seg}$), highlighting the challenge of enforcing coherent triplet structure.}
+\label{tab:segmentation_results}
+\begin{tabular}{l|c|c|c|c|c|c}
+\hline
+\textbf{Method} & $\mAP_{I}^{seg}$ & $\mAP_{V}^{seg}$ & $\mAP_{T}^{seg}$ & $\mAP_{IV}^{seg}$ & $\mAP_{IT}^{seg}$ & $\mAP_{IVT}^{seg}$ \\
+\hline
+Mask2Former-Triplet (100 class) & 65.24 & 45.61 & 20.75 & 23.03 & 16.47 & \textbf{12.23 }\\
+Mask2Former-Triplet (Multitask) & \textbf{73.73} & \textbf{49.04} & 20.86 & \textbf{25.69} & 16.65 & 12.12 \\
+Early-concat (Multitask)        & 72.53 & 43.24 & \textbf{21.40} & 21.15 & \textbf{16.86} & 10.30 \\
+\hline
+\end{tabular}
+\end{table*}
+
+
+\subsection {Multitask learning}
+One natural alternative to 100-class triplet prediction is to decompose the task into three independent classification heads: one each for instrument, verb, and target. This aligns more closely with the compositional structure of triplets and could potentially alleviate long-tail issues, since many individual categories are more balanced than their combined triplet forms.
+
+To explore this idea, we implemented two multitask variants for our Mask2Former-Triplet baseline. The first, Mask2Former-Triplet (Multitask), replaces the single 100-class head with three separate heads. The second variant, Early-concat (Multitask), augments the input by concatenating EndoViT's weak target logits with the RGB channels before the backbone, but still uses multitask heads.
+
+Results are shown in Table~\ref{tab:segmentation_results}. We observe that multitask learning improves instrument and verb segmentation scores, particularly in the absence of EndoViT signals. However, it fails to produce gains in triplet accuracy (\mAP$_{IVT}^{seg}$). In fact, combining multitask with weak anatomical signals (Early-concat) reduces performance even further. This suggests that multitask learning, while promising, struggles to enforce coherent triplet-level structure. For this reason, we retain the 100-class formulation as the default setting for TargetFusionNet and leave further exploration for future works.
+
+
+\subsection {Fusion depth ablations.}
+We also evaluated variants of TargetFusionNet with the fusion module applied only to a subset of the transformer decoder layers. Since the anatomical logits from EndoViT are weak and potentially noisy, it may be beneficial to limit their influence to early layers, allowing later stages to rely more heavily on learned visual features. This ablation helps assess whether fusion depth affects performance. Specifically, we tested fusing at 3, 6, or all 9 decoder layers.
+Results in Table~\ref{tab:fusion_depth_results} show that using all 9 layers provides the best overall triplet segmentation accuracy, suggesting that continuous guidance from weak targets throughout the decoder helps the model better align instrument actions with anatomical context.
+
+
+\begin{table*}[t!]
+\centering
+\caption{Ablation of fusion depth in TargetFusionNet. We vary the number of transformer decoder layers where the target fusion module is applied. Full fusion across all 9 layers yields the highest triplet accuracy ($\mAP_{IVT}^{seg}$).}
+\label{tab:fusion_depth_results}
+\begin{tabular}{l|c|c|c|c|c|c}
+\hline
+\textbf{Method} & $\mAP_{I}^{seg}$ & $\mAP_{V}^{seg}$ & $\mAP_{T}^{seg}$ & $\mAP_{IV}^{seg}$ & $\mAP_{IT}^{seg}$ & $\mAP_{IVT}^{seg}$ \\
+\hline
+TargetFusionNet (9 layers) & \textbf{67.19} & \textbf{46.27 }& 21.55 & 24.93 & \textbf{17.75} & \textbf{13.47} \\
+TargetFusionNet (6 layers) & 66.89 & 45.66 & \textbf{21.92} & \textbf{26.43} & 16.52 & 11.95 \\
+TargetFusionNet (3 layers) & 64.14 & 44.26 & 21.58 & 23.09 & 16.36 & 11.85 \\
+\hline
+\end{tabular}
+\end{table*}
+
+
+
+\subsection{Model Efficiency}
+We present computational efficiency in terms of parameters, floating-point operations (FLOPs) and inference speed for the models. All models were benchmarked on a single NVIDIA A100 (40\,GB) GPU and a batch size of~1 with automatic mixed precision and all images resized to 1024x1024.
+\tabref{tab:efficiency} summarises the results. TargetFusionNet introduces only a modest computational overhead compared to Mask2Former-Triplet, while providing consistent accuracy gains across all metrics. FLOPs and parameter counts for Mask2former based models were estimated using MMDetection’s $get\_flops.py$ script; results are approximate due to potential unsupported operations.
+
+
+\begin{table}[t]
+\centering
+\caption{\textbf{Model efficiency comparison.}
+Measured on a single A100 (40\,GB) with image size 1024x1024 input and batch size~1}
+\label{tab:efficiency}
+\begin{tabular}{lccc}
+\toprule
+\textbf{Method} & \textbf{Params (M)} & \textbf{FLOPs (G)} & \textbf{FPS $\uparrow$} \\
+\midrule
+RDV-Det                 &  17.1 & 46.3 & 25.83 \\
+RDV + Mask2Former       &  61.1 & 302.3 & 20.27 \\
+Mask2Former-Triplet     &  44.0 & 260 & 51.4 \\
+\textbf{TargetFusionNet} & 50.34  & 628 & 31.8\\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\section{\revnew{Effect of Long-Tailed Triplet Distribution on Model Performance}}
+
+\revnew{
+CholecTriplet-Seg exhibits a long-tailed distribution over clinically valid triplet combinations, with a small number of frequent triplets accounting for a large proportion of annotations and many triplets occurring only sparsely (\figref{fig:dataset-class-distributions}). To analyse the effect of this imbalance on triplet segmentation performance, we group triplet classes into three frequency categories based on their occurrence in the training set.
+}
+
+\revnew{
+Specifically, triplet classes are categorised as \textit{frequent} if they occur more than \textbf{1000} times in the dataset, \textit{medium-frequency} if they occur between \textbf{100} and \textbf{1000} times, and \textit{rare} if they occur fewer than \textbf{100} times in the training set. These thresholds are chosen heuristically to reflect the highly skewed class distribution and to enable a coarse analysis of performance trends under long-tailed supervision, rather than to define strict or optimal class boundaries.
+}
+
+\revnew{
+For each frequency group, we report the average triplet segmentation performance ($mAP^{seg}_{IVT}$), summarised in \tabref{tab:triplet_frequency_analysis}. As expected, performance decreases with decreasing triplet frequency due to limited supervision and increased semantic ambiguity. 
+}
+
+
+
+\begin{table}[t]
+\centering
+\caption{\revnew{Triplet segmentation performance grouped by triplet frequency. Triplet classes are partitioned into frequent, medium-frequency, and rare groups based on their occurrence in the training set. Performance is reported using triplet segmentation mAP ($mAP_{seg}^{IVT}$).}}
+\label{tab:triplet_frequency_analysis}
+\begin{tabular}{lccc}
+\toprule
+\textbf{Triplet Frequency Group} & \textbf{No Triplet Classes} & \textbf{Avg. Samples / Class} & \textbf{$mAP_{seg}^{IVT}$} \\
+\midrule
+Frequent & 10 & 4168.9 & 0.4148 \\
+Medium-frequency & 21 & 307.9 & 0.2071 \\
+Rare & 62 & 24.9 & 0.04 \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+
+\begin{figure}[t!]
+    \centering
+    \includegraphics[width=\linewidth]{appendix_images/failure_modes.pdf}
+    \caption{\revnew{
+Representative failure cases in triplet segmentation.
+\textbf{Top left:} missing hook instrument mask leading to incorrect triplet prediction.
+\textbf{Top right:} confusion between boundaries of visually similar anatomical targets (gallbladder vs.\ cystic artery).
+\textbf{Bottom left:} action ambiguity between visually similar verbs (grasp vs.\ retract).
+\textbf{Bottom right:} rare target class (peritoneum) with limited training examples.
+}}
+    \label{fig:failure_modes}
+\end{figure}
+
+
+\section{\revnew{Failure Mode Analysis}}
+
+\revnew{
+To better understand the remaining errors in triplet segmentation, we analyse common failure patterns observed across the test set. Rather than isolated prediction noise, these errors consistently arise from a small number of recurring scenarios, which we categorise below.
+}
+
+\revnew{
+\textbf{Missing or incorrect instrument masks.}
+Instance-level triplet segmentation depends on accurate instrument instance prediction. We observe occasional missing, fragmented, or incorrectly assigned instrument masks, which result in incorrect triplet predictions. Joint optimisation for triplet segmentation can slightly degrade raw instance mask quality compared to training instance segmentation in isolation, reflecting a trade-off between instance precision and higher-level semantic reasoning.
+}
+
+\revnew{
+\textbf{Rare class errors}
+Classes with very low training frequency are more likely to be misclassified due to limited supervision. This effect is particularly pronounced for infrequent anatomical targets such as the peritoneum.
+}
+
+\revnew{
+\textbf{Visually similar targets}
+Anatomically adjacent or visually similar structures (e.g., cystic artery, cystic duct, cystic pedicle, and gallbladder) are occasionally confused, especially when boundaries are ambiguous and weakly defined. While weak anatomical priors provide coarse spatial context, they do not always resolve fine-grained semantic distinctions between such targets.
+}
+
+\revnew{
+\textbf{Action ambiguity}
+Some surgical actions exhibit subtle visual differences (e.g., grasp vs. retract), making them difficult to distinguish from single frames without explicit temporal context. As a result, verb misclassification can occur even when the instrument instance and anatomical target are correctly localised.
+}
+
+\revnew{
+Representative examples of these failure modes are shown in \figref{fig:failure_modes}, illustrating typical errors arising from missing masks, rare target classes, visually similar anatomical structures, and action ambiguity.
+These failure modes highlight intrinsic challenges of fine-grained laparoscopic scene understanding and motivate future work on improved instance segmentation, anatomical modelling, better metrics, and temporal reasoning.
+}
+
+
+
+
+
+
+
+
+
+

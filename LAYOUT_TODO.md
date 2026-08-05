@@ -16,6 +16,14 @@ These observations are deliberately deferred to the final formatting pass. They 
 - Inspect the three displayed equations currently written with inherited `$$...$$` syntax; defer any typographic conversion until the final formatting pass because their scientific content is correct.
 - Check the pagination of the manuscript end matter (Code Availability, Acknowledgements, Author Contributions, and Competing Interests) and its separation from the thesis-written transition.
 
+## Chapter 4: TargetFusionNet
+
+- Review placement of the eight accepted figures and nine accepted tables across the main paper and appendix after final pagination is stable.
+- Check wide `table*` material and dense ablation tables against the thesis margins; preserve the accepted values and column structure.
+- Visually inspect the appendix subfigure groups and captions under the thesis `subcaption` package.
+- Check the transition from the accepted declarations to the accepted appendix, and from the appendix to the thesis-written chapter summary.
+- Confirm whether the supplementary comparison video should be deposited or linked separately; the accepted source refers to it but the file is not present in the repository.
+
 ## Whole Thesis
 
 - Address inherited overfull and underfull box warnings only after all chapters and front matter are stable.

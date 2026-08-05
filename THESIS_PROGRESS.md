@@ -31,14 +31,19 @@ This file records the working state of the thesis. It should be updated whenever
 - Reconstructed Chapter 3 from the authoritative accepted CholecInstanceSeg manuscript. The integrated copy preserves 5 substantive manuscript sections, 8 subsections, 21 subsubsections, 7 active figures, 4 active tables, 3 displayed equations, and 41 citation commands, plus the abstract and manuscript end matter.
 - Archived the superseded adapted Chapter 3 at `archive/chapters/03_cholecinstanceseg_adapted_2026-08-05.tex`.
 - Verified the complete Chapter 3 thesis build to convergence at 165 pages with zero undefined citations, zero undefined references, zero duplicate bibliography keys, and no LaTeX or Biber errors.
+- Reconstructed Chapter 4 from the authoritative accepted TargetFusionNet manuscript using the Chapter 3 integration architecture, with separate thesis wrapper and isolated accepted-paper components.
+- Incorporated the complete accepted TargetFusionNet appendix, including extended dataset construction, statistics, weak-supervision details, evaluation definitions, ablations, efficiency analysis, long-tail analysis, and failure modes.
+- Verified TargetFusionNet preservation: after reversing seven documented canonical citation-key substitutions and one necessary label namespace change, the integrated main body and appendix each match their authoritative accepted sources exactly.
+- Preserved 16 section commands, 4 subsection commands, 8 active figures, 9 active tables, 2 displayed equations, and 47 citation commands across the accepted TargetFusionNet paper and appendix.
+- Archived the superseded adapted Chapter 4 at `archive/chapters/04_triplet_grounding_adapted_2026-08-05.tex`.
+- Verified the complete Chapter 4 thesis build to convergence at 182 pages with zero undefined citations, zero undefined references, zero duplicate labels or bibliography keys, and no LaTeX or Biber errors.
 
 ## Current Task
 
-- Chapter 3 reconstruction is complete and awaiting review. Chapter 4 has not been started in this milestone.
+- Chapter 4 reconstruction is complete and awaiting review. Chapter 5 was not modified in this milestone.
 
 ## Outstanding Issues
 
-- Chapter 4 is currently an adapted or condensed version of the published paper rather than the required structure of chapter introduction, essentially unchanged paper, and chapter summary/transition.
 - Chapter 5 is an obsolete Qwen-based scaffold and must be replaced by the Two Stage Surgical Triplet Segmentation chapter.
 - Chapter 6 is a drafting scaffold and requires substantial writing.
 - `Acknowledgments.tex` is nearly empty and the impact statement in `Thesis.tex` is placeholder text.

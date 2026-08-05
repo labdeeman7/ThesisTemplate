@@ -34,17 +34,24 @@ These files adapt accepted manuscripts for the thesis while preserving the origi
 
 ## TargetFusionNet
 
-- **Thesis chapter:** `chapters/04_triplet_grounding.tex`
+- **Thesis wrapper:** `chapters/04_triplet_grounding.tex`
+- **Integrated manuscript components:** `chapters/papers/targetfusionnet/main_body.tex` and `chapters/papers/targetfusionnet/appendix_body.tex`
 - **Authoritative accepted source:** `phd_papers/sources/Surgical Action Triplet Segmentation IPCAI/`
 - **Source commit/version:** `bc0de77da96993e55888b45058c0dc79b7fc1b38`
-- **Integration changes in the current thesis chapter:** thesis-compatible chapter structure and figure paths; canonical citation keys harmonised. The archival accepted-paper project is unchanged from the source version.
-- **Scientific-content changes in this migration:** none.
+- **Integration changes:** standalone Springer `sn-jnl` class/preamble, revision-display machinery, publisher author/affiliation commands, line numbering, `\maketitle`, standalone document boundaries, and standalone bibliography commands omitted. The wrapper supplies the accepted title/authors/abstract/keywords, final-revision macros, paper macros, figure path, thesis chapter context, and thesis-written introduction and transition. `booktabs`, `bm`, and `subcaption` are loaded by the thesis for manuscript tables and appendix subfigures.
+- **Preserved manuscript material:** complete accepted main body and complete written appendix, including declarations; 16 section commands, 4 subsection commands, 8 active figures, 9 active tables, 2 displayed equations, and 47 citation commands across the paper and appendix.
+- **Supplementary material:** the complete written appendix is incorporated. The main paper refers to a supplementary comparison video, but no video file is present in the authoritative accepted-source directory, so it cannot be embedded in the thesis repository.
+- **Intentional omissions:** publisher/template preambles and guidance, standalone title/front-matter commands, line numbers, standalone bibliography machinery, and the appendix's duplicate standalone title page. No active scientific section, figure, table, equation, citation, declaration, or written appendix content is omitted.
+- **Label namespacing:** the generic `sec::introduction` label is changed to `sec:tfn:introduction` in the thesis copy to avoid a genuine collision with Chapter 2; no rendered text changes.
+- **Scientific-content changes:** none. After reversing the documented citation-key and label substitutions, both integrated source bodies match the authoritative main manuscript and appendix exactly.
 - **Canonical citation-key substitutions:**
   - `nwoye2020recognition` to `1nywoye_rec_action_triplets`
   - `nwoye2022rendezvous` to `NWOYE2022102433_rendevous`
   - `alabi2025cholecinstanceseg` to `cholecinstanceseg`
   - `hong2020cholecseg8k` to `cholecseg8k`
   - `he2016deep` to `resnet`
+  - `yamlahi2023self` to `multi_self_distillation`
+  - `sharma2023rendezvous` to `sharma2022RendezvousInTime`
 
 ## Two Stage Surgical Triplet Segmentation
 
