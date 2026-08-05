@@ -34,7 +34,7 @@ Tool localisation is one of the most basic requirements for such systems. It sup
 \hline
 \textbf{Dataset} & \textbf{Patient} & \textbf{Environment} & \textbf{Procedures} & \textbf{Annotations} & \textbf{Semantic} & \textbf{Instance} \\
 \hline
-Endovis2015 \cite{endovis2015} & Human & Ex-vivo/In-vivo & 8 & 10k & 3 classes & No \\
+Endovis2015 \cite{bodenstedt2018comparative} & Human & Ex-vivo/In-vivo & 8 & 10k & 3 classes & No \\
 \hline
 Endovis2017 \cite{endovis2017} & Porcine & In-vivo & 10 & 2.4k & 10 classes & No \\
 \hline
@@ -198,7 +198,7 @@ The class distribution in CholecInstanceSeg is imbalanced, reflecting the realit
 \section{Technical Validation}
 \label{sec:cholecinstanceseg-validation}
 
-CholecInstanceSeg was validated through baseline model training, label-agreement analysis, and quality-control procedures. Two general-purpose instance segmentation models were trained as baselines: Mask R-CNN \cite{he2017mask} and Mask2Former \cite{cheng2021mask2former}. These were chosen as broadly applicable reference models rather than specialised surgical-tool architectures, so that future work can compare against a clear baseline.
+CholecInstanceSeg was validated through baseline model training, label-agreement analysis, and quality-control procedures. Two general-purpose instance segmentation models were trained as baselines: Mask R-CNN \cite{he2017mask} and Mask2Former \cite{cheng2022masked}. These were chosen as broadly applicable reference models rather than specialised surgical-tool architectures, so that future work can compare against a clear baseline.
 
 Performance was evaluated using COCO mean average precision (mAP) and a sequence-aware variant, sequence mAP (smAP). The standard mAP captures class-level segmentation quality, while smAP averages per-sequence performance to better reflect generalisation across surgical scenes. The baseline results are shown in \tabref{tab:cholecinstanceseg-map} and \tabref{tab:cholecinstanceseg-smap}.
 
@@ -210,7 +210,7 @@ Performance was evaluated using COCO mean average precision (mAP) and a sequence
 \textbf{Method} & \textbf{GR} & \textbf{HO} & \textbf{IR} & \textbf{CL} & \textbf{BI} & \textbf{SC} & \textbf{SN} & \textbf{mAP} \\
 \hline
 Mask R-CNN \cite{he2017mask} & 37.25 & 61.84 & 43.04 & 58.73 & 28.42 & 20.91 & - & 41.70 \\
-Mask2Former \cite{cheng2021mask2former} & 61.10 & 82.16 & 68.38 & 81.30 & 48.02 & 27.89 & - & 61.47 \\
+Mask2Former \cite{cheng2022masked} & 61.10 & 82.16 & 68.38 & 81.30 & 48.02 & 27.89 & - & 61.47 \\
 \hline
 \end{tabular}}
 \caption{Baseline instance segmentation performance on CholecInstanceSeg using mAP. GR: grasper; HO: hook; IR: irrigator; CL: clipper; BI: bipolar; SC: scissors; SN: snare.}

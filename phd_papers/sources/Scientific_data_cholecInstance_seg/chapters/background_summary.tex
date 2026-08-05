@@ -1,18 +1,18 @@
 \section*{Background \& Summary}
 %
-Minimally invasive surgeries (MIS) have gained popularity due to their benefits over open surgeries, such as reduced blood loss, less pain, faster recovery times, and fewer post-surgical complications~\cite{fuchs2002minimally}. However, MIS relies on an endoscope or laparoscope for indirect vision, which provides a limited field of view, making it challenging for surgeons to accurately interpret complex surgical scenes ~\cite{real_time_seg_adverserial_cis}. To overcome this, computer-aided intervention techniques that enhance the information obtained through minimally invasive cameras have been proposed~\cite{vecauteren_cai_4_cai_cis,cv_in_surgery_cis}.
+Minimally invasive surgeries (MIS) have gained popularity due to their benefits over open surgeries, such as reduced blood loss, less pain, faster recovery times, and fewer post-surgical complications~\cite{fuchs2002minimally}. However, MIS relies on an endoscope or laparoscope for indirect vision, which provides a limited field of view, making it challenging for surgeons to accurately interpret complex surgical scenes ~\cite{real_time_seg_adverserial}. To overcome this, computer-aided intervention techniques that enhance the information obtained through minimally invasive cameras have been proposed~\cite{vecauteren_cai_4_cai,cv_in_surgery}.
 At the forefront of this evolution lies the challenge of achieving precise instance segmentation of surgical tools in a minimally invasive surgical scene.
 This task is essential for developing assistive surgical technology and autonomous or semi-autonomous surgical systems, which require detailed knowledge of the identification and localization of various tools.
 
 Current publicly available datasets for surgical tool segmentation have several notable limitations.
-Many focus on porcine or ex-vivo surgeries rather than routine human procedures, limiting their applicability to day-to-day clinical settings~\cite{endovis2015,endovis2017_cis,endovis2018_cis}.
-Others are multitask datasets with limited tool segmentation data~\cite{autolaparo_cis}, or they provide only binary instance segmentation for a single tool class~\cite{robustmis2019_cis}. Additionally, available surgical tool segmentation datasets lack instance-specific information ~\cite{endovis2015,endovis2017_cis,endovis2018_cis,autolaparo_cis,psychogyios2023sar_cis,cholecseg8k_cis}, and most offer a relatively small number of annotated segmentation masks. 
+Many focus on porcine or ex-vivo surgeries rather than routine human procedures, limiting their applicability to day-to-day clinical settings~\cite{endovis2015,endovis2017,endovis2018}.
+Others are multitask datasets with limited tool segmentation data~\cite{autolaparo}, or they provide only binary instance segmentation for a single tool class~\cite{robustmis2019}. Additionally, available surgical tool segmentation datasets lack instance-specific information ~\cite{endovis2015,endovis2017,endovis2018,autolaparo,psychogyios2023sar,cholecseg8k}, and most offer a relatively small number of annotated segmentation masks. 
 
 
-\revdel{To overcome these challenges, we introduce the CholecInstanceSeg open-access dataset, in which we meticulously annotate 41,933 frames extracted from 85 laparoscopic cholecystectomy procedures from the existing Cholec80 \mbox{~\cite{endonet_cis}}
- and CholecT50 \mbox{~\cite{NWOYE2022102433_rendevous_cis}} datasets.}
+\revdel{To overcome these challenges, we introduce the CholecInstanceSeg open-access dataset, in which we meticulously annotate 41,933 frames extracted from 85 laparoscopic cholecystectomy procedures from the existing Cholec80 \mbox{~\cite{endonet}}
+ and CholecT50 \mbox{~\cite{NWOYE2022102433_rendevous}} datasets.}
 
-To overcome these challenges, we introduce the CholecInstanceSeg open-access dataset, in which we meticulously annotate 41,933 frames from the existing Cholec80~\cite{endonet_cis} and CholecT50~\cite{NWOYE2022102433_rendevous_cis} datasets \robustrevref{1}{2}\revnew{with instance segmentation labels and class labels for 7 instrument classes: Grasper, Bipolar, Hook, Clipper, Scissors, Irrigator, and Snare. 
+To overcome these challenges, we introduce the CholecInstanceSeg open-access dataset, in which we meticulously annotate 41,933 frames from the existing Cholec80~\cite{endonet} and CholecT50~\cite{NWOYE2022102433_rendevous} datasets \robustrevref{1}{2}\revnew{with instance segmentation labels and class labels for 7 instrument classes: Grasper, Bipolar, Hook, Clipper, Scissors, Irrigator, and Snare. 
 CholecInstanceSeg contains frames from 85 videos of Laparoscopic cholecystectomy - a routine surgical procedure for gallbladder removal, commonly performed to treat gallstones or cholecystitis with over 300,000 surgeries performed annually in the United States \cite{hassler2023laparoscopic}}.
 To the best of our knowledge,
 CholecInstanceSeg represents the most extensive surgical tool instance segmentation dataset.
@@ -26,17 +26,17 @@ CholecInstanceSeg represents the most extensive surgical tool instance segmentat
     \hline
     Endovis2015 \cite{endovis2015}  & Human & Ex-vivo and In-vivo & 8 & 10k &  3 classes  & No \\
     \hline
-    Endovis2017 \cite{endovis2017_cis} & Porcine & In-vivo  & 10 & 2.4k  & 10 classes  & No  \\
+    Endovis2017 \cite{endovis2017} & Porcine & In-vivo  & 10 & 2.4k  & 10 classes  & No  \\
     \hline
-    Endovis2018 \cite{endovis2018_cis} & Porcine & In-vivo & 16 & 2.4k  &  10 classes & No  \\
+    Endovis2018 \cite{endovis2018} & Porcine & In-vivo & 16 & 2.4k  &  10 classes & No  \\
     \hline
-    CholecSeg8k \cite{cholecseg8k_cis} & Human & In-vivo & 17 &  8k   & 12 classes&  No \\
+    CholecSeg8k \cite{cholecseg8k} & Human & In-vivo & 17 &  8k   & 12 classes&  No \\
     \hline
-    AutoLaparo (Multitask) \cite{autolaparo_cis} & Human & In-vivo & 21 & 1.8k  & 7 classes  & No   \\
+    AutoLaparo (Multitask) \cite{autolaparo} & Human & In-vivo & 21 & 1.8k  & 7 classes  & No   \\
     \hline
-    ROBUSTMIS2019 \cite{robustmis2019_cis} & Human & In-vivo & 30 &  10k   & 2 classes & Yes\greencheck \\
+    ROBUSTMIS2019 \cite{robustmis2019} & Human & In-vivo & 30 &  10k   & 2 classes & Yes\greencheck \\
     \hline
-    SAR-RARP50 (Multitask) \cite{psychogyios2023sar_cis} & Human & In-vivo & 50  & 10k  & 10 classes  & No \\ 
+    SAR-RARP50 (Multitask) \cite{psychogyios2023sar} & Human & In-vivo & 50  & 10k  & 10 classes  & No \\ 
     \hline
     CholecInstanceSeg (Ours) & Human & In-vivo & 85 & 41.9k & 8 classes & Yes\greencheck   \\
     \hline
@@ -47,7 +47,7 @@ CholecInstanceSeg represents the most extensive surgical tool instance segmentat
 
 Furthermore, we provide technical validations of our dataset, demonstrating our comprehensive quality control procedures and showcasing CholecInstanceSeg's capability for training instance segmentation models.
 
-CholecInstanceSeg is ideally suited for training models on instance and semantic segmentation for laparoscopic surgeries. Additionally, it can be effectively integrated with other datasets that utilize surgical procedure videos from Cholec80 and CholecT50. These datasets, derived from Cholec80 and CholecT50 share frames with CholecInstanceSeg but are annotated for different tasks, such as phase recognition (Cholec80 \cite{endonet_cis}) instrument action and target detection (CholecT50 \cite{NWOYE2022102433_rendevous_cis}), and Critical View of Safety (CVS) assessment (Cholec80-CVS \cite{rios2023cholec80}).
+CholecInstanceSeg is ideally suited for training models on instance and semantic segmentation for laparoscopic surgeries. Additionally, it can be effectively integrated with other datasets that utilize surgical procedure videos from Cholec80 and CholecT50. These datasets, derived from Cholec80 and CholecT50 share frames with CholecInstanceSeg but are annotated for different tasks, such as phase recognition (Cholec80 \cite{endonet}) instrument action and target detection (CholecT50 \cite{NWOYE2022102433_rendevous}), and Critical View of Safety (CVS) assessment (Cholec80-CVS \cite{rios2023cholec80}).
 
 
 

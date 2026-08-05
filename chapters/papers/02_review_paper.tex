@@ -1,105 +1,14 @@
-
-\documentclass[times,twocolumn,final]{elsarticle}
-
-
-\usepackage{medima}
-\usepackage{framed,multirow}
-
-\usepackage{amssymb}
-\usepackage{amsmath}
-\usepackage{latexsym}
-
-
-\renewcommand{\cite}[1]{\citep{#1}}
-\newcommand{\bluecline}[1]{\arrayrulecolor{blue}\cline{#1}\arrayrulecolor{black}}
-\newcommand{\thickhline}{\Xhline{3.5\arrayrulewidth}}
-
-
-
-
-\usepackage{graphicx}
-\usepackage{caption}
-\usepackage{ltablex}
-\captionsetup[table]{labelfont=bf,position=top,singlelinecheck=false,format=hang}
-\captionsetup[figure]{labelfont=bf,position=bottom,singlelinecheck=false,format=hang}
-\usepackage{multirow}
-\usepackage[table]{xcolor}
-\usepackage{makecell}
-
-\newcommand{\miaojing}[1]{\textcolor{green}{[MS: #1]}} 
-\newcommand{\tom}[1]{\textcolor{blue}{[TV: #1]}}
-\newcommand{\tosin}[1]{\textcolor{magenta}{[TA: #1]}}
-
-
-\newcommand{\figref}[1]{\figurename~\ref{#1}}
-\newcommand{\tabref}[1]{\tablename~\ref{#1}}
-\newcommand{\secref}[1]{Section~\ref{#1}}
-
-\usepackage{ifthen}
-\newboolean{revised}
-\setboolean{revised}{false}
-
-
-\journal{Medical Image Analysis}
-
-\usepackage{hyperref}
-\hypersetup{pdfauthor=author}
-
-\begin{document}
-
-\verso{Oluwatosin Alabi \textit{et~al.}}
-
-\begin{frontmatter}
-
-\title{Multitask Learning in Minimally Invasive Surgical Vision: A Review}
-
-\author[1]{Oluwatosin {Alabi}}
-\author[1]{Tom {Vercauteren}}
-\author[2,3]{Miaojing {Shi}\corref{cor1}}
- \cortext[cor1]{Corresponding author. \ead{mshi@tongji.edu.cn}}
-
-
-\address[1]{School of Biomedical Engineering \& Imaging Sciences, King's College London}
-\address[2]{College of Electronic and Information Engineering, Tongji University}
- \address[3]{Shanghai Institute of Intelligent Science and Technology, Tongji University}
-
-\received{}
-\finalform{}
-\accepted{}
-\availableonline{}
-\communicated{}
-
-
-\begin{abstract}
-Minimally invasive surgery (MIS) has revolutionized many procedures and led to reduced recovery time and risk of patient injury. However, MIS poses additional complexity and burden on surgical teams. Data-driven surgical vision algorithms are thought to be key building blocks in the development of future MIS systems
-with improved autonomy.
-Recent advancements in machine learning and computer vision have led to successful applications in analyzing videos obtained from MIS with the promise of alleviating challenges in MIS videos.
-
-
-Surgical scene and action understanding
-encompasses multiple related tasks that, when solved individually, can be memory-intensive, inefficient, and fail to capture task relationships. Multitask learning (MTL), a learning paradigm that leverages information from multiple related tasks to improve performance and aid generalization, is well-suited for
-fine-grained and high-level understanding of MIS data.
-
-This review provides a narrative overview of the current state-of-the-art MTL systems that leverage videos obtained from MIS.
-Beyond listing published approaches, we discuss the benefits and limitations of these MTL systems. Moreover, this manuscript presents an analysis of the literature for various application fields of MTL in MIS, including those with large models, highlighting notable trends, new directions of research, and developments. 
-
-\end{abstract}
-\begin{keyword}
-\KWD Computer aided intervention \sep Multitask learning \sep Minimally invasive surgeries \sep Scene understanding
-\end{keyword}
-
-
-\end{frontmatter}
-
-
-
-
+% THESIS-INTEGRATED ACCEPTED MANUSCRIPT
+% Authoritative source: phd_papers/sources/Multitask_Learning_in_Minimally_Invasive_Surgical_Vision__A_Review_submitted/main-clean.tex
+% Source commit/version: bc0de77da96993e55888b45058c0dc79b7fc1b38
+% Integration changes: standalone class/preamble/front matter/bibliography omitted; wrapper supplies title/authors/abstract and figure path; citation keys harmonised to ThesisBibliography.bib.
+% Scientific content is otherwise preserved.
 \section{Introduction}  \label{sec::introduction}
 
 Minimally invasive surgeries (MIS)
 have become increasingly popular due to their benefits, such as reduced blood loss, less pain, faster recovery times, and fewer post-surgical complications \citep{jaffray2005minimally}. However, MIS utilizes indirect vision with a limited field of view from the endoscope, making it challenging for surgeons to interpret events on the surgical scene accurately  \citep{real_time_seg_adverserial}. To overcome this, computer-aided intervention techniques that augment the information obtained through minimally invasive cameras have been proposed ~\citep{vecauteren_cai_4_cai,cv_in_surgery}.
 
-Deep learning has demonstrated remarkable success in providing solutions to computer vision tasks for MIS, such as instrument classification \citep{wang2017deep,mishra2017learning,al2018monitoring}, instrument segmentation \citep{garcia2017toolnet,milletari2018cfcm,pakhomov2020searching,islam2019real}, and surgical scene depth estimation \citep{luo2019details,xiao2020depth,wei2022stereo,luo2022unsupervised}. Conventionally, separate models would be trained for these related tasks, which can be computationally impractical and inefficient. Therefore, there is a need for deep learning approaches that leverage information from different tasks to improve both performance and efficiency.
+Deep learning has demonstrated remarkable success in providing solutions to computer vision tasks for MIS, such as instrument classification \citep{wang2017deep,mishra2017learning,al2018monitoring}, instrument segmentation \citep{garcia2017toolnet,milletari2018cfcm,pakhomov2020searching,real_time_seg_adverserial}, and surgical scene depth estimation \citep{luo2019details,xiao2020depth,wei2022stereo,luo2022unsupervised}. Conventionally, separate models would be trained for these related tasks, which can be computationally impractical and inefficient. Therefore, there is a need for deep learning approaches that leverage information from different tasks to improve both performance and efficiency.
 
   
 
@@ -164,7 +73,7 @@ Following the search and selection process, 47 studies were chosen for inclusion
 To the best of our knowledge, our review is the first,  to focus specifically on multitask learning (MTL) techniques within the context of minimally invasive surgeries (MIS).
 While existing reviews, such as \citet{survey_simon} and \citet{zhao2023multi}, provide valuable insights into MTL applications in general computer vision and broader medical imaging, respectively, they do not offer a targeted analysis of the specific challenges and applications of MTL within the MIS domain. 
 
-In comparison to related reviews on deep learning in MIS, such as \citet{rivas2021review} and \citet{demir2023deep}, our work delves deeply into each study that applies MTL within MIS. We highlight the multitask parameter sharing approach and optimization method employed in each work, providing a level of detail not covered by these broader reviews. While \citet{rivas2021review} and \citet{demir2023deep} offer overviews of deep learning applications in MIS, including image analysis and surgical workflow recognition, they do not focus on works that utilize MTL specifically.
+In comparison to related reviews on deep learning in MIS, such as \citet{mis_survey} and \citet{demir2023deep}, our work delves deeply into each study that applies MTL within MIS. We highlight the multitask parameter sharing approach and optimization method employed in each work, providing a level of detail not covered by these broader reviews. While \citet{mis_survey} and \citet{demir2023deep} offer overviews of deep learning applications in MIS, including image analysis and surgical workflow recognition, they do not focus on works that utilize MTL specifically.
 
 \section{Common deep MTL methodologies in computer vision}\label{sec::multitask_learning_natural_images}
 
@@ -296,7 +205,7 @@ The authors derive an upper bound of the loss for the joint probability problem.
 MTL is a learning paradigm that trains a single model to perform multiple tasks simultaneously by sharing information across them, leading to better representations useful for all tasks.
 
 The idea of using information from a different task or different outputs to improve representation is not unique to MTL and shares similarities with other learning paradigms, which can make it challenging to differentiate between them. 
-Related learning paradigms include transfer learning \cite{oquab2014learning},multiview learning \cite{andrew2013deep}, multiloss learning \cite{johnson2016perceptual}, multilabel learning \cite{wang2016cnn}, multiclass learning \cite{krizhevsky2017imagenet}, multistage learning \cite{girshick2015region}, multimodal learning \cite{frome2013devise}.
+Related learning paradigms include transfer learning \cite{oquab2014learning},multiview learning \cite{andrew2013deep}, multiloss learning \cite{johnson2016perceptual}, multilabel learning \cite{wang2016cnn}, multiclass learning \cite{alexnet}, multistage learning \cite{girshick2015region}, multimodal learning \cite{frome2013devise}.
 
 
 A diagrammatic representation of the paradigms discussed in this section can be seen in \figref{fig:mtl_and_other_learning_paradigms}.
@@ -615,7 +524,7 @@ The architectural framework employed is based on a U-Net structure featuring an 
 \end{table*}
 
 
-Building upon the foundation laid by \citet{learning_look_tracking}, the subsequent paper on scanpath prediction with MTL, known as ST-MTL \citep{Islam2020_ST_MTL}, maintains a similar architectural framework. However, the authors assert that the correct prediction of saliency maps requires information from the current frame and insights from previous frames. To address this temporal relationship, they introduce a convolutional Long Short-Term Memory (ConvLSTM) \citep{ConvLSTM} into the saliency prediction decoder.
+Building upon the foundation laid by \citet{learning_look_tracking}, the subsequent paper on scanpath prediction with MTL, known as ST-MTL \citep{Islam2020_ST_MTL}, maintains a similar architectural framework. However, the authors assert that the correct prediction of saliency maps requires information from the current frame and insights from previous frames. To address this temporal relationship, they introduce a convolutional Long Short-Term Memory (ConvLSTM) \citep{convLSTM} into the saliency prediction decoder.
 The utilization of ConvLSTM modules enhances the model's ability to capture temporal dependencies and leverage information from past frames, contributing to more accurate saliency predictions. Moreover, \citet{Islam2020_ST_MTL} incorporate a sequential training method for a spatiotemporal model similar to ATO optimization method developed in \citet{islam2020apmtl}, as discussed in \secref{section::perceptual}.
 
 Scanpath prediction, despite its merits, has several limitations in minimally invasive surgery (MIS). It currently focuses solely on surgical instruments, ignoring critical tissues and organs, which can lead to suboptimal camera movements. The dynamic nature of surgical procedures, with instruments frequently entering and exiting the field of view, poses challenges for scanpath models to adapt quickly. Additionally, the complexity of the surgical environment, involving multiple instruments and varying tissue types, can be oversimplified by saliency prediction. These models also lack contextual awareness, failing to consider the surgeon's intentions or the stage of the operation, which can result in misalignment with the surgeon's preferred view and potential inefficiencies.
@@ -807,7 +716,7 @@ The second subnetwork predicts the tool classes in the image, and similar to the
 The third and fourth subnetworks jointly predict verbs and targets. Finally, the fifth subnetwork serves as both a fine-tuning and masking network, removing impossible triplets. It takes the logits predicted by the previous subnetworks and the current video clip as input to predict fine-tuned triplet logits and perform classification.
 The authors emphasize that they train each subnetwork in different stages, as attempting to address multiple auxiliary tasks simultaneously can lead to task distraction and negative transfer. 
 
-The surgical action triplet task is evolving in complexity. Initially framed as a multilabel multiclassification task for \textlangle{}instrument, verb, target\textrangle{} by \citet{1nywoye_rec_action_triplets, NWOYE2022102433_rendevous}, it now includes bounding box detection and segmentation of instruments \citep{sharma2023surgical} and video-based analysis \citep{1nywoye_rec_action_triplets}. The multilabel multiclassification task and its progression is similar to fields such as human-object interaction \citep{kim2021hotr} and panoptic scene generation \citep{yang2022panoptic} in computer vision, reflecting an increasing emphasis on spatial tasks and comprehensive scene understanding.
+The surgical action triplet task is evolving in complexity. Initially framed as a multilabel multiclassification task for \textlangle{}instrument, verb, target\textrangle{} by \citet{1nywoye_rec_action_triplets,NWOYE2022102433_rendevous}, it now includes bounding box detection and segmentation of instruments \citep{sharma2023surgical} and video-based analysis \citep{1nywoye_rec_action_triplets}. The multilabel multiclassification task and its progression is similar to fields such as human-object interaction \citep{kim2021hotr} and panoptic scene generation \citep{yang2022panoptic} in computer vision, reflecting an increasing emphasis on spatial tasks and comprehensive scene understanding.
 
 
 \subsubsection{Multi-granularity activity detection}
@@ -1019,7 +928,7 @@ Recognizing the challenge of model generalization to target domains and the need
 The surgical reporting task is still in its early stages. While the EndoVis2018-with-interactions dataset, which incorporates sentence templates and classification questions, has been useful, it may not fully capture the complexity of natural language used in real-world surgical reports. Consequently, the relevance of captioning metrics and tasks based on this dataset can be questioned. Developing a dataset based on actual surgical reports generated by surgeons in day-to-day procedures would likely provide more valuable insights and improve the robustness of surgical report generation systems.
 
 \subsection{Large models for solving multiple tasks}
-Large models pretrained on extensive datasets, such as GPT-2 \cite{radford2021learning} and SAM \cite{kirillov2023segment}, have demonstrated remarkable generalization capabilities. They exhibit emergent properties, such as the ability to solve multiple tasks by utilizing task-promptable engineering \cite{radford2019language, kirillov2023segment}. Task-promptable engineering allows these models to adapt to various tasks based on given prompts, making them highly versatile and generalizable backbones capable of zero-shot learning or fine-tuning for different downstream applications \cite{su2024stem}. In the current literature, large models exhibit this capability of solving multiple tasks in surgical scene understanding, with fields such as task-promptable segmentation, and visual question answering being explored.
+Large models pretrained on extensive datasets, such as GPT-2 \cite{radford2021learning} and SAM \cite{kirillov2023segment}, have demonstrated remarkable generalization capabilities. They exhibit emergent properties, such as the ability to solve multiple tasks by utilizing task-promptable engineering \cite{radford2019language,kirillov2023segment}. Task-promptable engineering allows these models to adapt to various tasks based on given prompts, making them highly versatile and generalizable backbones capable of zero-shot learning or fine-tuning for different downstream applications \cite{su2024stem}. In the current literature, large models exhibit this capability of solving multiple tasks in surgical scene understanding, with fields such as task-promptable segmentation, and visual question answering being explored.
 
 \tabref{large_models:table} summarizes the papers discussed in this subsection, highlighting the multiple tasks addressed, the optimization approaches adopted, the architectural strategies used for multitask learning, and the reported speeds for each study.
 
@@ -1651,7 +1560,7 @@ Another noteworthy point is that only a few works among the reviewed surgical vi
 \subsection{Multitask learning for automatic camera control}
 The discussion on automatic camera control in the context of MIS raises some interesting points. While the scanpath prediction task has been a significant development, it may not provide a comprehensive solution for automating camera movements in these surgeries. The approach of focusing primarily on surgical instruments \citep{learning_look_tracking,Islam2020_ST_MTL}, while valuable, may overlook the importance of capturing the surgical field comprehensively, including tissues and organs. Surgical procedures often involve dynamic movements where instruments enter and exit the field of view, and the camera's focus may need to adapt to these changes, as detailed by \citet{prostatectomy_video}. This highlights the complexity of the task, where understanding the surgical context and deciding what to focus on is crucial.
 
-An emerging approach to automating camera control is camera imitation and surgical intent learning \citep{10.1007/978-3-031-43996-4_21,9772402}. While this field is still relatively new, and there are only a handful of papers exploring it, it holds promise for improving camera control in minimally invasive surgeries. The release of datasets like AutoLaparo is expected to drive more interest and research in this area. Incorporating MTL into camera control, where tasks include predicting future segmentation and motion for the camera, is great. The future development of this field may involve adding more tasks, such as predicting ongoing and future actions, surgical steps and phases, to provide a holistic solution for camera control.
+An emerging approach to automating camera control is camera imitation and surgical intent learning \citep{10.1007/978-3-031-43996-4_21,multi_fov}. While this field is still relatively new, and there are only a handful of papers exploring it, it holds promise for improving camera control in minimally invasive surgeries. The release of datasets like AutoLaparo is expected to drive more interest and research in this area. Incorporating MTL into camera control, where tasks include predicting future segmentation and motion for the camera, is great. The future development of this field may involve adding more tasks, such as predicting ongoing and future actions, surgical steps and phases, to provide a holistic solution for camera control.
 
 
 As the field of automatic camera control in MIS matures, it will be fascinating to see how researchers tackle the challenges of understanding and target domain generalization of surgical scenes to enhance camera movements and, ultimately, improve the surgical experience and outcomes.
@@ -1763,11 +1672,3 @@ The authors declare that they have no other conflict of interest.
 TV is supported by a Medtronic / RAEng Research Chair [RCSRF1819$\backslash$7$\backslash$34].
 
 \paragraph{Open Access} For the purpose of open access, the authors have applied a CC BY public copyright licence to any Author Accepted Manuscript version arising from this submission.
-
-
-\bibliographystyle{model2-names.bst}\biboptions{authoryear}
-\bibliography{refs}
-
-
-
-\end{document}

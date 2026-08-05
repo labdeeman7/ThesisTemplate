@@ -36,7 +36,7 @@ The chapter makes four contributions. First, it defines triplet segmentation as 
 \section{From Frame-Level Triplets to Instance-Level Grounding}
 \label{sec:triplet-grounding-from-frame}
 
-Triplet recognition was introduced to model fine-grained instrument-tissue interactions in laparoscopic video \cite{nwoye2020recognition,nwoye2022rendezvous}. In this formulation, an image may contain multiple valid triplets, and the model predicts which triplets are present. While this is a powerful representation, frame-level recognition has a structural limitation: it does not indicate which instrument performs which action.
+Triplet recognition was introduced to model fine-grained instrument-tissue interactions in laparoscopic video \cite{1nywoye_rec_action_triplets,NWOYE2022102433_rendevous}. In this formulation, an image may contain multiple valid triplets, and the model predicts which triplets are present. While this is a powerful representation, frame-level recognition has a structural limitation: it does not indicate which instrument performs which action.
 
 This limitation becomes important in multi-instrument scenes. If two graspers are visible and the frame-level labels include \triplet{Grasper}{Retract}{Liver} and \triplet{Grasper}{Grasp}{Gallbladder}, the labels alone do not say which grasper corresponds to which interaction. A model can therefore achieve a correct frame-level prediction while still failing to provide a clinically or visually meaningful explanation of the scene.
 
@@ -53,7 +53,7 @@ Here \(I_k\), \(v_k\), and \(t_k\) denote the instrument, verb, and target for i
 \section{CholecTriplet-Seg}
 \label{sec:triplet-grounding-dataset}
 
-CholecTriplet-Seg was constructed by aligning frame-level triplet annotations from CholecT50 \cite{nwoye2022rendezvous} with instrument instance masks from CholecInstanceSeg \cite{alabi2025cholecinstanceseg}. The resulting dataset contains 30,955 frames from 50 laparoscopic cholecystectomy videos, with 49,866 spatially grounded triplets.
+CholecTriplet-Seg was constructed by aligning frame-level triplet annotations from CholecT50 \cite{NWOYE2022102433_rendevous} with instrument instance masks from CholecInstanceSeg \cite{cholecinstanceseg}. The resulting dataset contains 30,955 frames from 50 laparoscopic cholecystectomy videos, with 49,866 spatially grounded triplets.
 
 \begin{table}[ht]
 \centering
@@ -61,8 +61,8 @@ CholecTriplet-Seg was constructed by aligning frame-level triplet annotations fr
 \hline
 \textbf{Dataset} & \textbf{Videos} & \textbf{Annotation type} & \textbf{Frames} \\
 \hline
-CholecT50 \cite{nwoye2022rendezvous} & 50 & Frame-level triplet labels & 100,861 \\
-CholecInstanceSeg \cite{alabi2025cholecinstanceseg} & 85 & Instrument instance masks & 41,933 \\
+CholecT50 \cite{NWOYE2022102433_rendevous} & 50 & Frame-level triplet labels & 100,861 \\
+CholecInstanceSeg \cite{cholecinstanceseg} & 85 & Instrument instance masks & 41,933 \\
 CholecTriplet-Seg & 50 & Triplet + instance masks & 30,955 \\
 \hline
 \end{tabular}
@@ -151,7 +151,7 @@ Metrics are reported for individual components (\(\tripmap_I\), \(\tripmap_V\), 
 
 The main modelling challenge in triplet segmentation is target prediction. Instrument classes are visually distinctive and are directly tied to the mask. Verbs can often be inferred from tool pose and local motion cues, although this chapter uses single frames. Anatomical targets are harder: they may have weak boundaries, similar appearance, partial visibility, and ambiguous definitions. Pixel-level target annotations for the CholecTriplet-Seg target vocabulary are unavailable, and producing them would require extensive expert labelling.
 
-TargetFusionNet addresses this bottleneck by incorporating weak anatomical priors into an instance segmentation architecture. The model builds on Mask2Former \cite{cheng2022masked}, using transformer queries to predict masks and labels. It augments the decoder with a target-aware fusion mechanism that injects coarse anatomical information derived from EndoViT \cite{batic2024endovit}, a tissue segmentation model trained on CholecSeg8k \cite{hong2020cholecseg8k}.
+TargetFusionNet addresses this bottleneck by incorporating weak anatomical priors into an instance segmentation architecture. The model builds on Mask2Former \cite{cheng2022masked}, using transformer queries to predict masks and labels. It augments the decoder with a target-aware fusion mechanism that injects coarse anatomical information derived from EndoViT \cite{batic2024endovit}, a tissue segmentation model trained on CholecSeg8k \cite{cholecseg8k}.
 
 \begin{figure}[ht]
 \centering
@@ -193,7 +193,7 @@ TargetFusionNet was evaluated against three baselines:
 \item \textbf{Mask2Former-Triplet}: a strong instance-level baseline that extends Mask2Former with a 100-class triplet head but does not include the target-aware fusion module.
 \end{itemize}
 
-TargetFusionNet was implemented in MMDetection \cite{mmdetection} with a ResNet-50 \cite{he2016deep} backbone pretrained for instrument segmentation. Images were resized to \(1024 \times 1024\), and training used AdamW \cite{loshchilov2017decoupled} with random horizontal flipping, cropping, and scaling. Experiments were performed on a single NVIDIA A100 GPU, and the best checkpoint was selected using validation mask mAP.
+TargetFusionNet was implemented in MMDetection \cite{mmdetection} with a ResNet-50 \cite{resnet} backbone pretrained for instrument segmentation. Images were resized to \(1024 \times 1024\), and training used AdamW \cite{loshchilov2017decoupled} with random horizontal flipping, cropping, and scaling. Experiments were performed on a single NVIDIA A100 GPU, and the best checkpoint was selected using validation mask mAP.
 
 \section{Results}
 \label{sec:triplet-grounding-results}

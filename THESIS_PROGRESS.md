@@ -18,6 +18,13 @@ This file records the working state of the thesis. It should be updated whenever
 - Verified the reconstructed review chapter with an isolated LaTeX pass; the complete thesis reached 123 pages and all review figures were found.
 - Repaired the bibliography data required for a complete thesis build: removed an unused malformed abstract, replaced invalid pseudo-comments, expanded undefined bibliography macros, corrected citation-key case mismatches, and namespaced duplicate manuscript entries without discarding them.
 - Verified a complete converged `latexmk`/Biber/LaTeX build in an external temporary directory. The resulting thesis is 153 pages with no undefined citations, undefined references, LaTeX errors, or fatal Biber errors.
+- Migrated the thesis to a single authoritative `ThesisBibliography.bib`, containing 317 canonical records consolidated from 377 source records without aliases or chapter-specific key suffixes.
+- Recorded bibliography provenance, duplicate-key resolution, metadata differences, and canonical-record decisions in `THESIS_BIBLIOGRAPHY_PROVENANCE.md`.
+- Restored the accepted-paper source directories and their local bibliographies to their archival source versions, preserving their independent compilation structure.
+- Created a thesis-only accepted-review source at `chapters/papers/02_review_paper.tex` and documented all integration and citation-key substitutions in `chapters/papers/README.md`.
+- Verified the consolidated thesis build to convergence: 152 pages, zero undefined citations, zero undefined references, zero duplicate bibliography keys, and no Biber warnings or errors.
+- Verified accepted-review fidelity: 59 sections, 16 figures, 11 tables, 8 equation environments, and 413 citation commands are preserved; after the five documented key substitutions, the accepted body and thesis-integrated body match exactly.
+- Built the accepted literature-review and CholecInstanceSeg projects independently. TargetFusionNet remains independently structured but its build is blocked locally by the missing MiKTeX package `cuted.sty`, not by bibliography changes.
 
 ## Current Task
 
@@ -30,8 +37,8 @@ This file records the working state of the thesis. It should be updated whenever
 - Chapter 6 is a drafting scaffold and requires substantial writing.
 - `Acknowledgments.tex` is nearly empty and the impact statement in `Thesis.tex` is placeholder text.
 - `Publications.tex` still describes the obsolete Qwen-era manuscript.
-- The Two Stage bibliography is not yet connected to the thesis build.
-- Biber still reports 12 non-fatal legacy `month` formatting warnings inherited from the review bibliography. These do not prevent a converged build and are outside the current minimal repair scope.
+- The Two Stage references are present in the canonical bibliography, but its manuscript is not yet integrated as Chapter 5.
+- TargetFusionNet standalone compilation requires the missing local MiKTeX package `cuted.sty`.
 - The converged build retains inherited layout/template warnings, including overfull and underfull boxes, PDF-version inclusion notices, one obsolete display-math warning, and the template's `\theauthor` redefinition warning.
 - Root-level `Introduction.tex`, `Methods.tex`, and `Conclusion.tex` are not included by the current thesis and require classification before any archival decision.
 - The working tree contains a pre-existing modification to `Thesis.pdf`; this must not be overwritten or included accidentally in unrelated commits.
@@ -46,6 +53,8 @@ This file records the working state of the thesis. It should be updated whenever
 - Existing LaTeX style, labels, citations, references, figure numbering, and table numbering will be preserved unless a change is necessary.
 - Work will be divided into small logical milestones with descriptive commits.
 - The accepted LaTeX manuscript source is authoritative for each published paper chapter when it differs from the publisher-formatted version.
+- The thesis loads only `ThesisBibliography.bib`; each publication has one canonical record and key, without BibLaTeX `ids` aliases or chapter-specific suffixes.
+- Citation-key differences are harmonised only in thesis-specific chapter sources. Accepted-paper source directories retain their original keys and local bibliography files.
 
 ## Questions Requiring Input
 

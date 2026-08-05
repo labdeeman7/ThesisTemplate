@@ -54,7 +54,7 @@ We provide an in-depth technical validation of the CholecInstanceSeg dataset, de
 \subsection*{Training and Evaluation of Baseline Models}
 
 \subsubsection*{Models}
-To validate the usability of the CholecInstanceSeg dataset, two baseline instance segmentation models, The Mask R-CNN \cite{he2017mask_cis} and the Mask2Former \cite{cheng2021mask2former} were trained. Since the objective was to establish benchmark performance metrics that future researchers can use for comparison, we decided to utilize more generalizable baseline models instead of optimized tool-specific models like \cite{baby2023forks_cis,zhou2023text_cis}. These models were trained using the training split of CholecInstanceSeg with each model's default hyperparameters. 
+To validate the usability of the CholecInstanceSeg dataset, two baseline instance segmentation models, The Mask R-CNN \cite{he2017mask} and the Mask2Former \cite{cheng2021mask2former} were trained. Since the objective was to establish benchmark performance metrics that future researchers can use for comparison, we decided to utilize more generalizable baseline models instead of optimized tool-specific models like \cite{baby2023forks,zhou2023text}. These models were trained using the training split of CholecInstanceSeg with each model's default hyperparameters. 
 
 \subsubsection*{Recommended Data Splits}
 To facilitate effective training, validation, and testing of neural networks for instance segmentation, we divide CholecInstanceSeg into standard training, validation, and testing subsets. This division considers the partitions and shared sequences within the dataset.
@@ -152,7 +152,7 @@ The performance results, presented in \revnew{\tabref{tab:baseline_models_map} a
     \begin{tabular}{l|ccccccc|c}
     \hline
         Method & GR & HO & IR & CL & BI & SC &  SN & mAP  \\ \hline
-        Mask-RCNN \cite{he2017mask_cis} & 37.25 & 61.84  & 43.04 & 58.73 & 28.42 & 20.91 & - & 41.70  \\
+        Mask-RCNN \cite{he2017mask} & 37.25 & 61.84  & 43.04 & 58.73 & 28.42 & 20.91 & - & 41.70  \\
         Mask2former \cite{cheng2021mask2former} & 61.10  & 82.16 & 68.38 & 81.30 & 48.02 & 27.89 & - & 61.47  \\
      \hline
     \end{tabular}
