@@ -1,0 +1,24 @@
+\revnew{%
+\section*{Data Records}
+The CholecInstanceSeg dataset \cite{cholecinstanceseg} is publicly available. Cholec80 and CholecT50 video frames used to generate the dataset can be obtained from the CAMMA research group website(\href{http://camma.u-strasbg.fr/datasets}{http://camma.u-strasbg.fr/datasets}). CholecSeg8k can be obtained at (\href{https://www.kaggle.com/datasets/newslab/cholecseg8k}{https://www.kaggle.com/datasets/newslab/cholecseg8k}).
+%}
+
+
+
+%\saynew{
+The dataset is provided as a single archive, $CholecInstanceSeg.zip$, which contains the instance segmentation annotation files in $cholecinstanceseg.zip$ and a metadata file $cholecinstanceseg\_metadata.csv$ that provides metadata information about each annotation file and can be used to link each file to its source dataset. The annotation files are structured into two main directories: train and val, each containing individual video sequence folders. Each sequence folder includes an $ann\_dir$ subdirectory that stores instance segmentation annotations in JSON format. The test directory is withheld for benchmarking purposes and potential competition use, but it is available upon request.
+%
+A schematic representation of the dataset folder structure and a sample JSON annotation file are shown in \figref{fig:file_format}
+%}
+
+%\saynew{
+Annotations are formatted following the LabelMe convention. Each shape is listed under the $shapes$ key, with a $label$ field specifying the instrument class, $points$ containing the (x, y) coordinates of the polygon defining the object’s boundary, $group\_id$ indicating the instance ID, $image\_Height$ for the height of image annotated and $image\_Width$ for its width.
+}
+
+\begin{figure}[ht]
+  \centering
+   \includegraphics[width=\linewidth]{imgs/file_folder_structure_and_annotation_format.pdf}
+   \caption{\revmod{(a) Dataset directory structure for CholecInstanceSeg. Each split (e.g. train) contains subdirectories for each sequence, with \revdel{subdirectories for images ($img\_dir$) and} further subdirectories for annotations ($ann\_dir$). (b) Sample JSON annotation file showing the structure of the annotation data, including class labels ("$label$"), polygon information ("$points$")  and instance IDs ("$group\_id$").}}
+   \label{fig:file_format}
+\end{figure}
+

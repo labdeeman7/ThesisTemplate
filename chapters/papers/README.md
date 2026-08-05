@@ -18,14 +18,19 @@ These files adapt accepted manuscripts for the thesis while preserving the origi
 
 ## CholecInstanceSeg
 
-- **Thesis chapter:** `chapters/03_cholecinstanceseg.tex`
+- **Thesis wrapper:** `chapters/03_cholecinstanceseg.tex`
+- **Integrated manuscript components:** `chapters/papers/cholecinstanceseg/`
 - **Authoritative accepted source:** `phd_papers/sources/Scientific_data_cholecInstance_seg/`
 - **Source commit/version:** `bc0de77da96993e55888b45058c0dc79b7fc1b38`
-- **Integration changes in the current thesis chapter:** thesis-compatible chapter structure and figure paths; canonical citation keys harmonised. The archival accepted-paper project is unchanged from the source version.
-- **Scientific-content changes in this migration:** none.
+- **Integration changes:** standalone `wlscirep` class/preamble, publisher author/affiliation commands, `\maketitle`, standalone document boundaries, and standalone bibliography command omitted; wrapper supplies thesis chapter context, accepted-paper title/authors, final-revision macros, and figure path. The accepted component files are copied into the thesis integration layer. The abstract environment is represented as an unnumbered thesis subsection. Canonical citation keys are harmonised only in these copied files.
+- **Preserved manuscript material:** abstract; Background & Summary; Methods; Data Records; Technical Validation; Code Availability; Acknowledgements; Author Contributions; Competing Interests; all seven active figures, four active tables, three displayed equations, and 41 citation commands.
+- **Supplementary material:** none incorporated. The accepted source contains no appendix or active supplementary file; its revision response records that the earlier annotation-guide supplement was removed from the manuscript.
+- **Intentional omissions:** publisher class/front matter and standalone bibliography machinery; commented-out draft figures/tables; `usage_notes.tex`, whose heading and complete contents are wrapped in the accepted manuscript's deletion macro and therefore absent from the final accepted text.
+- **Scientific-content changes:** none.
 - **Canonical citation-key substitutions:**
   - `endovis2015` to `bodenstedt2018comparative`
   - `cheng2021mask2former` to `cheng2022masked`
+  - `endonet` to `EndoNet`
 
 ## TargetFusionNet
 

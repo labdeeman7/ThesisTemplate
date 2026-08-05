@@ -25,14 +25,20 @@ This file records the working state of the thesis. It should be updated whenever
 - Verified the consolidated thesis build to convergence: 152 pages, zero undefined citations, zero undefined references, zero duplicate bibliography keys, and no Biber warnings or errors.
 - Verified accepted-review fidelity: 59 sections, 16 figures, 11 tables, 8 equation environments, and 413 citation commands are preserved; after the five documented key substitutions, the accepted body and thesis-integrated body match exactly.
 - Built the accepted literature-review and CholecInstanceSeg projects independently. TargetFusionNet remains independently structured but its build is blocked locally by the missing MiKTeX package `cuted.sty`, not by bibliography changes.
+- Reviewed the completed Chapter 2 integration. Its accepted body remains an exact match after documented citation-key substitutions, and its thesis introduction and transition correctly establish the thesis narrative without rewriting the paper.
+- Adopted a reusable paper-integration standard: a concise thesis wrapper plus copied manuscript components under `chapters/papers/<paper>/`, explicit source-version and exclusion records, thesis-only canonical-key substitutions, and an archived copy of any superseded adapted chapter.
+- Recorded deferred Chapter 2 and Chapter 3 float, wide-table, page-break, and inherited display-math observations in `LAYOUT_TODO.md`; no formatting changes were made during the scientific-content integration.
+- Reconstructed Chapter 3 from the authoritative accepted CholecInstanceSeg manuscript. The integrated copy preserves 5 substantive manuscript sections, 8 subsections, 21 subsubsections, 7 active figures, 4 active tables, 3 displayed equations, and 41 citation commands, plus the abstract and manuscript end matter.
+- Archived the superseded adapted Chapter 3 at `archive/chapters/03_cholecinstanceseg_adapted_2026-08-05.tex`.
+- Verified the complete Chapter 3 thesis build to convergence at 165 pages with zero undefined citations, zero undefined references, zero duplicate bibliography keys, and no LaTeX or Biber errors.
 
 ## Current Task
 
-- Reconstruct Chapter 3 around the accepted CholecInstanceSeg manuscript while preserving the current adapted chapter in `archive/`.
+- Chapter 3 reconstruction is complete and awaiting review. Chapter 4 has not been started in this milestone.
 
 ## Outstanding Issues
 
-- Chapters 2--4 are currently adapted or condensed versions of the published papers rather than the required structure of chapter introduction, essentially unchanged paper, and chapter summary/transition.
+- Chapter 4 is currently an adapted or condensed version of the published paper rather than the required structure of chapter introduction, essentially unchanged paper, and chapter summary/transition.
 - Chapter 5 is an obsolete Qwen-based scaffold and must be replaced by the Two Stage Surgical Triplet Segmentation chapter.
 - Chapter 6 is a drafting scaffold and requires substantial writing.
 - `Acknowledgments.tex` is nearly empty and the impact statement in `Thesis.tex` is placeholder text.
