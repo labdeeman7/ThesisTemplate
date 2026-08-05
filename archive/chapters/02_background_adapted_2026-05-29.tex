@@ -1,0 +1,129 @@
+% Archived on 2026-08-05 before restoring the accepted manuscript source.
+% This thesis-oriented adaptation is retained for reference and is no longer compiled.
+\chapter{Background and Literature Review}
+\chaptermark{Background}
+\label{chap:background}
+\minitoc
+
+\begin{center}
+\begin{minipage}[b]{0.9\linewidth}
+\small
+\textbf{Chapter note.}
+This chapter draws on the survey paper \emph{Multitask Learning in Minimally Invasive Surgical Vision: A Review}. The aim here is not to reproduce the survey in full, but to use it as a foundation for the thesis: surgical scene understanding, action triplets, spatial grounding, multitask learning, datasets, and large models.
+\end{minipage}
+\end{center}
+
+\section{Surgical Scene Understanding}
+\label{sec:background-scene-understanding}
+
+Minimally invasive surgery (MIS) has become widely adopted because it can reduce blood loss, post-operative pain, recovery time, and surgical complications when compared with open surgery \cite{jaffray2005minimally}. However, the same operating style that makes MIS less invasive also makes visual interpretation more difficult. The surgeon sees the operative field through a laparoscope or endoscope, with a restricted field of view, indirect camera motion, changing illumination, smoke, blood, specular reflection, soft-tissue deformation, and frequent occlusions.
+
+Surgical scene understanding refers to computational methods that infer clinically meaningful information from this visual stream. The field includes low-level and mid-level perceptual tasks such as instrument detection, instrument segmentation, tissue segmentation, depth estimation, motion estimation, and tracking. It also includes higher-level semantic tasks such as phase recognition, action recognition, action triplet recognition, skill assessment, report generation, and visual question answering. These tasks are not independent: recognising an action often depends on identifying the instrument, localising it, understanding its relation to tissue, and interpreting its temporal context.
+
+\begin{figure}[ht]
+\centering
+\includegraphics[width=\linewidth]{figs/background/applications_of_mtl_in_scene_tree_diagram.pdf}
+\caption{Application areas in surgical scene understanding covered by the review paper. The categories include perceptual tasks, tracking and control, workflow analysis, anticipation, skill assessment, report generation, and large models.}
+\label{fig:background-scene-understanding-map}
+\end{figure}
+
+The literature can be viewed as moving along a hierarchy. At the perceptual level, models extract spatial information from the image. Instrument detection and segmentation locate tools; depth and motion estimation provide geometric cues; tissue segmentation estimates anatomical regions. At the workflow level, models infer progress through the operation, for example by recognising phases, steps, gestures, or activities. At the interaction level, models attempt to describe what is happening between instruments and tissue. This final level is the focus of this thesis.
+
+\section{Perceptual Foundations: Detection, Segmentation, and Tracking}
+\label{sec:background-perceptual}
+
+Instrument detection and segmentation are foundational because instruments are the most visually salient agents in many laparoscopic scenes. Detection methods localise instruments with bounding boxes, while segmentation methods provide pixel-level support. Semantic segmentation assigns a class to each tool pixel but does not distinguish between multiple tools of the same class. Instance segmentation, by contrast, separates individual instruments and is therefore better suited for interaction understanding.
+
+Early work in surgical instrument segmentation often focused on binary or semantic segmentation, sometimes in porcine or ex-vivo settings. These datasets and methods were valuable for establishing the feasibility of surgical tool localisation, but they were not sufficient for scenes in which multiple instruments of the same type appear simultaneously. This limitation becomes especially important when the goal is to determine which instrument is performing which action.
+
+Tracking and control methods build on detection and segmentation by estimating motion, pose, or saliency over time. Such methods are relevant to automatic camera control and robotic assistance, where the system must decide what part of the scene should remain visible. They also highlight a broader theme: surgical understanding is not only a matter of recognising categories, but of maintaining spatial and temporal consistency.
+
+\section{Workflow Analysis and Activity Recognition}
+\label{sec:background-workflow}
+
+Surgical workflow analysis studies the temporal structure of operations. Phase recognition has been a central benchmark task, especially in laparoscopic cholecystectomy, where procedures can be decomposed into clinically meaningful stages. Models such as EndoNet helped popularise joint instrument and phase recognition, showing that instrument presence provides useful context for understanding surgical progress \cite{endonet}.
+
+Phase recognition, however, is coarse. It tells us where we are in the operation, but not what specific interaction is occurring in a frame. More fine-grained activity representations include steps, gestures, actions, and instrument-tissue interactions. These representations are closer to the level at which surgical safety and assistance become meaningful. For example, a system that recognises only that the surgery is in a dissection phase may be less useful than one that recognises which instrument is dissecting which anatomical structure.
+
+This progression from phase recognition to fine-grained activity recognition was one of the important patterns identified during the review. The field was moving from global descriptors of the procedure towards local descriptions of surgical activity. That observation helped motivate the later focus of this thesis: if surgical activity is represented through instrument-tissue interactions, then those interactions should ideally be spatially grounded in the image.
+
+\section{Surgical Action Triplets}
+\label{sec:background-triplets}
+
+Surgical action triplets formalise instrument-tissue interaction as a tuple consisting of an instrument, a verb, and an anatomical target. A triplet such as \texttt{<Grasper, Retract, Gallbladder>} describes which instrument is acting, what it is doing, and what structure it is acting upon. This representation is more informative than instrument presence or phase recognition because it captures the relational structure of the surgical scene.
+
+Triplet recognition was developed through the CholecT series of datasets. CholecT50 is the most established benchmark, containing 50 laparoscopic cholecystectomy procedures annotated with action triplets \cite{NWOYE2022102433_rendevous}. It extends earlier CholecT datasets and provides a standard evaluation protocol for component-level and triplet-level average precision. Metrics are typically reported for instruments, verbs, targets, instrument-verb pairs, instrument-target pairs, and full instrument-verb-target triplets.
+
+\begin{figure}[ht]
+\centering
+\includegraphics[width=\linewidth]{figs/background/triplet_diagram.pdf}
+\caption{Progression of the surgical action triplet task from frame-level triplet recognition towards spatially localised triplet detection. This thesis extends that trajectory towards instance-mask-based triplet grounding.}
+\label{fig:background-triplet-diagram}
+\end{figure}
+
+TripNet introduced one of the early deep learning approaches to surgical action triplet recognition \cite{1nywoye_rec_action_triplets}. It treated triplet prediction as a structured multilabel problem, with instrument, verb, and target components connected through a valid triplet space. Rendezvous later introduced a more advanced attention-based architecture for triplet recognition, using interacting branches to model instrument, verb, and target relationships \cite{NWOYE2022102433_rendevous}. Subsequent work explored temporal attention, self-distillation, disentangled classification, and related strategies for improving triplet recognition.
+
+Despite this progress, the dominant formulation remained frame-level recognition. A model could predict that a triplet was present in an image without identifying which visible instrument instance performed that action. This limitation is not just a technical detail. In multi-instrument scenes, especially when multiple instruments share the same class, frame-level labels create a data association problem. The interaction is known at the image level but not grounded to a specific actor.
+
+\section{Surgical Grounding}
+\label{sec:background-grounding}
+
+Grounding refers to linking a semantic prediction to its spatial evidence in the image. In surgical action understanding, grounding asks not only whether a triplet is present, but where it occurs and which instrument instance is responsible for it. This is essential for interpretability: a grounded prediction can be inspected, corrected, and related to surgical anatomy.
+
+Early grounding in triplet recognition relied on weak spatial cues such as class activation maps (CAMs). CAMs can indicate discriminative image regions for a class, but they do not provide precise instance localisation. They are especially limited for laparoscopic instruments, which are long, thin, partially occluded, and often visually entangled with tissue. Bounding-box triplet detection improved the spatial formulation by requiring localisation, but bounding boxes remain coarse for non-axis-aligned instruments.
+
+The review highlighted a gap between the maturity of action triplet recognition and the availability of instance-level tool annotations. At the time the triplet literature was developing, few public surgical datasets provided large-scale instrument instance segmentation in routine human laparoscopic surgery. This made it difficult to study strongly supervised, pixel-level grounding of triplets. The thesis work in \Chapref{chap:cholecinstanceseg} and \Chapref{chap:triplet-grounding} responds directly to this gap: first by creating the instance segmentation substrate, then by using it to ground triplet predictions.
+
+\section{Multitask Learning as a Lens}
+\label{sec:background-mtl}
+
+Multitask learning (MTL) is relevant to this thesis because surgical scene understanding naturally decomposes into related tasks. Instrument recognition, segmentation, phase recognition, action recognition, target prediction, and interaction modelling are not independent problems. They describe different aspects of the same surgical scene. Learning them jointly can improve efficiency, share useful representations, and expose relationships between tasks.
+
+The review found that MTL has been applied across many MIS settings, including perceptual tasks, tracking and control, workflow analysis, anticipation, skill assessment, report generation, and large-model prompting. However, for the purposes of this thesis, the key point is narrower: MTL provides a conceptual language for thinking about how different supervision signals interact. Surgical action triplets are inherently multitask-like because their components are coupled. Instrument, verb, and target prediction can be separated for analysis, but a clinically meaningful interaction requires the three to be predicted coherently.
+
+\begin{figure}[ht]
+\centering
+\includegraphics[width=0.85\linewidth]{figs/background/hard_parameter_and_soft_parameter_sharing.pdf}
+\caption{Common parameter-sharing strategies in multitask learning. In surgical scene understanding, hard parameter sharing with a shared encoder and task-specific heads has been especially common.}
+\label{fig:background-mtl-sharing}
+\end{figure}
+
+In general computer vision, MTL has explored hard parameter sharing, soft parameter sharing, task balancing, auxiliary objectives, and data-efficient learning. In MIS, however, the review found that many methods rely on relatively simple hard-parameter-sharing architectures and linear combinations of task losses. More advanced task-balancing or optimisation methods are less common. This matters because surgical tasks can interfere with one another: improving one component may not improve the full interaction, and a model that predicts instruments and targets well separately may still fail to produce coherent triplets.
+
+For this thesis, MTL is therefore not the main subject, but a useful diagnostic lens. It helps explain why interaction understanding is difficult: the model must coordinate multiple related predictions under limited and imbalanced supervision. This perspective reappears in \Chapref{chap:triplet-grounding}, where a 100-class triplet formulation is compared with decomposed multitask alternatives.
+
+\section{Datasets for Surgical Scene Understanding}
+\label{sec:background-datasets}
+
+Progress in surgical scene understanding is closely tied to dataset availability. Cholec80 enabled large-scale work on phase recognition and tool presence. CholecT50 enabled action triplet recognition. CholecSeg8k provided semantic segmentation labels for selected cholecystectomy frames. Other datasets support tasks such as workflow analysis, surgical skill assessment, VQA, and multi-granularity activity recognition.
+
+However, the review also made clear that datasets are often fragmented by task. A dataset may provide phase labels without pixel-level tool masks, or segmentation labels without action triplets, or triplets without instance-level grounding. This fragmentation limits the kinds of questions that can be studied. For example, CholecT50 supports triplet recognition, but its triplets are frame-level. CholecSeg8k supports semantic segmentation, but it does not provide instance segmentation for the full range of tools. The absence of aligned annotations across tasks makes it difficult to train models that connect perception, action, and anatomy.
+
+This dataset gap is central to the thesis. \Chapref{chap:cholecinstanceseg} constructs a large-scale instance segmentation dataset by building on Cholec80, CholecT50, and CholecSeg8k. \Chapref{chap:triplet-grounding} then aligns instrument instances with CholecT50 triplets to create CholecTriplet-Seg. In this way, the thesis follows a data-first strategy: before a model can reason about grounded interactions, the relevant visual entities must be annotated and linked.
+
+\section{Vision-Language Models and Large Models in Surgery}
+\label{sec:background-vlms}
+
+The review also identified the growing role of large models in surgical scene understanding. Large pretrained models such as language models, vision-language models, and promptable segmentation models are attractive because they can support multiple tasks through prompting or adaptation. In surgery, this has led to work on surgical visual question answering, report generation, promptable segmentation, and general-purpose surgical assistants.
+
+Surgical VQA systems attempt to answer natural-language questions about images or videos, including questions about instruments, tissues, actions, and scene context. Promptable segmentation methods attempt to adapt large segmentation or vision-language models to surgical instruments and tissues. These approaches are still limited by domain shift, data scarcity, real-time deployment constraints, and the need for clinically reliable outputs. Nevertheless, they suggest an important direction: some surgical understanding tasks may require models that can combine perception with explicit reasoning.
+
+\begin{figure}[ht]
+\centering
+\includegraphics[width=0.9\linewidth]{figs/background/global_reasoned_multi_task.pdf}
+\caption{Example of a large-model-style formulation for surgical scene understanding, where a model is prompted to solve multiple related tasks. Such models motivate the later question of whether target prediction can benefit from explicit reasoning.}
+\label{fig:background-large-models}
+\end{figure}
+
+This observation becomes important in \Chapref{chap:target-reasoning}. The target component of surgical action triplets is often the weakest part of triplet prediction. Unlike instruments, anatomical targets may not have clear boundaries. Unlike verbs, they may not be inferable from tool pose alone. Human observers often rely on anatomical context, procedural intent, and ambiguity resolution. Vision-language models offer a way to test whether explicit reasoning over such context can improve target prediction.
+
+\section{Thesis Positioning}
+\label{sec:background-positioning}
+
+The literature reviewed in this chapter suggests a clear trajectory. Surgical scene understanding has progressed from tool presence and phase recognition towards finer-grained representations of activity. Surgical action triplets provide a compact and clinically meaningful representation of instrument-tissue interactions. However, most triplet methods have historically stopped at frame-level recognition, leaving the interaction weakly grounded or ungrounded in the image.
+
+The review process also exposed a practical bottleneck: grounding triplets requires reliable instrument instance annotations, but large-scale public instance segmentation datasets for routine laparoscopic surgery were limited. This gap motivated the dataset contribution in \Chapref{chap:cholecinstanceseg}. Once instrument instances were available, it became possible to ask a stronger question: can each surgical action triplet be linked to the exact instrument instance that performs it? This question motivates CholecTriplet-Seg and TargetFusionNet in \Chapref{chap:triplet-grounding}.
+
+Finally, the literature on large models and surgical VQA points towards a further step. Even with spatial grounding, target prediction remains difficult because anatomical interpretation is often contextual and ambiguous. This thesis therefore ends by investigating whether target prediction can be treated not only as a representation-learning problem, but also as a reasoning problem.
+
+In summary, this thesis is positioned at the intersection of surgical scene understanding, action triplet recognition, instance segmentation, and emerging reasoning-based models. Its central argument is that useful surgical interaction understanding requires moving beyond frame-level recognition towards spatially grounded and context-aware interpretation of instrument-tissue interactions.

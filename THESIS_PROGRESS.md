@@ -13,11 +13,13 @@ This file records the working state of the thesis. It should be updated whenever
 - Created this progress tracker and corrected the thesis source map to make Two Stage Surgical Triplet Segmentation authoritative.
 - Preserved the complete Two Stage manuscript source, figures, bibliography, and reference PDF in version control without altering the manuscript.
 - Audited the Two Stage manuscript for thesis integration requirements. Its standalone preamble must be removed or bypassed, figure paths must be made thesis-relative, and generic macros and labels must be isolated to prevent conflicts with earlier chapters.
+- Reconstructed Chapter 2 around the complete accepted manuscript of the literature review, with a thesis-specific introduction and chapter transition.
+- Archived the previous condensed literature-review chapter at `archive/chapters/02_background_adapted_2026-05-29.tex` rather than deleting it.
+- Verified the reconstructed review chapter with an isolated LaTeX pass; the complete thesis reached 123 pages and all review figures were found.
 
 ## Current Task
 
-- Confirm which version of each published paper is authoritative for verbatim thesis inclusion.
-- Define the common integration pattern for paper-based chapters before transforming Chapter 2.
+- Reconstruct Chapter 3 around the accepted CholecInstanceSeg manuscript while preserving the current adapted chapter in `archive/`.
 
 ## Outstanding Issues
 
@@ -28,6 +30,7 @@ This file records the working state of the thesis. It should be updated whenever
 - `Publications.tex` still describes the obsolete Qwen-era manuscript.
 - The Two Stage bibliography is not yet connected to the thesis build.
 - The latest available Biber log contains duplicate keys, case-mismatched keys, undefined macros, and malformed bibliography text warnings.
+- A full `latexmk` verification of the reconstructed review chapter is currently blocked by the existing malformed bibliography data; a direct LaTeX pass succeeds, so bibliography repair remains a separate milestone.
 - Root-level `Introduction.tex`, `Methods.tex`, and `Conclusion.tex` are not included by the current thesis and require classification before any archival decision.
 - The working tree contains a pre-existing modification to `Thesis.pdf`; this must not be overwritten or included accidentally in unrelated commits.
 
@@ -40,10 +43,10 @@ This file records the working state of the thesis. It should be updated whenever
 - Obsolete material will be archived or clearly marked as obsolete, never permanently deleted without approval.
 - Existing LaTeX style, labels, citations, references, figure numbering, and table numbering will be preserved unless a change is necessary.
 - Work will be divided into small logical milestones with descriptive commits.
+- The accepted LaTeX manuscript source is authoritative for each published paper chapter when it differs from the publisher-formatted version.
 
 ## Questions Requiring Input
 
 - Confirm the preferred wording and required length for the impact statement.
 - Provide the content or key points to include in the acknowledgements when ready.
-- Confirm whether each published chapter should reproduce the accepted manuscript source or the final publisher-formatted version when these differ.
 - Confirm whether supplementary material and appendices should be embedded within their corresponding paper chapters or placed in thesis appendices.

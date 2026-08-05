@@ -1,4 +1,6 @@
-
+\ifdefined\ThesisChapterMode
+% The thesis wrapper supplies document metadata and package configuration.
+\else
 \documentclass[times,twocolumn,final]{elsarticle}
 
 
@@ -90,6 +92,7 @@ Beyond listing published approaches, we discuss the benefits and limitations of 
 
 
 \end{frontmatter}
+\fi
 
 
 
@@ -1765,9 +1768,10 @@ TV is supported by a Medtronic / RAEng Research Chair [RCSRF1819$\backslash$7$\b
 \paragraph{Open Access} For the purpose of open access, the authors have applied a CC BY public copyright licence to any Author Accepted Manuscript version arising from this submission.
 
 
+\ifdefined\ThesisChapterMode
+% Bibliography is printed once at the end of the thesis.
+\else
 \bibliographystyle{model2-names.bst}\biboptions{authoryear}
 \bibliography{refs}
-
-
-
 \end{document}
+\fi
