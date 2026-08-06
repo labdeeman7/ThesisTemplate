@@ -49,6 +49,8 @@ This file records the working state of the thesis. It should be updated whenever
 - Verified the first complete Chapter 5 draft in a converged 201-page thesis build with zero undefined citations, zero undefined references, zero duplicate bibliography keys, and no LaTeX or Biber errors. Layout warnings were left for the dedicated formatting pass.
 - Resolved the outstanding Chapter 5 author decisions: documented explicit temporal centre-frame prompting, incorporated the instrument-tip prior figure, added and cited the Qwen3-VL technical report, reserved confusion matrices for appendix selection, and renamed `Reasoning Only` to `Distilled Rationale Only`.
 - Verified the resolved Chapter 5 draft in a converged 203-page thesis build with zero undefined citations, zero undefined references, zero duplicate bibliography keys, and no LaTeX or Biber errors.
+- Expanded the publications list to distinguish the three accepted articles and active manuscript that form the thesis from six additional publications produced during the doctoral period; excluded earlier undergraduate and master's work and consolidated the duplicated radiology-preprint listing into one publication record.
+- Verified the expanded publications list in a converged 203-page thesis build with zero undefined citations, zero undefined references, zero duplicate bibliography keys, and no LaTeX or Biber errors.
 
 ## Current Task
 
@@ -59,7 +61,6 @@ This file records the working state of the thesis. It should be updated whenever
 - Chapter 5 currently has a clean thesis wrapper and an authoritative active-manuscript source, but its integrated scientific body has not yet been reconstructed.
 - Chapter 6 is a drafting scaffold and requires substantial writing.
 - `Acknowledgments.tex` is nearly empty and the impact statement in `Thesis.tex` is placeholder text.
-- `Publications.tex` still describes the obsolete Qwen-era manuscript.
 - The Two Stage references are present in the canonical bibliography, but its manuscript is not yet integrated as Chapter 5.
 - TargetFusionNet standalone compilation requires the missing local MiKTeX package `cuted.sty`.
 - The converged build retains inherited layout/template warnings, including overfull and underfull boxes, PDF-version inclusion notices, one obsolete display-math warning, and the template's `\theauthor` redefinition warning.
