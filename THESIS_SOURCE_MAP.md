@@ -49,6 +49,7 @@ Primary sources:
 
 Authority note:
 - This source completely replaces `phd_papers/sources/Qwen_work/`, which is obsolete and must not be used for thesis content.
+- The obsolete project has been preserved at `archive/chapter5/obsolete_project/Qwen_work/`.
 
 ## Chapter 6: Discussion and Conclusion
 

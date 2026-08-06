@@ -37,14 +37,20 @@ This file records the working state of the thesis. It should be updated whenever
 - Preserved 16 section commands, 4 subsection commands, 8 active figures, 9 active tables, 2 displayed equations, and 47 citation commands across the accepted TargetFusionNet paper and appendix.
 - Archived the superseded adapted Chapter 4 at `archive/chapters/04_triplet_grounding_adapted_2026-08-05.tex`.
 - Verified the complete Chapter 4 thesis build to convergence at 182 pages with zero undefined citations, zero undefined references, zero duplicate labels or bibliography keys, and no LaTeX or Biber errors.
+- Approved the Chapter 5 scientific blueprint centred on two-stage multimodal interaction prediction, with Direct SFT as the principal baseline and sequential dialogue prediction and three-frame temporal context treated as promising single-seed observations.
+- Archived the complete obsolete `Qwen_work` project, its historical PDF, the old `05_target_reasoning.tex` scaffold, and snapshots of thesis files containing the superseded target-centric framing under `archive/chapter5/`.
+- Removed obsolete target-centric reasoning wording from the active thesis abstract, introduction, publications list, Chapter 4 transition, Chapter 5 wrapper, and Chapter 6 scaffold without beginning the Chapter 5 manuscript rewrite.
+- Reviewed all four authoritative Chapter 5 figures and documented their intended roles in `chapters/papers/two_stage/README.md`.
+- Archived the unused LNCS sample `fig1.eps` and an unrelated SSH `config.txt` that were present in the authoritative manuscript directory but were not referenced by the manuscript.
+- Verified the cleanup with a converged 184-page thesis build in a temporary output directory: zero undefined citations, zero undefined references, zero duplicate bibliography keys, and no LaTeX or Biber errors. The pre-existing root `Thesis.pdf` modification was not overwritten.
 
 ## Current Task
 
-- Chapter 4 reconstruction is complete and awaiting review. Chapter 5 was not modified in this milestone.
+- Recover only the scientifically necessary implementation details for the Chapter 5 Methods section before beginning the approved rewrite.
 
 ## Outstanding Issues
 
-- Chapter 5 is an obsolete Qwen-based scaffold and must be replaced by the Two Stage Surgical Triplet Segmentation chapter.
+- Chapter 5 currently has a clean thesis wrapper and an authoritative active-manuscript source, but its integrated scientific body has not yet been reconstructed.
 - Chapter 6 is a drafting scaffold and requires substantial writing.
 - `Acknowledgments.tex` is nearly empty and the impact statement in `Thesis.tex` is placeholder text.
 - `Publications.tex` still describes the obsolete Qwen-era manuscript.
@@ -66,6 +72,8 @@ This file records the working state of the thesis. It should be updated whenever
 - The accepted LaTeX manuscript source is authoritative for each published paper chapter when it differs from the publisher-formatted version.
 - The thesis loads only `ThesisBibliography.bib`; each publication has one canonical record and key, without BibLaTeX `ids` aliases or chapter-specific suffixes.
 - Citation-key differences are harmonised only in thesis-specific chapter sources. Accepted-paper source directories retain their original keys and local bibliography files.
+- Chapter 5 is framed as two-stage multimodal interaction prediction. Target-centric chain-of-thought is not a thesis contribution and the obsolete formulation is retained only under `archive/chapter5/`.
+- The only authoritative Chapter 5 manuscript is `phd_papers/sources/Two_Stage_Surgical_Triplet_Segmentation/main.tex`; its four referenced PDF figures are the authoritative active figure set.
 
 ## Questions Requiring Input
 

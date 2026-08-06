@@ -31,7 +31,7 @@ At the same time, the review exposed two important gaps. First, although triplet
 
 These gaps are connected. Grounded triplet understanding requires both semantic interaction labels and spatial instance annotations. Triplet labels without instance masks leave the actor ambiguous. Instance masks without action and target labels localise instruments but do not describe their surgical role. A central motivation of this thesis is therefore to bring these two forms of supervision together.
 
-A further challenge is anatomical target prediction. Instruments are often visually distinctive, and their masks provide direct spatial support. Anatomical targets are less straightforward. They may have ambiguous boundaries, similar appearance, partial visibility, and definitions that depend on surgical context. A target such as the cystic duct, cystic artery, cystic pedicle, gallbladder, or liver may not be identifiable from local appearance alone. This observation motivates the final technical part of the thesis, which separates specialist instrument grounding from multimodal interaction prediction and investigates how alternative task formulations and sources of context affect the latter stage.
+A further challenge is anatomical target prediction. Instruments are often visually distinctive, and their masks provide direct spatial support. Anatomical targets are less straightforward. They may have ambiguous boundaries, similar appearance, partial visibility, and definitions that depend on surgical context. A target such as the cystic duct, cystic artery, cystic pedicle, gallbladder, or liver may not be identifiable from local appearance alone. This observation motivates the final part of the thesis, which investigates whether target prediction should be treated not only as a representation-learning problem, but also as a reasoning problem.
 
 \section{Thesis Aim and Research Questions}
 \label{sec:introduction-aim}
@@ -45,7 +45,7 @@ This aim is addressed through the following research questions:
   \item Can a large-scale instrument instance segmentation dataset be constructed for laparoscopic cholecystectomy by extending existing public surgical datasets?
   \item Can surgical action triplets be grounded to instrument instance masks, enabling spatially interpretable \texttt{<instrument, verb, target>} predictions?
   \item Can weak anatomical priors improve target prediction and full triplet grounding when integrated into an instance segmentation architecture?
-  \item Can a multimodal large language model serve as a viable second-stage interaction predictor for grounded instrument instances, and how do alternative task formulations and sources of context affect its predictions?
+  \item Does the persistent difficulty of target prediction suggest a need for explicit reasoning over anatomy, context, and surgical intent?
 \end{enumerate}
 
 \section{Contributions}
@@ -79,12 +79,12 @@ The thesis proposes TargetFusionNet, a target-aware architecture for grounded su
 
 Experiments on CholecTriplet-Seg show that strong instance supervision substantially improves triplet grounding, and that target-aware fusion improves full triplet prediction over weakly grounded and strongly supervised baselines. The results also show that target prediction remains the main bottleneck.
 
-\subsection{Two-Stage Multimodal Interaction Prediction}
+\subsection{Target Prediction as Reasoning}
 \label{sec:introduction-contribution-reasoning}
 
-Finally, the thesis formulates surgical triplet segmentation as a two-stage problem: a specialist model first grounds instrument instances, after which a multimodal large language model predicts the corresponding verb--target interactions. It establishes direct supervised fine-tuning as the principal second-stage baseline and investigates sequential dialogue prediction, short-range temporal context, anatomical priors, ontology guidance, and distilled-reasoning supervision. The complete system is then evaluated using predicted instrument instances.
+Finally, the thesis investigates whether anatomical target prediction may require explicit reasoning. This work uses multimodal vision-language models and structured target-centric reasoning to explore whether models can use visual evidence, anatomical context, ambiguity analysis, and weak anatomical priors to improve grounded surgical action triplet recognition.
 
-This contribution tests whether dense localisation and semantic interaction prediction can be handled by specialised components. It also examines which forms of task decomposition and contextual information offer promising directions, while explicitly accounting for the limitations of single-seed experiments and incomplete evaluation under predicted grounding.
+This contribution reframes target prediction as more than a feature-discrimination problem. It asks whether progress in surgical interaction understanding may depend on models that can reason over surgical context, rather than only learn visual representations.
 
 \section{Thesis Scope}
 \label{sec:introduction-scope}
@@ -98,12 +98,12 @@ The thesis does not attempt to solve all of surgical scene understanding. It doe
 
 The remainder of this thesis is organised as follows.
 
-\Chapref{chap:background} reviews the literature on surgical scene understanding, surgical action triplets, spatial grounding, multitask learning, datasets, and large models. It positions this thesis within the progression from frame-level recognition towards grounded surgical interaction understanding.
+\Chapref{chap:background} reviews the literature on surgical scene understanding, surgical action triplets, spatial grounding, multitask learning, datasets, and large models. It positions this thesis within the progression from frame-level recognition towards grounded and reasoning-aware surgical interaction understanding.
 
 \Chapref{chap:cholecinstanceseg} presents CholecInstanceSeg, a large-scale dataset for tool instance segmentation in laparoscopic cholecystectomy. It describes the data sources, annotation protocol, dataset construction, technical validation, and limitations.
 
 \Chapref{chap:triplet-grounding} introduces CholecTriplet-Seg and TargetFusionNet. It defines triplet segmentation as a spatially grounded extension of surgical action triplet recognition, presents the aligned dataset, and evaluates target-aware fusion for grounded triplet prediction.
 
-\Chapref{chap:two-stage-interaction} presents a two-stage formulation comprising specialist instrument grounding followed by multimodal interaction prediction. It evaluates direct supervised fine-tuning and several adaptations before assessing the complete pipeline under predicted grounding.
+\Chapref{chap:target-reasoning} explores whether anatomical target prediction can be approached as a reasoning problem. It investigates multimodal vision-language models and target-centric reasoning for grounded surgical action triplet recognition.
 
 \Chapref{chap:discussion-conclusion} synthesises the thesis contributions, discusses limitations, considers ethical and clinical implications, and outlines future work towards richer, more reliable surgical scene understanding.

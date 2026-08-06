@@ -56,6 +56,8 @@ These files adapt accepted manuscripts for the thesis while preserving the origi
 ## Two Stage Surgical Triplet Segmentation
 
 - **Planned thesis chapter:** Chapter 5 (not yet integrated in this migration)
+- **Chapter-specific record:** `chapters/papers/two_stage/README.md`
 - **Authoritative source:** `phd_papers/sources/Two_Stage_Surgical_Triplet_Segmentation/`
 - **Source commit/version:** `f04030e1832710fc66579b6ceeef2a868decb805`
 - **Integration changes:** none yet. Its bibliography records have been consolidated so that the later thesis-specific integration can use the canonical bibliography without changing this authoritative project.
+- **Obsolete predecessor:** preserved under `archive/chapter5/`; it is historical context only and is not a thesis source.
