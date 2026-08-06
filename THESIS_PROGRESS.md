@@ -47,6 +47,8 @@ This file records the working state of the thesis. It should be updated whenever
 - Restored all completed Stage 2 evidence to the integrated results, including Ontology-Guided Prompting and both multitask evaluation modes, and separated principal results from compact exploratory negative results.
 - Documented the Chapter 5 editorial decisions and outstanding author decisions in `chapters/papers/two_stage/EDITORIAL_DRAFT_REPORT.md` and created the running supplementary appendix plan in `chapters/papers/two_stage/APPENDIX_PLAN.md`.
 - Verified the first complete Chapter 5 draft in a converged 201-page thesis build with zero undefined citations, zero undefined references, zero duplicate bibliography keys, and no LaTeX or Biber errors. Layout warnings were left for the dedicated formatting pass.
+- Resolved the outstanding Chapter 5 author decisions: documented explicit temporal centre-frame prompting, incorporated the instrument-tip prior figure, added and cited the Qwen3-VL technical report, reserved confusion matrices for appendix selection, and renamed `Reasoning Only` to `Distilled Rationale Only`.
+- Verified the resolved Chapter 5 draft in a converged 203-page thesis build with zero undefined citations, zero undefined references, zero duplicate bibliography keys, and no LaTeX or Biber errors.
 
 ## Current Task
 

@@ -18,7 +18,7 @@ Insert appendix references from the Stage 2 input, Sequential Dialogue Predictio
 - Stepwise distal-tip estimation procedure.
 - Definition of the circular region with radius 12.5% of the smaller image dimension.
 - Candidate-radius selection note.
-- Representative image showing the mask, estimated tip, and circular context region.
+- The representative image is now included in the main chapter; the appendix may add further examples if they provide distinct information.
 - EndoViT class-ranking and textual-prior construction example.
 
 Insert an appendix reference from the Anatomical Context Priors subsection once the representative image is supplied.
@@ -39,7 +39,7 @@ Insert an appendix reference from the Anatomical Context Priors subsection once 
 
 - Full optimisation-sensitivity table with all five configurations and metrics.
 - Clear warning that several optimisation variables change simultaneously.
-- Optional additional confusion matrices where they materially clarify errors.
+- Candidate confusion matrices, explicitly excluded from the main chapter. Their final appendix selection will be decided during appendix drafting.
 - Optional secondary negative-result table if the main chapter is later shortened for journal submission.
 
 ## F. Additional qualitative material

@@ -24,6 +24,7 @@ The integrated body is a substantive editorial reconstruction rather than a pres
 - `adaptation_motivation.pdf`: anatomical ambiguity, missing temporal evidence, ontology-invalid outputs, and insufficient visual evidence.
 - `sequential_dialogue_prediction.pdf`: direct prediction compared with verb-first, target-second sequential dialogue prediction.
 - `distilled_reasoning_supervision.pdf`: teacher rationale generation and student supervision. This supports a compact negative-results subsection and is not the chapter's central framing.
+- `instrument_tip_prior-examples.pdf`: representative successful and ambiguous cases for the heuristic instrument-tip anatomical-context extraction.
 
 ## Archived material
 

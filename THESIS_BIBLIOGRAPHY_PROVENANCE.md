@@ -1,5 +1,16 @@
 # Thesis Bibliography Provenance
 
+## `bai2025qwen3vl`
+
+- **DOI:** 10.48550/arXiv.2511.21631
+- **Title:** Qwen3-VL Technical Report
+- **Authors:** Bai, Shuai; Cai, Yuxuan; Chen, Ruizhe; Chen, Keqin; Chen, Xionghui; Cheng, Zesen; Deng, Lianghao; Ding, Wei; Gao, Chang; Ge, Chunjiang; et al.
+- **Year:** 2025
+- **Source records:** Added directly from the Qwen3-VL technical report on arXiv for Chapter 5.
+- **Duplicate keys replaced:** None
+- **Metadata differences:** None
+- **Decision:** Added as the canonical thesis record because Chapter 5 uses Qwen3-VL-8B-Instruct and the consolidated bibliography previously contained no Qwen3-VL technical-report entry.
+
 Canonical bibliography: **317** publications consolidated from **377** source records.
 
 Records are grouped by normalized DOI, or?without a DOI?by normalized title plus matching year or overlapping author identity. No `ids` aliases are used. Thesis-integrated sources use one canonical key.

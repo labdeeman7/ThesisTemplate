@@ -27,12 +27,13 @@
 - Referred to Chapters 3 and 4 for inherited detector and IVTMetrics details instead of duplicating them.
 - Restricted immediate future work to directions arising directly from completed evidence.
 
-## Outstanding author decisions
+## Resolved author decisions
 
-1. Confirm whether the centre frame was explicitly identified in the temporal prompt or inferred from its ordered position.
-2. Supply the representative instrument-tip/circular-context image intended for the anatomical-prior method.
-3. Decide whether to add formal citations for Qwen3-VL-8B-Instruct and the closed-weight Qwen3.7-Max service model. No suitable records currently exist in the canonical thesis bibliography.
-4. Decide whether existing confusion matrices should be selected for the supplementary appendix. They are not required for the main narrative.
+- The temporal prompt explicitly identifies the current centre frame as the prediction target; neighbouring frames provide context only.
+- `instrument_tip_prior-examples.pdf` is incorporated in the Anatomical Context Priors subsection with a caption describing both representative success and heuristic ambiguity.
+- The Qwen3-VL technical report is added to the canonical thesis bibliography and cited. Qwen3.7-Max remains identified by its commercial service-facing name without a fabricated technical-report citation.
+- Confusion matrices are excluded from the main chapter and retained as candidate supplementary appendix material.
+- `Reasoning Only` is renamed `Distilled Rationale Only` throughout the thesis-integrated Chapter 5 material.
 
 ## Statements requiring final evidential review
 
@@ -45,5 +46,6 @@
 ## Terminology decisions
 
 - `Direct SFT`, `Sequential Dialogue Prediction`, `Temporal Visual Context`, `Anatomical Context Priors`, `Ontology-Guided Prompting`, and `Distilled Reasoning Supervision` are retained from the active manuscript.
+- `Distilled Rationale Only` is the approved name for the configuration previously labelled `Reasoning Only`.
 - `Multitask---Direct SFT` and `Multitask---Distilled Rationale` are the approved result labels.
 - `interaction prediction` denotes the evaluated task; `multimodal interaction reasoning` is not used as a separate measured capability.
