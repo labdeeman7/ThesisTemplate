@@ -51,6 +51,8 @@ This file records the working state of the thesis. It should be updated whenever
 - Verified the resolved Chapter 5 draft in a converged 203-page thesis build with zero undefined citations, zero undefined references, zero duplicate bibliography keys, and no LaTeX or Biber errors.
 - Expanded the publications list to distinguish the three accepted articles and active manuscript that form the thesis from six additional publications produced during the doctoral period; excluded earlier undergraduate and master's work and consolidated the duplicated radiology-preprint listing into one publication record.
 - Verified the expanded publications list in a converged 203-page thesis build with zero undefined citations, zero undefined references, zero duplicate bibliography keys, and no LaTeX or Biber errors.
+- Removed all mention of earlier-degree publications from the thesis and added doctoral academic-service records for LM-SURG at ISBI 2026, the King's--Obafemi Awolowo surgical data science partnership, and the AGES Nigeria 2025 conference.
+- Verified the revised publications and academic-service pages in a converged 205-page thesis build with zero undefined citations, zero undefined references, zero duplicate bibliography keys, and no LaTeX or Biber errors.
 
 ## Current Task
 
