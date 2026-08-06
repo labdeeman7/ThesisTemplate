@@ -43,10 +43,14 @@ This file records the working state of the thesis. It should be updated whenever
 - Reviewed all four authoritative Chapter 5 figures and documented their intended roles in `chapters/papers/two_stage/README.md`.
 - Archived the unused LNCS sample `fig1.eps` and an unrelated SSH `config.txt` that were present in the authoritative manuscript directory but were not referenced by the manuscript.
 - Verified the cleanup with a converged 184-page thesis build in a temporary output directory: zero undefined citations, zero undefined references, zero duplicate bibliography keys, and no LaTeX or Biber errors. The pre-existing root `Thesis.pdf` modification was not overwritten.
+- Completed the first full editorial draft of Chapter 5 under `chapters/papers/two_stage/main_body.tex`, preserving the authoritative manuscript and incorporating the approved blueprint, completed experiment inventory, and Methods specification.
+- Restored all completed Stage 2 evidence to the integrated results, including Ontology-Guided Prompting and both multitask evaluation modes, and separated principal results from compact exploratory negative results.
+- Documented the Chapter 5 editorial decisions and outstanding author decisions in `chapters/papers/two_stage/EDITORIAL_DRAFT_REPORT.md` and created the running supplementary appendix plan in `chapters/papers/two_stage/APPENDIX_PLAN.md`.
+- Verified the first complete Chapter 5 draft in a converged 201-page thesis build with zero undefined citations, zero undefined references, zero duplicate bibliography keys, and no LaTeX or Biber errors. Layout warnings were left for the dedicated formatting pass.
 
 ## Current Task
 
-- Recover only the scientifically necessary implementation details for the Chapter 5 Methods section before beginning the approved rewrite.
+- Review the first complete Chapter 5 editorial draft and resolve the recorded author decisions before writing its supplementary appendix.
 
 ## Outstanding Issues
 
