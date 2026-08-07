@@ -98,10 +98,14 @@ This file records the working state of the thesis. It should be updated whenever
 - Completed the Chapter 4 visual review against the accepted TargetFusionNet paper. All eight figures and nine tables remain close to their first discussion, including the appendix subfigure groups.
 - Proportionally fitted four wide appendix ablation tables to the thesis text block and introduced a short running-header form for the long-tailed-performance section, eliminating the collision between its header and page number while retaining the full printed section title.
 - Verified the Chapter 4 layout milestone in a converged 241-page build with zero undefined citations, zero undefined references, zero duplicate bibliography keys, and no LaTeX or Biber errors. Only two small chapter-level overfull diagnostics remain for the final warning audit.
+- Completed the Chapter 5 layout review. The five main methodological figures, three main result tables, appendix tables, and six confusion matrices are readable and remain near the intended discussion; the matrices retain separate float pages for print legibility.
+- Replaced the stale Chapter 5 appendix running header inherited from the main-text conclusion with a dedicated `Chapter Supplementary Appendix` mark and applied local line-breaking tolerance without changing scientific content.
+- Completed the Chapter 6 and bibliography layout review. Chapter 6 requires no float changes; its mini-table-of-contents is now limited to section level, removing the page-number collision caused by the unusually deep subsection listing. The complete bibliography was visually sampled from first to last page and given local line-breaking tolerance for long identifiers.
+- Verified the Chapters 5--6 and bibliography layout milestone in a converged 241-page build with zero undefined citations, zero undefined references, zero duplicate bibliography keys, no LaTeX or Biber errors, and no overfull-box warnings within Chapter 5, Chapter 6, or the bibliography.
 
 ## Current Task
 
-- Continue the dedicated thesis layout and figure-placement review from Chapter 5 onwards before finalising the remaining front matter.
+- The first complete front-to-back layout pass is complete. Proceed to the remaining front matter, beginning with acknowledgements and the impact statement, while retaining a final post-front-matter pagination and warning audit.
 
 ## Outstanding Issues
 

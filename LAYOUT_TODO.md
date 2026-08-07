@@ -30,3 +30,15 @@ These observations are deliberately deferred to the final formatting pass. They 
 
 - Continue addressing visible overfull boxes chapter by chapter; retain harmless diagnostics produced inside deliberately scaled tables and record them for the final warning audit.
 - Perform a final float-order and first-reference check across every paper chapter.
+
+## Chapter 5: Two-Stage Multimodal Interaction Prediction
+
+- The main chapter figures and result tables are positioned near their first discussion and require no further float movement at present.
+- The six confusion matrices intentionally remain on separate float pages for legibility; recheck their scale only if the thesis page geometry changes.
+- The appendix now has its own running header rather than inheriting the final main-text section title.
+- Figure 5.12 remains a deliberately blank qualitative-analysis panel. It must be populated with author-selected examples or removed before final submission.
+
+## Chapter 6 and Bibliography
+
+- Chapter 6 contains no floats. Its mini-table-of-contents is restricted to section level so that it fits on the opening page without colliding with the page number.
+- The bibliography is visually consistent across its full extent and uses local emergency line breaking for long DOI and URL strings.

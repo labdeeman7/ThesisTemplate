@@ -23,6 +23,7 @@ The authoritative project is an active manuscript rather than an accepted-paper 
 - Distilled-rationale example provenance: the appendix reproduces the generated response for `t50_VID14_000126_reasoning` from `phd_papers/artifacts/prompts/sft_test_reasoning.jsonl`. It is included only to illustrate the final structured supervision schema and is not presented as clinically validated reasoning or an independent prediction.
 - Error-analysis provenance: the appendix uses the official test-set, row-normalised action and target confusion matrices recovered from `phd_papers/artifacts/To Zijie.pptx`. The author confirmed the three configurations as Direct SFT, three-frame temporal context, and the multitask model evaluated with the Direct SFT instruction. The presentation remains an archival provenance source and is not loaded by the thesis.
 - Future-work citation: the thesis-integrated Chapter 5 names and cites the final ICLR 2026 ProstaTD publication as an external prostatectomy benchmark for cross-procedure evaluation. This thesis-specific citation correction is not applied to the authoritative active-manuscript source.
+- Layout integration: the main figures and tables retain flexible single-column placement near their discussion; the six confusion matrices remain on separate float pages for legibility; and the supplementary appendix has its own running-header mark. Local emergency line-breaking tolerance is applied by the wrapper. The reserved qualitative panel remains intentionally blank pending the author's final selection or removal decision.
 
 The integrated body is a substantive editorial reconstruction rather than a preservation copy. It retains all completed experiments and numerical results while reorganising them around the approved two-stage scientific narrative. It does not modify the authoritative active-manuscript project.
 
@@ -40,6 +41,6 @@ The previous `Qwen_work` manuscript, its PDF, the old thesis scaffold, target-ce
 
 ## Source-of-truth rule
 
-Only `Two_Stage_Surgical_Triplet_Segmentation/main.tex` and its four referenced figures are authoritative for active Chapter 5 content. Archived material is historical context only and must not be copied into the chapter unless the user explicitly reinstates it.
+Only `Two_Stage_Surgical_Triplet_Segmentation/main.tex` and its five referenced figures are authoritative for active Chapter 5 content. Archived material is historical context only and must not be copied into the chapter unless the user explicitly reinstates it.
 
 The thesis-integrated draft additionally incorporates the scientific decisions and implementation specification agreed in the project conversation. Where that specification supersedes incomplete wording or tables in the authoritative draft, the integrated source records the completed evidence without altering the original project.
