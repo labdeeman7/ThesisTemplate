@@ -67,10 +67,13 @@ This file records the working state of the thesis. It should be updated whenever
 - Verified the Stage 2 training-configuration appendix in a converged 215-page thesis build with zero undefined citations, zero undefined references, zero duplicate bibliography keys, and no LaTeX or Biber errors; the new material introduced no overfull boxes.
 - Added an unedited final-schema distilled-rationale example to the Chapter 5 appendix, explicitly distinguishing label-conditioned supervision generation from independent prediction and recording the limited informal inspection, absence of clinical validation, and equal token weighting.
 - Verified the distilled-rationale example appendix milestone in a converged 217-page thesis build with zero undefined citations, zero undefined references, zero duplicate bibliography keys, and no LaTeX or Biber errors; the example introduced no overfull boxes.
+- Recovered and integrated the official test-set, row-normalised action and target confusion matrices for Direct SFT, three-frame temporal context, and Multitask---Direct SFT evaluation into the Chapter 5 appendix.
+- Added a restrained supplementary error analysis that treats the matrices as single-seed descriptive diagnostics, does not infer systematic annotation errors, and reserves a blank qualitative panel for later author-selected examples.
+- Verified the supplementary error-analysis milestone in a converged 225-page thesis build with zero undefined citations, zero undefined references, zero duplicate bibliography keys, and no LaTeX or Biber errors; the matrices are presented as full-width figures for print legibility.
 
 ## Current Task
 
-- Complete the Chapter 5 supplementary appendix, beginning with the optimisation-sensitivity study already migrated from the main chapter.
+- Complete the remaining Chapter 5 supplementary appendix material and replace the reserved qualitative error-analysis panel when the final examples are selected.
 
 ## Outstanding Issues
 
