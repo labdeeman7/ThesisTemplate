@@ -227,6 +227,7 @@ As shown in Table~\ref{tab:fusion_strategy_appendix}, TargetFusionNet achieves t
 Mean Average Precision ($\mAP$) reported for instruments ($\mAP_I$), verbs ($\mAP_V$), targets ($\mAP_T$), instrument–verb pairs ($\mAP_{IV}$), instrument–target pairs ($\mAP_{IT}$), and full triplets ($\mAP_{IVT}$). 
 \textbf{Bold} indicates the best among fusion variants.}
 \label{tab:fusion_strategy_appendix}
+\resizebox{\linewidth}{!}{%
 \begin{tabular}{llcccccc}
 \toprule
 \textbf{Evaluation Type} & \textbf{Method} & $\mAP_I$ & $\mAP_V$ & $\mAP_T$ & $\mAP_{IV}$ & $\mAP_{IT}$ & $\mAP_{IVT}$ \\
@@ -247,6 +248,7 @@ Mean Average Precision ($\mAP$) reported for instruments ($\mAP_I$), verbs ($\mA
 & Late-concat              & 77.91 & 64.32 & 47.26 & 40.87 & 36.66 & 30.33 \\
 \bottomrule
 \end{tabular}
+}
 \end{table*}
 
 
@@ -254,6 +256,7 @@ Mean Average Precision ($\mAP$) reported for instruments ($\mAP_I$), verbs ($\mA
 \centering
 \caption{Segmentation performance ($\mAP^{seg}$) for Mask2Former-Triplet and multitask learning versions. While multitask variants improve individual component scores (e.g., instrument, verb), they fail to improve overall triplet accuracy ($\mAP_{IVT}^{seg}$), highlighting the challenge of enforcing coherent triplet structure.}
 \label{tab:segmentation_results}
+\resizebox{\linewidth}{!}{%
 \begin{tabular}{l|c|c|c|c|c|c}
 \hline
 \textbf{Method} & $\mAP_{I}^{seg}$ & $\mAP_{V}^{seg}$ & $\mAP_{T}^{seg}$ & $\mAP_{IV}^{seg}$ & $\mAP_{IT}^{seg}$ & $\mAP_{IVT}^{seg}$ \\
@@ -263,6 +266,7 @@ Mask2Former-Triplet (Multitask) & \textbf{73.73} & \textbf{49.04} & 20.86 & \tex
 Early-concat (Multitask)        & 72.53 & 43.24 & \textbf{21.40} & 21.15 & \textbf{16.86} & 10.30 \\
 \hline
 \end{tabular}
+}
 \end{table*}
 
 
@@ -283,6 +287,7 @@ Results in Table~\ref{tab:fusion_depth_results} show that using all 9 layers pro
 \centering
 \caption{Ablation of fusion depth in TargetFusionNet. We vary the number of transformer decoder layers where the target fusion module is applied. Full fusion across all 9 layers yields the highest triplet accuracy ($\mAP_{IVT}^{seg}$).}
 \label{tab:fusion_depth_results}
+\resizebox{\linewidth}{!}{%
 \begin{tabular}{l|c|c|c|c|c|c}
 \hline
 \textbf{Method} & $\mAP_{I}^{seg}$ & $\mAP_{V}^{seg}$ & $\mAP_{T}^{seg}$ & $\mAP_{IV}^{seg}$ & $\mAP_{IT}^{seg}$ & $\mAP_{IVT}^{seg}$ \\
@@ -292,6 +297,7 @@ TargetFusionNet (6 layers) & 66.89 & 45.66 & \textbf{21.92} & \textbf{26.43} & 1
 TargetFusionNet (3 layers) & 64.14 & 44.26 & 21.58 & 23.09 & 16.36 & 11.85 \\
 \hline
 \end{tabular}
+}
 \end{table*}
 
 
@@ -318,7 +324,7 @@ Mask2Former-Triplet     &  44.0 & 260 & 51.4 \\
 \end{tabular}
 \end{table}
 
-\section{\revnew{Effect of Long-Tailed Triplet Distribution on Model Performance}}
+\section[Long-tailed triplet performance]{\revnew{Effect of Long-Tailed Triplet Distribution on Model Performance}}
 
 \revnew{
 CholecTriplet-Seg exhibits a long-tailed distribution over clinically valid triplet combinations, with a small number of frequent triplets accounting for a large proportion of annotations and many triplets occurring only sparsely (\figref{fig:dataset-class-distributions}). To analyse the effect of this imbalance on triplet segmentation performance, we group triplet classes into three frequency categories based on their occurrence in the training set.
@@ -338,6 +344,7 @@ For each frequency group, we report the average triplet segmentation performance
 \centering
 \caption{\revnew{Triplet segmentation performance grouped by triplet frequency. Triplet classes are partitioned into frequent, medium-frequency, and rare groups based on their occurrence in the training set. Performance is reported using triplet segmentation mAP ($mAP_{seg}^{IVT}$).}}
 \label{tab:triplet_frequency_analysis}
+\resizebox{\linewidth}{!}{%
 \begin{tabular}{lccc}
 \toprule
 \textbf{Triplet Frequency Group} & \textbf{No Triplet Classes} & \textbf{Avg. Samples / Class} & \textbf{$mAP_{seg}^{IVT}$} \\
@@ -347,6 +354,7 @@ Medium-frequency & 21 & 307.9 & 0.2071 \\
 Rare & 62 & 24.9 & 0.04 \\
 \bottomrule
 \end{tabular}
+}
 \end{table}
 
 

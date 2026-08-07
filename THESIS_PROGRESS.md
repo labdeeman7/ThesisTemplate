@@ -95,10 +95,13 @@ This file records the working state of the thesis. It should be updated whenever
 - Completed the Chapter 3 layout review against the published Scientific Data paper. All seven figures and four tables are already positioned near their corresponding discussion, so no float order was changed.
 - Corrected the two visible Chapter 3 margin failures by proportionally fitting Tables 3.1 and 3.2 to the thesis text block. All columns, rows, captions, and numerical values are preserved; wrapper-local emergency line breaking reduced the chapter's remaining visible overflow to sub-2-point diagnostics.
 - Verified the Chapter 3 layout milestone in a converged 241-page build with zero undefined citations, zero undefined references, zero duplicate bibliography keys, and no LaTeX or Biber errors.
+- Completed the Chapter 4 visual review against the accepted TargetFusionNet paper. All eight figures and nine tables remain close to their first discussion, including the appendix subfigure groups.
+- Proportionally fitted four wide appendix ablation tables to the thesis text block and introduced a short running-header form for the long-tailed-performance section, eliminating the collision between its header and page number while retaining the full printed section title.
+- Verified the Chapter 4 layout milestone in a converged 241-page build with zero undefined citations, zero undefined references, zero duplicate bibliography keys, and no LaTeX or Biber errors. Only two small chapter-level overfull diagnostics remain for the final warning audit.
 
 ## Current Task
 
-- Continue the dedicated thesis layout and figure-placement review from Chapter 4 onwards before finalising the remaining front matter.
+- Continue the dedicated thesis layout and figure-placement review from Chapter 5 onwards before finalising the remaining front matter.
 
 ## Outstanding Issues
 

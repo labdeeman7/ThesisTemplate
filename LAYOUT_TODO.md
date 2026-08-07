@@ -19,9 +19,10 @@ These observations are deliberately deferred to the final formatting pass. They 
 
 ## Chapter 4: TargetFusionNet
 
-- Review placement of the eight accepted figures and nine accepted tables across the main paper and appendix after final pagination is stable.
-- Check wide `table*` material and dense ablation tables against the thesis margins; preserve the accepted values and column structure.
-- Visually inspect the appendix subfigure groups and captions under the thesis `subcaption` package.
+- Recheck final pagination after later material stabilises. The initial visual pass confirmed that all eight figures and nine tables remain close to their discussions across the main paper and appendix.
+- Four wide appendix ablation tables have been proportionally fitted to the thesis text width while preserving their accepted values and column structure.
+- The appendix subfigure groups and captions render correctly under the thesis `subcaption` package.
+- The long Section 4.14 title now uses a short running-header form to avoid colliding with the page number; its full printed title is unchanged.
 - Check the transition from the accepted declarations to the accepted appendix, and from the appendix to the thesis-written chapter summary.
 - Confirm whether the supplementary comparison video should be deposited or linked separately; the accepted source refers to it but the file is not present in the repository.
 
