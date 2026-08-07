@@ -1,5 +1,16 @@
 # Thesis Bibliography Provenance
 
+## `chen2025prostatd`
+
+- **DOI:** 10.48550/arXiv.2506.01130
+- **Title:** ProstaTD: A Large-scale Multi-source Dataset for Structured Surgical Triplet Detection
+- **Authors:** Chen, Yiliang; Li, Zhixi; Xu, Cheng; Liu, Alex Qinyang; Xu, Xuemiao; Teoh, Jeremy Yuen-Chun; He, Shengfeng; Qin, Jing
+- **Year:** 2025
+- **Source records:** Added directly from the authoritative ProstaTD arXiv preprint for the Chapter 6 future-work discussion.
+- **Duplicate keys replaced:** None
+- **Metadata differences:** None
+- **Decision:** Added as the canonical thesis record because ProstaTD is external future work proposed for cross-procedure evaluation and the consolidated bibliography previously contained no ProstaTD entry.
+
 ## `bai2025qwen3vl`
 
 - **DOI:** 10.48550/arXiv.2511.21631
@@ -11,7 +22,7 @@
 - **Metadata differences:** None
 - **Decision:** Added as the canonical thesis record because Chapter 5 uses Qwen3-VL-8B-Instruct and the consolidated bibliography previously contained no Qwen3-VL technical-report entry.
 
-Canonical bibliography: **317** publications consolidated from **377** source records.
+Canonical bibliography: **319** publications, including 317 records consolidated from 377 manuscript source records and two later authoritative records added directly for Chapters 5 and 6.
 
 Records are grouped by normalized DOI, or?without a DOI?by normalized title plus matching year or overlapping author identity. No `ids` aliases are used. Thesis-integrated sources use one canonical key.
 

@@ -70,10 +70,14 @@ This file records the working state of the thesis. It should be updated whenever
 - Recovered and integrated the official test-set, row-normalised action and target confusion matrices for Direct SFT, three-frame temporal context, and Multitask---Direct SFT evaluation into the Chapter 5 appendix.
 - Added a restrained supplementary error analysis that treats the matrices as single-seed descriptive diagnostics, does not infer systematic annotation errors, and reserves a blank qualitative panel for later author-selected examples.
 - Verified the supplementary error-analysis milestone in a converged 225-page thesis build with zero undefined citations, zero undefined references, zero duplicate bibliography keys, and no LaTeX or Biber errors; the matrices are presented as full-width figures for print legibility.
+- Completed the first full 4,579-word draft of Chapter 6, synthesising the review, CholecInstanceSeg, CholecTriplet-Seg, TargetFusionNet, and two-stage MLLM work into a single thesis conclusion.
+- Added thesis-level discussion of why complete-triplet AP is comparatively low, why exact evaluation treats errors of different severity equally, and why future top-k measures should complement rather than replace strict grounded AP.
+- Established cross-procedure evaluation using the external ProstaTD prostatectomy dataset as the principal future direction and added its authoritative preprint record to the canonical bibliography.
+- Verified the first Chapter 6 draft in a converged 239-page thesis build with zero undefined citations, zero undefined references, zero duplicate bibliography keys, and no LaTeX or Biber errors.
 
 ## Current Task
 
-- Complete the remaining Chapter 5 supplementary appendix material and replace the reserved qualitative error-analysis panel when the final examples are selected.
+- Complete the first full draft of the thesis discussion and conclusion, using Chapters 2--4 as the mature evidential core and Chapter 5 as a viable continuing research direction.
 
 ## Outstanding Issues
 

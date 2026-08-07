@@ -3,32 +3,228 @@
 \label{chap:discussion-conclusion}
 \minitoc
 
-\section{Summary of Contributions}
-\label{sec:discussion-summary}
+\section{Overview}
+\label{sec:discussion-overview}
 
-\textbf{Drafting goal:} summarise the thesis arc from review, to dataset creation, to grounded triplet segmentation, to two-stage multimodal interaction prediction.
+This thesis has investigated how surgical scene understanding can progress from recognising activities at frame level towards spatially grounded interpretation of instrument--tissue interactions. The central premise is that a useful description of a surgical scene should identify not only which instruments, actions, and anatomical targets are present, but also which visible instrument instance is responsible for each interaction. Establishing this association requires appropriate annotations, evaluation protocols, and models: semantic interaction labels alone do not identify the actor, while instrument masks alone do not describe its surgical role.
 
-\section{Scientific and Technical Implications}
+The work develops this argument progressively. Chapter~\ref{chap:background} reviews multitask learning and surgical scene understanding and identifies the absence of strong instance-level spatial grounding as an important limitation of increasingly fine-grained activity-recognition tasks. Chapter~\ref{chap:cholecinstanceseg} addresses the corresponding data gap through CholecInstanceSeg, establishing large-scale instrument instance supervision in laparoscopic cholecystectomy. Chapter~\ref{chap:triplet-grounding} then connects instrument masks with verb and anatomical target labels through CholecTriplet-Seg and evaluates TargetFusionNet as a target-aware model for the resulting triplet-segmentation task. Finally, Chapter~\ref{chap:two-stage-interaction} investigates a complementary decomposition in which a specialist model grounds instrument instances and a multimodal large language model (MLLM) predicts their interactions.
+
+This chapter synthesises the principal contributions and answers the thesis research questions. It then considers the broader implications of spatial grounding, the difficulty of anatomical target prediction, and the interpretation of comparatively low complete-triplet scores. The chapter closes by discussing limitations, responsible use of surgical video data, and future work led by cross-procedure evaluation of the grounded interaction formulation.
+
+\section{Development of Spatially Grounded Surgical Interaction Understanding}
+\label{sec:discussion-development}
+
+\subsection{Lessons from the Review of Surgical Scene Understanding}
+\label{sec:discussion-review-lessons}
+
+The review in Chapter~\ref{chap:background} provides the intellectual starting point for this thesis. Surgical scene understanding had developed through tasks including instrument detection and segmentation, surgical phase and workflow recognition, action recognition, and anatomical understanding. These predictions describe related aspects of the same operative scene, and multitask learning offered a useful framework for considering their relationships. Nevertheless, multitask learning was not itself the central technical objective of the subsequent thesis. Where it was investigated, it was useful in some settings but did not consistently determine complete-interaction performance. Its principal role in the thesis is therefore conceptual: it helped expose the need to connect multiple forms of surgical information rather than treating each prediction in isolation.
+
+Surgical action triplets represented an important step towards this richer description. By combining an instrument, verb, and target, the triplet formulation expressed more surgical meaning than instrument presence or workflow phase alone. However, the dominant formulation remained frame-level: a method could recognise that an interaction occurred somewhere in the image without identifying which visible instrument instance performed it. This distinction becomes important whenever several instruments are present, and particularly when two instruments share the same class. In such a scene, a frame-level label cannot unambiguously associate different actions or targets with the corresponding instances.
+
+The review also showed that large-scale instrument instance segmentation was comparatively uncommon in routine human laparoscopic video. Work towards spatially aware action recognition was emerging, but the field did not yet have an established mask-based, instance-level triplet-segmentation dataset and benchmark. These limitations were connected. Strongly grounding surgical triplets required instance annotations, while instance masks became substantially more informative when they were linked to the surgical role of each instrument.
+
+The main conclusion drawn from the review was therefore not simply that more tasks should be predicted together. Rather, the next step was to connect semantic interaction labels to the individual visual instances responsible for them. This observation motivated the dataset and modelling contributions that followed.
+
+\subsection{CholecInstanceSeg: Establishing the Spatial Foundation}
+\label{sec:discussion-cholecinstanceseg}
+
+CholecInstanceSeg addresses the scarcity of large-scale instrument instance annotations in laparoscopic surgery. It contains 41,933 annotated frames from 85 laparoscopic cholecystectomy procedures and 64,483 instrument instances. In contrast to instrument-presence or semantic-segmentation labels, its instance identifiers distinguish individual instruments belonging to the same semantic class. This distinction supplies the representation required to ask which particular instrument is involved in an interaction.
+
+Constructing the dataset required more than aggregating existing files. Annotations originating from different public datasets had to be converted into a common representation, reconciled, refined, and subjected to technical validation. The validation experiments in Chapter~\ref{chap:cholecinstanceseg} demonstrate that contemporary instance-segmentation models can learn from the resulting annotations, while the accompanying analyses document the dataset composition and its limitations. CholecInstanceSeg therefore contributes both a reusable public resource and evidence that instrument instances can be modelled at meaningful scale in routine laparoscopic scenes.
+
+Within the thesis, its significance extends beyond instrument segmentation. CholecInstanceSeg establishes individual instrument instances as the spatial units around which later interaction labels can be organised. It changes the available question from ``which instrument classes are visible?'' to ``where is each instrument, and what is each one doing?'' The subsequent construction of CholecTriplet-Seg depends upon precisely this change in representation.
+
+\subsection{CholecTriplet-Seg: Connecting Space and Semantics}
+\label{sec:discussion-cholectripletseg}
+
+CholecTriplet-Seg connects instrument-mask supervision with the instrument--verb--target annotations of CholecT50. The resulting dataset contains 30,955 frames and 49,866 grounded triplet instances from 50 laparoscopic cholecystectomy videos. Each interaction is associated with an instrument mask, enabling triplet prediction to be evaluated as an instance-level spatial task rather than only as frame-level recognition.
+
+This reformulation is conceptually important. A grounded prediction must identify the instrument instance, localise it, and associate it with the correct verb and anatomical target. The task consequently distinguishes between interactions performed by different instruments in the same frame and links semantic predictions to visible evidence. CholecTriplet-Seg thus brings together the two gaps identified by the review: the absence of large-scale instrument instance supervision and the weak spatial grounding of surgical action triplets.
+
+The benchmark reports separate performance for instruments, verbs, targets, their component pairs, and complete triplets. This decomposition is necessary because complete-triplet performance alone does not reveal whether an error arose from localisation, instrument identity, action recognition, or target prediction. At the same time, the complete metric remains important because a meaningful interaction description requires these elements to be coherent for the same instance.
+
+The contribution of CholecTriplet-Seg is therefore not limited to increasing annotation volume. It defines a more demanding scientific problem and provides the data and evaluation protocol required to study it. By doing so, it advances the triplet task from asking what occurs in a frame towards identifying which instrument performs each action and upon which anatomical target.
+
+\subsection{TargetFusionNet: Target-Aware Grounded Prediction}
+\label{sec:discussion-targetfusionnet}
+
+TargetFusionNet addresses the principal semantic difficulty exposed by grounded triplet prediction: anatomical target identification. Instruments often have distinctive shapes and direct mask supervision, whereas anatomical targets may have poorly defined boundaries, similar appearances, partial visibility, and substantial deformation. The local appearance around an instrument may also be insufficient to distinguish adjacent structures such as the cystic duct, cystic artery, cystic pedicle, and gallbladder.
+
+The model extends an instance-segmentation architecture with a gated mechanism that fuses weak anatomical information with instrument queries. The Chapter~\ref{chap:triplet-grounding} experiments show that strong instance supervision substantially improves grounded triplet performance over weak localisation, and that TargetFusionNet improves the complete triplet result relative to the evaluated strongly supervised baselines. The ablations further show that the manner and depth of fusion matter: anatomical information is not useful merely because it is available, but must be integrated into the learned representation in a form that supports the task.
+
+The long-tail and failure analyses qualify this result. Performance declines for less frequent triplets, and confusions remain among anatomically adjacent or visually similar targets. Target prediction consequently continues to constrain complete-triplet performance. TargetFusionNet should therefore be understood both as a positive modelling result and as evidence that anatomical target association remains an unresolved challenge. It demonstrates the value of explicit target-aware modelling without implying that weak anatomical information removes the need for better target supervision, contact localisation, or contextual modelling.
+
+\subsection{Two-Stage Multimodal Interaction Prediction}
+\label{sec:discussion-two-stage}
+
+Chapter~\ref{chap:two-stage-interaction} explores a complementary formulation with specialised spatial and semantic components. Mask2Former first predicts instrument instances, after which Qwen3-VL-8B-Instruct predicts the corresponding verb and target for each grounded instance. This decomposition asks whether a general multimodal model can build upon the spatial foundation established by the preceding chapters without also learning dense localisation from the same objective.
+
+Direct supervised fine-tuning establishes a viable Stage~2 baseline. Under ground-truth grounding, Sequential Dialogue Prediction and three-frame temporal context produce the strongest observed complete-triplet results among the principal adaptations. The complete Direct SFT pipeline also produces substantially stronger component scores and essentially comparable complete-triplet AP relative to TargetFusionNet when predicted instrument instances are used. These findings show that MLLM-based interaction prediction can be connected successfully to a specialist grounding model.
+
+The remaining adaptations also provide useful guidance. Five-frame context, textual anatomical priors, ontology guidance, and distilled-rationale supervision do not consistently improve the principal outcome. More context or longer supervision is therefore not inherently helpful; its value depends on representation, objective, and integration. The two-stage work establishes a promising continuation of the thesis rather than a final resolution of interaction prediction. Its most important conclusion is that specialist grounding and multimodal semantic prediction form a workable system whose temporal modelling and cross-procedure generalisability can now be investigated further.
+
+\section{Answers to the Research Questions}
+\label{sec:discussion-research-questions}
+
+\subsection{Progress from Perceptual Tasks to Spatially Grounded Interaction Understanding}
+\label{sec:discussion-rq1}
+
+Surgical scene understanding progressed from individual perceptual and workflow tasks towards increasingly fine-grained descriptions of surgical activity. Multitask learning provided one useful framework for relating these predictions, while surgical action triplets offered a compact representation of instrument--tissue interactions. However, the triplet task remained predominantly frame-level and could not reliably associate an interaction with a particular instrument in a multi-instrument scene. At the same time, suitable large-scale instance annotations were scarce.
+
+The principal gap was therefore not simply the need to predict more related outputs. It was the need to spatially ground semantic interaction predictions to the visual instrument instances responsible for them. This conclusion links the review directly to the construction of CholecInstanceSeg and CholecTriplet-Seg.
+
+\subsection{Construction of Large-Scale Instrument Instance Supervision}
+\label{sec:discussion-rq2}
+
+CholecInstanceSeg demonstrates that existing public laparoscopic datasets can be extended into a large-scale instrument instance-segmentation resource. Its 41,933 frames and 64,483 instances provide sufficient scale to train and compare modern instance-segmentation methods, while distinguishing individual instruments within multi-instrument scenes. Technical validation confirms that the resulting annotations support learnable and measurable instance segmentation.
+
+The answer to the second research question is therefore affirmative. The resulting dataset also fulfils a broader role: it provides the spatial substrate needed to connect interaction labels to individual instruments in the later chapters.
+
+\subsection{Grounding Surgical Action Triplets}
+\label{sec:discussion-rq3}
+
+CholecTriplet-Seg demonstrates that surgical action triplets can be grounded to instrument instance masks. By linking each visible instrument to its verb and target, it enables spatially interpretable predictions and mask-based evaluation of complete interactions. The associated benchmark separates component, pair, and full-triplet performance so that different sources of error remain observable.
+
+The third research question can therefore also be answered affirmatively. The contribution changes triplet recognition from a frame-level presence problem into an instance-level association problem and establishes the dataset and metric framework needed to study it.
+
+\subsection{Weak Anatomical Priors and Target Prediction}
+\label{sec:discussion-rq4}
+
+The TargetFusionNet experiments provide evidence that weak anatomical priors can improve grounded triplet prediction when fused into an instance-segmentation architecture. The result is nevertheless conditional on how the prior is represented and integrated. The prompt-level anatomical experiment in Chapter~\ref{chap:two-stage-interaction}, which supplies EndoViT-derived context from a heuristic instrument-tip region, does not reliably improve target classification.
+
+These findings are complementary rather than contradictory. They indicate that anatomical information can be useful, but that its presence alone is insufficient. Effective use requires an appropriate spatial correspondence, representation, and learned integration mechanism. The continuing difficulty of target prediction also suggests that richer contact-region or target supervision may be more valuable than increasingly elaborate prompt descriptions of coarse anatomy.
+
+\subsection{Multimodal Second-Stage Interaction Prediction}
+\label{sec:discussion-rq5}
+
+Chapter~\ref{chap:two-stage-interaction} demonstrates that a fine-tuned MLLM can act as a viable second-stage interaction predictor when instrument instances are supplied. Direct SFT establishes the principal baseline, while sequential factorisation and short temporal context provide promising directions for further development. When predicted masks are used, the complete pipeline remains competitive with TargetFusionNet despite the additional errors introduced by Stage~1.
+
+The fifth research question is therefore answered affirmatively at the level of formulation: MLLM-based interaction prediction works as part of a two-stage grounded system. Continued work is required to assess the strongest adaptations under predicted grounding and determine how well the formulation transfers beyond cholecystectomy. These next steps extend, rather than invalidate, the evidence established in the chapter.
+
+\section{Principal Scientific and Technical Insights}
 \label{sec:discussion-implications}
 
-\textbf{Drafting goal:} discuss what the thesis contributes to surgical data science, computer-assisted intervention, multitask learning, and interpretable surgical AI.
+\subsection{Spatial Grounding as an Interaction Representation}
+\label{sec:discussion-grounding-insight}
+
+Spatial grounding is more than an additional output attached to action recognition. It changes the unit of prediction from the frame to the instrument instance. This makes it possible to distinguish multiple actors, associate semantic labels with visible evidence, and penalise an otherwise correct interaction assigned to the wrong instrument. The task is consequently more demanding than frame-level recognition, but also more interpretable and more precise.
+
+The thesis demonstrates two ways of modelling this relationship. TargetFusionNet learns masks and triplet labels within a unified architecture, whereas the two-stage framework treats grounded instances as an interface to an MLLM. The unified approach can share representations across localisation and interaction prediction. The decomposed approach allows each stage to specialise and makes their contributions easier to inspect, but it also makes Stage~2 dependent on Stage~1: missed instruments are absent from the interaction input, false positives create unnecessary predictions, and instrument classes cannot currently be revised by the MLLM. The results do not establish that one design is universally preferable. They show instead that accurate spatial grounding and coherent semantic interaction prediction are both necessary, regardless of whether they are learned jointly or separately.
+
+\subsection{Dataset Construction Enables New Scientific Questions}
+\label{sec:discussion-dataset-insight}
+
+The dataset contributions are not merely preparatory steps for model development. They determine which scientific questions can be asked and evaluated. Before instrument instance masks are available, a model cannot be assessed on whether it distinguishes two graspers in the same frame. Before masks are aligned with verbs and targets, a triplet model cannot be assessed on whether it assigns the correct interaction to the correct grasper.
+
+CholecInstanceSeg enables the first question by defining individual instruments spatially. CholecTriplet-Seg enables the second by attaching semantic interactions to those instances. Together, they convert a previously weakly grounded recognition problem into a strongly supervised instance-association problem. This progression illustrates a broader lesson for surgical data science: advances in annotation design can change the scientific scope of a task, not only its dataset size.
+
+\subsection{Anatomical Targets Remain the Principal Semantic Challenge}
+\label{sec:discussion-target-insight}
+
+Across Chapters~\ref{chap:triplet-grounding} and~\ref{chap:two-stage-interaction}, target prediction is more difficult than instrument grounding and frequently constrains the complete interaction result. Several properties of the problem contribute to this pattern. Anatomical structures deform, overlap, and change appearance during surgery; their boundaries may be obscured or intrinsically weak; and adjacent structures may look similar in a restricted laparoscopic field of view. The relevant target may also be defined by the instrument's contact or surgical intent rather than by the dominant tissue visible in the image.
+
+The distribution of targets and complete triplets compounds these visual difficulties. A small number of interactions occur frequently, while many valid combinations are rare. Models consequently receive limited supervision for some of the distinctions on which complete-triplet correctness depends. TargetFusionNet shows that learned anatomical fusion can help, but neither it nor the prompt-level prior resolves the underlying ambiguity. Better contact localisation, richer target supervision, and representations that integrate spatial and temporal evidence remain important directions.
+
+\subsection{Why Complete-Triplet Performance Is Comparatively Low}
+\label{sec:discussion-low-triplet-performance}
+
+The complete-triplet AP values reported in Chapters~\ref{chap:triplet-grounding} and~\ref{chap:two-stage-interaction} are substantially lower than the instrument and several component-level scores. These values reflect genuine model limitations, but they must also be interpreted in relation to the strict task definition. A grounded triplet is correct only when the model localises the appropriate instance and assigns its instrument, verb, and target labels coherently. An error in any one component makes the complete prediction incorrect.
+
+This conjunctive requirement causes errors to compound. A target improvement contributes to AP$_{IVT}$ only when localisation, instrument identity, and verb are also correct for the same instance. This explains why the two-stage model can produce substantially stronger component results than TargetFusionNet without producing a correspondingly large complete-triplet increase. Component metrics and AP$_{IVT}$ answer different questions: the former diagnose individual capabilities, while the latter measures exact grounded interaction correctness.
+
+The task also contains a strongly long-tailed set of clinically valid triplets. Rare combinations receive fewer examples, yet class-averaged AP ensures that their performance remains visible rather than allowing common interactions to dominate the score. Anatomical ambiguity, temporally ambiguous verbs, missed or imperfect masks, and uncertain transitional frames add further failure routes. Spatial evaluation is appropriately harder than frame-level recognition because a correct semantic label attached to the wrong instrument is not a correct grounded interaction.
+
+These factors do not make low AP uninformative. On the contrary, they expose the difficulty that the new task was designed to measure. They do, however, mean that AP$_{IVT}$ should not be interpreted in the same way as accuracy for a single, balanced classification problem. The component, frequency-stratified, and confusion analyses are necessary for understanding what lies beneath the aggregate score.
+
+\subsection{Not All Errors Are Equal}
+\label{sec:discussion-unequal-errors}
+
+Exact complete-triplet evaluation treats all non-reference predictions as incorrect, but their severity and meaning can differ considerably. Consider a reference interaction \texttt{<clipper, clip, cystic duct>}. A prediction of \texttt{<clipper, clip, cystic artery>} preserves the instrument and action and confuses two anatomically adjacent structures. A prediction of \texttt{<grasper, retract, liver>} describes an entirely different interaction. Both fail exact AP$_{IVT}$, although the former indicates substantially more relevant understanding of the scene.
+
+Similar distinctions occur between aspiration and irrigation, grasp and retract, or cystic duct and cystic pedicle. A single-component near miss differs from a prediction in which localisation and every semantic component are incorrect. An ontology-valid but visually ambiguous alternative also differs from a malformed or clinically incompatible output. Exact AP remains necessary because a deployed structured prediction ultimately requires a definite and correctly grounded answer, but it does not describe these differences in error structure.
+
+\subsection{The Case for \texorpdfstring{Top-$k$}{Top-k} and Richer Evaluation}
+\label{sec:discussion-topk}
+
+Future evaluation should retain strict AP while supplementing it with ranked measures. Top-$k$ triplet or component evaluation would test whether the reference interaction remains among a model's highest-ranked candidates. In the preceding example, a model that ranks cystic duct second behind cystic artery has narrowed the prediction to a plausible anatomical neighbourhood, whereas a model whose leading candidates are unrelated has failed more fundamentally. Both may have the same top-1 outcome, but they motivate different modelling responses.
+
+Top-$k$ evaluation should not be presented as a replacement for the established benchmark or merely as an easier score. Its value is diagnostic: it distinguishes narrowly misranked predictions from complete misunderstandings. It could be combined with component-aware results, frequency-stratified reporting, and ontology-aware groupings of related actions or targets. Such measures would provide a richer account of model behaviour while preserving AP$_{IVT}$ as the criterion for exact grounded correctness.
+
+The present thesis does not report top-$k$ results because the evaluated pipelines produce or retain a single final structured prediction rather than a consistently calibrated ranking of triplets. Implementing this evaluation therefore requires models or inference procedures that expose comparable candidate scores. It is a concrete recommendation for continued work, particularly when evaluating transfer to a new procedure, where the nature and severity of errors may differ from those observed in cholecystectomy.
 
 \section{Limitations}
 \label{sec:discussion-limitations}
 
-\textbf{Drafting goal:} synthesise limitations across chapters: procedure specificity, annotation cost, long-tailed labels, anatomical ambiguity, evaluation constraints, and clinical translation.
+\subsection{Dataset Scope and Generalisability}
+\label{sec:discussion-dataset-limitations}
 
-\section{Ethical and Clinical Considerations}
+The technical contributions focus on laparoscopic cholecystectomy and build upon established public datasets from this procedure. This focus enables coherent development from instrument instances to grounded triplets, but limits conclusions about other operations, institutions, imaging systems, and instrument sets. CholecInstanceSeg and CholecTriplet-Seg also inherit long-tailed class distributions. Rare instruments, targets, and triplets remain difficult to model and may be under-represented in aggregate examples despite their influence on class-averaged metrics.
+
+\subsection{Annotation and Task Definition}
+\label{sec:discussion-annotation-limitations}
+
+Instance-mask construction and alignment with triplet labels require substantial annotation and verification effort. Instrument boundaries can be obscured, and target or action labels may be ambiguous in isolated frames. The datasets were carefully constructed and inspected, but should be understood as research annotations rather than perfect or exhaustive clinical ground truth. The current evaluation generally uses one reference interaction per grounded instance; it does not represent the degree to which an alternative target or action might also be visually plausible.
+
+The task definition grounds an interaction through the instrument mask because dense target masks are unavailable. This provides a clear and useful actor-centric evaluation, but does not directly localise the instrument--tissue contact or the complete anatomical extent of the target. Future annotations that represent contact regions or uncertainty could enable more detailed evaluation.
+
+\subsection{Modelling Limitations}
+\label{sec:discussion-modelling-limitations}
+
+No model in the thesis fully resolves anatomical target prediction or the long tail of grounded triplets. TargetFusionNet depends on weak anatomical predictions, while the two-stage system propagates missed or incorrect instrument instances into Stage~2. Temporal information is investigated only in the final technical chapter and is not yet connected to temporally associated predicted instances across frames.
+
+Chapter~\ref{chap:two-stage-interaction} establishes MLLM viability but represents an active continuation of the research. The principal experiments use one run, and most adaptations are evaluated under ground-truth grounding. The strongest sequential and temporal formulations therefore require broader evaluation within the complete predicted-grounding system. These qualifications limit comparative claims but do not alter the demonstrated feasibility of the two-stage formulation.
+
+\section{Ethical and Responsible Dataset Considerations}
 \label{sec:discussion-ethics}
 
-\textbf{Drafting goal:} address responsible dataset release, privacy, bias, clinical deployment, and the difference between decision support and autonomy.
+The dataset contributions are derived from existing surgical video resources and must be used within their original governance, licensing, and ethical conditions. Surgical videos can contain sensitive clinical information even when conventional patient identifiers are absent. Responsible release therefore requires attention to de-identification, access conditions, documentation, and restrictions inherited from the source datasets.
+
+Representativeness is another important consideration. A benchmark concentrated on one procedure and a limited set of institutions, equipment, surgeons, and workflows cannot represent the full variation encountered in surgery. Long-tailed labels may also produce uneven performance across instruments and interactions. Reporting only an aggregate score can conceal these differences; class-level, frequency-stratified, and failure analyses are therefore important parts of responsible evaluation.
+
+The methods developed in this thesis are retrospective research systems rather than clinically validated decision-support tools. Spatial masks and structured triplets make outputs more inspectable, but do not guarantee their correctness. The present contribution concerns the representation, annotation, and computational modelling of surgical interactions. Any later clinical use would require separate validation under the intended conditions and appropriate human oversight.
 
 \section{Future Work}
 \label{sec:discussion-future-work}
 
-\textbf{Drafting goal:} outline future directions including broader procedures, richer anatomical annotation, temporal reasoning, surgical foundation models, and prospective clinical validation.
+\subsection{Cross-Procedure Evaluation with ProstaTD}
+\label{sec:discussion-prostatd}
+
+The most immediate future direction is to test whether the grounded interaction formulation transfers beyond laparoscopic cholecystectomy. ProstaTD is an external, multi-source dataset for spatially localised surgical triplet detection in robot-assisted prostatectomy~\cite{chen2025prostatd}. It provides an opportunity to examine the procedure dependence of the datasets, ontology, grounding strategy, and interaction-prediction models developed in this thesis.
+
+A possible extension would adapt its spatial annotations towards mask-based instrument grounding, using SAM2-assisted mask generation followed by systematic manual quality assurance where required. A two-stage model could then be evaluated with procedure-appropriate instrument, action, and target labels. This experiment would test whether specialist grounding followed by multimodal interaction prediction remains viable under different anatomy, instruments, viewpoints, and workflows. It would also reveal which aspects of the formulation transfer directly and which require procedure-specific adaptation.
+
+\subsection{Annotation-Efficient Expansion}
+\label{sec:discussion-annotation-future}
+
+Expanding grounded interaction datasets manually is expensive. Foundation segmentation models offer a possible means of accelerating mask construction, but generated annotations must remain subject to targeted human correction and quality control. Future pipelines should prioritise uncertain masks, rare classes, ambiguous contacts, and inconsistent instance--interaction alignments for review. This would extend the semi-automated principles used in the thesis while preserving the reliability required for grounded evaluation.
+
+\subsection{Improved Anatomical and Temporal Modelling}
+\label{sec:discussion-context-future}
+
+Future target modelling should investigate learned instrument--tissue contact localisation and richer use of dense anatomical predictions. The Chapter~\ref{chap:two-stage-interaction} textual prior compresses the local anatomy into three class proportions and depends on a heuristic tip estimate; alternative representations could retain spatial structure and learn which anatomical evidence is relevant to each instrument and action.
+
+Temporal modelling should similarly move beyond independently rendered frames sharing a fixed visual-token budget. Consistent association of instrument instances across time would allow the model to connect motion and interaction progression to the same actor. This is particularly relevant to actions such as aspiration and irrigation, or grasping and retraction, that may be difficult to distinguish from a still image. Evaluation under predicted grounding will require tracking, mask propagation, or another means of maintaining instance correspondence across neighbouring frames.
+
+\subsection{Continued Development of Multimodal Interaction Prediction}
+\label{sec:discussion-mllm-future}
+
+The sequential and three-frame formulations in Chapter~\ref{chap:two-stage-interaction} provide the most immediate candidates for further study. They should be evaluated across repeated runs and within the complete predicted-grounding pipeline, both separately and in controlled combinations. Sequential prediction could be made more robust to an incorrect first-turn verb, while curriculum-style adaptation could initialise specialised variants from a converged Direct SFT model rather than independently from the base MLLM.
+
+Structured-output reliability also warrants attention. Constrained generation or lightweight ontology-aware validation may reduce malformed or incompatible predictions, provided that such processing is evaluated transparently rather than silently correcting outputs. If distilled-rationale supervision is revisited, answer-token weighting and systematic rationale quality control would be necessary to avoid allowing long, unverified explanations to dominate the objective.
+
+\subsection{Richer Evaluation of Grounded Interactions}
+\label{sec:discussion-evaluation-future}
+
+Cross-procedure work should retain exact mask-based AP to preserve continuity with CholecTriplet-Seg, while adding top-$k$ component and triplet measures where calibrated candidate rankings are available. Frequency-stratified evaluation and ontology-aware error groupings would clarify whether transfer failures arise from rare labels, new anatomy, unfamiliar instruments, or fundamentally unrelated predictions. This richer evaluation would recognise that not all errors are equal without weakening the requirement for exact grounded correctness.
 
 \section{Conclusion}
 \label{sec:discussion-conclusion}
 
-\textbf{Drafting goal:} close by restating the thesis claim: spatial grounding and specialised interaction prediction are necessary steps towards more useful surgical scene understanding.
+This thesis advances surgical scene understanding from recognising which interactions occur in a frame towards identifying which instrument instance performs each action and upon which anatomical target. The review of multitask learning and surgical scene understanding identified the absence of strong spatial grounding as a central limitation of increasingly fine-grained activity recognition. CholecInstanceSeg then established the large-scale instrument-instance supervision needed to distinguish individual actors in laparoscopic scenes.
+
+Building upon this spatial foundation, CholecTriplet-Seg connected instrument masks with verbs and anatomical targets and established triplet segmentation as a strongly supervised, instance-level task. TargetFusionNet demonstrated that target-aware fusion can improve grounded triplet prediction, while its results and failure analyses showed that anatomical target association and long-tailed complete interactions remain difficult. The final technical chapter demonstrated that grounding and semantic interaction prediction can also be separated successfully: a specialist segmentation model can supply instrument instances to an MLLM that predicts their interactions.
+
+Together, these contributions provide datasets, benchmarks, and modelling approaches for spatially grounded surgical interaction understanding. They also show why complete-triplet performance remains challenging: localisation, instrument identity, action, target, and their association must all be correct simultaneously, and exact evaluation treats near semantic or anatomical confusions in the same way as unrelated errors. Future top-$k$ and component-aware measures can provide a richer diagnosis, but should complement rather than replace strict grounded evaluation.
+
+The immediate next step is to determine whether this formulation generalises beyond cholecystectomy. Cross-procedure evaluation using an external dataset such as ProstaTD would test the transfer of instrument grounding and multimodal interaction prediction to different anatomy, instruments, and workflows. By establishing the required spatial and semantic foundations, this thesis makes that broader investigation possible and provides a clear direction for the continued development of grounded surgical scene understanding.
