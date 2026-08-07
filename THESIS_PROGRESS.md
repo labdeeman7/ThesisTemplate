@@ -81,6 +81,7 @@ This file records the working state of the thesis. It should be updated whenever
 - Revised the thesis-written entrances and exits of Chapters 2--5 into a continuous scientific narrative: the review identifies the missing instance-level link, CholecInstanceSeg supplies spatial supervision, CholecTriplet-Seg connects instances to interactions, and Chapter 5 evaluates specialised grounding followed by multimodal interaction prediction.
 - Removed repository-process language from the Chapter 4 transition, moderated the prominence of multitask learning in the Chapter 2 wrapper, and added a Chapter 5 appendix-to-conclusion transition into the thesis-wide synthesis.
 - Verified the revised Chapter 2--5 narrative in a converged 239-page thesis build with zero undefined citations, zero undefined references, zero duplicate bibliography keys, and no LaTeX or Biber errors.
+- Standardised the Chapter 2--4 wrapper statements to identify each accepted paper by its full title and publication venue/status, and added the missing journal details to the Chapter 3 and Chapter 4 accepted-manuscript title blocks.
 
 ## Current Task
 
