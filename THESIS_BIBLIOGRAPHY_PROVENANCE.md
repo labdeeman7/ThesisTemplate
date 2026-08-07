@@ -94,25 +94,25 @@ Records are grouped by normalized DOI, or?without a DOI?by normalized title plus
 
 ## `alabi2025multitask`
 
-- **DOI:** Not supplied
+- **DOI:** 10.1016/j.media.2025.103480
 - **Title:** Multitask learning in minimally invasive surgical vision: A review
 - **Authors:** Alabi, Oluwatosin and Vercauteren, Tom and Shi, Miaojing
 - **Year:** 2025
 - **Source records:** `phd_papers/sources/Surgical Action Triplet Segmentation IPCAI/sn-bibliography.bib` (`alabi2025multitask`)
 - **Duplicate keys replaced:** None
-- **Metadata differences:** None
-- **Decision:** Canonical key selected from the earliest source in thesis order; metadata selected from `phd_papers/sources/Surgical Action Triplet Segmentation IPCAI/sn-bibliography.bib` as the most complete record.
+- **Metadata differences:** The manuscript source did not supply the final DOI or volume. The published record is volume 101, article 103480.
+- **Decision:** Canonical key retained from the thesis source and completed using the final 2025 journal metadata.
 
 ## `alabi2026grounding`
 
-- **DOI:** Not supplied
+- **DOI:** 10.1007/s11548-026-03596-1
 - **Title:** Grounding surgical action triplets with instrument instance segmentation: a dataset and target-aware fusion approach
 - **Authors:** Alabi, Oluwatosin and Wei, Meng and Budd, Charlie and Vercauteren, Tom and Shi, Miaojing
 - **Year:** 2026
 - **Source records:** `phd_papers/sources/Two_Stage_Surgical_Triplet_Segmentation/mybibliography.bib` (`alabi2026grounding`)
 - **Duplicate keys replaced:** None
-- **Metadata differences:** None
-- **Decision:** Canonical key selected from the earliest source in thesis order; metadata selected from `phd_papers/sources/Two_Stage_Surgical_Triplet_Segmentation/mybibliography.bib` as the most complete record.
+- **Metadata differences:** The manuscript bibliography contained provisional pagination (`1--8`) and did not contain the final volume, issue, page range, or DOI. The final published record is volume 21, issue 5, pages 901--908.
+- **Decision:** Canonical key retained from the thesis source; publication metadata updated from the final 2026 journal record while the accepted manuscript remains the authoritative chapter source.
 
 ## `alexnet`
 
@@ -705,8 +705,8 @@ Records are grouped by normalized DOI, or?without a DOI?by normalized title plus
 - **Year:** 2025
 - **Source records:** `phd_papers/sources/Scientific_data_cholecInstance_seg/sample.bib` (`cholecinstanceseg`); `phd_papers/sources/Surgical Action Triplet Segmentation IPCAI/sn-bibliography.bib` (`alabi2025cholecinstanceseg`)
 - **Duplicate keys replaced:** `alabi2025cholecinstanceseg`
-- **Metadata differences:** year: 2024 | 2025; doi: https://doi.org/10.7303/syn64891826.1 | 10.1038/s41597-025-05163-w
-- **Decision:** Canonical key selected from the earliest source in thesis order; metadata selected from `phd_papers/sources/Surgical Action Triplet Segmentation IPCAI/sn-bibliography.bib` as the most complete record.
+- **Metadata differences:** year: 2024 | 2025; doi: https://doi.org/10.7303/syn64891826.1 | 10.1038/s41597-025-05163-w. The final journal record identifies article 825 in volume 12, issue 1.
+- **Decision:** Canonical key retained from the earliest thesis source and completed using the final 2025 journal metadata.
 
 ## `cholecseg8k`
 

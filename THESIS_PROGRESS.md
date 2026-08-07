@@ -83,10 +83,15 @@ This file records the working state of the thesis. It should be updated whenever
 - Verified the revised Chapter 2--5 narrative in a converged 239-page thesis build with zero undefined citations, zero undefined references, zero duplicate bibliography keys, and no LaTeX or Biber errors.
 - Standardised the Chapter 2--4 wrapper statements to identify each accepted paper by its full title and publication venue/status, and added the missing journal details to the Chapter 3 and Chapter 4 accepted-manuscript title blocks.
 - Added the recovered Chapter 5 prompt, anatomical-prior, and training utilities as scientific provenance while excluding generated Python caches and thesis build outputs; removed hard-coded Hugging Face credentials from the supplied launch scripts before versioning them.
+- Completed a thesis-wide scientific consistency audit covering dataset statistics and splits, repeated numerical results, research-question alignment, terminology, publication metadata, contribution attribution, obsolete claims, and abstract alignment.
+- Corrected the Chapter 5 predicted-grounding comparison, which had combined one mask-segmentation value with five bounding-box detection values for TargetFusionNet; the table now reproduces the complete Chapter 4 mask-segmentation row and compares AP$_{IVT}=13.52$ with 13.47.
+- Updated the three thesis-forming journal records to their final publication metadata, including the final 2026 TargetFusionNet volume, issue, pages, and DOI, while retaining the accepted manuscript as the authoritative Chapter 4 source.
+- Strengthened the abstract with the verified dataset sizes and principal quantitative outcomes, and made the conditional answer to the fourth research question explicit in Chapter 6.
+- Verified the scientific-consistency milestone in a fresh converged 239-page build with zero undefined citations, zero undefined references, zero duplicate bibliography keys, and no LaTeX or Biber errors.
 
 ## Current Task
 
-- Complete the scientific consistency pass, then perform the dedicated layout review before finalising the remaining thesis front matter.
+- Perform the dedicated thesis layout and figure-placement review before finalising the remaining front matter.
 
 ## Outstanding Issues
 
@@ -95,6 +100,7 @@ This file records the working state of the thesis. It should be updated whenever
 - The converged build retains inherited layout/template warnings, including overfull and underfull boxes, PDF-version inclusion notices, one obsolete display-math warning, and the template's `\theauthor` redefinition warning.
 - Root-level `Introduction.tex`, `Methods.tex`, and `Conclusion.tex` are not included by the current thesis and require classification before any archival decision.
 - The working tree contains a pre-existing modification to `Thesis.pdf`; this must not be overwritten or included accidentally in unrelated commits.
+- The Chapter 5 supplementary appendix intentionally retains a blank qualitative error-analysis panel awaiting author-selected examples; it must be populated or removed before final submission so that the thesis does not contain an unfinished placeholder.
 
 ## Decisions
 

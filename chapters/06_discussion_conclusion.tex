@@ -74,6 +74,8 @@ Surgical scene understanding progressed from individual perceptual and workflow 
 
 The principal gap was therefore not simply the need to predict more related outputs. It was the need to spatially ground semantic interaction predictions to the visual instrument instances responsible for them. This conclusion links the review directly to the construction of CholecInstanceSeg and CholecTriplet-Seg.
 
+The answer to the first research question is therefore that progress towards fine-grained interaction recognition exposed spatial grounding, rather than the prediction of additional frame-level labels alone, as the missing capability required to associate surgical action triplets with individual instrument instances.
+
 \subsection{Construction of Large-Scale Instrument Instance Supervision}
 \label{sec:discussion-rq2}
 
@@ -95,12 +97,14 @@ The TargetFusionNet experiments provide evidence that weak anatomical priors can
 
 These findings are complementary rather than contradictory. They indicate that anatomical information can be useful, but that its presence alone is insufficient. Effective use requires an appropriate spatial correspondence, representation, and learned integration mechanism. The continuing difficulty of target prediction also suggests that richer contact-region or target supervision may be more valuable than increasingly elaborate prompt descriptions of coarse anatomy.
 
+The fourth research question is therefore answered conditionally: weak anatomical priors can improve target and complete-triplet prediction when they are incorporated through the learned fusion mechanism evaluated in TargetFusionNet, but the prompt-level experiment shows that this benefit does not generalise automatically to every representation of anatomical context.
+
 \subsection{Multimodal Second-Stage Interaction Prediction}
 \label{sec:discussion-rq5}
 
 Chapter~\ref{chap:two-stage-interaction} demonstrates that a fine-tuned MLLM can act as a viable second-stage interaction predictor when instrument instances are supplied. Direct SFT establishes the principal baseline, while sequential factorisation and short temporal context provide promising directions for further development. When predicted masks are used, the complete pipeline remains competitive with TargetFusionNet despite the additional errors introduced by Stage~1.
 
-The fifth research question is therefore answered affirmatively at the level of formulation: MLLM-based interaction prediction works as part of a two-stage grounded system. Continued work is required to assess the strongest adaptations under predicted grounding and determine how well the formulation transfers beyond cholecystectomy. These next steps extend, rather than invalidate, the evidence established in the chapter.
+The fifth research question is therefore answered affirmatively at the level of formulation: MLLM-based interaction prediction is viable as part of a two-stage grounded system. Continued work is required to assess the strongest adaptations under predicted grounding and determine how well the formulation transfers beyond cholecystectomy. These next steps extend, rather than invalidate, the evidence established in the chapter.
 
 \section{Principal Scientific and Technical Insights}
 \label{sec:discussion-implications}

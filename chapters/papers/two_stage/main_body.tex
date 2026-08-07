@@ -203,7 +203,7 @@ Distilled Rationale Only supervision performs poorly, particularly on target-rel
 
 \subsection{Complete Two-Stage System}
 
-\tabref{tab:c5:predicted-grounding} evaluates Direct SFT with Stage~1 predictions and compares it with the Chapter~\ref{chap:triplet-grounding} systems under the same dataset and IVTMetrics protocol. The published comparison values are reproduced from that chapter. The two-stage system obtains AP$_I=80.64$, which is fixed by Stage~1 and is not attributable to the MLLM. It also produces substantially higher AP$_V$, AP$_T$, AP$_{IV}$, and AP$_{IT}$ than TargetFusionNet. Complete-triplet performance is essentially comparable: AP$_{IVT}=13.52$ for the two-stage system and 13.45 for TargetFusionNet. The 0.07-point difference is too small to support an improvement claim.
+\tabref{tab:c5:predicted-grounding} evaluates Direct SFT with Stage~1 predictions and compares it with the Chapter~\ref{chap:triplet-grounding} systems under the same dataset and IVTMetrics mask-segmentation protocol. The published comparison values are reproduced from that chapter. The two-stage system obtains AP$_I=80.64$, which is fixed by Stage~1 and is not attributable to the MLLM. It also produces substantially higher AP$_V$, AP$_T$, AP$_{IV}$, and AP$_{IT}$ than TargetFusionNet. Complete-triplet performance is essentially comparable: AP$_{IVT}=13.52$ for the two-stage system and 13.47 for TargetFusionNet. The 0.05-point difference is too small to support an improvement claim.
 
 \begin{table}[htb!]
 \centering
@@ -215,7 +215,7 @@ Method & AP$_I$ & AP$_V$ & AP$_T$ & AP$_{IV}$ & AP$_{IT}$ & AP$_{IVT}$ \\
 \midrule
 RDV-Det~\cite{nwoye2023cholectriplet2022} & 0.09 & 0.11 & 0.08 & 0.08 & 0.04 & 0.03 \\
 Mask2Former-Triplet~\cite{alabi2026grounding} & 65.24 & 45.61 & 20.75 & 23.03 & 16.47 & 12.23 \\
-TargetFusionNet~\cite{alabi2026grounding} & 67.19 & 46.23 & 23.70 & 24.82 & 17.74 & 13.45 \\
+TargetFusionNet~\cite{alabi2026grounding} & 67.19 & 46.27 & 21.55 & 24.93 & 17.75 & 13.47 \\
 Two-stage Direct SFT & \textbf{80.64} & \textbf{51.89} & \textbf{25.27} & \textbf{29.01} & \textbf{18.73} & \textbf{13.52} \\
 \bottomrule
 \end{tabular}
