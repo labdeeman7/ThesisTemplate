@@ -15,6 +15,7 @@ The authoritative project is an active manuscript rather than an accepted-paper 
 - Thesis wrapper: `chapters/05_two_stage_interaction_prediction.tex`
 - First-draft editorial report: `chapters/papers/two_stage/EDITORIAL_DRAFT_REPORT.md`
 - Supplementary appendix plan: `chapters/papers/two_stage/APPENDIX_PLAN.md`
+- Active supplementary appendix: `chapters/papers/two_stage/appendix_body.tex` (currently contains the complete optimisation-sensitivity study; the remaining planned material will be added during the appendix milestone).
 
 The integrated body is a substantive editorial reconstruction rather than a preservation copy. It retains all completed experiments and numerical results while reorganising them around the approved two-stage scientific narrative. It does not modify the authoritative active-manuscript project.
 

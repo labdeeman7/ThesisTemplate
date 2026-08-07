@@ -53,10 +53,12 @@ This file records the working state of the thesis. It should be updated whenever
 - Verified the expanded publications list in a converged 203-page thesis build with zero undefined citations, zero undefined references, zero duplicate bibliography keys, and no LaTeX or Biber errors.
 - Removed all mention of earlier-degree publications from the thesis and added doctoral academic-service records for LM-SURG at ISBI 2026, the King's--Obafemi Awolowo surgical data science partnership, and the AGES Nigeria 2025 conference.
 - Verified the revised publications and academic-service pages in a converged 205-page thesis build with zero undefined citations, zero undefined references, zero duplicate bibliography keys, and no LaTeX or Biber errors.
+- Moved the complete Chapter 5 optimisation-sensitivity study out of the main scientific narrative and into a dedicated chapter supplementary appendix, retaining all five configurations, metrics, and the necessary single-seed and multi-variable caveats.
+- Verified the initial Chapter 5 appendix integration in a converged 205-page thesis build with zero undefined citations, zero undefined references, zero duplicate bibliography keys, and no LaTeX or Biber errors.
 
 ## Current Task
 
-- Review the first complete Chapter 5 editorial draft and resolve the recorded author decisions before writing its supplementary appendix.
+- Complete the Chapter 5 supplementary appendix, beginning with the optimisation-sensitivity study already migrated from the main chapter.
 
 ## Outstanding Issues
 

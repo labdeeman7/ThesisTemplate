@@ -1,0 +1,26 @@
+\subsection{Optimisation Sensitivity Study}
+\label{sec:c5:appendix-optimisation}
+
+During model development, exploratory Direct SFT runs varied training duration, effective batch size, and learning rate under ground-truth instrument grounding. These experiments provide context for the sensitivity of Stage~2 training, but they are not a comprehensive hyperparameter search or a controlled ablation: several optimisation variables change simultaneously between configurations. They therefore cannot identify the causal effect of any individual hyperparameter, and the later runs are not substituted for the principal Direct SFT baseline when comparing the interaction-prediction adaptations.
+
+\begin{table}[htb!]
+\centering
+\caption{Influence of optimisation settings on Direct SFT under ground-truth instrument grounding. All configurations use the same model architecture, but several optimisation variables change simultaneously. Bold values indicate the highest observed score in each column.}
+\label{tab:c5:optimisation-sensitivity}
+\resizebox{\textwidth}{!}{%
+\begin{tabular}{lccc|ccccc}
+\toprule
+Configuration & Effective batch & Epochs & Learning rate
+& AP$_V$ & AP$_T$ & AP$_{IV}$ & AP$_{IT}$ & AP$_{IVT}$ \\
+\midrule
+Principal baseline & 32  & 5  & $2\times10^{-4}$ & 55.99 & 26.35 & 31.03 & 21.87 & 14.56 \\
+Direct SFT & 8   & 10 & $2\times10^{-4}$ & \textbf{58.57} & \textbf{28.45} & \textbf{33.28} & 20.61 & 15.04 \\
+Direct SFT & 128 & 10 & $2\times10^{-5}$ & 55.51 & 28.18 & 30.41 & 20.35 & 14.78 \\
+Direct SFT & 48  & 20 & $2\times10^{-5}$ & 56.49 & 26.82 & 33.10 & 21.50 & 15.68 \\
+Direct SFT & 64  & 30 & $2\times10^{-5}$ & 53.86 & 26.68 & 32.24 & \textbf{23.21} & \textbf{16.05} \\
+\bottomrule
+\end{tabular}
+}
+\end{table}
+
+Across these configurations, AP$_{IVT}$ ranges from 14.56 to 16.05. The effective-batch-eight configuration produces the highest AP$_V$, AP$_T$, and AP$_{IV}$, whereas the 30-epoch configuration produces the highest AP$_{IT}$ and AP$_{IVT}$. Increasing batch size or training duration therefore does not improve all interaction components uniformly. The results demonstrate material sensitivity to the overall training configuration, but do not establish that any individual change is responsible for the observed differences. All runs use one seed, so the table also does not distinguish optimisation effects from run-to-run variability.

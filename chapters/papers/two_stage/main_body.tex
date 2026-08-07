@@ -223,10 +223,6 @@ Two-stage Direct SFT & \textbf{80.64} & \textbf{51.89} & \textbf{25.27} & \textb
 
 The reduction from AP$_{IVT}=14.56$ under ground-truth grounding to 13.52 in the complete system reflects compounded errors. False-negative Stage~1 instances never reach Stage~2, false positives generate additional interaction predictions, and incorrect instrument identities cannot be corrected by the MLLM. Moreover, improvements in individual components need not translate proportionally to AP$_{IVT}$ because all three labels and the spatial association must be correct simultaneously.
 
-\subsection{Sensitivity to Optimisation}
-
-Exploratory Direct SFT runs varied training duration, effective batch size, and learning rate simultaneously. Across these configurations, AP$_{IVT}$ ranged from 14.56 to 16.05, with different settings favouring different component metrics. This demonstrates material sensitivity to the overall training configuration but cannot identify the causal effect of any individual hyperparameter. The later runs therefore are not substituted for the principal Direct SFT baseline or compared with adaptations as though they formed a controlled study.
-
 \section{Discussion}
 \label{sec:c5:discussion}
 

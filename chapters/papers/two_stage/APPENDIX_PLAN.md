@@ -37,8 +37,7 @@ Insert an appendix reference from the Anatomical Context Priors subsection once 
 
 ## E. Secondary and optimisation results
 
-- Full optimisation-sensitivity table with all five configurations and metrics.
-- Clear warning that several optimisation variables change simultaneously.
+- Completed: the full five-configuration optimisation-sensitivity study has been moved from the main chapter to `appendix_body.tex`, including all metrics and the warning that several variables change simultaneously.
 - Candidate confusion matrices, explicitly excluded from the main chapter. Their final appendix selection will be decided during appendix drafting.
 - Optional secondary negative-result table if the main chapter is later shortened for journal submission.
 
