@@ -102,19 +102,26 @@ This file records the working state of the thesis. It should be updated whenever
 - Replaced the stale Chapter 5 appendix running header inherited from the main-text conclusion with a dedicated `Chapter Supplementary Appendix` mark and applied local line-breaking tolerance without changing scientific content.
 - Completed the Chapter 6 and bibliography layout review. Chapter 6 requires no float changes; its mini-table-of-contents is now limited to section level, removing the page-number collision caused by the unusually deep subsection listing. The complete bibliography was visually sampled from first to last page and given local line-breaking tolerance for long identifiers.
 - Verified the Chapters 5--6 and bibliography layout milestone in a converged 241-page build with zero undefined citations, zero undefined references, zero duplicate bibliography keys, no LaTeX or Biber errors, and no overfull-box warnings within Chapter 5, Chapter 6, or the bibliography.
+- Replaced the placeholder acknowledgement with a complete first draft thanking supervisors Tom Vercauteren and Miaojing Shi, colleagues Charlie Budd and Meng Wei, and the author's parents.
+- Reviewed the title page and originality declaration against the Lucas Fidon reference thesis. Both already follow the same King's College London thesis format, so no unnecessary structural changes were made.
+- Reviewed the publications, relationship-to-thesis, and academic-service material. The current page consistently excludes pre-doctoral publications and records the thesis papers, other doctoral publications, ISBI workshop organisation, the King's--Obafemi Awolowo University collaboration, and AGES Nigeria 2025.
+- Verified the acknowledgement and front-matter review in a successful 241-page thesis build with no LaTeX or Biber errors and no undefined citations or references.
 
 ## Current Task
 
-- The first complete front-to-back layout pass is complete. Proceed to the remaining front matter, beginning with acknowledgements and the impact statement, while retaining a final post-front-matter pagination and warning audit.
+- Pause after the acknowledgement, title/declaration, and publications review. The author will return to the remaining front matter and the Chapter 5 qualitative figure in the next working session.
 
 ## Outstanding Issues
 
-- `Acknowledgments.tex` is nearly empty and the impact statement in `Thesis.tex` is placeholder text.
+- The impact statement in `Thesis.tex` remains placeholder text and must be drafted or removed according to the final submission requirements.
 - TargetFusionNet standalone compilation requires the missing local MiKTeX package `cuted.sty`.
 - The converged build retains inherited layout/template warnings, including overfull and underfull boxes, PDF-version inclusion notices, one obsolete display-math warning, and the template's `\theauthor` redefinition warning.
 - Root-level `Introduction.tex`, `Methods.tex`, and `Conclusion.tex` are not included by the current thesis and require classification before any archival decision.
 - The working tree contains a pre-existing modification to `Thesis.pdf`; this must not be overwritten or included accidentally in unrelated commits.
 - The Chapter 5 supplementary appendix intentionally retains a blank qualitative error-analysis panel awaiting author-selected examples; it must be populated or removed before final submission so that the thesis does not contain an unfinished placeholder.
+- The title page currently uses `\today`; this should be replaced by the confirmed submission month/date before final submission.
+- King's requires a separate RD2 generative-AI declaration at submission. This administrative declaration must accurately record the editorial and rewriting assistance used during thesis preparation and is separate from the generic originality declaration printed in the thesis.
+- Confirm whether thesis-forming-paper author-contribution statements are required by the School or supervisors; none should be invented without the author's account of individual contributions.
 
 ## Decisions
 
@@ -130,8 +137,11 @@ This file records the working state of the thesis. It should be updated whenever
 - Citation-key differences are harmonised only in thesis-specific chapter sources. Accepted-paper source directories retain their original keys and local bibliography files.
 - Chapter 5 is framed as two-stage multimodal interaction prediction. Target-centric chain-of-thought is not a thesis contribution and the obsolete formulation is retained only under `archive/chapter5/`.
 - The only authoritative Chapter 5 manuscript is `phd_papers/sources/Two_Stage_Surgical_Triplet_Segmentation/main.tex`; its four referenced PDF figures are the authoritative active figure set.
+- The title page and generic originality declaration retain the King's template wording used in the reference thesis. Only submission-specific facts, such as the final date, should be changed.
 
 ## Questions Requiring Input
 
-- Confirm the preferred wording and required length for the impact statement.
-- Provide the content or key points to include in the acknowledgements when ready.
+- Confirm the final submission month/date to print on the title page instead of `\today`.
+- Confirm whether an impact statement is required and, if so, its expected length or School guidance.
+- Review the acknowledgement draft for personal tone and confirm whether any additional family, friends, colleagues, funders, or clinical collaborators should be named.
+- Confirm whether individual author-contribution statements are required for the three thesis-forming papers.
