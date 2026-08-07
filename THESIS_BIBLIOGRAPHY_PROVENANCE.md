@@ -1,15 +1,15 @@
 # Thesis Bibliography Provenance
 
-## `chen2025prostatd`
+## `prostatd`
 
-- **DOI:** 10.48550/arXiv.2506.01130
-- **Title:** ProstaTD: A Large-scale Multi-source Dataset for Structured Surgical Triplet Detection
-- **Authors:** Chen, Yiliang; Li, Zhixi; Xu, Cheng; Liu, Alex Qinyang; Xu, Xuemiao; Teoh, Jeremy Yuen-Chun; He, Shengfeng; Qin, Jing
-- **Year:** 2025
-- **Source records:** Added directly from the authoritative ProstaTD arXiv preprint for the Chapter 6 future-work discussion.
+- **DOI:** Not supplied
+- **Title:** ProstaTD: Bridging Surgical Triplet from Classification to Fully Supervised Detection
+- **Authors:** Chen, Yiliang; Li, Zhixi; Xu, Cheng; Liu, Alex Qinyang; Cui, Ruize; Xu, Xuemiao; Teoh, Jeremy Yuen-Chun; He, Shengfeng; Qin, Jing
+- **Year:** 2026
+- **Source records:** Added directly from the final ICLR 2026 publication metadata supplied by the author and linked by the official ProstaTD repository.
 - **Duplicate keys replaced:** None
-- **Metadata differences:** None
-- **Decision:** Added as the canonical thesis record because ProstaTD is external future work proposed for cross-procedure evaluation and the consolidated bibliography previously contained no ProstaTD entry.
+- **Metadata differences:** Replaces the earlier provisional 2025 arXiv metadata, whose title and author list differed from the final ICLR 2026 record.
+- **Decision:** The final ICLR 2026 record is canonical because it supersedes the provisional preprint metadata. ProstaTD is cited only as external future work proposed for cross-procedure evaluation.
 
 ## `bai2025qwen3vl`
 

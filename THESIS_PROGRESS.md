@@ -72,7 +72,8 @@ This file records the working state of the thesis. It should be updated whenever
 - Verified the supplementary error-analysis milestone in a converged 225-page thesis build with zero undefined citations, zero undefined references, zero duplicate bibliography keys, and no LaTeX or Biber errors; the matrices are presented as full-width figures for print legibility.
 - Completed the first full 4,579-word draft of Chapter 6, synthesising the review, CholecInstanceSeg, CholecTriplet-Seg, TargetFusionNet, and two-stage MLLM work into a single thesis conclusion.
 - Added thesis-level discussion of why complete-triplet AP is comparatively low, why exact evaluation treats errors of different severity equally, and why future top-k measures should complement rather than replace strict grounded AP.
-- Established cross-procedure evaluation using the external ProstaTD prostatectomy dataset as the principal future direction and added its authoritative preprint record to the canonical bibliography.
+- Established cross-procedure evaluation using the external ProstaTD prostatectomy dataset as the principal future direction and added it to the canonical bibliography.
+- Replaced the provisional ProstaTD preprint record with the final ICLR 2026 publication metadata and linked the official dataset repository from the Chapter 6 future-work section.
 - Verified the first Chapter 6 draft in a converged 239-page thesis build with zero undefined citations, zero undefined references, zero duplicate bibliography keys, and no LaTeX or Biber errors.
 
 ## Current Task
