@@ -82,6 +82,7 @@ This file records the working state of the thesis. It should be updated whenever
 - Removed repository-process language from the Chapter 4 transition, moderated the prominence of multitask learning in the Chapter 2 wrapper, and added a Chapter 5 appendix-to-conclusion transition into the thesis-wide synthesis.
 - Verified the revised Chapter 2--5 narrative in a converged 239-page thesis build with zero undefined citations, zero undefined references, zero duplicate bibliography keys, and no LaTeX or Biber errors.
 - Standardised the Chapter 2--4 wrapper statements to identify each accepted paper by its full title and publication venue/status, and added the missing journal details to the Chapter 3 and Chapter 4 accepted-manuscript title blocks.
+- Added the recovered Chapter 5 prompt, anatomical-prior, and training utilities as scientific provenance while excluding generated Python caches and thesis build outputs; removed hard-coded Hugging Face credentials from the supplied launch scripts before versioning them.
 
 ## Current Task
 

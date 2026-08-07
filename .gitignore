@@ -24,6 +24,14 @@
 *.xdv
 *.synctex(busy)
 
+# Local thesis build and recovery outputs
+.build/
+*-SAVE-ERROR
+
+# Python bytecode and caches
+__pycache__/
+*.pyc
+
 _*_.synctex.gz
 _*_.tex
 
