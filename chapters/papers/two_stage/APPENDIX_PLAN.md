@@ -4,7 +4,7 @@ The main chapter is intentionally concise. The following material should be adde
 
 ## A. Prompt and response specifications
 
-- Completed in `appendix_body.tex`: Direct SFT instructions and schema; shared vocabularies and null-class serialisation; the three-stage Sequential Dialogue Prediction prompts; the complete ontology-guidance content; the authoritative target-focused teacher-generation prompt and rationale schema; and the two multitask evaluation modes.
+- Completed in `appendix_body.tex`: Direct SFT instructions and schema; shared vocabularies and null-class serialisation; the three-stage Sequential Dialogue Prediction prompts; the complete ontology-guidance content; the authoritative teacher-generation prompt and structured rationale schema; and the two multitask evaluation modes.
 - The appendix excludes the unused instrument-identification dialogue turn, the superseded mixed Direct-SFT/sequential dataset version, and obsolete early rationale templates.
 
 ## B. Instrument-tip context heuristic

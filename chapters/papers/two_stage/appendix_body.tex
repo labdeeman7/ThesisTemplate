@@ -186,9 +186,9 @@ The final rationale-generation template was designed to produce concise evidence
 
 \begin{lstlisting}[style=c5prompt]
 You are an expert surgical reasoning assistant specialised in laparoscopic
-cholecystectomy analysis. Generate concise, target-centric reasoning for
-provided surgical action triplets. Focus on local instrument-target
-interaction and anatomical discrimination.
+cholecystectomy analysis. Generate concise reasoning for provided surgical
+action triplets. Focus on local instrument-target interaction and anatomical
+discrimination.
 
 Use the dataset target ontology:
 [gallbladder, cystic plate, cystic duct, cystic artery, cystic pedicle,
@@ -268,8 +268,6 @@ The generated supervision follows this schema:
 \end{lstlisting}
 
 For student supervision, the generated rationale and final triplet are used as the assistant response. The student receives the grounded image and instance identifiers but not the reference triplet supplied to the teacher. In Distilled Rationale Only evaluation, the student is instructed to generate the structured rationale followed by \texttt{final\_triplet}; only the latter is extracted for metric computation. The term \emph{distilled rationale} describes the source and form of supervision and does not imply that the teacher's explanations were clinically validated.
-
-The phrase ``target-centric reasoning'' above is retained because it formed part of the operational teacher instruction. The resulting schema is not limited to target selection: it also records visible contact evidence, action evidence, an alternative target, uncertainty, and the final complete triplet. The chapter therefore uses the broader term \emph{Distilled Reasoning Supervision} for the experiment and does not present target-centric reasoning as an independently evaluated contribution.
 
 \subsubsection{Multitask prompts}
 
