@@ -262,7 +262,7 @@ The immediate priority is repeated-seed evaluation of Direct SFT, Sequential Dia
 
 Sequential prediction should be tested with imperfect verb conditioning during training so that robustness to first-turn errors can be measured directly. Controlled combinations of the strongest adaptations would determine whether task factorisation and temporal evidence are complementary. Curriculum-style training could also initialise specialised variants from a converged Direct SFT adapter rather than training each independently from the base model.
 
-For distilled supervision, future work should prioritise rationale quality control and objectives that increase the relative weight of final answer tokens. Comparison-based or contrastive auxiliary tasks may offer a more directly verifiable form of supervision than long free-text rationales. Finally, evaluation on additional procedures and datasets is required to establish whether two-stage interaction prediction transfers beyond cholecystectomy.
+For distilled supervision, future work should prioritise rationale quality control and objectives that increase the relative weight of final answer tokens. Comparison-based or contrastive auxiliary tasks may offer a more directly verifiable form of supervision than long free-text rationales. Finally, evaluation on additional procedures and datasets is required to establish whether two-stage interaction prediction transfers beyond cholecystectomy. ProstaTD, a fully supervised surgical triplet-detection dataset for robot-assisted prostatectomy, provides a relevant external benchmark for investigating this cross-procedure generalisation~\cite{prostatd}.
 
 \section{Conclusion}
 \label{sec:c5:conclusion}

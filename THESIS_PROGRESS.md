@@ -74,6 +74,7 @@ This file records the working state of the thesis. It should be updated whenever
 - Added thesis-level discussion of why complete-triplet AP is comparatively low, why exact evaluation treats errors of different severity equally, and why future top-k measures should complement rather than replace strict grounded AP.
 - Established cross-procedure evaluation using the external ProstaTD prostatectomy dataset as the principal future direction and added it to the canonical bibliography.
 - Replaced the provisional ProstaTD preprint record with the final ICLR 2026 publication metadata and linked the official dataset repository from the Chapter 6 future-work section.
+- Corrected the thesis-integrated Chapter 5 future-work section to name and cite ProstaTD as the external prostatectomy benchmark proposed for cross-procedure evaluation; the authoritative active-manuscript source remains unchanged.
 - Verified the first Chapter 6 draft in a converged 239-page thesis build with zero undefined citations, zero undefined references, zero duplicate bibliography keys, and no LaTeX or Biber errors.
 
 ## Current Task
