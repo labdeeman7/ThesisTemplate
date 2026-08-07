@@ -4,14 +4,8 @@ The main chapter is intentionally concise. The following material should be adde
 
 ## A. Prompt and response specifications
 
-- Direct SFT instruction template.
-- Complete verb and target vocabularies.
-- Structured output schema, including `null_verb` and `null_target`.
-- Sequential Dialogue Prediction training and inference templates.
-- Ontology-Guided Prompting template and an example instrument-specific verb--target list.
-- Distilled Reasoning Supervision teacher, student, and evaluation instructions.
-
-Insert appendix references from the Stage 2 input, Sequential Dialogue Prediction, Ontology-Guided Prompting, and Distilled Reasoning Supervision subsections once labels exist.
+- Completed in `appendix_body.tex`: Direct SFT instructions and schema; shared vocabularies and null-class serialisation; the three-stage Sequential Dialogue Prediction prompts; the complete ontology-guidance content; the authoritative target-focused teacher-generation prompt and rationale schema; and the two multitask evaluation modes.
+- The appendix excludes the unused instrument-identification dialogue turn, the superseded mixed Direct-SFT/sequential dataset version, and obsolete early rationale templates.
 
 ## B. Instrument-tip context heuristic
 

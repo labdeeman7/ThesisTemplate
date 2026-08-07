@@ -55,6 +55,9 @@ This file records the working state of the thesis. It should be updated whenever
 - Verified the revised publications and academic-service pages in a converged 205-page thesis build with zero undefined citations, zero undefined references, zero duplicate bibliography keys, and no LaTeX or Biber errors.
 - Moved the complete Chapter 5 optimisation-sensitivity study out of the main scientific narrative and into a dedicated chapter supplementary appendix, retaining all five configurations, metrics, and the necessary single-seed and multi-variable caveats.
 - Verified the initial Chapter 5 appendix integration in a converged 205-page thesis build with zero undefined citations, zero undefined references, zero duplicate bibliography keys, and no LaTeX or Biber errors.
+- Reconciled the recovered prompt artifacts with the final Chapter 5 experiment history: Sequential Dialogue Prediction is documented as the three retained action, target, and final-triplet turns; the earlier instrument-identification turn and mixed-training version are excluded; and the final target-focused Qwen3.7-Max generation template is treated as authoritative for distilled-rationale supervision.
+- Drafted the Chapter 5 prompt and response-schema appendix covering Direct SFT, Sequential Dialogue Prediction, Ontology-Guided Prompting, Distilled Reasoning Supervision, and both multitask evaluation modes.
+- Verified the prompt appendix in a converged 211-page thesis build with zero undefined citations, zero undefined references, zero duplicate bibliography keys, and no LaTeX or Biber errors; prompt listings introduced no new overfull boxes.
 
 ## Current Task
 

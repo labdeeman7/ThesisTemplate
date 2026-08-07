@@ -1,3 +1,282 @@
+\subsection{Prompt and Response Specifications}
+\label{sec:c5:appendix-prompts}
+
+All Stage~2 configurations combine one or more grounded visual inputs with textual instructions and autoregressively generate JSON-formatted predictions. The templates below reproduce the scientifically relevant prompt content while replacing sample-specific image names and instance lists with braces. Whitespace and Python-specific string escaping are omitted. The requested schemas are formatting instructions rather than decoding constraints: generation is not programmatically restricted to valid JSON or valid triplets.
+
+\subsubsection{Shared label vocabulary and serialisation}
+
+The prompts use the six instrument labels, ten action strings, and fifteen target strings inherited from CholecTriplet-Seg:
+
+\begin{lstlisting}[style=c5prompt]
+Instruments = ["Grasping Forceps", "Bipolar Forceps", "Monopolar Hook",
+               "Laparoscopic Scissors", "Clip Applier", "Suction-Irrigator"]
+Actions = ["grasp", "retract", "dissect", "coagulate", "clip", "cut",
+           "aspirate", "irrigate", "pack", "no action"]
+Targets = ["gallbladder", "cystic plate", "cystic duct", "cystic artery",
+           "cystic pedicle", "blood vessel", "fluid",
+           "abdominal wall cavity", "liver", "adhesion", "omentum",
+           "peritoneum", "gastrointestinal tract", "specimen bag",
+           "no target"]
+\end{lstlisting}
+
+The literal strings \texttt{no action} and \texttt{no target} are the serialised forms of the \texttt{null\_verb} and \texttt{null\_target} categories used elsewhere in the thesis. Similarly, labels are rendered as natural-language strings with spaces, such as \texttt{cystic duct}, rather than internal identifiers such as \texttt{cystic\_duct}. Although the generated object repeats the instrument class, Stage~2 does not revise the supplied grounding identity; this field serialises the complete triplet associated with the instance identifier.
+
+\subsubsection{Direct supervised fine-tuning}
+
+The Direct SFT system instruction defines the response object and the handling of inactive instruments:
+
+\begin{lstlisting}[style=c5prompt]
+Return ONLY valid JSON. Output an object with a single key "predictions",
+containing a list of items. Each item must have keys: id, instrument,
+action, target. Use only the allowed labels. If idle: action="no action",
+target="no target". No text outside JSON.
+\end{lstlisting}
+
+The user instruction supplies the grounded image, the shared label vocabulary, and the identifiers that must be labelled:
+
+\begin{lstlisting}[style=c5prompt]
+You are analysing a laparoscopic cholecystectomy frame.
+The image contains multiple surgical instrument instances predicted by a
+neural network. Each instance is marked in the image with a name and ID
+(e.g. grasper_1, hook_2).
+
+For EACH instance ID, assign exactly one (instrument, action, target)
+triplet using visual evidence.
+
+Allowed labels:
+{shared instrument, action, and target vocabularies}
+
+Required output format (example):
+{
+  "predictions": [
+    {"id": "grasper_1", "instrument": "Grasping Forceps",
+     "action": "retract", "target": "gallbladder"},
+    {"id": "hook_2", "instrument": "Monopolar Hook",
+     "action": "dissect", "target": "cystic plate"}
+  ]
+}
+
+Instrument Instances to label (from the overlay): {instrument_list}
+Now produce the JSON for this image.
+\end{lstlisting}
+
+Every training response follows the same schema, with one object per grounded instance:
+
+\begin{lstlisting}[style=c5prompt]
+{
+  "predictions": [
+    {
+      "id": "grasper_1",
+      "instrument": "Grasping Forceps",
+      "action": "retract",
+      "target": "gallbladder"
+    }
+  ]
+}
+\end{lstlisting}
+
+\subsubsection{Sequential Dialogue Prediction}
+
+Sequential Dialogue Prediction uses the same grounded image throughout a three-stage dialogue. An earlier instrument-identification turn was not used in the reported experiment. The first retained turn requests the action for each instance:
+
+\begin{lstlisting}[style=c5prompt]
+System: You are a surgical scene understanding assistant.
+        Return valid JSON only.
+
+User: For each labelled instrument instance in this image, identify the
+      action being performed. Return JSON only.
+
+Assistant response:
+{"predictions": [{"id": "grasper_1", "action": "retract"}]}
+\end{lstlisting}
+
+The target turn is conditioned on the preceding dialogue response:
+
+\begin{lstlisting}[style=c5prompt]
+User: For each labelled instrument instance, identify the target being
+      acted upon. Return JSON only.
+
+Assistant response:
+{"predictions": [{"id": "grasper_1", "target": "gallbladder"}]}
+\end{lstlisting}
+
+The final turn requests the complete serialised prediction:
+
+\begin{lstlisting}[style=c5prompt]
+User: For each labelled instrument instance, predict the final
+      instrument-action-target triplet. Return JSON only.
+
+Assistant response:
+{
+  "predictions": [
+    {"id": "grasper_1", "instrument": "Grasping Forceps",
+     "action": "retract", "target": "gallbladder"}
+  ]
+}
+\end{lstlisting}
+
+During training, the complete three-stage dialogue is supplied with the reference assistant response at each stage. During inference, the generated action and target responses remain in the conversation before the final request. Only the final triplet response is evaluated.
+
+\subsubsection{Ontology-Guided Prompting}
+
+Ontology-Guided Prompting retains the Direct SFT user instruction and response schema but extends the system instruction with the valid action--target combinations associated with each instrument class. The complete ontology supplied to the model is:
+
+\begin{lstlisting}[style=c5prompt]
+Valid Combinations (Instrument: {Action: [Targets]}):
+
+Grasping Forceps:
+  dissect: [cystic plate, gallbladder, omentum]
+  grasp: [cystic artery, cystic duct, cystic pedicle, cystic plate,
+          gallbladder, gastrointestinal tract, liver, omentum,
+          peritoneum, specimen bag]
+  pack: [gallbladder]
+  retract: [cystic duct, cystic pedicle, cystic plate, gallbladder,
+            gastrointestinal tract, liver, omentum, peritoneum]
+  no action: [no target]
+
+Bipolar Forceps:
+  coagulate: [abdominal wall cavity, blood vessel, cystic artery,
+              cystic duct, cystic pedicle, cystic plate, gallbladder,
+              liver, omentum, peritoneum]
+  dissect: [adhesion, cystic artery, cystic duct, cystic plate,
+            gallbladder, omentum]
+  grasp: [cystic plate, liver, specimen bag]
+  retract: [cystic duct, cystic pedicle, gallbladder, liver, omentum]
+  no action: [no target]
+
+Monopolar Hook:
+  coagulate: [blood vessel, cystic artery, cystic duct, cystic pedicle,
+              cystic plate, gallbladder, liver, omentum]
+  cut: [blood vessel, peritoneum]
+  dissect: [blood vessel, cystic artery, cystic duct, cystic plate,
+            gallbladder, omentum, peritoneum]
+  retract: [gallbladder, liver]
+  no action: [no target]
+
+Laparoscopic Scissors:
+  coagulate: [omentum]
+  cut: [adhesion, blood vessel, cystic artery, cystic duct, cystic plate,
+        liver, omentum, peritoneum]
+  dissect: [cystic plate, gallbladder, omentum]
+  no action: [no target]
+
+Clip Applier:
+  clip: [blood vessel, cystic artery, cystic duct, cystic pedicle,
+         cystic plate]
+  no action: [no target]
+
+Suction-Irrigator:
+  aspirate: [fluid]
+  dissect: [cystic duct, cystic pedicle, cystic plate, gallbladder,
+            omentum]
+  irrigate: [abdominal wall cavity, cystic pedicle, liver]
+  retract: [gallbladder, liver, omentum]
+  no action: [no target]
+
+Each predicted (instrument, action, target) MUST exactly match one of the
+allowed triplets listed above. Do NOT output any combination outside this
+list.
+\end{lstlisting}
+
+This instruction exposes ontology information but does not enforce it through constrained decoding or post-processing. Invalid generations can therefore still occur and receive no credit under the common evaluation procedure.
+
+\subsubsection{Distilled Reasoning Supervision}
+
+The final rationale-generation template was designed to produce concise evidence for a supplied training triplet. Qwen3.7-Max received the grounded image, its instance annotations, and the reference triplets. Its system instruction was:
+
+\begin{lstlisting}[style=c5prompt]
+You are an expert surgical reasoning assistant specialised in laparoscopic
+cholecystectomy analysis. Generate concise, target-centric reasoning for
+provided surgical action triplets. Focus on local instrument-target
+interaction and anatomical discrimination.
+
+Use the dataset target ontology:
+[gallbladder, cystic plate, cystic duct, cystic artery, cystic pedicle,
+ blood vessel, fluid, abdominal wall cavity, liver, adhesion, omentum,
+ peritoneum, gastrointestinal tract, specimen bag, no target]
+
+Rules:
+- Use only visible evidence.
+- Do not invent anatomy not visible.
+- Ground the reasoning in visible instrument-target interaction.
+- If no dataset target is visibly engaged, use "no target" and therefore
+  "no action". This includes idle/floating instruments.
+- Mention non-target objects such as needles or gauze when relevant.
+- Keep reasoning compact and discriminative.
+- Return only valid JSON.
+\end{lstlisting}
+
+The accompanying user instruction imposed explicit brevity constraints and supplied the reference triplets to be justified:
+
+\begin{lstlisting}[style=c5prompt]
+Analyse the provided laparoscopic cholecystectomy frame.
+
+Image name: {image_name}
+The image contains these labelled instrument instances and their provided
+triplets:
+{instances_json}
+
+For EACH instrument instance, generate ONE concise structured reasoning
+trace. Use the provided triplet only as the label being justified.
+
+Brevity rules:
+- contact_evidence: exactly 2 observations, each <= 15 words
+- action support: 1 sentence, <= 15 words
+- primary target rationale: 1 sentence, <= 15 words
+- contrastive rationale: 1 sentence, <= 12 words
+- contrastive rejection: 1 sentence, <= 15 words
+- uncertainty: 1 sentence, <= 10 words
+
+Use only visible evidence; do not invent anatomy or rely on unsupported
+procedural assumptions. Do not add confidence scores or text outside JSON.
+\end{lstlisting}
+
+The generated supervision follows this schema:
+
+\begin{lstlisting}[style=c5prompt]
+{
+  "image": "{image_name}",
+  "instances": [
+    {
+      "instance_id": "grasper_1",
+      "instrument": "Grasping Forceps",
+      "reasoning": {
+        "contact_evidence": ["...", "..."],
+        "action_evidence": {
+          "primary_action": "retract",
+          "support": "..."
+        },
+        "primary_target_hypothesis": {
+          "target": "gallbladder",
+          "why_plausible": "..."
+        },
+        "contrastive_target_hypothesis": {
+          "target": "liver",
+          "why_plausible": "...",
+          "why_rejected": "..."
+        },
+        "uncertainty": "..."
+      },
+      "final_triplet": {
+        "instrument": "Grasping Forceps",
+        "action": "retract",
+        "target": "gallbladder"
+      }
+    }
+  ]
+}
+\end{lstlisting}
+
+For student supervision, the generated rationale and final triplet are used as the assistant response. The student receives the grounded image and instance identifiers but not the reference triplet supplied to the teacher. In Distilled Rationale Only evaluation, the student is instructed to generate the structured rationale followed by \texttt{final\_triplet}; only the latter is extracted for metric computation. The term \emph{distilled rationale} describes the source and form of supervision and does not imply that the teacher's explanations were clinically validated.
+
+The phrase ``target-centric reasoning'' above is retained because it formed part of the operational teacher instruction. The resulting schema is not limited to target selection: it also records visible contact evidence, action evidence, an alternative target, uncertainty, and the final complete triplet. The chapter therefore uses the broader term \emph{Distilled Reasoning Supervision} for the experiment and does not present target-centric reasoning as an independently evaluated contribution.
+
+\subsubsection{Multitask prompts}
+
+The multitask training set contains equal numbers of two supervision types. Direct SFT examples use the Direct SFT prompt and concise \texttt{predictions} response schema above. Distilled-rationale examples use the grounded student instruction and the structured rationale response ending in \texttt{final\_triplet}. No additional multitask-specific prompt is introduced.
+
+At evaluation, \emph{Multitask---Direct SFT} uses the Direct SFT prompt and requests the concise \texttt{predictions} object. \emph{Multitask---Distilled Rationale} requests the structured rationale and final triplet. These are two inference modes of the same multitask-trained model, not separately trained models. In both cases, evaluation uses only the final instrument--verb--target prediction.
+
 \subsection{Optimisation Sensitivity Study}
 \label{sec:c5:appendix-optimisation}
 

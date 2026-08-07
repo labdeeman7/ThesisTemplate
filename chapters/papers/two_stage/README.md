@@ -16,6 +16,8 @@ The authoritative project is an active manuscript rather than an accepted-paper 
 - First-draft editorial report: `chapters/papers/two_stage/EDITORIAL_DRAFT_REPORT.md`
 - Supplementary appendix plan: `chapters/papers/two_stage/APPENDIX_PLAN.md`
 - Active supplementary appendix: `chapters/papers/two_stage/appendix_body.tex` (currently contains the complete optimisation-sensitivity study; the remaining planned material will be added during the appendix milestone).
+- Prompt appendix provenance: Direct SFT is derived from `phd_papers/code/prompts/baseline.py`; ontology guidance from `constraint_100.py`; the final distilled-rationale teacher instruction and schema from `cot_reasoning_target.py`; and Sequential Dialogue Prediction from the action, target, and final-triplet turns in `multi_turn_decomposition.py`, as confirmed by the author.
+- Prompt-version exclusions: the unused instrument-identification turn and earlier mixed Direct-SFT/sequential dataset snapshot are not part of the reported Sequential Dialogue Prediction experiment. `reasoning.py` and `cot_reasoning_old.py` contain obsolete rationale schemas and are retained only as historical implementation artifacts.
 
 The integrated body is a substantive editorial reconstruction rather than a preservation copy. It retains all completed experiments and numerical results while reorganising them around the approved two-stage scientific narrative. It does not modify the authoritative active-manuscript project.
 
