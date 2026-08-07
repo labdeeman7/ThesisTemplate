@@ -409,6 +409,48 @@ Multitask & Equal numbers of Direct SFT and distilled-rationale examples are com
 
 All configurations use the same official training, validation, and test partitions. Frames without visible grounded instruments are excluded from Stage~2 because there is no instance for which an interaction can be predicted. Checkpoint selection is based exclusively on the official validation split; the test split is not used for early stopping or model selection.
 
+\subsection{Distilled Rationale Example and Quality-Control Scope}
+\label{sec:c5:appendix-rationale-example}
+
+The following example is reproduced from the final structured-rationale dataset and illustrates the supervision format used by Distilled Rationale Only and the distilled-rationale component of multitask training. The teacher received the grounded image and the reference triplet \texttt{Monopolar Hook--dissect--omentum}; consequently, agreement between \texttt{final\_triplet} and the reference label is a property of the supervision-generation task and is not an independent prediction result.
+
+\begin{lstlisting}[style=c5prompt]
+{
+  "reasoning_predictions": [
+    {
+      "id": "hook_1",
+      "reasoning": {
+        "contact_evidence": [
+          "Hook tip contacts dark, vascularized tissue fold adjacent to liver edge.",
+          "Instrument applies traction to separate this tissue from underlying structures."
+        ],
+        "action_evidence": {
+          "primary_action": "dissect",
+          "support": "Mechanical separation of tissue planes via hook traction and potential cautery."
+        },
+        "primary_target_hypothesis": {
+          "target": "omentum",
+          "why_plausible": "The engaged tissue is a fatty, vascular fold consistent with omental attachment being cleared."
+        },
+        "contrastive_target_hypothesis": {
+          "target": "gallbladder",
+          "why_plausible": "Located in the gallbladder fossa region near the organ.",
+          "why_rejected": "The instrument engages soft, mobile tissue distinct from the firm gallbladder wall."
+        },
+        "uncertainty": "Visual similarity between omentum and peritoneal adhesions limits definitive distinction."
+      },
+      "final_triplet": {
+        "instrument": "Monopolar Hook",
+        "action": "dissect",
+        "target": "omentum"
+      }
+    }
+  ]
+}
+\end{lstlisting}
+
+This example was selected to demonstrate the complete structured response rather than to establish the factual correctness of its explanation. Approximately 30,000 training images received generated rationales, of which approximately ten were inspected informally by the author. The inspected examples appeared plausible, but the review was neither systematic nor performed by a clinician. The rationale corpus therefore cannot be regarded as clinically validated. In addition, rationale and final-answer tokens receive equal token-level loss weight, so the substantially longer rationale contributes most of the supervised objective. These limitations motivate interpreting the experiment as \emph{Distilled Reasoning Supervision}, not as validation of the generated reasoning process.
+
 \subsection{Optimisation Sensitivity Study}
 \label{sec:c5:appendix-optimisation}
 

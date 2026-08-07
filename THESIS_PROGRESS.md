@@ -65,6 +65,8 @@ This file records the working state of the thesis. It should be updated whenever
 - Recovered the final Stage 2 training protocol from the supplied launch records, confirmed that official validation rather than test data was used for checkpoint selection, and standardised validation every 5% of planned steps with patience five across Direct SFT and temporal training.
 - Drafted the Chapter 5 training-configuration appendix with common QLoRA/optimisation settings, adaptation-specific changes, and the author-confirmed shared total visual-token budget; unsupported numerical pixel limits and an unenforced sequence-length argument were omitted.
 - Verified the Stage 2 training-configuration appendix in a converged 215-page thesis build with zero undefined citations, zero undefined references, zero duplicate bibliography keys, and no LaTeX or Biber errors; the new material introduced no overfull boxes.
+- Added an unedited final-schema distilled-rationale example to the Chapter 5 appendix, explicitly distinguishing label-conditioned supervision generation from independent prediction and recording the limited informal inspection, absence of clinical validation, and equal token weighting.
+- Verified the distilled-rationale example appendix milestone in a converged 217-page thesis build with zero undefined citations, zero undefined references, zero duplicate bibliography keys, and no LaTeX or Biber errors; the example introduced no overfull boxes.
 
 ## Current Task
 

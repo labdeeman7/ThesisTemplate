@@ -19,9 +19,7 @@ The main chapter is intentionally concise. The following material should be adde
 
 ## D. Distilled rationale examples and quality-control scope
 
-- One or more complete teacher-generated examples.
-- Explicit statement that approximately ten rationales were inspected informally without clinician validation.
-- Explanation of equal rationale/answer token weighting.
+- Completed in `appendix_body.tex`: one unedited final-schema example (`t50_VID14_000126_reasoning`), the distinction between label-conditioned supervision generation and independent prediction, the approximately ten-example informal inspection scope, absence of clinician validation, and equal rationale/answer token weighting.
 
 ## E. Secondary and optimisation results
 
