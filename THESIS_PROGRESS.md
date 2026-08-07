@@ -92,10 +92,13 @@ This file records the working state of the thesis. It should be updated whenever
 - Adapted the accepted review only within the thesis integration layer: converted inherited two-column figure floats to the single-column thesis float stream, enlarged column-sized diagrams for readability, and restored Figures 2.1--2.16 to pages near their corresponding discussions instead of allowing Figures 2.3--2.16 to accumulate at the chapter end.
 - Replaced the unreadably compressed Chapter 2 dataset inventory with a landscape presentation that preserves every accepted row and value, and applied local emergency line-breaking tolerance without rewriting accepted prose.
 - Verified the Chapter 2 layout milestone in a converged 241-page build with zero undefined citations, zero undefined references, zero duplicate bibliography keys, and no LaTeX or Biber errors. Remaining diagnostics are inherited/scaled-table or template warnings and will be categorised in the final warning audit.
+- Completed the Chapter 3 layout review against the published Scientific Data paper. All seven figures and four tables are already positioned near their corresponding discussion, so no float order was changed.
+- Corrected the two visible Chapter 3 margin failures by proportionally fitting Tables 3.1 and 3.2 to the thesis text block. All columns, rows, captions, and numerical values are preserved; wrapper-local emergency line breaking reduced the chapter's remaining visible overflow to sub-2-point diagnostics.
+- Verified the Chapter 3 layout milestone in a converged 241-page build with zero undefined citations, zero undefined references, zero duplicate bibliography keys, and no LaTeX or Biber errors.
 
 ## Current Task
 
-- Continue the dedicated thesis layout and figure-placement review from Chapter 3 onwards before finalising the remaining front matter.
+- Continue the dedicated thesis layout and figure-placement review from Chapter 4 onwards before finalising the remaining front matter.
 
 ## Outstanding Issues
 

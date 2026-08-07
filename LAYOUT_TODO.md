@@ -12,8 +12,8 @@ These observations are deliberately deferred to the final formatting pass. They 
 
 ## Chapter 3: CholecInstanceSeg
 
-- Check placement of the seven manuscript figures and four manuscript tables, especially the dataset-partition and baseline-results material.
-- Review wide tables inherited from the accepted Scientific Data layout for fit within the thesis margins.
+- Recheck final pagination after later material stabilises. The initial visual pass confirmed that all seven figures and four tables remain close to their discussions.
+- Tables 3.1 and 3.2 have been proportionally fitted to the thesis text width; recheck their final print legibility after any global font or margin change.
 - Inspect the three displayed equations currently written with inherited `$$...$$` syntax; defer any typographic conversion until the final formatting pass because their scientific content is correct.
 - Check the pagination of the manuscript end matter (Code Availability, Acknowledgements, Author Contributions, and Competing Interests) and its separation from the thesis-written transition.
 
