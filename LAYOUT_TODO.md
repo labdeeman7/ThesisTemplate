@@ -4,10 +4,11 @@ These observations are deliberately deferred to the final formatting pass. They 
 
 ## Chapter 2: Literature Review
 
-- Check placement of the review's large overview figures and wide comparison tables after the complete thesis pagination has stabilised; standard LaTeX float movement may separate them from their first textual mention.
-- Review the long tables for overfull boxes and cramped columns in the thesis page geometry.
+- Recheck final pagination after later chapters and front matter stabilise. The initial layout pass moved Figures 2.1--2.16 into the single-column float stream and placed them near their discussions; Figures 2.3--2.16 no longer accumulate at the chapter end.
+- Recheck the landscape dataset-summary table after final pagination. It is now readable and preserves all accepted rows, but its internally scaled cells still emit inherited box diagnostics before scaling.
 - Check whether the chapter title, accepted-manuscript heading, and abstract create excessive vertical repetition at the start of the chapter.
 - Visually inspect page breaks around the thesis-written introduction, accepted manuscript, and chapter transition.
+- Retain the accepted manuscript's obsolete `$$...$$` display unchanged until the final typographic decision.
 
 ## Chapter 3: CholecInstanceSeg
 
@@ -26,5 +27,5 @@ These observations are deliberately deferred to the final formatting pass. They 
 
 ## Whole Thesis
 
-- Address inherited overfull and underfull box warnings only after all chapters and front matter are stable.
+- Continue addressing visible overfull boxes chapter by chapter; retain harmless diagnostics produced inside deliberately scaled tables and record them for the final warning audit.
 - Perform a final float-order and first-reference check across every paper chapter.

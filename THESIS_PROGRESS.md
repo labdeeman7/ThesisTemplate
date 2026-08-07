@@ -88,10 +88,14 @@ This file records the working state of the thesis. It should be updated whenever
 - Updated the three thesis-forming journal records to their final publication metadata, including the final 2026 TargetFusionNet volume, issue, pages, and DOI, while retaining the accepted manuscript as the authoritative Chapter 4 source.
 - Strengthened the abstract with the verified dataset sizes and principal quantitative outcomes, and made the conditional answer to the fourth research question explicit in Chapter 6.
 - Verified the scientific-consistency milestone in a fresh converged 239-page build with zero undefined citations, zero undefined references, zero duplicate bibliography keys, and no LaTeX or Biber errors.
+- Completed the first dedicated layout milestone for the front matter, Chapter 1, and Chapter 2. Suppressed the draft-date footer in the thesis source while leaving the title and page style unchanged.
+- Adapted the accepted review only within the thesis integration layer: converted inherited two-column figure floats to the single-column thesis float stream, enlarged column-sized diagrams for readability, and restored Figures 2.1--2.16 to pages near their corresponding discussions instead of allowing Figures 2.3--2.16 to accumulate at the chapter end.
+- Replaced the unreadably compressed Chapter 2 dataset inventory with a landscape presentation that preserves every accepted row and value, and applied local emergency line-breaking tolerance without rewriting accepted prose.
+- Verified the Chapter 2 layout milestone in a converged 241-page build with zero undefined citations, zero undefined references, zero duplicate bibliography keys, and no LaTeX or Biber errors. Remaining diagnostics are inherited/scaled-table or template warnings and will be categorised in the final warning audit.
 
 ## Current Task
 
-- Perform the dedicated thesis layout and figure-placement review before finalising the remaining front matter.
+- Continue the dedicated thesis layout and figure-placement review from Chapter 3 onwards before finalising the remaining front matter.
 
 ## Outstanding Issues
 

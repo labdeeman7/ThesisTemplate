@@ -39,11 +39,11 @@ The remainder of this survey paper is divided into five sections.
 
 \section{Review methodology and related work}\label{sec::review_methodology}
 
-\begin{figure*}[htb!]
+\begin{figure}[htbp!]
    \centering
   \includegraphics[width=0.9\textwidth]{images/applications_of_mtl_in_scene_tree_diagram.pdf}
   \caption{Overview of the application areas where multitask learning has been applied in surgical scene understanding.}  \label{fig:applications_of_mtl_in_scene_tree_diagram}
-\end{figure*}
+\end{figure}
 
 
 \subsection{Scope of the review} 
@@ -105,8 +105,9 @@ On the other hand, soft parameter sharing does not directly share layers for eac
 \end{equation}
 where $R$ is a feature-sharing mechanism which determines how features are shared.
 
- \begin{figure}[t]
-  \includegraphics[width=0.48\textwidth]{images/hard_parameter_and_soft_parameter_sharing.pdf}
+ \begin{figure}[htbp!]
+  \centering
+  \includegraphics[width=0.72\textwidth]{images/hard_parameter_and_soft_parameter_sharing.pdf}
   \caption{ Top: hard parameter sharing in deep neural networks for multitask learning, featuring a shared encoder/backbone with a common representation and separate decoders or heads. Bottom: soft parameter sharing with separate models per task and specialized feature-sharing mechanism.} 
   \label{fig:soft_and_hard_sharing}
 \end{figure}
@@ -151,7 +152,8 @@ Equation \eqref{equ::total_loss} shows the multitask loss for a network called l
 where $w_i$ is the weight assigned to a particular task, and all other notations remain the same. Despite its simplicity, linear scalarization works surprisingly well, especially when combined with techniques like grid search  \citep{xin2022current}.
 
 
-\begin{figure*}[t]
+\begin{figure}[htbp!]
+  \centering
   \includegraphics[width=\textwidth]{images/optimization_MTL.pdf}
   \caption{An overview of optimization techniques for multitask learning as discussed in \secref{subsec::optimization_and_task_balancing}.
   The classical method, linear scalarization, involves manually weighting the loss functions of all tasks.
@@ -160,7 +162,7 @@ where $w_i$ is the weight assigned to a particular task, and all other notations
   Gradient-based methods directly modify gradients to mitigate negative transfer, achieved by projecting conflicting gradients to the normal plane of the gradient of another task \citep{pcgrad_paper} or ensuring gradients are at a target angle to each other \citep{grad_vac}.
   The third row illustrates linear scalarization and multi-objective optimization techniques. MTMO \citep{MTMO_koltun} ensures that solutions are on the Pareto front, while PTML \citep{lin2019pareto} enables the selection of Pareto front solutions, favouring specific tasks. 
   \label{fig:task_balancing_and_optimization}}
-\end{figure*}
+\end{figure}
 
 Another example of a task balancing method is the automatic dynamic tuning of the weight assigned to each task at different points during training. 
 \citet{uncertainty_weighting} propose a method to automatically weight losses during multitask optimization using the uncertainty in the predictions of each task. The authors reformulate the linear scalarization loss function to include a homoscedastic loss uncertainty term for each task, an uncertainty term independent of the inputs but depends only on the task problem. This method ascribes an uncertainty scalar for each task, and depending on the value of this uncertainty scalar, the gradient magnitudes of each task are weighted. Instead of using uncertainty to automatically determine loss weights, \citet{gradnorm} utilize each task's gradient values to estimate the rate of convergence of each task and corrects this rate of convergence to be equal by adjusting the weights associated with each task in linear scalarization formulation.
@@ -195,8 +197,9 @@ There are also examples in the literature for combining information in different
 \citet{dorent2021learning} tackles the problem of learning from domain-shifted datasets, each with single task-specific annotations. Specifically, for the brain tissue segmentation task, there are datasets with segmentation of brain structures in healthy brains, and there are datasets which segment pathologies like brain lesions and tumours, but there are no datasets with both types of labels.
 The authors derive an upper bound of the loss for the joint probability problem. 
 
- \begin{figure}[t]
-  \includegraphics[width=0.48\textwidth]{images/Multitask_learning_and_other_learning_paradigms.pdf}
+ \begin{figure}[htbp!]
+  \centering
+  \includegraphics[width=0.72\textwidth]{images/Multitask_learning_and_other_learning_paradigms.pdf}
   \caption{Diagram illustrating the key differences between multitask, transfer, multiclass, multiloss, multilabel, multimodal, multistage, and multiview learning.}
   \label{fig:mtl_and_other_learning_paradigms}
 \end{figure}
@@ -318,8 +321,9 @@ Multitask learning for perceptual tasks has also been used for pituitary surgery
 \citet{das2023multi} present Pituitary Anatomy Identification Network (PAINet) and a newly introduced dataset for endoscopic pituitary surgery. They tackle the challenging task of identifying ten anatomical structures, with two prominent ones addressed through semantic segmentation and the other eight through centroid prediction. Their approach employs a U-Net architecture with two different task heads for each task for joint learning of the semantic segmentation and centroid prediction task. The authors report improvements in IoU and mean percentage of correct key points (MPCK) compared to standard non-multitask models.
 
 
-\begin{figure}[t]
-  \includegraphics[width=0.48\textwidth]{images/apmtl.pdf}
+\begin{figure}[htbp!]
+  \centering
+  \includegraphics[width=0.72\textwidth]{images/apmtl.pdf}
   \caption{Illustration of the Attention Pruned Multitask Learning (AP-MTL) Network and the optimization method used for training this network \citep{islam2020apmtl}. The top image shows an encoder-decoder network with skip connections for its segmentation and detection decoders. A summary of the Asynchronous Task Optimization (ATO) for obtaining convergence for both tasks in the AP-MTL network is provided at the bottom.} 
   \label{fig:apmtl}
 \end{figure}
@@ -352,8 +356,9 @@ To implement this approach, the authors propose a network that utilizes either t
 This work provides further evidence that auxiliary tasks generated from the image can enhance the features extracted by a model.
 
 
-\begin{figure}[t]
-  \includegraphics[width=0.48\textwidth]{images/hogmtl.pdf}
+\begin{figure}[htbp!]
+  \centering
+  \includegraphics[width=0.72\textwidth]{images/hogmtl.pdf}
   \caption{Histogram of gradient multitask learning (HoG-MTL) \citep{multi_HOG} demonstrates the use of an unconventional auxiliary task of predicting the histogram of gradients of input images image as an auxiliary task for semantic segmentation.} 
   \label{fig:hogmtl}
 \end{figure}
@@ -426,8 +431,9 @@ Unlike conventional 2D pose estimation methods that predict landmark positions \
 The 2D geometric primitive map, once predicted, is then used in combination with prior information about the instrument, such as the radius of the tool shaft and the length of the tool head, to calculate the required 3D pose using algebraic and projective geometry techniques, followed by refinement. 
 With multiple decoders for each geometric primitive, the network was very slow and unsuitable for real-time applications. To address this, the authors used depth-wise separable convolutions \citep{chollet2017xception}. Exploring ways to reduce the number of decoders while preserving geometric primitives could further enhance the speed of this model.
 
-\begin{figure}[t]
-  \includegraphics[width=0.48\textwidth]{images/artnet.pdf}
+\begin{figure}[htbp!]
+  \centering
+  \includegraphics[width=0.72\textwidth]{images/artnet.pdf}
   \caption{The Augmented Reality Tool Network (ART-NET) \citep{art_net} presents a system to produce 3D pose estimations of instruments for augmented reality and 3D length measurement applications. As seen in the diagram, ART-Net simultaneously learns to predict tool presence, edge-lines, mid-lines, tool-tip and segmentation. The geometric primitives predicted are combined with prior information to produce the required Tool 3D pose.} 
   \label{fig:artnet}
 \end{figure}
@@ -457,8 +463,9 @@ The architectural framework employed is based on a U-Net structure featuring an 
 
 
 
-\begin{figure}
-  \includegraphics[width=0.48\textwidth]
+\begin{figure}[htbp!]
+  \centering
+  \includegraphics[width=0.72\textwidth]
    {images/saliency.pdf}
   \caption{Illustration of the heuristic used for the generation of saliency maps and scanpaths in \citet{learning_look_tracking}.
   A saliency map is generated (using the code provided by \citet{learning_look_tracking} and images from EndoVis2017 \citep{endovis2017}), which correlates to the motion of fixation points and the size of the fixation points, which are assumed to be located on the instrument wrist and claspers. The scanpath is then assumed to be the movement between the most salient to the least salient instrument. }
@@ -550,8 +557,9 @@ This stage entails understanding the instruments within the field of view as the
 The third granularity stage involves the sequence of actions performed in pursuit of a particular surgical objective, which is called a \emph{step}. Multiple steps are executed together to accomplish a portion of the surgery, termed a surgical \emph{phase}, which is the fourth and final granularity of a surgical procedure.
 \figref{fig:phase_relationships} provides a visual representation of the different levels of granularity. 
 
-\begin{figure}[t]
-  \includegraphics[width=0.48\textwidth]{images/chapter_3_phase_relationships.pdf}
+\begin{figure}[htbp!]
+  \centering
+  \includegraphics[width=0.72\textwidth]{images/chapter_3_phase_relationships.pdf}
   \caption{A visual representation of the different levels of granularities in surgical video workflow analysis. This representation for surgical video workflow analysis is adopted from the framework for holistic analysis of surgical videos in \citet{holistic_scene_understanding}. } 
   \label{fig:phase_relationships}
 \end{figure}
@@ -576,8 +584,9 @@ In the second stage, EndoNet combines the features for phase detection in the cu
 
 
 
-\begin{figure}
-  \includegraphics[width=0.48\textwidth]{images/endonet.pdf}
+\begin{figure}[htbp!]
+  \centering
+  \includegraphics[width=0.72\textwidth]{images/endonet.pdf}
   \caption{One of the earliest works that attempts to solve the phase recognition problem is the EndoNet \citep{EndoNet}. It uses an Alexnet as a feature extractor with two task heads - A tool classifier head and a phase classifier head. Logits from the tool classifier head are concatenated with features from Alexnet before predicting phase.} 
   \label{fig:endonet}
 \end{figure}
@@ -641,9 +650,9 @@ For more information about the metrics behind the CholecT45 and CholecT50 datase
 
 
 
-\begin{figure}[htb!]
+\begin{figure}[htbp!]
    \centering
-  \includegraphics[width=0.48\textwidth]{images/triplet_diagram.pdf}
+  \includegraphics[width=0.72\textwidth]{images/triplet_diagram.pdf}
   \caption{The triplet task of recognizing the $<$instrument, action and target$>$ is traditionally cast as surgical action triplet recognition, which is a multi-label multi-classification recognition problem \citep{1nywoye_rec_action_triplets,NWOYE2022102433_rendevous,sharma2022RendezvousInTime} as shown in the top image. Recently, there has been a progression in the task difficulty that cast this problem as surgical action triplet detection, which involves localizing all instruments and associating the corresponding instrument triplet to all localized instruments \citep{sharma2023surgical}.} 
   \label{fig:triplet_example}
 \end{figure}
@@ -660,9 +669,9 @@ $$
 Here, $\alpha$, $\beta$, and $\gamma$ represent learnable weights. The 3D volume is quantized, with values above a chosen threshold accepted as valid triplets, while spaces in the 3D volume that can never form triplets are masked out. The loss function for this approach comprises the standard cross-entropy loss for all tasks, combined into a linear combination of losses.
 
 
-\begin{figure}[t]
+\begin{figure}[htbp!]
    \centering
-  \includegraphics[width=0.48\textwidth]{images/Tripnet.pdf}
+  \includegraphics[width=0.72\textwidth]{images/Tripnet.pdf}
   \caption{The proposed Tripnet architecture for surgical action triplet recognition \citep{1nywoye_rec_action_triplets}. The model contains an encoder and three separate branches for predicting instrument verb and targets. The class activation maps from the instrument branch are used as weak localization guides for action and target prediction.} 
   \label{fig:tripnet}
 \end{figure}
@@ -723,9 +732,9 @@ The surgical action triplet task is evolving in complexity. Initially framed as 
 A comprehensive understanding of temporal relationships in MIS hinges on a network's ability to grasp the concept that multiple actions are required to complete a step and that multiple steps collectively constitute phases. This interconnection of granularities in surgical activities can serve as valuable signals for training deep neural networks in surgical activity recognition.
 Despite the limited available datasets, there is a growing interest in multi-granularity surgical activity learning, spurred by the recent introduction of multiple datasets providing labels for various granularities \citep{autolaparo,huaulme2021micro,holistic_scene_understanding}. 
 
-\begin{figure}[t]
+\begin{figure}[htbp!]
    \centering
-  \includegraphics[width=0.48\textwidth]{images/tapir.pdf}
+  \includegraphics[width=0.72\textwidth]{images/tapir.pdf}
   \caption{The TAPIR architecture from \citet{holistic_scene_understanding} for the prediction of phases, steps, instruments, and actions. It utilizes two separate encoders, a video feature extractor (MViT), and an instrument detector (DETR), along with various classification heads.}  
   \label{fig:tapir}
 \end{figure}
@@ -847,12 +856,12 @@ To facilitate efficient computation, the authors split the input videos into $K$
 }
 \end{table*}
 
-\begin{figure*}[htb!]
+\begin{figure}[htbp!]
    \centering
   \includegraphics[width=0.9\textwidth]{images/global_reasoned_multi_task.pdf}
   \caption{The proposed architecture for globally-reasoned multi-task surgical scene understanding in \citet{seenivasan2022global} for performing instrument segmentation and tool-tissue interaction. The model features a feature encoder, global and local reasoning for instrument segmentation and a VS-GAT \citep{9739429} model for interaction detection.} 
   \label{fig:global_report}
-\end{figure*}
+\end{figure}
 
 
 
@@ -967,9 +976,10 @@ All these methods \citep{ma2023segment,yue2023surgicalsam,paranjape2023adaptives
 
 \section{Public datasets for MTL in MIS} \label{sec::datasets}
 
-\begin{table*}[htb!]
+\begin{sidewaystable}[p]
 \caption{A summary of publically available multitask learning datasets for minimally invasive surgeries with information on the dataset characteristics and annotation characteristics. Datasets annotated for a single task that may have been used in MTL research such as Endovis2017, Endovis2018 and Cholec80 are omitted from the table for clarity.} \label{table:dataset_summary}
-\resizebox{\textwidth}{!}{  
+\centering
+\resizebox{0.95\textheight}{!}{
 \begin{tabular}{|l|l|l|l|l|l|l|}
   \thickhline
   Dataset   & Brief description & Procedure & 
@@ -1427,7 +1437,7 @@ All these methods \citep{ma2023segment,yue2023surgicalsam,paranjape2023adaptives
 
 \end{tabular}
 }
-\end{table*}
+\end{sidewaystable}
 
 In this section, we explore the public datasets curated to support MTL for MIS. These datasets offer a valuable foundation for researchers to experiment, innovate, and address real-world MIS challenges. 
 
@@ -1529,9 +1539,9 @@ We also draw parallels with recent trends in the deep learning community.
 A prominent observation from the reviewed papers in \secref{sec::mtl_surgical} is that there are successful applications of MTL in minimally invasive surgeries (MIS). . We have observed several methodologies for learning perceptual tasks together in this context 
 \cite{simultaneous_depth_tool_seg,scalable_joint_detection,islam2020apmtl,baby2023forks,zhao2022trasetr,das2023multi,msdesis}. While most reported positive outcomes \cite{simultaneous_depth_tool_seg,scalable_joint_detection,islam2020apmtl,baby2023forks,zhao2022trasetr,das2023multi}, others indicate negative transfer effects or negligible improvements \cite{msdesis}, demonstrating the need for in-depth investigations on which tasks assist each other or regularly cause negative transfer, similar to the work of \citet{standley2020tasks}.  Furthermore, we found a lack of studies focusing on learning perceptual tasks like motion flow, and normal estimation, suggesting an unexplored research direction or that these tasks may not work well in the multitask learning framework. 
 
-\begin{figure}[htb!]
+\begin{figure}[htbp!]
    \centering
-  \includegraphics[width=0.48\textwidth]{images/frequency_of_optimization_works.pdf}
+  \includegraphics[width=0.72\textwidth]{images/frequency_of_optimization_works.pdf}
   \caption{ Prevalence of linear scalarization, sequential training, and uncertainty weighting optimization approaches among reviewed surgical vision works.} 
   \label{fig:optimization_frequency}
 \end{figure}
@@ -1540,9 +1550,9 @@ The most common optimization method which was utilized in the reviewed surgical 
 
 The architecture of how multiple tasks are learned together in the context of MIS presents an interesting observation. In all surgical vision MIS papers reviewed, the standard approach involves the use of hard parameter sharing.  The architectures used in these surgical vision works can be categorized into four main types: `shared encoder with multiple task branches',` multistage network', `shared encoder with interacting task branches', and `unique'. The `unique' category includes architectures with distinctive configurations, such as multiple encoders or transformers, where the task structure deviates significantly from conventional designs.  Details on these architecture types for each reviewed work can be found in \tabref{perceptual_tasks:table}, \tabref{tracking_and_control:table}, \tabref{workflow:table}, \tabref{workflow_optimization_tasks:table}, \tabref{skills_tasks:table} and \tabref{report:table}.
 
-\begin{figure}[htb!]
+\begin{figure}[htbp!]
    \centering
-  \includegraphics[width=0.48\textwidth]{images/frequency_of_architectures.pdf}
+  \includegraphics[width=0.72\textwidth]{images/frequency_of_architectures.pdf}
   \caption{Prevalence of the architecture types in the reviewed surgical vision works.  } 
   \label{fig:architecture_frequency}
 \end{figure}

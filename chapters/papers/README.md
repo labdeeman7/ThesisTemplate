@@ -7,7 +7,7 @@ These files adapt accepted manuscripts for the thesis while preserving the origi
 - **Integrated file:** `chapters/papers/02_review_paper.tex`
 - **Authoritative accepted source:** `phd_papers/sources/Multitask_Learning_in_Minimally_Invasive_Surgical_Vision__A_Review_submitted/main-clean.tex`
 - **Source commit/version:** `bc0de77da96993e55888b45058c0dc79b7fc1b38`
-- **Integration changes:** standalone class/preamble, publisher front matter, and bibliography commands omitted; wrapper supplies title/authors/abstract and figure path; citation keys harmonised.
+- **Integration changes:** standalone class/preamble, publisher front matter, and bibliography commands omitted; wrapper supplies title/authors/abstract and figure path; citation keys harmonised. For the thesis layout only, inherited two-column `figure*` floats were converted to flexible single-column figures, narrow column-sized diagrams were enlarged for thesis readability, and the exceptionally wide dataset summary was placed on a landscape page. Local emergency line-breaking tolerance is applied by the wrapper. Captions, figure content, table rows, values, and scientific prose are unchanged.
 - **Scientific-content changes:** none.
 - **Canonical citation-key substitutions:**
   - `ConvLSTM` to `convLSTM`
