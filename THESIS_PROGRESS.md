@@ -59,6 +59,9 @@ This file records the working state of the thesis. It should be updated whenever
 - Drafted the Chapter 5 prompt and response-schema appendix covering Direct SFT, Sequential Dialogue Prediction, Ontology-Guided Prompting, Distilled Reasoning Supervision, and both multitask evaluation modes.
 - Verified the prompt appendix in a converged 211-page thesis build with zero undefined citations, zero undefined references, zero duplicate bibliography keys, and no LaTeX or Biber errors; prompt listings introduced no new overfull boxes.
 - Removed the obsolete target-centric wording from the rendered Chapter 5 source note and distilled-rationale prompt appendix so that it does not distract from the chapter's two-stage interaction-prediction framing.
+- Corrected the Chapter 5 Anatomical Context Prior method to reflect the implemented boundary-contact and furthest-mask-point tip estimator rather than an unsupported separate shaft-orientation calculation.
+- Drafted the corresponding appendix section with the complete field-of-view, base/tip, disk construction, EndoViT aggregation, failure-handling, and textual-prior procedure.
+- Verified the instrument-tip appendix in a converged 213-page thesis build with zero undefined citations, zero undefined references, zero duplicate bibliography keys, and no LaTeX or Biber errors; the new section introduced no overfull boxes.
 
 ## Current Task
 

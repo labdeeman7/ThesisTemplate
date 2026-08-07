@@ -9,13 +9,8 @@ The main chapter is intentionally concise. The following material should be adde
 
 ## B. Instrument-tip context heuristic
 
-- Stepwise distal-tip estimation procedure.
-- Definition of the circular region with radius 12.5% of the smaller image dimension.
-- Candidate-radius selection note.
-- The representative image is now included in the main chapter; the appendix may add further examples if they provide distinct information.
-- EndoViT class-ranking and textual-prior construction example.
-
-Insert an appendix reference from the Anatomical Context Priors subsection once the representative image is supplied.
+- Completed in `appendix_body.tex`: field-of-view estimation, boundary-based instrument-base estimation, furthest-mask-point tip selection, the 12.5% disk definition, instrument-mask exclusion, candidate-radius selection note, EndoViT argmax-label proportions, failure behaviour, and the exact textual-prior format.
+- The representative successful and ambiguous-tip examples remain in the main chapter; no duplicate appendix figure was added.
 
 ## C. Training configuration summary
 

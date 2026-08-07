@@ -275,6 +275,71 @@ The multitask training set contains equal numbers of two supervision types. Dire
 
 At evaluation, \emph{Multitask---Direct SFT} uses the Direct SFT prompt and requests the concise \texttt{predictions} object. \emph{Multitask---Distilled Rationale} requests the structured rationale and final triplet. These are two inference modes of the same multitask-trained model, not separately trained models. In both cases, evaluation uses only the final instrument--verb--target prediction.
 
+\subsection{Instrument-Tip Anatomical Context Heuristic}
+\label{sec:c5:appendix-tip-prior}
+
+The Anatomical Context Prior experiment converts dense EndoViT predictions into a compact textual summary local to each grounded instrument. It uses the EndoViT checkpoint and anatomical label space described in Chapter~\ref{chap:triplet-grounding}; the procedure below concerns only localisation of the context region and construction of the text supplied to Stage~2.
+
+\subsubsection{Laparoscopic field and instrument-base estimation}
+
+For an RGB image, pixels whose maximum channel intensity exceeds 12 are treated as belonging to the visible laparoscopic field. If these pixels occupy less than 10\% of the image, the field estimate is rejected. Otherwise, the field centre is defined by the median horizontal and vertical coordinates of the valid pixels. The field radius is the 98th percentile of their Euclidean distances from this centre. Estimates containing fewer than 100 valid pixels or having radius below 20 pixels are rejected.
+
+All polygons associated with a grounded instrument instance are rasterised into a single binary mask. Mask pixels are designated as possible shaft-entry pixels when they lie within 20 pixels of an image boundary or within 20 pixels of the estimated laparoscopic-field boundary. The mean coordinate of these candidate pixels defines the estimated instrument base,
+\begin{equation}
+    \hat{\mathbf{b}}_i
+    = \frac{1}{|\mathcal{B}_i|}
+      \sum_{\mathbf{x}\in\mathcal{B}_i}\mathbf{x},
+    \label{eq:c5:appendix-tip-base}
+\end{equation}
+where \(\mathcal{B}_i\) denotes the selected boundary pixels for instance \(i\). The estimated distal tip is the mask pixel furthest from this base:
+\begin{equation}
+    \hat{\mathbf{p}}_i
+    = \underset{\mathbf{x}\in m_i}{\operatorname{argmax}}
+      \left\|\mathbf{x}-\hat{\mathbf{b}}_i\right\|_2^2.
+    \label{eq:c5:appendix-tip-point}
+\end{equation}
+No separate shaft-orientation model is used. If no boundary candidate is available, tip estimation fails and no anatomical text prior is supplied for that instance. This deliberately conservative behaviour avoids substituting an arbitrary mask centroid for an uncertain entry point.
+
+\subsubsection{Local anatomical distribution}
+
+A disk centred on \(\hat{\mathbf{p}}_i\) defines the local context region. Its radius is
+\begin{equation}
+    r = \operatorname{round}\!\left(\frac{1}{8}\min(H,W)\right),
+    \label{eq:c5:appendix-tip-radius}
+\end{equation}
+where \(H\) and \(W\) are the image dimensions. Approximately four candidate radii were inspected qualitatively before selecting this value; this was a design choice rather than a quantitative radius ablation. Pixels belonging to the instrument mask are removed from the disk so that the distribution represents surrounding tissue rather than the instrument itself.
+
+EndoViT logits are converted to per-pixel class probabilities, after which every pixel is assigned its argmax class. Three configured non-context channels (indices 0, 7, and 8) are excluded. For each remaining anatomical class \(c\), the reported value is the proportion of valid region pixels assigned to that class,
+\begin{equation}
+    q_{i,c}
+    = \frac{\sum_{\mathbf{x}\in\mathcal{R}_i}
+        \mathbb{1}[\hat{c}(\mathbf{x})=c]}
+      {|\mathcal{R}_i|},
+    \label{eq:c5:appendix-anatomy-proportion}
+\end{equation}
+where \(\mathcal{R}_i\) is the valid disk region after removal of instrument pixels and excluded channels. Thus, the values are argmax-label proportions, not averages of the raw class probabilities. The three classes with the largest proportions are inserted into the prompt. If tip estimation, EndoViT loading, or valid-region construction fails, the prior is omitted rather than replaced with a fabricated value.
+
+\subsubsection{Textual prior supplied to Stage 2}
+
+The anatomy block is appended to the standard Direct SFT user instruction during both training and evaluation. A representative instance is formatted as follows:
+
+\begin{lstlisting}[style=c5prompt]
+Weak local anatomy prior from a separate segmentation model, computed near
+the estimated instrument tip:
+
+Instance grasper_1:
+1. liver: 0.53
+2. abdominal wall: 0.47
+3. gastrointestinal tract: 0.00
+
+The tip location is estimated automatically and may be imperfect. The
+anatomy prior is weak and may be wrong. Pay close attention to the image
+first, and use this prior only as contextual supporting evidence. The final
+target must still be chosen from the surgical triplet target ontology.
+\end{lstlisting}
+
+The EndoViT names describe contextual anatomy and are not required to match the triplet target strings exactly; for example, \texttt{abdominal wall} is contextual evidence whereas \texttt{abdominal wall cavity} is a triplet target label. The MLLM remains responsible for selecting its final target from the benchmark vocabulary. The prior does not modify the visual input, constrain decoding, or replace the image evidence. Figure~\ref{fig:c5:instrument-tip-prior} illustrates both a successful estimate and a failure mode caused by ambiguous distal mask geometry.
+
 \subsection{Optimisation Sensitivity Study}
 \label{sec:c5:appendix-optimisation}
 
