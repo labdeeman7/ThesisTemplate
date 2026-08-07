@@ -6,7 +6,7 @@
 \section*{Chapter Introduction}
 \addcontentsline{toc}{section}{Chapter Introduction}
 
-The literature review in the preceding chapter identifies spatially precise surgical scene understanding as an important foundation for computer-assisted intervention. Instrument presence or semantic segmentation alone cannot distinguish multiple instances of the same instrument class, limiting the ability to associate individual tools with their actions and anatomical targets.
+The literature review in the preceding chapter identifies a missing spatial link in fine-grained surgical activity understanding. Frame-level instrument and action labels can describe what is present, while semantic segmentation can localise an instrument class, but neither necessarily distinguishes multiple physical instances of that class. Without this distinction, actions and anatomical targets cannot be assigned unambiguously to the individual instruments responsible for them.
 
 This chapter addresses that data limitation through CholecInstanceSeg, an instance-segmentation dataset derived from routine human laparoscopic cholecystectomy. Within the thesis, the dataset provides the spatial supervision needed for the subsequent progression from instrument localisation to grounded instrument--verb--target interactions.
 
@@ -59,6 +59,6 @@ The authors declare that they have no other conflict of interest.
 \section*{Chapter Summary and Transition}
 \addcontentsline{toc}{section}{Chapter Summary and Transition}
 
-CholecInstanceSeg contributes instance-level instrument annotations at a scale and clinical diversity intended to support robust surgical-tool localisation. Its construction, quality-control process, recommended partitions, and baseline validation establish both a reusable dataset and an empirical foundation for the remaining technical chapters of this thesis.
+CholecInstanceSeg contributes instance-level instrument annotations across a large and clinically diverse collection of laparoscopic cholecystectomy videos. Its construction, quality-control process, recommended partitions, and baseline validation establish both a reusable dataset and the spatial foundation for the remaining technical chapters. The chapter demonstrates how individual instruments can be distinguished and localised, but localisation alone does not describe what each instrument is doing or which anatomy it affects.
 
-The next chapter uses this spatial foundation to move beyond identifying instruments in isolation. It links individual instrument masks with surgical verbs and anatomical targets, formulating surgical action-triplet understanding as an instance-level grounding and segmentation problem.
+The next chapter therefore asks whether semantic interaction labels can be attached to these spatially resolved instances. It links individual instrument masks with surgical verbs and anatomical targets, transforming surgical action-triplet understanding from frame-level recognition into an instance-level grounding and segmentation problem.

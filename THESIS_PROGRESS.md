@@ -78,10 +78,13 @@ This file records the working state of the thesis. It should be updated whenever
 - Verified the first Chapter 6 draft in a converged 239-page thesis build with zero undefined citations, zero undefined references, zero duplicate bibliography keys, and no LaTeX or Biber errors.
 - Revised Chapter 1 into a complete thesis-level introduction centred on spatially grounded surgical interaction understanding, with multitask learning positioned as a supporting methodology rather than the thesis's core contribution.
 - Strengthened the cumulative narrative from the literature review through CholecInstanceSeg, CholecTriplet-Seg, TargetFusionNet, and two-stage multimodal interaction prediction, and revised the first research question accordingly.
+- Revised the thesis-written entrances and exits of Chapters 2--5 into a continuous scientific narrative: the review identifies the missing instance-level link, CholecInstanceSeg supplies spatial supervision, CholecTriplet-Seg connects instances to interactions, and Chapter 5 evaluates specialised grounding followed by multimodal interaction prediction.
+- Removed repository-process language from the Chapter 4 transition, moderated the prominence of multitask learning in the Chapter 2 wrapper, and added a Chapter 5 appendix-to-conclusion transition into the thesis-wide synthesis.
+- Verified the revised Chapter 2--5 narrative in a converged 239-page thesis build with zero undefined citations, zero undefined references, zero duplicate bibliography keys, and no LaTeX or Biber errors.
 
 ## Current Task
 
-- Review and verify the revised Chapter 1 introduction, then proceed to the remaining thesis-level front matter and the dedicated formatting pass.
+- Complete the scientific consistency pass, then perform the dedicated layout review before finalising the remaining thesis front matter.
 
 ## Outstanding Issues
 

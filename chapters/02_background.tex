@@ -6,7 +6,7 @@
 \section*{Chapter Introduction}
 \addcontentsline{toc}{section}{Chapter Introduction}
 
-This chapter establishes the literature foundation for the thesis. It examines multitask learning as a framework for combining the related perceptual and semantic tasks required for minimally invasive surgical scene understanding. In the wider thesis narrative, the review motivates the progression from separate recognition tasks towards instance-level localisation, grounded interaction modelling, and multimodal interaction prediction.
+This chapter establishes the literature foundation for the thesis by examining how surgical vision has progressed from individual perceptual tasks towards richer descriptions of operative activity. Multitask learning provides one framework for combining related outputs, but the wider significance of the review is that surgical scene understanding requires complementary information about instruments, anatomy, workflow, and actions. Within the thesis narrative, the review exposes the gap between recognising these elements at frame level and spatially associating an interaction with the individual instrument responsible for it.
 
 The main body of the chapter reproduces the accepted manuscript of Alabi, Vercauteren, and Shi, \emph{Multitask Learning in Minimally Invasive Surgical Vision: A Review}, published in \emph{Medical Image Analysis} (2025). The manuscript text is retained essentially unchanged. Changes are limited to the LaTeX integration required by the thesis template, including heading context, figure paths, cross-reference isolation, and use of the thesis-wide bibliography.
 
@@ -45,6 +45,6 @@ This review provides a narrative overview of the current state-of-the-art MTL sy
 \section*{Chapter Summary and Transition}
 \addcontentsline{toc}{section}{Chapter Summary and Transition}
 
-The review shows that surgical scene understanding is inherently multitask: instruments, anatomy, workflow, actions, and their relationships describe complementary aspects of the same operative scene. It also identifies a practical limitation that shapes the next stage of this thesis. Fine-grained and grounded interaction understanding requires reliable spatial supervision, yet large-scale instance-level annotations of laparoscopic instruments have historically been limited.
+The review shows that no individual perceptual or semantic task provides a complete description of a surgical scene. Instrument, anatomy, workflow, and action predictions offer complementary information, and surgical action triplets provide a particularly useful representation of fine-grained instrument--tissue interactions. However, the dominant triplet formulation remains frame-level: it can indicate that an interaction occurs without reliably identifying the individual instrument instance responsible for it. At the same time, large-scale instance-level annotations of laparoscopic instruments have historically been limited.
 
-The next chapter addresses this data bottleneck through CholecInstanceSeg, providing instrument instance masks that support the later transition from frame-level recognition to spatially grounded surgical action triplets.
+Spatially grounded triplet understanding therefore first requires a reliable means of distinguishing and localising individual instruments. The next chapter addresses this data bottleneck through CholecInstanceSeg, establishing the instance-segmentation foundation needed to progress from frame-level interaction recognition to grounded surgical action triplets.
