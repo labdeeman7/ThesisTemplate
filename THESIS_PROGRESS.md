@@ -76,17 +76,16 @@ This file records the working state of the thesis. It should be updated whenever
 - Replaced the provisional ProstaTD preprint record with the final ICLR 2026 publication metadata and linked the official dataset repository from the Chapter 6 future-work section.
 - Corrected the thesis-integrated Chapter 5 future-work section to name and cite ProstaTD as the external prostatectomy benchmark proposed for cross-procedure evaluation; the authoritative active-manuscript source remains unchanged.
 - Verified the first Chapter 6 draft in a converged 239-page thesis build with zero undefined citations, zero undefined references, zero duplicate bibliography keys, and no LaTeX or Biber errors.
+- Revised Chapter 1 into a complete thesis-level introduction centred on spatially grounded surgical interaction understanding, with multitask learning positioned as a supporting methodology rather than the thesis's core contribution.
+- Strengthened the cumulative narrative from the literature review through CholecInstanceSeg, CholecTriplet-Seg, TargetFusionNet, and two-stage multimodal interaction prediction, and revised the first research question accordingly.
 
 ## Current Task
 
-- Complete the first full draft of the thesis discussion and conclusion, using Chapters 2--4 as the mature evidential core and Chapter 5 as a viable continuing research direction.
+- Review and verify the revised Chapter 1 introduction, then proceed to the remaining thesis-level front matter and the dedicated formatting pass.
 
 ## Outstanding Issues
 
-- Chapter 5 currently has a clean thesis wrapper and an authoritative active-manuscript source, but its integrated scientific body has not yet been reconstructed.
-- Chapter 6 is a drafting scaffold and requires substantial writing.
 - `Acknowledgments.tex` is nearly empty and the impact statement in `Thesis.tex` is placeholder text.
-- The Two Stage references are present in the canonical bibliography, but its manuscript is not yet integrated as Chapter 5.
 - TargetFusionNet standalone compilation requires the missing local MiKTeX package `cuted.sty`.
 - The converged build retains inherited layout/template warnings, including overfull and underfull boxes, PDF-version inclusion notices, one obsolete display-math warning, and the template's `\theauthor` redefinition warning.
 - Root-level `Introduction.tex`, `Methods.tex`, and `Conclusion.tex` are not included by the current thesis and require classification before any archival decision.
@@ -111,4 +110,3 @@ This file records the working state of the thesis. It should be updated whenever
 
 - Confirm the preferred wording and required length for the impact statement.
 - Provide the content or key points to include in the acknowledgements when ready.
-- Confirm whether supplementary material and appendices should be embedded within their corresponding paper chapters or placed in thesis appendices.
