@@ -340,6 +340,75 @@ target must still be chosen from the surgical triplet target ontology.
 
 The EndoViT names describe contextual anatomy and are not required to match the triplet target strings exactly; for example, \texttt{abdominal wall} is contextual evidence whereas \texttt{abdominal wall cavity} is a triplet target label. The MLLM remains responsible for selecting its final target from the benchmark vocabulary. The prior does not modify the visual input, constrain decoding, or replace the image evidence. Figure~\ref{fig:c5:instrument-tip-prior} illustrates both a successful estimate and a failure mode caused by ambiguous distal mask geometry.
 
+\subsection{Stage 2 Training Configuration}
+\label{sec:c5:appendix-training}
+
+All Stage~2 experiments use the 8B Instruct variant of Qwen3-VL and the same principal parameter-efficient training configuration unless an adaptation-specific change is listed below. Each adaptation is initialised independently from the public base model rather than from a converged Direct SFT adapter. Stage~1 training is inherited from Chapter~\ref{chap:cholecinstanceseg} and is not repeated here.
+
+\begin{table}[htb!]
+\centering
+\caption{Common Stage~2 QLoRA and optimisation configuration.}
+\label{tab:c5:training-configuration}
+\begin{tabular}{p{0.34\textwidth}p{0.58\textwidth}}
+\toprule
+Setting & Configuration \\
+\midrule
+Base model & Qwen3-VL-8B-Instruct \\
+Parameter-efficient adaptation & QLoRA \\
+Base-model quantisation & 4-bit NF4 with double quantisation \\
+Computation precision & bfloat16 \\
+Trainable modules & LoRA adapters in attention and MLP projection layers \\
+Attention projections & Query, key, value, and output projections \\
+MLP projections & Gate, up, and down projections \\
+LoRA rank & 64 \\
+LoRA scaling factor & 128 \\
+LoRA dropout & 0.05 \\
+Vision encoder & Frozen \\
+Supervised objective & Cross-entropy over assistant-response tokens; instruction tokens masked \\
+Optimiser & Fused AdamW \\
+Initial learning rate & $2\times10^{-4}$ \\
+Learning-rate schedule & 3\% warm-up followed by linear decay to zero \\
+Weight decay & 0.01 \\
+Maximum gradient norm & 1.0 \\
+Per-device training batch size & 1 \\
+Gradient-accumulation steps & 32 \\
+Effective batch size & 32 \\
+Maximum training duration & 5 epochs \\
+Random seed & 42 \\
+Validation cadence & Every 5\% of planned optimisation steps \\
+Early stopping & Patience of 5 validation evaluations \\
+Checkpoint retention & At most 10 checkpoints \\
+Model selection & Lowest loss on the official validation split \\
+Test-set use & Final evaluation only \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+No manually enforced text sequence-length limit is reported because the recovered launch configuration does not establish that such a limit affected the final experiments. The same fixed total visual-token budget is used throughout. A single-frame experiment allocates this budget to one image, whereas the three- and five-frame configurations share it across the images in their temporal window. Consequently, increasing the number of frames does not increase the overall visual allocation.
+
+\subsubsection{Adaptation-specific changes}
+
+\begin{table}[htb!]
+\centering
+\caption{Changes relative to the common Direct SFT configuration. Unlisted training and optimisation settings remain unchanged.}
+\label{tab:c5:adaptation-training-changes}
+\begin{tabular}{p{0.28\textwidth}p{0.64\textwidth}}
+\toprule
+Configuration & Change relative to Direct SFT \\
+\midrule
+Sequential Dialogue Prediction & Three supervised assistant responses predict the action, target, and final triplet in sequence; preceding reference responses are supplied through teacher forcing during training. \\
+Three-frame temporal context & Ordered inputs $(t-1,t,t+1)$ share the common total visual-token budget; only frame $t$ is supervised. \\
+Five-frame temporal context & Ordered inputs $(t-2,t-1,t,t+1,t+2)$ share the same total visual-token budget; only frame $t$ is supervised. \\
+Anatomical Context Prior & The EndoViT-derived local anatomy block is appended to the Direct SFT prompt during training and evaluation. \\
+Ontology-Guided Prompting & Valid action--target combinations are appended to the prompt during training and evaluation; decoding remains unconstrained. \\
+Distilled Rationale Only & The assistant target contains the complete teacher-generated structured rationale followed by the final triplet. \\
+Multitask & Equal numbers of Direct SFT and distilled-rationale examples are combined in one training set; the resulting model is evaluated using either response instruction. \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+All configurations use the same official training, validation, and test partitions. Frames without visible grounded instruments are excluded from Stage~2 because there is no instance for which an interaction can be predicted. Checkpoint selection is based exclusively on the official validation split; the test split is not used for early stopping or model selection.
+
 \subsection{Optimisation Sensitivity Study}
 \label{sec:c5:appendix-optimisation}
 

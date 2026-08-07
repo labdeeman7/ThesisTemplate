@@ -14,9 +14,8 @@ The main chapter is intentionally concise. The following material should be adde
 
 ## C. Training configuration summary
 
-- Compact table of the common QLoRA and optimisation settings.
-- Adaptation-specific deviations: dialogue structure, temporal input, anatomical text, ontology text, and supervision mixture.
-- Visual-token budget statement for single-frame and shared-budget temporal inputs.
+- Completed in `appendix_body.tex`: the common QLoRA and optimisation table, official validation/checkpoint protocol, adaptation-specific deviations, and the shared total visual-token budget across single-frame and temporal inputs.
+- No unsupported numerical pixel limits or unenforced text sequence-length limit are reported.
 
 ## D. Distilled rationale examples and quality-control scope
 

@@ -62,6 +62,9 @@ This file records the working state of the thesis. It should be updated whenever
 - Corrected the Chapter 5 Anatomical Context Prior method to reflect the implemented boundary-contact and furthest-mask-point tip estimator rather than an unsupported separate shaft-orientation calculation.
 - Drafted the corresponding appendix section with the complete field-of-view, base/tip, disk construction, EndoViT aggregation, failure-handling, and textual-prior procedure.
 - Verified the instrument-tip appendix in a converged 213-page thesis build with zero undefined citations, zero undefined references, zero duplicate bibliography keys, and no LaTeX or Biber errors; the new section introduced no overfull boxes.
+- Recovered the final Stage 2 training protocol from the supplied launch records, confirmed that official validation rather than test data was used for checkpoint selection, and standardised validation every 5% of planned steps with patience five across Direct SFT and temporal training.
+- Drafted the Chapter 5 training-configuration appendix with common QLoRA/optimisation settings, adaptation-specific changes, and the author-confirmed shared total visual-token budget; unsupported numerical pixel limits and an unenforced sequence-length argument were omitted.
+- Verified the Stage 2 training-configuration appendix in a converged 215-page thesis build with zero undefined citations, zero undefined references, zero duplicate bibliography keys, and no LaTeX or Biber errors; the new material introduced no overfull boxes.
 
 ## Current Task
 
