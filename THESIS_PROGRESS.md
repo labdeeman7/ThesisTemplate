@@ -111,6 +111,8 @@ This file records the working state of the thesis. It should be updated whenever
 - Moved the impact statement from an unfinished front-matter placeholder to a substantive final section of Chapter 6, following the reference thesis architecture. The statement distinguishes demonstrated scientific and community impact from potential future clinical impact.
 - Renamed the publications subsection `Preprints and challenge reports` to `Preprints`. Current primary and author-affiliated records were checked for SurgPIS, the radiology-report manuscript, and the SurgToolLoc/SurgVU report; all three remain publicly documented as preprints, so no unsupported venue acceptance was added.
 - Verified the impact-statement and publications milestone in a converged 239-page thesis build with zero undefined citations, zero undefined references, zero duplicate bibliography keys, and no LaTeX or Biber errors. The new impact statement introduced no overfull-box warnings.
+- Corrected the Chapter 5 supplementary appendix hierarchy by making it numbered Section 5.10. Its six constituent sections now appear as Sections 5.10.1--5.10.6 rather than misleadingly appearing beneath the Chapter 5 conclusion.
+- Verified the corrected appendix hierarchy in a converged 239-page build with zero undefined citations, zero undefined references, zero duplicate bibliography keys, and no LaTeX or Biber errors.
 
 ## Current Task
 
@@ -124,7 +126,6 @@ This file records the working state of the thesis. It should be updated whenever
 - The working tree contains a pre-existing modification to `Thesis.pdf`; this must not be overwritten or included accidentally in unrelated commits.
 - The title page currently uses `\today`; this should be replaced by the confirmed submission month/date before final submission.
 - King's requires a separate RD2 generative-AI declaration at submission. This administrative declaration must accurately record the editorial and rewriting assistance used during thesis preparation and is separate from the generic originality declaration printed in the thesis.
-- Confirm whether thesis-forming-paper author-contribution statements are required by the School or supervisors; none should be invented without the author's account of individual contributions.
 
 ## Decisions
 
@@ -147,4 +148,3 @@ This file records the working state of the thesis. It should be updated whenever
 - Confirm the final submission month/date to print on the title page instead of `\today`.
 - Confirm whether an impact statement is required and, if so, its expected length or School guidance.
 - Review the acknowledgement draft for personal tone and confirm whether any additional family, friends, colleagues, funders, or clinical collaborators should be named.
-- Confirm whether individual author-contribution statements are required for the three thesis-forming papers.
