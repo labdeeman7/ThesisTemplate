@@ -3,6 +3,17 @@
 \label{chap:two-stage-interaction}
 \minitoc
 
+\section*{Chapter Introduction}
+\addcontentsline{toc}{section}{Chapter Introduction}
+
+The preceding chapters establish the data, spatial supervision, and modelling foundations required for grounded surgical interaction understanding. Chapter~\ref{chap:cholecinstanceseg} introduces instrument instance segmentation at scale, while Chapter~\ref{chap:triplet-grounding} connects instrument masks with surgical action triplets and demonstrates the importance of both spatial grounding and anatomical context. Together, these contributions expose a remaining challenge: jointly learning precise instrument localisation and semantic interaction prediction places substantially different demands on the same model.
+
+This chapter investigates an alternative formulation in which these responsibilities are separated. A specialist instance segmentation model first localises the visible instruments, after which a multimodal large language model predicts the corresponding \vtpair interaction for each grounded instance. This two-stage design enables interaction prediction to be studied independently under ground-truth grounding before evaluating the full pipeline with predicted instrument instances. It also provides a framework for examining sequential prediction, temporal context, anatomical priors, ontology guidance, and distilled-rationale supervision as alternative sources of structure for the second stage.
+
+The chapter reports the experimental evidence developed during this study. Direct supervised fine-tuning establishes a viable baseline, while sequential dialogue prediction and short-range temporal context produce promising improvements in complete-triplet performance under ground-truth grounding. The predicted-grounding evaluation then examines how the formulation behaves as a full two-stage pipeline. Additional experiments investigate anatomical priors, ontology guidance, longer temporal context, and distilled-rationale supervision, clarifying both the opportunities and limitations of these adaptations.
+
+This work forms the basis of an active manuscript in preparation. Unlike Chapters~\ref{chap:background}--\ref{chap:triplet-grounding}, which are based on accepted papers, this chapter has been structured specifically for the thesis and presents the current two-stage multimodal interaction-prediction framework, its supporting experiments, and the conclusions that can be drawn from them. The formulation also provides a foundation for continued investigation beyond the thesis.
+
 \begin{center}
 \begin{minipage}[b]{0.9\linewidth}
 \small
