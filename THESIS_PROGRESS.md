@@ -129,6 +129,8 @@ This file records the working state of the thesis. It should be updated whenever
 - Verified the lightly compressed introduction in a converged 239-page thesis build with zero undefined citations, zero undefined references, zero duplicate bibliography keys, and no LaTeX or Biber errors.
 - Recovered the separate CholecInstanceSeg supplementary material and integrated all eight substantive annotation-guideline figures into Chapter 3 with supplementary numbering. The authoritative supplementary project remains unchanged; only its empty trailing evaluation-metrics title page is intentionally omitted and documented.
 - Verified the recovered Chapter 3 supplement in a converged 247-page thesis build with zero undefined citations, zero undefined references, zero duplicate bibliography keys, and no LaTeX or Biber errors. The eight figures occupy seven pages, matching the accepted supplement's grouping of the final two examples.
+- Reviewed the rendered Chapter 3 supplement page by page: all figures are readable, uncropped, and appropriately scaled. Tightened the opening-page placement, shortened the supplementary running header, and restored the Chapter Summary running header without altering supplementary content.
+- Verified the final supplementary layout visually and in a converged 245-page thesis build with zero undefined citations, zero undefined references, zero duplicate bibliography keys, and no LaTeX or Biber errors. Figure S1 now shares the introductory page, Figures S2--S6 each retain a readable full page, and Figures S7--S8 remain clearly grouped on one page.
 
 ## Current Task
 
