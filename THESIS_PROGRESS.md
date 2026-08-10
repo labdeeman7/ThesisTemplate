@@ -133,6 +133,8 @@ This file records the working state of the thesis. It should be updated whenever
 - Verified the final supplementary layout visually and in a converged 245-page thesis build with zero undefined citations, zero undefined references, zero duplicate bibliography keys, and no LaTeX or Biber errors. Figure S1 now shares the introductory page, Figures S2--S6 each retain a readable full page, and Figures S7--S8 remain clearly grouped on one page.
 - Clarified in the Chapter 5 thesis introduction, manuscript introduction, and problem formulation that Stage 2 performs instance-specific, spatially grounded interaction prediction rather than conventional frame-level triplet recognition. Each \vtpair prediction remains linked to a supplied instrument mask and identifier.
 - Verified the Chapter 5 grounding clarification in a converged 245-page thesis build with zero undefined citations, zero undefined references, zero duplicate bibliography keys, and no LaTeX or Biber errors.
+- Consolidated the six Chapter 5 error-analysis matrices into three method-level figures, pairing action and target diagnostics for Direct SFT, three-frame temporal context, and Multitask---Direct SFT. Expanded the temporal interpretation to distinguish reduced irrigation-to-aspiration collapse from unresolved bidirectional confusion.
+- Visually verified the three paired error-analysis figures: all matrices and labels remain legible, each method occupies one figure page, and the figures appear consecutively immediately before the Chapter Summary. The converged thesis is 243 pages with zero undefined citations, zero undefined references, zero duplicate bibliography keys, and no LaTeX or Biber errors.
 
 ## Current Task
 
