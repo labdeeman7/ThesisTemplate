@@ -131,6 +131,8 @@ This file records the working state of the thesis. It should be updated whenever
 - Verified the recovered Chapter 3 supplement in a converged 247-page thesis build with zero undefined citations, zero undefined references, zero duplicate bibliography keys, and no LaTeX or Biber errors. The eight figures occupy seven pages, matching the accepted supplement's grouping of the final two examples.
 - Reviewed the rendered Chapter 3 supplement page by page: all figures are readable, uncropped, and appropriately scaled. Tightened the opening-page placement, shortened the supplementary running header, and restored the Chapter Summary running header without altering supplementary content.
 - Verified the final supplementary layout visually and in a converged 245-page thesis build with zero undefined citations, zero undefined references, zero duplicate bibliography keys, and no LaTeX or Biber errors. Figure S1 now shares the introductory page, Figures S2--S6 each retain a readable full page, and Figures S7--S8 remain clearly grouped on one page.
+- Clarified in the Chapter 5 thesis introduction, manuscript introduction, and problem formulation that Stage 2 performs instance-specific, spatially grounded interaction prediction rather than conventional frame-level triplet recognition. Each \vtpair prediction remains linked to a supplied instrument mask and identifier.
+- Verified the Chapter 5 grounding clarification in a converged 245-page thesis build with zero undefined citations, zero undefined references, zero duplicate bibliography keys, and no LaTeX or Biber errors.
 
 ## Current Task
 
