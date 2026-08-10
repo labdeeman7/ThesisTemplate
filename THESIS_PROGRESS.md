@@ -121,6 +121,8 @@ This file records the working state of the thesis. It should be updated whenever
 - Verified the renamed publications chapter in a converged 239-page build with zero undefined citations, zero undefined references, zero duplicate bibliography keys, and no LaTeX or Biber errors.
 - Standardised formal triplet and pair notation in thesis-authored material: \ivttriplet is used for the benchmark tuple and \vtpair for the Stage 2 interaction pair, while broader instrument--tissue terminology and natural-language component descriptions are retained. Accepted-paper bodies were not altered.
 - Verified the notation changes in a converged 239-page thesis build with zero undefined citations, zero undefined references, zero duplicate bibliography keys, and no LaTeX or Biber errors.
+- Renamed the thesis-authored closing sections in Chapters 2--5 from `Chapter Summary and Transition` to the cleaner `Chapter Summary`; their transition prose remains intact and continues to connect the scientific narrative implicitly.
+- Verified the revised summary headings in a converged 239-page thesis build with zero undefined citations, zero undefined references, zero duplicate bibliography keys, and no LaTeX or Biber errors.
 
 ## Current Task
 
