@@ -9,7 +9,7 @@ Minimally invasive surgery (MIS) has transformed surgical care by reducing tissu
 
 Computer-assisted intervention seeks to extract useful information from these complex visual streams. Potential applications include surgical workflow analysis, skill assessment, context-aware assistance, robotic support, and automatic documentation. All of these applications depend on a fundamental capability: a computational system must represent not only which objects are visible, but also what is happening between them.
 
-Substantial progress has been made on individual surgical vision tasks. Models can recognise instruments, segment their visible regions, identify operative phases, and classify surgical activities. Nevertheless, surgical scene understanding is not simply a collection of independent labels. A meaningful description of a scene is relational: it should identify which instrument is present, where that particular instance is located, what action it is performing, and which anatomical structure it is acting upon. This thesis addresses that relational level of understanding by progressing from instrument perception to spatially grounded instrument--tissue interaction prediction.
+Substantial progress has been made on individual surgical vision tasks. Models can recognise instruments, segment their visible regions, identify operative phases, and classify surgical activities. Nevertheless, surgical scene understanding requires more than a collection of independent labels. This thesis addresses the relational understanding of surgical activity by progressing from instrument perception to spatially grounded instrument--tissue interaction prediction.
 
 \section{From Recognition to Grounded Interaction Understanding}
 \label{sec:introduction-from-recognition}
@@ -24,14 +24,14 @@ Most surgical action triplet methods have historically treated the task as frame
 
 Spatial awareness therefore requires more than attaching a coarse location to a frame-level label. It requires an instance representation that distinguishes individual instruments and preserves the association between each instance and its predicted verb and target. Instance segmentation is well suited to this role because it separates overlapping or repeated tools while retaining their visible spatial extent. At the outset of this research, however, large-scale instance-level annotations for instruments in routine human laparoscopic surgery were scarce. This limited both the development of specialist instance segmentation models and the construction of strongly grounded interaction benchmarks.
 
-This thesis connects these previously separate lines of research. It first establishes the spatial foundation through instrument instance segmentation, then links instrument masks to action triplets, and finally investigates models that predict interactions for those grounded instances. The resulting progression is from recognising what is present in a frame to identifying which instrument instance is responsible for each predicted interaction.
+This thesis connects these lines of research by progressing from instrument instance segmentation to grounded triplet prediction and, finally, interaction prediction for individually grounded instruments.
 
 \section{Research Gap}
 \label{sec:introduction-gap}
 
 The literature review in \Chapref{chap:background} examines multitask learning as one important framework for surgical scene understanding. Its broader finding is that surgical understanding depends on multiple related perceptual, temporal, and semantic outputs. Multitask learning can exploit relationships between such outputs, but it is a means rather than the central subject of this thesis. The more fundamental question is whether the outputs needed for fine-grained interaction understanding are defined, annotated, and spatially connected in the first place.
 
-The review identifies a progression from coarse workflow recognition towards increasingly fine-grained activity descriptions. Surgical action triplets represent an important step in that progression, but their predominantly frame-level formulation leaves the acting instance ambiguous. At the same time, instance segmentation had received substantially less attention than instrument presence recognition, detection, or semantic segmentation. The field therefore lacked the combined supervision required to connect a semantically rich triplet to the precise instrument responsible for it.
+The review identifies a progression from coarse workflow recognition towards increasingly fine-grained activity descriptions. However, surgical action triplets remained predominantly frame-level, while instrument instance segmentation had received substantially less attention than presence recognition, detection, or semantic segmentation. The field therefore lacked the combined supervision needed to connect semantically rich interactions to their responsible instrument instances.
 
 These limitations define two connected gaps. First, a sufficiently large and diverse dataset of instrument instances is needed to support reliable instance segmentation in laparoscopic video. Second, action-triplet annotations must be aligned with those instances to establish a benchmark for grounded interaction understanding. Triplet labels without instance masks describe the interaction but leave its actor spatially ambiguous. Instance masks without verb and target labels localise the actor but do not describe its surgical role. Bringing these forms of supervision together is consequently a central contribution of this thesis.
 
@@ -54,7 +54,7 @@ This aim is addressed through the following research questions:
   \item Can an MLLM serve as a viable second-stage interaction predictor for grounded instrument instances, and how do alternative task formulations and sources of context affect its predictions?
 \end{enumerate}
 
-These questions form a cumulative programme of work. The review establishes the conceptual and methodological gap. CholecInstanceSeg provides the necessary instance-level spatial supervision. CholecTriplet-Seg connects that supervision to surgical action triplets. TargetFusionNet investigates target-aware grounded prediction within a unified architecture. The final technical chapter then examines whether localisation and semantic interaction prediction can be divided between specialised models.
+These questions form a cumulative programme of work, progressing from the identification of the research gap to instance-level spatial supervision, grounded triplet prediction, target-aware modelling, and two-stage multimodal interaction prediction.
 
 \section{Contributions}
 \label{sec:introduction-contributions}

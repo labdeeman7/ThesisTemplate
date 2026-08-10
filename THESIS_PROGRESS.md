@@ -125,6 +125,8 @@ This file records the working state of the thesis. It should be updated whenever
 - Verified the revised summary headings in a converged 239-page thesis build with zero undefined citations, zero undefined references, zero duplicate bibliography keys, and no LaTeX or Biber errors.
 - Added a thesis-specific Chapter 5 introduction that connects the two-stage formulation to Chapters 3 and 4, summarises the reported evidence without presenting the active manuscript as unfinished, and distinguishes its thesis-specific structure from the accepted-paper chapters. The existing Chapter Summary remains in place.
 - Verified the Chapter 5 introduction in a converged 239-page thesis build with zero undefined citations, zero undefined references, zero duplicate bibliography keys, and no LaTeX or Biber errors.
+- Lightly compressed four repetitive passages in Chapter 1 while preserving the two-grasper example, the conjunctive grounded-triplet evaluation explanation, the full contribution statements, thesis scope, and chapter guide.
+- Verified the lightly compressed introduction in a converged 239-page thesis build with zero undefined citations, zero undefined references, zero duplicate bibliography keys, and no LaTeX or Biber errors.
 
 ## Current Task
 
