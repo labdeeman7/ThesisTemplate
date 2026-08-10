@@ -68,7 +68,7 @@ This file records the working state of the thesis. It should be updated whenever
 - Added an unedited final-schema distilled-rationale example to the Chapter 5 appendix, explicitly distinguishing label-conditioned supervision generation from independent prediction and recording the limited informal inspection, absence of clinical validation, and equal token weighting.
 - Verified the distilled-rationale example appendix milestone in a converged 217-page thesis build with zero undefined citations, zero undefined references, zero duplicate bibliography keys, and no LaTeX or Biber errors; the example introduced no overfull boxes.
 - Recovered and integrated the official test-set, row-normalised action and target confusion matrices for Direct SFT, three-frame temporal context, and Multitask---Direct SFT evaluation into the Chapter 5 appendix.
-- Added a restrained supplementary error analysis that treats the matrices as single-seed descriptive diagnostics, does not infer systematic annotation errors, and reserves a blank qualitative panel for later author-selected examples.
+- Added a restrained supplementary error analysis that treats the matrices as single-seed descriptive diagnostics and does not infer systematic annotation errors. A provisional blank qualitative panel was initially reserved but was subsequently removed from the active appendix.
 - Verified the supplementary error-analysis milestone in a converged 225-page thesis build with zero undefined citations, zero undefined references, zero duplicate bibliography keys, and no LaTeX or Biber errors; the matrices are presented as full-width figures for print legibility.
 - Completed the first full 4,579-word draft of Chapter 6, synthesising the review, CholecInstanceSeg, CholecTriplet-Seg, TargetFusionNet, and two-stage MLLM work into a single thesis conclusion.
 - Added thesis-level discussion of why complete-triplet AP is comparatively low, why exact evaluation treats errors of different severity equally, and why future top-k measures should complement rather than replace strict grounded AP.
@@ -106,10 +106,12 @@ This file records the working state of the thesis. It should be updated whenever
 - Reviewed the title page and originality declaration against the Lucas Fidon reference thesis. Both already follow the same King's College London thesis format, so no unnecessary structural changes were made.
 - Reviewed the publications, relationship-to-thesis, and academic-service material. The current page consistently excludes pre-doctoral publications and records the thesis papers, other doctoral publications, ISBI workshop organisation, the King's--Obafemi Awolowo University collaboration, and AGES Nigeria 2025.
 - Verified the acknowledgement and front-matter review in a successful 241-page thesis build with no LaTeX or Biber errors and no undefined citations or references.
+- Removed the blank provisional Chapter 5 qualitative error-analysis figure from the active appendix. The six evidence-backed confusion matrices remain, and no underlying source images or historical material were deleted.
+- Verified the removal in a converged 241-page thesis build with zero undefined citations, zero undefined references, zero duplicate bibliography keys, and no LaTeX or Biber errors.
 
 ## Current Task
 
-- Pause after the acknowledgement, title/declaration, and publications review. The author will return to the remaining front matter and the Chapter 5 qualitative figure in the next working session.
+- Complete the remaining front matter and final author-led reading pass; the provisional Chapter 5 qualitative figure has been resolved by removal from the active appendix.
 
 ## Outstanding Issues
 
@@ -118,7 +120,6 @@ This file records the working state of the thesis. It should be updated whenever
 - The converged build retains inherited layout/template warnings, including overfull and underfull boxes, PDF-version inclusion notices, one obsolete display-math warning, and the template's `\theauthor` redefinition warning.
 - Root-level `Introduction.tex`, `Methods.tex`, and `Conclusion.tex` are not included by the current thesis and require classification before any archival decision.
 - The working tree contains a pre-existing modification to `Thesis.pdf`; this must not be overwritten or included accidentally in unrelated commits.
-- The Chapter 5 supplementary appendix intentionally retains a blank qualitative error-analysis panel awaiting author-selected examples; it must be populated or removed before final submission so that the thesis does not contain an unfinished placeholder.
 - The title page currently uses `\today`; this should be replaced by the confirmed submission month/date before final submission.
 - King's requires a separate RD2 generative-AI declaration at submission. This administrative declaration must accurately record the editorial and rewriting assistance used during thesis preparation and is separate from the generic originality declaration printed in the thesis.
 - Confirm whether thesis-forming-paper author-contribution statements are required by the School or supervisors; none should be invented without the author's account of individual contributions.

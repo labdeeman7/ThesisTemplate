@@ -29,5 +29,5 @@ The main chapter is intentionally concise. The following material should be adde
 
 ## F. Additional qualitative material
 
-- A blank qualitative-figure panel is reserved in `appendix_body.tex` for later replacement with carefully selected official test-set examples illustrating temporal action ambiguity, anatomically ambiguous targets, and a possible annotation inconsistency.
+- The initially proposed qualitative-error figure was removed from the active appendix because no systematically selected comparison set was available. The appendix retains the official test-set confusion matrices and their restrained descriptive analysis.
 - Any available examples of malformed or omitted outputs should be labelled qualitative only because their frequency was not measured systematically.

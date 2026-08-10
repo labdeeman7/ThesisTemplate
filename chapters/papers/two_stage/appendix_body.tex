@@ -528,10 +528,3 @@ Figures~\ref{fig:c5:direct-action-confusion}--\ref{fig:c5:multitask-direct-targe
 The action matrices expose several recurrent ambiguities. In Direct SFT, irrigation is predominantly predicted as aspiration, while coagulation is sometimes predicted as dissection. The three-frame model redistributes predictions between aspiration and irrigation but does not eliminate their confusion, indicating that neighbouring frames do not uniformly resolve this visually and temporally ambiguous distinction. Grasp, pack, and the no-action class also show substantial cross-class errors that vary between configurations.
 
 Target prediction remains more diffuse than action prediction. Frequent structures such as the gallbladder and liver form prominent prediction destinations, whereas several less common or visually similar targets have weak diagonals. Confusion between the cystic artery and cystic duct is present across the configurations, and gastrointestinal tract, peritoneum, cystic plate, and no-target examples are frequently assigned to other abdominal structures. These observations are consistent with visual similarity and class imbalance as plausible contributors, but the matrices alone cannot establish their causes. In particular, they do not quantify annotation ambiguity or demonstrate that any apparent label inconsistency is systematic.
-
-\begin{figure}[p]
-    \centering
-    \fbox{\parbox[c][0.34\textheight][c]{0.9\textwidth}{\mbox{}}}
-    \caption{Reserved qualitative error-analysis panel. The final panel will illustrate temporal action ambiguity, anatomically ambiguous targets, and a possible annotation inconsistency using examples from the official test set. These examples will be interpreted as illustrative cases rather than estimates of error frequency.}
-    \label{fig:c5:qualitative-error-placeholder}
-\end{figure}
