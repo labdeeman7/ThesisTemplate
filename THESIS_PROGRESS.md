@@ -108,14 +108,16 @@ This file records the working state of the thesis. It should be updated whenever
 - Verified the acknowledgement and front-matter review in a successful 241-page thesis build with no LaTeX or Biber errors and no undefined citations or references.
 - Removed the blank provisional Chapter 5 qualitative error-analysis figure from the active appendix. The six evidence-backed confusion matrices remain, and no underlying source images or historical material were deleted.
 - Verified the removal in a converged 241-page thesis build with zero undefined citations, zero undefined references, zero duplicate bibliography keys, and no LaTeX or Biber errors.
+- Moved the impact statement from an unfinished front-matter placeholder to a substantive final section of Chapter 6, following the reference thesis architecture. The statement distinguishes demonstrated scientific and community impact from potential future clinical impact.
+- Renamed the publications subsection `Preprints and challenge reports` to `Preprints`. Current primary and author-affiliated records were checked for SurgPIS, the radiology-report manuscript, and the SurgToolLoc/SurgVU report; all three remain publicly documented as preprints, so no unsupported venue acceptance was added.
+- Verified the impact-statement and publications milestone in a converged 239-page thesis build with zero undefined citations, zero undefined references, zero duplicate bibliography keys, and no LaTeX or Biber errors. The new impact statement introduced no overfull-box warnings.
 
 ## Current Task
 
-- Complete the remaining front matter and final author-led reading pass; the provisional Chapter 5 qualitative figure has been resolved by removal from the active appendix.
+- Complete the remaining front matter and final author-led reading pass; the impact-statement placeholder and provisional Chapter 5 qualitative figure have both been resolved.
 
 ## Outstanding Issues
 
-- The impact statement in `Thesis.tex` remains placeholder text and must be drafted or removed according to the final submission requirements.
 - TargetFusionNet standalone compilation requires the missing local MiKTeX package `cuted.sty`.
 - The converged build retains inherited layout/template warnings, including overfull and underfull boxes, PDF-version inclusion notices, one obsolete display-math warning, and the template's `\theauthor` redefinition warning.
 - Root-level `Introduction.tex`, `Methods.tex`, and `Conclusion.tex` are not included by the current thesis and require classification before any archival decision.
