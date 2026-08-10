@@ -127,6 +127,8 @@ This file records the working state of the thesis. It should be updated whenever
 - Verified the Chapter 5 introduction in a converged 239-page thesis build with zero undefined citations, zero undefined references, zero duplicate bibliography keys, and no LaTeX or Biber errors.
 - Lightly compressed four repetitive passages in Chapter 1 while preserving the two-grasper example, the conjunctive grounded-triplet evaluation explanation, the full contribution statements, thesis scope, and chapter guide.
 - Verified the lightly compressed introduction in a converged 239-page thesis build with zero undefined citations, zero undefined references, zero duplicate bibliography keys, and no LaTeX or Biber errors.
+- Recovered the separate CholecInstanceSeg supplementary material and integrated all eight substantive annotation-guideline figures into Chapter 3 with supplementary numbering. The authoritative supplementary project remains unchanged; only its empty trailing evaluation-metrics title page is intentionally omitted and documented.
+- Verified the recovered Chapter 3 supplement in a converged 247-page thesis build with zero undefined citations, zero undefined references, zero duplicate bibliography keys, and no LaTeX or Biber errors. The eight figures occupy seven pages, matching the accepted supplement's grouping of the final two examples.
 
 ## Current Task
 
