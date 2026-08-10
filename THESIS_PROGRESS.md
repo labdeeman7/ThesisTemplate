@@ -115,6 +115,8 @@ This file records the working state of the thesis. It should be updated whenever
 - Verified the corrected appendix hierarchy in a converged 239-page build with zero undefined citations, zero undefined references, zero duplicate bibliography keys, and no LaTeX or Biber errors.
 - Corrected the academic-service record for the King's--OAUTHC collaboration by distinguishing initiation and Global Engagement Partnership Fund support from the subsequent deployment of research infrastructure, data-governance workflows, team training, video collection, and clinical annotation planning at OAUTHC.
 - Verified the revised OAUTHC contribution record in a converged 239-page build with zero undefined citations, zero undefined references, zero duplicate bibliography keys, and no LaTeX or Biber errors.
+- Aligned the thesis title with the approved RD1 title: `Towards Fine-Grained Surgical Scene Understanding through Grounded Instrument--Tissue Interaction Modelling`.
+- Verified the RD1-aligned title in a converged 239-page thesis build with zero undefined citations, zero undefined references, zero duplicate bibliography keys, and no LaTeX or Biber errors; the longer title introduced no title-page overflow warning.
 
 ## Current Task
 
