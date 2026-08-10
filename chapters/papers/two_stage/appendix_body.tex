@@ -273,7 +273,7 @@ For student supervision, the generated rationale and final triplet are used as t
 
 The multitask training set contains equal numbers of two supervision types. Direct SFT examples use the Direct SFT prompt and concise \texttt{predictions} response schema above. Distilled-rationale examples use the grounded student instruction and the structured rationale response ending in \texttt{final\_triplet}. No additional multitask-specific prompt is introduced.
 
-At evaluation, \emph{Multitask---Direct SFT} uses the Direct SFT prompt and requests the concise \texttt{predictions} object. \emph{Multitask---Distilled Rationale} requests the structured rationale and final triplet. These are two inference modes of the same multitask-trained model, not separately trained models. In both cases, evaluation uses only the final instrument--verb--target prediction.
+At evaluation, \emph{Multitask---Direct SFT} uses the Direct SFT prompt and requests the concise \texttt{predictions} object. \emph{Multitask---Distilled Rationale} requests the structured rationale and final triplet. These are two inference modes of the same multitask-trained model, not separately trained models. In both cases, evaluation uses only the final \ivttriplet prediction.
 
 \subsection{Instrument-Tip Anatomical Context Heuristic}
 \label{sec:c5:appendix-tip-prior}

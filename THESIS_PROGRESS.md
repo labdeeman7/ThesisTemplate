@@ -119,6 +119,8 @@ This file records the working state of the thesis. It should be updated whenever
 - Verified the RD1-aligned title in a converged 239-page thesis build with zero undefined citations, zero undefined references, zero duplicate bibliography keys, and no LaTeX or Biber errors; the longer title introduced no title-page overflow warning.
 - Renamed the front-matter chapter `Publications arising from this thesis` to the broader and more conventional `List of Publications`, while retaining the distinctions between thesis-forming papers, other doctoral publications, preprints, chapter relationships, and research engagement.
 - Verified the renamed publications chapter in a converged 239-page build with zero undefined citations, zero undefined references, zero duplicate bibliography keys, and no LaTeX or Biber errors.
+- Standardised formal triplet and pair notation in thesis-authored material: \ivttriplet is used for the benchmark tuple and \vtpair for the Stage 2 interaction pair, while broader instrument--tissue terminology and natural-language component descriptions are retained. Accepted-paper bodies were not altered.
+- Verified the notation changes in a converged 239-page thesis build with zero undefined citations, zero undefined references, zero duplicate bibliography keys, and no LaTeX or Biber errors.
 
 ## Current Task
 
