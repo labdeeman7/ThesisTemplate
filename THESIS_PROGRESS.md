@@ -113,6 +113,8 @@ This file records the working state of the thesis. It should be updated whenever
 - Verified the impact-statement and publications milestone in a converged 239-page thesis build with zero undefined citations, zero undefined references, zero duplicate bibliography keys, and no LaTeX or Biber errors. The new impact statement introduced no overfull-box warnings.
 - Corrected the Chapter 5 supplementary appendix hierarchy by making it numbered Section 5.10. Its six constituent sections now appear as Sections 5.10.1--5.10.6 rather than misleadingly appearing beneath the Chapter 5 conclusion.
 - Verified the corrected appendix hierarchy in a converged 239-page build with zero undefined citations, zero undefined references, zero duplicate bibliography keys, and no LaTeX or Biber errors.
+- Corrected the academic-service record for the King's--OAUTHC collaboration by distinguishing initiation and Global Engagement Partnership Fund support from the subsequent deployment of research infrastructure, data-governance workflows, team training, video collection, and clinical annotation planning at OAUTHC.
+- Verified the revised OAUTHC contribution record in a converged 239-page build with zero undefined citations, zero undefined references, zero duplicate bibliography keys, and no LaTeX or Biber errors.
 
 ## Current Task
 
