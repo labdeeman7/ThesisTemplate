@@ -117,6 +117,8 @@ This file records the working state of the thesis. It should be updated whenever
 - Verified the revised OAUTHC contribution record in a converged 239-page build with zero undefined citations, zero undefined references, zero duplicate bibliography keys, and no LaTeX or Biber errors.
 - Aligned the thesis title with the approved RD1 title: `Towards Fine-Grained Surgical Scene Understanding through Grounded Instrument--Tissue Interaction Modelling`.
 - Verified the RD1-aligned title in a converged 239-page thesis build with zero undefined citations, zero undefined references, zero duplicate bibliography keys, and no LaTeX or Biber errors; the longer title introduced no title-page overflow warning.
+- Renamed the front-matter chapter `Publications arising from this thesis` to the broader and more conventional `List of Publications`, while retaining the distinctions between thesis-forming papers, other doctoral publications, preprints, chapter relationships, and research engagement.
+- Verified the renamed publications chapter in a converged 239-page build with zero undefined citations, zero undefined references, zero duplicate bibliography keys, and no LaTeX or Biber errors.
 
 ## Current Task
 
