@@ -5,6 +5,8 @@
 % Scientific content is otherwise preserved.
 \section{Introduction}  \label{sec::introduction}
 
+This chapter establishes the literature foundation for the thesis by examining how surgical vision has progressed from individual perceptual tasks towards richer descriptions of operative activity. Multitask learning provides one framework for combining related outputs, but the wider significance of the review is that surgical scene understanding requires complementary information about instruments, anatomy, workflow, and actions. Within the thesis narrative, the review exposes the gap between recognising these elements at frame level and spatially associating an interaction with the individual instrument responsible for it.
+
 Minimally invasive surgeries (MIS)
 have become increasingly popular due to their benefits, such as reduced blood loss, less pain, faster recovery times, and fewer post-surgical complications \citep{jaffray2005minimally}. However, MIS utilizes indirect vision with a limited field of view from the endoscope, making it challenging for surgeons to interpret events on the surgical scene accurately  \citep{real_time_seg_adverserial}. To overcome this, computer-aided intervention techniques that augment the information obtained through minimally invasive cameras have been proposed ~\citep{vecauteren_cai_4_cai,cv_in_surgery}.
 
@@ -18,8 +20,8 @@ MTL has been successfully applied in various fields such as natural language pro
 In the context of MIS, MTL has primarily been utilized to enhance scene understanding. By simultaneously solving multiple tasks and leveraging knowledge from all of them, MTL offers an efficient approach for solving multiple tasks in MIS.
 To ensure the widespread adoption of computer-aided intervention solutions for MIS, it is crucial to develop systems that can comprehensively understand the surgical scene, rather than addressing individual tasks separately.
 
-In this reveiw, we aim to provide a broad
-survey of multitask learning (MTL) for surgical scene understanding in minimally invasive surgeries (MIS). Our goal is for this manuscript to serve as a foundational reference for researchers and practitioners working at the intersection of multitask
+In this chapter, we provide a broad
+survey of multitask learning (MTL) for surgical scene understanding in minimally invasive surgeries (MIS). The review serves as a foundational reference for researchers and practitioners working at the intersection of multitask
 learning and surgical scene understanding. 
 
 
@@ -29,9 +31,9 @@ In contrast, computer vision research has explored a wider array of MTL techniqu
 
 
 
-The remainder of this survey paper is divided into five sections. 
+The remainder of this chapter is divided into five sections.
 \secref{sec::review_methodology} outlines the review methodology employed, including the scope of the review, search criteria, selection process used to identify relevant literature on multi-task learning (MTL) in minimally invasive surgeries (MIS), and a brief comparison to similar review papers. 
-\secref{sec::multitask_learning_natural_images} provides a quick introduction to popular deep MTL techniques commonly employed in MTL research for vision, emphasizing their key features and concepts. \secref{sec::mtl_surgical} reviews how MTL has been applied to solve multiple tasks for surgical scene understanding, examining each work extensively and identifying the current trends in various research areas. In \secref{sec::datasets} `Public datasets for MTL in MIS', presents an overview of publicly available datasets that can be used to advance MTL research in MIS.\secref{sec::discussions_and_conclusions} presents our insights on the current state of MTL research in MIS, discusses potential directions for future work, and concludes this survey by summarising the main contributions of this paper.
+\secref{sec::multitask_learning_natural_images} provides a quick introduction to popular deep MTL techniques commonly employed in MTL research for vision, emphasizing their key features and concepts. \secref{sec::mtl_surgical} reviews how MTL has been applied to solve multiple tasks for surgical scene understanding, examining each work extensively and identifying the current trends in various research areas. \secref{sec::datasets}, `Public datasets for MTL in MIS', presents an overview of publicly available datasets that can be used to advance MTL research in MIS. \secref{sec::discussions_and_conclusions} presents our insights on the current state of MTL research in MIS, discusses potential directions for future work, and concludes the review by summarising the main findings of this chapter.
 
 
 
@@ -1658,27 +1660,6 @@ The primary challenges hindering the widespread adoption of AI in surgery are mu
 Multitask learning (MTL) presents a promising solution to some of these challenges, particularly in addressing the need for low-latency inference. Several MTL models reviewed in this survey report speeds exceeding 20 frames per second for multiple tasks while also reducing the number of parameters required by sharing encoders, as shown in \tabref{perceptual_tasks:table}, \tabref{tracking_and_control:table}, \tabref{workflow:table}, \tabref{workflow_optimization_tasks:table}, \tabref{skills_tasks:table}, \tabref{report:table}, and \tabref{large_models:table}.However, more work is required to fully realize the potential of MTL in real-world surgical applications. Unification in datasets and metrics, continued research, development, and collaboration are necessary to address these challenges and leverage AI and MTL to enhance surgical outcomes and efficiency.
 
 \subsection{Conclusion}
-In conclusion, MTL has firmly established itself as an important paradigm within the domain of minimally invasive surgeries. Its influence extends across various facets of this specialized field. 
+MTL has established itself as an important paradigm across minimally invasive surgical vision. This chapter introduced its principal objectives and methods, reviewed six application areas, surveyed the datasets that support these tasks, and identified opportunities arising from more advanced task-sharing and optimisation strategies. More broadly, the review shows that no individual perceptual or semantic task provides a complete description of a surgical scene: instrument, anatomy, workflow, and action predictions offer complementary information, while surgical action triplets provide a particularly useful representation of fine-grained instrument--tissue interactions.
 
-This review analysed the applications of the MTL paradigm to minimally invasive surgeries. Firstly, the review gave an introduction to MTL and its objectives. Secondly, a detailed exploration of six distinct areas where MTL is applied in MIS was provided. Thirdly, the datasets that support MTL for MIS were presented. Lastly, we discussed some of the inferences and interesting observations on MTL and minimally invasive surgeries.
-
-
-
-
-
-
-
-\section*{Acknowledgments}
-\paragraph{Declaration of Interests}
-TV is a co-founder and shareholder of Hypervision Surgical Ltd, London, UK.
-The authors declare that they have no other conflict of interest.
-
-\paragraph{Ethics approval} For this type of study, formal consent is not required.
-
-\paragraph{Informed consent} This article does not contain patient data.
-
-\paragraph{Funding Sources} This work was supported by core funding from the Wellcome/EPSRC [WT203148/Z/16/Z; NS/A000049/1] and, Tongji Fundamental Research Funds for the Central Universities. OA is supported by the EPSRC CDT
-[EP/S022104/1].
-TV is supported by a Medtronic / RAEng Research Chair [RCSRF1819$\backslash$7$\backslash$34].
-
-\paragraph{Open Access} For the purpose of open access, the authors have applied a CC BY public copyright licence to any Author Accepted Manuscript version arising from this submission.
+The literature also exposes a central gap addressed by the remainder of this thesis. The dominant triplet formulation can identify an interaction at frame level without reliably associating it with the individual instrument instance responsible for it, while large-scale instance-level annotations of laparoscopic instruments have historically been limited. Spatially grounded triplet understanding therefore first requires a reliable means of distinguishing and localising individual instruments. Chapter~\ref{chap:cholecinstanceseg} addresses this data bottleneck through CholecInstanceSeg, establishing the instance-segmentation foundation for the subsequent grounded interaction models.

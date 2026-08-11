@@ -1,5 +1,14 @@
 # Thesis Progress
 
+## Supervisor integration pass (Chapters 2--5)
+
+### Chapter 2 milestone
+
+- Integrated the literature review as a thesis chapter: removed the repeated paper title block, chapter-level abstract, accepted-manuscript heading, acknowledgements, declarations, funding, ethics, and open-access boilerplate.
+- Merged the thesis framing into the chapter's numbered Introduction and replaced the duplicated paper conclusion/Chapter Summary with one conclusion that establishes the literature findings and motivates Chapter 3.
+- Preserved the review methodology, technical survey, datasets, figures, tables, citations, and substantive discussion unchanged.
+- Verified a converged full-thesis build after the Chapter 2 integration; no LaTeX or Biber errors were introduced.
+
 This file records the working state of the thesis. It should be updated whenever significant work is completed.
 
 ## Completed Tasks

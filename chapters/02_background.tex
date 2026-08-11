@@ -3,31 +3,7 @@
 \label{chap:background}
 \minitoc
 
-\section*{Chapter Introduction}
-\addcontentsline{toc}{section}{Chapter Introduction}
-
-This chapter establishes the literature foundation for the thesis by examining how surgical vision has progressed from individual perceptual tasks towards richer descriptions of operative activity. Multitask learning provides one framework for combining related outputs, but the wider significance of the review is that surgical scene understanding requires complementary information about instruments, anatomy, workflow, and actions. Within the thesis narrative, the review exposes the gap between recognising these elements at frame level and spatially associating an interaction with the individual instrument responsible for it.
-
-This chapter is based on the accepted paper entitled \emph{Multitask Learning in Minimally Invasive Surgical Vision: A Review} by Alabi, Vercauteren, and Shi, published in \emph{Medical Image Analysis} (2025). Its main body reproduces the accepted manuscript essentially unchanged. Changes are limited to the LaTeX integration required by the thesis template, including heading context, figure paths, cross-reference isolation, and use of the thesis-wide bibliography.
-
-\section*{Accepted Manuscript}
-\addcontentsline{toc}{section}{Accepted Manuscript}
-
-\begin{center}
-{\Large\bfseries Multitask Learning in Minimally Invasive Surgical Vision: A Review\par}
-\vspace{1em}
-{\large Oluwatosin Alabi, Tom Vercauteren, and Miaojing Shi\par}
-\vspace{0.5em}
-{\itshape Medical Image Analysis, 101:103480, 2025\par}
-\end{center}
-
-\subsection*{Abstract}
-
-Minimally invasive surgery (MIS) has revolutionized many procedures and led to reduced recovery time and risk of patient injury. However, MIS poses additional complexity and burden on surgical teams. Data-driven surgical vision algorithms are thought to be key building blocks in the development of future MIS systems with improved autonomy. Recent advancements in machine learning and computer vision have led to successful applications in analyzing videos obtained from MIS with the promise of alleviating challenges in MIS videos.
-
-Surgical scene and action understanding encompasses multiple related tasks that, when solved individually, can be memory-intensive, inefficient, and fail to capture task relationships. Multitask learning (MTL), a learning paradigm that leverages information from multiple related tasks to improve performance and aid generalization, is well-suited for fine-grained and high-level understanding of MIS data.
-
-This review provides a narrative overview of the current state-of-the-art MTL systems that leverage videos obtained from MIS. Beyond listing published approaches, we discuss the benefits and limitations of these MTL systems. Moreover, this manuscript presents an analysis of the literature for various application fields of MTL in MIS, including those with large models, highlighting notable trends, new directions of research, and developments.
+This chapter draws on the accepted article \emph{Multitask Learning in Minimally Invasive Surgical Vision: A Review}, published in \emph{Medical Image Analysis} (2025). Full publication details are provided in the List of Publications.
 
 \begingroup
 \setlength{\emergencystretch}{2em}
@@ -42,10 +18,3 @@ This review provides a narrative overview of the current state-of-the-art MTL sy
 \providecommand{\secref}[1]{Section~\ref{#1}}
 \input{chapters/papers/02_review_paper}
 \endgroup
-
-\section*{Chapter Summary}
-\addcontentsline{toc}{section}{Chapter Summary}
-
-The review shows that no individual perceptual or semantic task provides a complete description of a surgical scene. Instrument, anatomy, workflow, and action predictions offer complementary information, and surgical action triplets provide a particularly useful representation of fine-grained instrument--tissue interactions. However, the dominant triplet formulation remains frame-level: it can indicate that an interaction occurs without reliably identifying the individual instrument instance responsible for it. At the same time, large-scale instance-level annotations of laparoscopic instruments have historically been limited.
-
-Spatially grounded triplet understanding therefore first requires a reliable means of distinguishing and localising individual instruments. The next chapter addresses this data bottleneck through CholecInstanceSeg, establishing the instance-segmentation foundation needed to progress from frame-level interaction recognition to grounded surgical action triplets.
