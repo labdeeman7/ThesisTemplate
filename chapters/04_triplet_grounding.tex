@@ -3,25 +3,7 @@
 \label{chap:triplet-grounding}
 \minitoc
 
-\section*{Chapter Introduction}
-\addcontentsline{toc}{section}{Chapter Introduction}
-
-The preceding chapter establishes instrument instance segmentation as a spatial foundation for surgical scene understanding. This chapter extends that foundation from locating individual instruments to interpreting their interactions: which instrument is acting, what action it performs, and which anatomical target it affects.
-
-Within the thesis narrative, this work introduces instance-level surgical action-triplet grounding. It combines CholecInstanceSeg masks with CholecT50 action labels to form CholecTriplet-Seg, then develops TargetFusionNet to improve the especially difficult problem of anatomical-target prediction using weak anatomical priors.
-
-This chapter is based on the paper entitled \emph{Grounding Surgical Action Triplets with Instrument Instance Segmentation: A Dataset and Target-Aware Fusion Approach} by Alabi et al., published in the \emph{International Journal of Computer Assisted Radiology and Surgery} (2026). Its main body reproduces the accepted manuscript, followed by the accompanying accepted appendix. Thesis integration is limited to removing standalone publisher machinery, supplying thesis-compatible macro and figure contexts, and harmonising citation keys with the canonical thesis bibliography. The scientific prose, results, figures, tables, equations, and conclusions are otherwise preserved.
-
-\section*{Accepted Manuscript}
-\addcontentsline{toc}{section}{Accepted Manuscript}
-
-\begin{center}
-{\Large\bfseries Grounding Surgical Action Triplets with Instrument Instance Segmentation: A Dataset and Target-Aware Fusion Approach\par}
-\vspace{1em}
-{\large Oluwatosin Alabi, Meng Wei, Charlie Budd, Tom Vercauteren, and Miaojing Shi\par}
-\vspace{0.5em}
-{\itshape International Journal of Computer Assisted Radiology and Surgery, 21(5):901--908, 2026\par}
-\end{center}
+This chapter draws on the accepted article \emph{Grounding Surgical Action Triplets with Instrument Instance Segmentation: A Dataset and Target-Aware Fusion Approach}, published in the \emph{International Journal of Computer Assisted Radiology and Surgery} (2026). Full publication details are provided in the List of Publications.
 
 \begingroup
 \setlength{\emergencystretch}{2em}
@@ -48,31 +30,5 @@ This chapter is based on the paper entitled \emph{Grounding Surgical Action Trip
 \providecommand{\revnew}[1]{#1\xspace}
 \providecommand{\revdel}[1]{\ignorespaces}
 
-\subsection*{Abstract}
-
-\textbf{Purpose:} Understanding surgical instrument–tissue interactions requires not only identifying which instrument performs which action on which anatomical target, but also grounding these interactions spatially within the surgical scene. Existing surgical action triplet recognition methods are limited to learning from frame-level classification, failing to reliably link actions to specific instrument instances. Previous attempts at spatial grounding have primarily relied on class activation maps, which lack the precision and robustness required for detailed instrument–tissue interaction analysis.
-To address this gap, we propose grounding surgical action triplets with instrument instance segmentation, or \emph{triplet segmentation} for short, a new unified task which
-produces spatially grounded \ivttriplet outputs.
-
-\textbf{Methods:} We start by presenting CholecTriplet-Seg, a large-scale dataset containing over 30,000 annotated frames, linking instrument instance masks with action verb and anatomical target annotations, and establishing the first benchmark for strongly supervised, instance-level triplet grounding and evaluation.
-To learn triplet segmentation, we propose TargetFusionNet, a novel architecture that extends Mask2Former with a target-aware fusion mechanism to address the challenge of accurate anatomical target prediction by fusing \anatprior priors with instrument instance queries.
-
-\textbf{Results:} Evaluated across recognition, detection, and triplet segmentation metrics, TargetFusionNet consistently improves performance over existing baselines, demonstrating that strong instance supervision combined with weak target priors significantly enhances the accuracy and robustness of surgical action understanding.
-
-\textbf{Conclusion:} Triplet segmentation establishes a unified framework for spatially grounding surgical action triplets. The proposed CholecTriplet-Seg benchmark and TargetFusionNet architecture pave the way for more interpretable, fine-grained surgical scene understanding.
-
-\noindent\textbf{Keywords:} Surgical scene understanding, Surgical action triplets, Spatial grounding, Target-aware fusion
-
 \input{chapters/papers/targetfusionnet/main_body}
-
-\section*{Accepted Manuscript Appendix}
-\addcontentsline{toc}{section}{Accepted Manuscript Appendix}
-\input{chapters/papers/targetfusionnet/appendix_body}
 \endgroup
-
-\section*{Chapter Summary}
-\addcontentsline{toc}{section}{Chapter Summary}
-
-This chapter connects the spatial and semantic strands of the thesis. It formulates triplet segmentation as a unified recognition and spatial-grounding problem, introduces CholecTriplet-Seg, and shows that TargetFusionNet improves grounded triplet prediction by combining strong instrument-instance supervision with weak anatomical priors. Strong supervision resolves the ambiguity of associating an action with a visible instrument instance, while the results identify anatomical-target prediction and rare interactions as the principal remaining difficulties.
-
-TargetFusionNet addresses localisation and semantic interaction prediction within a unified discriminative architecture. The following chapter investigates a complementary factorisation: whether specialist instrument grounding can first establish the actor and its spatial extent, after which a multimodal model predicts the associated verb and anatomical target. In this way, the instrument-instance and grounded-triplet contributions established in Chapters~\ref{chap:cholecinstanceseg} and~\ref{chap:triplet-grounding} become the spatial foundation for two-stage multimodal interaction prediction.

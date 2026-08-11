@@ -17,6 +17,15 @@
 - Preserved the dataset construction, data records, validation experiments, code availability, figures, tables, equations, citations, and annotation guidance; the archival `abstract.tex` remains in the repository but is no longer included.
 - Verified a converged full-thesis build after the Chapter 3 integration; no LaTeX or Biber errors were introduced.
 
+### Chapter 4 milestone
+
+- Integrated TargetFusionNet as a thesis chapter: removed the repeated paper title/authors/journal block, structured abstract, keywords, accepted-manuscript labels, declarations, interests, ethics, funding, and open-access boilerplate.
+- Merged the thesis framing into the numbered Introduction and integrated the former paper appendix into the main numbered scientific narrative before the discussion and conclusion.
+- Promoted the extended dataset construction and annotation protocol, additional dataset statistics, EndoViT weak-supervision details, implementation details, evaluation protocol, fusion/multitask/depth ablations, efficiency analysis, long-tail results, and failure-mode analysis.
+- Replaced paper-appendix signposting with references to the relevant later chapter analyses and extended the accepted conclusion only to articulate its role in the thesis and transition to Chapter 5.
+- Preserved all scientific results, numerical values, figures, tables, equations, citations, limitations, and substantive accepted-paper appendix material.
+- Verified a converged full-thesis build after the Chapter 4 integration; no LaTeX or Biber errors were introduced.
+
 This file records the working state of the thesis. It should be updated whenever significant work is completed.
 
 ## Completed Tasks

@@ -1,6 +1,8 @@
 ﻿\section{Introduction}\label{sec:tfn:introduction}
 Modelling surgical instrument–tissue interactions is essential for understanding surgical actions and workflows. Action triplets \ivttriplet have emerged as a concise yet powerful representation for instrument-tissue interaction, capturing interactions such as \triplet{Grasper}{Grasp}{Gallbladder} or \triplet{Scissors}{Cut}{Cystic\_duct} \cite{1nywoye_rec_action_triplets}. However, existing triplet recognition methods \cite{1nywoye_rec_action_triplets,NWOYE2022102433_rendevous,multi_self_distillation} operate at the frame level, predicting which triplets are present in a scene without identifying the location as seen in \figref{fig:instance_recognition_triplet_segmentation}. This lack of spatial grounding makes predictions ambiguous and reduces their clinical value, as precise action localisation is crucial for surgical skill assessment, context-aware assistance, and workflow analysis.
 
+The preceding chapter establishes instrument instance segmentation as a spatial foundation for surgical scene understanding. This chapter extends that foundation from locating individual instruments to interpreting their interactions: which instrument is acting, what action it performs, and which anatomical target it affects. It introduces instance-level surgical action-triplet grounding by combining CholecInstanceSeg masks with CholecT50 action labels to form CholecTriplet-Seg, then develops TargetFusionNet to address the especially difficult problem of anatomical-target prediction using weak anatomical priors.
+
 \begin{figure}[b]
     \centering
     \includegraphics[width=0.95\linewidth]{instance_recognition_triplet_segmentation.pdf}
@@ -90,10 +92,10 @@ CholecT50 defines an annotation schema of six instruments, ten verbs, and fiftee
 \mysubsection{Alignment and quality control and ethics approval}
 Frames from both datasets are aligned using timestamps to associate each instrument mask with a corresponding \ivttriplet label. 
 Automatic alignment was refined through manual verification to correct missing or ambiguous mappings, add absent masks and triplets, and ensure consistent assignments. 
-Two rounds of visual inspection confirmed annotation quality, with additional statistics and \robustrevref{6}{1}\revnew{discussion of dataset design trade-offs and expected sources of annotation ambiguity}  provided in the appendix. 
+Two rounds of visual inspection confirmed annotation quality, with additional statistics and \robustrevref{6}{1}\revnew{discussion of dataset design trade-offs and expected sources of annotation ambiguity} provided later in this chapter.
 The final dataset contains 30{,}955 annotated frames and 49{,}866 spatially grounded triplets from 50 cholecystectomy videos, including 15 fully annotated and 35 sparsely sampled cases (1 in 30 frames).
 \robustrevref{4}{2}\revnew{
-The resulting triplet dataset exhibits a strongly long-tailed distribution (see appendix).
+The resulting triplet dataset exhibits a strongly long-tailed distribution, analysed in detail later in this chapter.
 } Training, validation, and test splits follow the CholecInstanceSeg protocol. 
 No ethics approval was required as only existing public datasets were used with additional annotations. 
 
@@ -158,7 +160,7 @@ We enhance its architecture with a target-aware fusion mechanism with three comp
 Following \citet{NWOYE2022102433_rendevous}, we represent each \ivttriplet combination as a single class within a 100-way classification space defined by the clinically valid triplets of CholecT50.
 For each predicted instance mask $M_k$, TargetFusionNet directly outputs a single triplet label $c_k \in {[1; \dots; 100]}$, where each class $c_k$ uniquely corresponds to a specific triplet combination. 
 Each transformer query predicts one triplet label, while mask generation still follows the standard Mask2Former query–pixel interaction. The target-fusion gate acts only on the query embeddings before classification, enriching triplet semantics without altering the mask prediction process.
-The network is trained end-to-end using standard Mask2Former losses. A comparison  of models with multitask loss variants, where separate losses are applied to instrument, verb, and target predictions,  is included in the appendix.
+The network is trained end-to-end using standard Mask2Former losses. A comparison of models with multitask loss variants, where separate losses are applied to instrument, verb, and target predictions, is included in the extended ablation analysis later in this chapter.
 
 
 
@@ -180,7 +182,7 @@ Performance is assessed across triplet recognition (classification), triplet det
 %
 To enable instance segmentation level evaluation, we introduce a new \emph{triplet segmentation mAP} metric, which extends existing triplet evaluation to the pixel level by requiring both correct triplet classification and accurate mask localisation. This metric provides a unified framework for comparing models across frame, box, and mask-level grounding, thereby establishing the first benchmark for spatially grounded triplet segmentation.
 %
-Metrics are reported for individual components ($\mAP_I$, $\mAP_V$, $\mAP_T$), component pairs ($\mAP_{IV}$, $\mAP_{IT}$), and full triplets ($\mAP_{IVT}$), with superscripts $rec$, $det$, or $seg$ indicating the evaluation mode (e.g., $\mAP_{IVT}^{seg}$). Further details on metric computation are available in the appendix and accompanying codebase.  
+Metrics are reported for individual components ($\mAP_I$, $\mAP_V$, $\mAP_T$), component pairs ($\mAP_{IV}$, $\mAP_{IT}$), and full triplets ($\mAP_{IVT}$), with superscripts $rec$, $det$, or $seg$ indicating the evaluation mode (e.g., $\mAP_{IVT}^{seg}$). Further details on metric computation are provided later in this chapter and in the accompanying codebase.
 %
 We also present qualitative results, visualising predicted masks and triplets to highlight common errors and the benefits of weak anatomical priors in TargetFusionNet.
 
@@ -243,7 +245,7 @@ To analyse design choices, we compare TargetFusionNet with two simplified fusion
 and  
 2) \emph{late fusion}, where weak anatomical logits are injected after the transformer decoder via a lightweight convolutional encoder.  
 %
-Additional analyses in the appendix include comparisons of the standard Mask2Former loss versus multitask loss variants and fusion-depth ablations evaluating how many decoder layers benefit from target fusion.
+Additional analyses later in this chapter compare the standard Mask2Former loss with multitask loss variants and evaluate how many decoder layers benefit from target fusion.
 
 \mysubsection{Implementation details}
 TargetFusionNet was trained in the MMDetection \cite{mmdetection} framework with a ResNet-50 \cite{resnet} backbone pretrained for instrument segmentation on data derived from CholecTriplet-Seg, using the AdamW optimiser \cite{loshchilov2017decoupled}. Input images were resized to 1024×1024 with data augmentation comprising random horizontal flipping, cropping, and scaling. Training was performed on a single NVIDIA A100 GPU for 300k iterations, and the best checkpoint was selected based on validation mask mAP. 
@@ -288,6 +290,8 @@ A short video comparing all evaluated methods (RDV-Det, RDV-Det + Mask2Former, M
 
 
 
+\input{chapters/papers/targetfusionnet/appendix_body}
+
 \section{Discussion and conclusion}
 %
 In this work, we introduced the task of triplet segmentation, released the CholecTriplet-Seg benchmark, and proposed TargetFusionNet, which combines strong instance supervision with weak anatomical priors for fine-grained and interpretable surgical scene understanding.
@@ -299,10 +303,12 @@ Despite these advances, two key challenges remain.
 First, while triplet-optimised models achieve the highest triplet $\mAP_{IVT}^{seg}$, their instrument masks ($\mAP_{I}^{seg}$) are slightly less precise than those from single-task segmentation models \cite{cholecinstanceseg}.
 This trade-off highlights the need for hybrid or multi-stage architectures that preserve mask quality while enabling effective triplet reasoning.
 Second, target segmentation still remains a bottleneck, as low target $\mAP$ directly constrains overall triplet accuracy. \robustrevref{4}{1}\revnew{Target prediction is intrinsically harder than instrument/verb prediction due to high visual similarity and ambiguous boundaries between anatomical structures, which contributes to the lower target $\mAP$.}
-\robustrevref{4}{3}\revnew{A more detailed breakdown of failure patterns with  representative examples is provided in the appendix.
+\robustrevref{4}{3}\revnew{A more detailed breakdown of failure patterns with representative examples is provided in the preceding analysis.
 }
 Improving anatomical modelling beyond weak priors could further enhance spatial grounding.
 Future extensions could incorporate temporal reasoning to exploit action continuity across frames and integrate relation-aware modules to capture richer inter-instrument and tissue relationships.
+
+Within the thesis, these findings connect its spatial and semantic strands. Strong supervision resolves the ambiguity of associating an action with a visible instrument instance, while the results identify anatomical-target prediction and rare interactions as the principal remaining difficulties. TargetFusionNet addresses localisation and semantic interaction prediction within a unified discriminative architecture. Chapter~\ref{chap:two-stage-interaction} investigates a complementary factorisation: specialist instrument grounding first establishes the actor and its spatial extent, after which a multimodal model predicts the associated verb and anatomical target.
 
 
 % Future extensions could incorporate temporal reasoning to address challenges of temporal consistency.
@@ -323,20 +329,5 @@ Future extensions could incorporate temporal reasoning to exploit action continu
 
 
 
-
-
-\section*{Declarations}
-\noindent\textbf{Open access} Code and dataset are publicly available from Github,
-\url{https://github.com/labdeeman7/target_fusion_net} 
-and Synapse
-\url{https://doi.org/10.7303/syn70783776.1} respectively.
-
-\noindent\textbf{Declaration of Interests} 
-TV is a co-founder and shareholder of Hypervision Surgical Ltd, London, UK.
-The authors declare that they have no other conflict of interest.
-
-\noindent\textbf{Ethics approval} For this type of study, formal consent is not required.
-
-\noindent\textbf{Funding Sources} This work was supported by the National Natural Science Foundation of China (No.62333017), core funding from the Wellcome/EPSRC [WT203148/Z/16/Z; NS/A000049/1] and, Tongji Fundamental Research Funds for the Central Universities. OA is supported by the EPSRC CDT [EP/S022104/1].
 
 
