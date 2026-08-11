@@ -35,6 +35,12 @@
 - Preserved all methods, experiments, numerical results, figures, tables, citations, limitations, future-work directions, and scientific interpretation.
 - Verified a converged full-thesis build after the Chapter 5 integration; no LaTeX or Biber errors were introduced.
 
+### Cross-thesis consistency milestone
+
+- Updated the List of Publications to describe Chapters 2--5 as integrated thesis chapters that draw on the listed publications/manuscript, rather than as accepted-paper cores pasted into wrappers.
+- Updated the thesis-integration provenance README to record the removed publication boilerplate, merged introductions/conclusions, promoted Chapter 4 material, retained Chapter 3 guidance, and Chapter 5 main/supplementary division.
+- Confirmed that the authoritative accepted-paper source projects remain unchanged; all integration edits are confined to thesis-specific wrappers and copied chapter sources.
+
 This file records the working state of the thesis. It should be updated whenever significant work is completed.
 
 ## Completed Tasks
