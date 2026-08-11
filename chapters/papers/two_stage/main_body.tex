@@ -1,8 +1,3 @@
-\section*{Abstract}
-\addcontentsline{toc}{section}{Abstract}
-
-Surgical triplet segmentation requires both the spatial localisation of surgical instrument instances and the identification of the \ivttriplet interaction associated with each instance. Chapter~\ref{chap:triplet-grounding} demonstrated that strong instance supervision substantially improves grounding, but also showed that semantic interaction prediction remains difficult. This chapter therefore separates these capabilities. A specialist Mask2Former first grounds instrument instances, after which a multimodal large language model predicts a verb and anatomical target for every grounded instance. Direct supervised fine-tuning (Direct SFT) establishes a viable second-stage baseline. Under ground-truth grounding, Sequential Dialogue Prediction and three-frame temporal context produce promising observed improvements in complete-triplet AP, whereas five-frame context, prompt-level anatomical priors, ontology guidance, and distilled-reasoning supervision do not improve performance consistently. In the complete pipeline, errors in predicted grounding reduce performance, but the two-stage Direct SFT system obtains substantially stronger component-level scores and comparable complete-triplet AP relative to TargetFusionNet. These results establish two-stage multimodal interaction prediction as a viable formulation while showing that single-seed evaluation, optimisation sensitivity, and limited predicted-grounding experiments preclude definitive claims of superiority.
-
 \section{Introduction}
 \label{sec:c5:introduction}
 
@@ -84,7 +79,14 @@ The textual instruction lists the allowable verb and target labels and specifies
 
 Direct SFT trains Qwen3-VL-8B-Instruct to generate the structured \vtpair response directly from the grounded visual input and instruction. The base model is loaded with 4-bit NF4 quantisation and bfloat16 computation. QLoRA adapters are applied to the attention and MLP projection layers, with rank $r=64$, scaling factor $\alpha=128$, and dropout $0.05$; the vision encoder, multimodal projector, and base language model remain frozen. Supervised loss is computed only over assistant-response tokens.
 
-Training uses AdamW with an initial learning rate of $2\times10^{-4}$, weight decay $0.01$, a warm-up ratio of $0.03$, and linear decay to zero. Gradients are clipped to a maximum norm of $1.0$. A per-device batch size of one and gradient accumulation over 32 steps give an effective batch size of 32. Models are trained for at most five epochs using seed 42. Validation is performed every 5\% of the planned optimisation steps, with early-stopping patience of five validation evaluations, and the checkpoint with the lowest validation loss is reported. The official validation split is used for model selection and the test split is reserved for final evaluation. All experiments use the same total visual-token budget. Evaluation uses the same standard, unconstrained autoregressive generation procedure for every adaptation unless stated otherwise. A consolidated configuration summary is provided in the Chapter Supplementary Appendix.
+Training uses AdamW with an initial learning rate of $2\times10^{-4}$, weight decay $0.01$, a warm-up ratio of $0.03$, and linear decay to zero. Gradients are clipped to a maximum norm of $1.0$. A per-device batch size of one and gradient accumulation over 32 steps give an effective batch size of 32. Models are trained for at most five epochs using seed 42. Validation is performed every 5\% of the planned optimisation steps, with early-stopping patience of five validation evaluations, and the checkpoint with the lowest validation loss is reported. The official validation split is used for model selection and the test split is reserved for final evaluation. All experiments use the same total visual-token budget. Evaluation uses the same standard, unconstrained autoregressive generation procedure for every adaptation unless stated otherwise. A consolidated configuration summary follows below.
+
+\begingroup
+\cFiveSupplementfalse
+\cFiveTrainingtrue
+\cFiveErrorAnalysisfalse
+\input{chapters/papers/two_stage/appendix_body}
+\endgroup
 
 \subsection{Interaction-Prediction Adaptations}
 \label{sec:c5:adaptations}
@@ -100,7 +102,7 @@ Training uses AdamW with an initial learning rate of $2\times10^{-4}$, weight de
 
 \subsubsection{Sequential Dialogue Prediction}
 
-Sequential Dialogue Prediction factorises the structured response across three assistant turns, following the motivation of divide-and-discern dialogue tuning~\cite{zhang2026bootstrapping}. The first turn predicts one verb for each grounded instance. The second predicts the targets while retaining the verb response as dialogue context. A final turn then produces the complete \ivttriplet response from the accumulated dialogue. During training, the preceding responses are teacher-forced and supervised loss is applied to all three assistant responses. During inference, each later turn receives the model outputs generated in the preceding turns, so early errors can propagate to the final prediction. The model is trained independently from the same public base model as Direct SFT, with otherwise identical QLoRA and optimisation settings. The complete dialogue templates and response schemas are provided in the Chapter Supplementary Appendix.
+Sequential Dialogue Prediction factorises the structured response across three assistant turns, following the motivation of divide-and-discern dialogue tuning~\cite{zhang2026bootstrapping}. The first turn predicts one verb for each grounded instance. The second predicts the targets while retaining the verb response as dialogue context. A final turn then produces the complete \ivttriplet response from the accumulated dialogue. During training, the preceding responses are teacher-forced and supervised loss is applied to all three assistant responses. During inference, each later turn receives the model outputs generated in the preceding turns, so early errors can propagate to the final prediction. The model is trained independently from the same public base model as Direct SFT, with otherwise identical QLoRA and optimisation settings. The complete dialogue templates and response schemas are provided in Section~\ref{sec:c5:additional-details}.
 
 \begin{figure}[htb!]
     \centering
@@ -117,7 +119,7 @@ The total visual-token budget is held equal to the single-frame setting and is t
 
 \subsubsection{Anatomical Context Priors}
 
-This adaptation supplies coarse anatomy around each instrument tip as text in addition to the standard visual input. It uses the same EndoViT checkpoint and label space described in Chapter~\ref{chap:triplet-grounding}. A heuristic first estimates the laparoscopic field boundary and identifies instrument-mask pixels close to either that boundary or an image edge. Their mean position defines the estimated instrument base, and the mask pixel furthest from this base defines the distal tip. A circular neighbourhood centred on the endpoint has radius one-eighth of the smaller image dimension. Instrument pixels are excluded from this neighbourhood. Each remaining pixel is assigned its highest-probability EndoViT class; classes are ranked by their proportion of the valid region, and the three most prevalent classes and proportions are appended to the prompt. Anatomical context is supplied during both training and inference. The model is trained independently from the same base model with the Direct SFT configuration. The complete heuristic and prior format are documented in the Chapter Supplementary Appendix.
+This adaptation supplies coarse anatomy around each instrument tip as text in addition to the standard visual input. It uses the same EndoViT checkpoint and label space described in Chapter~\ref{chap:triplet-grounding}. A heuristic first estimates the laparoscopic field boundary and identifies instrument-mask pixels close to either that boundary or an image edge. Their mean position defines the estimated instrument base, and the mask pixel furthest from this base defines the distal tip. A circular neighbourhood centred on the endpoint has radius one-eighth of the smaller image dimension. Instrument pixels are excluded from this neighbourhood. Each remaining pixel is assigned its highest-probability EndoViT class; classes are ranked by their proportion of the valid region, and the three most prevalent classes and proportions are appended to the prompt. Anatomical context is supplied during both training and inference. The model is trained independently from the same base model with the Direct SFT configuration. The complete heuristic and prior format are documented in Section~\ref{sec:c5:additional-details}.
 
 \begin{figure}[htb!]
     \centering
@@ -227,6 +229,13 @@ Two-stage Direct SFT & \textbf{80.64} & \textbf{51.89} & \textbf{25.27} & \textb
 
 The reduction from AP$_{IVT}=14.56$ under ground-truth grounding to 13.52 in the complete system reflects compounded errors. False-negative Stage~1 instances never reach Stage~2, false positives generate additional interaction predictions, and incorrect instrument identities cannot be corrected by the MLLM. Moreover, improvements in individual components need not translate proportionally to AP$_{IVT}$ because all three labels and the spatial association must be correct simultaneously.
 
+\begingroup
+\cFiveSupplementfalse
+\cFiveTrainingfalse
+\cFiveErrorAnalysistrue
+\input{chapters/papers/two_stage/appendix_body}
+\endgroup
+
 \section{Discussion}
 \label{sec:c5:discussion}
 
@@ -268,9 +277,21 @@ Sequential prediction should be tested with imperfect verb conditioning during t
 
 For distilled supervision, future work should prioritise rationale quality control and objectives that increase the relative weight of final answer tokens. Comparison-based or contrastive auxiliary tasks may offer a more directly verifiable form of supervision than long free-text rationales. Finally, evaluation on additional procedures and datasets is required to establish whether two-stage interaction prediction transfers beyond cholecystectomy. ProstaTD, a fully supervised surgical triplet-detection dataset for robot-assisted prostatectomy, provides a relevant external benchmark for investigating this cross-procedure generalisation~\cite{prostatd}.
 
+\section{Additional Methodological and Experimental Details}
+\label{sec:c5:additional-details}
+\markright{Additional Methodological Details}
+\begingroup
+\cFiveSupplementtrue
+\cFiveTrainingfalse
+\cFiveErrorAnalysisfalse
+\input{chapters/papers/two_stage/appendix_body}
+\endgroup
+
 \section{Conclusion}
 \label{sec:c5:conclusion}
 
 This chapter formulates surgical triplet segmentation as specialist instrument grounding followed by MLLM-based interaction prediction. Direct SFT establishes a viable Stage~2 baseline. Under ground-truth grounding, Sequential Dialogue Prediction and three-frame temporal context produce promising observed gains in AP$_{IVT}$, while prompt-level anatomical priors, ontology guidance, five-frame context, and distilled-reasoning supervision show that additional context or longer supervision does not inherently improve interaction prediction. The component-level effects and single-seed evaluation nevertheless require the relative differences between adaptations to be interpreted cautiously.
 
 When the full system uses predicted masks, grounding errors reduce performance. Nevertheless, the two-stage Direct SFT pipeline produces substantially stronger component scores and complete-triplet AP comparable to TargetFusionNet. The results therefore establish two-stage multimodal interaction prediction as a viable culmination of the thesis's technical progression: Chapter~\ref{chap:cholecinstanceseg} establishes the spatial substrate, Chapter~\ref{chap:triplet-grounding} connects that substrate to grounded interactions, and this chapter demonstrates that semantic interaction prediction can be studied as a specialised second stage. The resulting framework provides a coherent basis for continued research without making the contribution demonstrated here dependent on additional experiments.
+
+The following chapter brings these contributions together. It considers what the review, datasets, grounded benchmark, target-aware architecture, and two-stage formulation collectively establish about surgical scene understanding, before discussing the limitations of strict triplet evaluation and the most important directions for extending the work beyond laparoscopic cholecystectomy.

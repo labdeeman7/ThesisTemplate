@@ -3,27 +3,7 @@
 \label{chap:two-stage-interaction}
 \minitoc
 
-\section*{Chapter Introduction}
-\addcontentsline{toc}{section}{Chapter Introduction}
-
-The preceding chapters establish the data, spatial supervision, and modelling foundations required for grounded surgical interaction understanding. Chapter~\ref{chap:cholecinstanceseg} introduces instrument instance segmentation at scale, while Chapter~\ref{chap:triplet-grounding} connects instrument masks with surgical action triplets and demonstrates the importance of both spatial grounding and anatomical context. Together, these contributions expose a remaining challenge: jointly learning precise instrument localisation and semantic interaction prediction places substantially different demands on the same model.
-
-This chapter investigates an alternative formulation in which these responsibilities are separated. A specialist instance segmentation model first localises the visible instruments, after which a multimodal large language model predicts the corresponding \vtpair interaction for each grounded instance. Interaction prediction here is not conventional frame-level triplet recognition: every semantic prediction remains associated with the mask and identifier of a particular physical instrument instance. This two-stage design enables spatially grounded interaction prediction to be studied independently under ground-truth grounding before evaluating the full pipeline with predicted instrument instances. It also provides a framework for examining sequential prediction, temporal context, anatomical priors, ontology guidance, and distilled-rationale supervision as alternative sources of structure for the second stage.
-
-The chapter reports the experimental evidence developed during this study. Direct supervised fine-tuning establishes a viable baseline, while sequential dialogue prediction and short-range temporal context produce promising improvements in complete-triplet performance under ground-truth grounding. The predicted-grounding evaluation then examines how the formulation behaves as a full two-stage pipeline. Additional experiments investigate anatomical priors, ontology guidance, longer temporal context, and distilled-rationale supervision, clarifying both the opportunities and limitations of these adaptations.
-
-This work forms the basis of an active manuscript in preparation. Unlike Chapters~\ref{chap:background}--\ref{chap:triplet-grounding}, which are based on accepted papers, this chapter has been structured specifically for the thesis and presents the current two-stage multimodal interaction-prediction framework, its supporting experiments, and the conclusions that can be drawn from them. The formulation also provides a foundation for continued investigation beyond the thesis.
-
-\begin{center}
-\begin{minipage}[b]{0.9\linewidth}
-\small
-\setlength{\emergencystretch}{2em}
-\textbf{Source note.}
-This chapter is reconstructed from the active manuscript
-\emph{Multimodal Large Language Models for Interaction Prediction in Two-Stage Surgical Triplet Segmentation}.
-This manuscript in preparation constitutes the final technical study of the thesis.
-\end{minipage}
-\end{center}
+This chapter forms the basis of the manuscript in preparation \emph{Multimodal Large Language Models for Interaction Prediction in Two-Stage Surgical Triplet Segmentation}. The List of Publications records its status and authorship.
 
 \begingroup
 \setlength{\emergencystretch}{2em}
@@ -35,6 +15,9 @@ This manuscript in preparation constitutes the final technical study of the thes
 \providecommand{\figref}[1]{Figure~\ref{#1}}
 \providecommand{\tabref}[1]{Table~\ref{#1}}
 \providecommand{\secref}[1]{Section~\ref{#1}}
+\newif\ifcFiveSupplement
+\newif\ifcFiveTraining
+\newif\ifcFiveErrorAnalysis
 \lstdefinestyle{c5prompt}{
   basicstyle=\ttfamily\scriptsize,
   breaklines=true,
@@ -47,16 +30,4 @@ This manuscript in preparation constitutes the final technical study of the thes
   belowskip=0.8\baselineskip
 }
 \input{chapters/papers/two_stage/main_body}
-
-\section{Chapter Supplementary Appendix}
-\label{sec:c5:chapter-supplementary-appendix}
-\markright{Chapter Supplementary Appendix}
-\input{chapters/papers/two_stage/appendix_body}
 \endgroup
-
-\section*{Chapter Summary}
-\addcontentsline{toc}{section}{Chapter Summary}
-
-This chapter completes the technical progression of the thesis by separating the grounded triplet task into specialist instrument localisation and multimodal interaction prediction. It demonstrates that an MLLM can predict structured \vtpair interactions for supplied instrument instances and that the complete two-stage system remains competitive when those instances are produced by the first-stage model. The results also show that the quality of the final grounded triplet depends jointly on the spatial and semantic stages, connecting the strengths and remaining limitations observed throughout Chapters~\ref{chap:cholecinstanceseg}--\ref{chap:two-stage-interaction}.
-
-The following chapter brings these contributions together. It considers what the review, datasets, grounded benchmark, target-aware architecture, and two-stage formulation collectively establish about surgical scene understanding, before discussing the limitations of strict triplet evaluation and the most important directions for extending the work beyond laparoscopic cholecystectomy.

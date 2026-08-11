@@ -26,6 +26,15 @@
 - Preserved all scientific results, numerical values, figures, tables, equations, citations, limitations, and substantive accepted-paper appendix material.
 - Verified a converged full-thesis build after the Chapter 4 integration; no LaTeX or Biber errors were introduced.
 
+### Chapter 5 milestone
+
+- Integrated the active two-stage manuscript as a thesis chapter: removed its chapter-level abstract, separate wrapper introduction, source-note box, paper-style supplementary heading, and duplicated wrapper summary.
+- Retained the existing numbered Introduction as the sole chapter opening and extended the existing Conclusion only with the transition to the thesis-level discussion.
+- Promoted the complete Stage 2 QLoRA/training configuration and adaptation-specific configuration table into the main methodology, and promoted the three paired confusion-matrix analyses into the main Results section.
+- Retained complete prompts and response schemas, the detailed instrument-tip heuristic, the distilled-rationale example and quality-control scope, and the optimisation-sensitivity study in the chapter-specific `Additional Methodological and Experimental Details` section before the Conclusion.
+- Preserved all methods, experiments, numerical results, figures, tables, citations, limitations, future-work directions, and scientific interpretation.
+- Verified a converged full-thesis build after the Chapter 5 integration; no LaTeX or Biber errors were introduced.
+
 This file records the working state of the thesis. It should be updated whenever significant work is completed.
 
 ## Completed Tasks
