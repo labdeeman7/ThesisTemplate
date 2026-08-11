@@ -41,6 +41,14 @@
 - Updated the thesis-integration provenance README to record the removed publication boilerplate, merged introductions/conclusions, promoted Chapter 4 material, retained Chapter 3 guidance, and Chapter 5 main/supplementary division.
 - Confirmed that the authoritative accepted-paper source projects remain unchanged; all integration edits are confined to thesis-specific wrappers and copied chapter sources.
 
+### Final integration verification
+
+- Forced a complete Biber/LaTeX rebuild to convergence. The integrated thesis builds successfully at 237 pages with zero undefined citations, zero undefined references, zero duplicate bibliography keys, and no LaTeX or Biber errors.
+- Confirmed that the active Chapter 2--5 sources contain no visible `Accepted Manuscript`, `Accepted Manuscript Appendix`, `Accepted Supplementary Material`, `Chapter Supplementary Appendix`, `Chapter Introduction`, or `Chapter Summary` headings.
+- Compared the active scientific-source inventory with pre-integration commit `ef12ec5`: both versions contain 51 figure environments, 30 table environments, 14 displayed equation/alignment environments, and 512 citation commands.
+- Confirmed one numbered Introduction and one concluding section in each integrated chapter; Chapter 3 retains S1--S8 annotation guidance, Chapter 4 retains all promoted scientific appendix material, and Chapter 5 retains its chapter-specific methodological details before its Conclusion.
+- Remaining warnings are inherited layout/template diagnostics (underfull/overfull boxes, PDF-version inclusion notices, `fancyhdr` head-height notices, and four `nag` complaints); none is a citation, reference, bibliography, or build error.
+
 This file records the working state of the thesis. It should be updated whenever significant work is completed.
 
 ## Completed Tasks
