@@ -3,25 +3,7 @@
 \label{chap:cholecinstanceseg}
 \minitoc
 
-\section*{Chapter Introduction}
-\addcontentsline{toc}{section}{Chapter Introduction}
-
-The literature review in the preceding chapter identifies a missing spatial link in fine-grained surgical activity understanding. Frame-level instrument and action labels can describe what is present, while semantic segmentation can localise an instrument class, but neither necessarily distinguishes multiple physical instances of that class. Without this distinction, actions and anatomical targets cannot be assigned unambiguously to the individual instruments responsible for them.
-
-This chapter addresses that data limitation through CholecInstanceSeg, an instance-segmentation dataset derived from routine human laparoscopic cholecystectomy. Within the thesis, the dataset provides the spatial supervision needed for the subsequent progression from instrument localisation to grounded \ivttriplet interaction prediction.
-
-This chapter is based on the accepted paper entitled \emph{CholecInstanceSeg: A Tool Instance Segmentation Dataset for Laparoscopic Surgery} by Alabi et al., published in \emph{Scientific Data} (2025). Its main body reproduces the accepted manuscript, followed by its accompanying annotation-guideline supplementary material. Thesis integration is limited to the removal of standalone publisher machinery, use of thesis-compatible headings and figure paths, and harmonisation with the canonical thesis bibliography. The accepted scientific text, results, tables, figures, equations, conclusions, and substantive supplementary content are otherwise preserved.
-
-\section*{Accepted Manuscript}
-\addcontentsline{toc}{section}{Accepted Manuscript}
-
-\begin{center}
-{\Large\bfseries CholecInstanceSeg: A Tool Instance Segmentation Dataset for Laparoscopic Surgery\par}
-\vspace{1em}
-{\large Oluwatosin Alabi, Ko Ko Zayar Toe, Zijian Zhou, Charlie Budd, Nicholas Raison, Miaojing Shi, and Tom Vercauteren\par}
-\vspace{0.5em}
-{\itshape Scientific Data, 12:825, 2025\par}
-\end{center}
+This chapter draws on the accepted article \emph{CholecInstanceSeg: A Tool Instance Segmentation Dataset for Laparoscopic Surgery}, published in \emph{Scientific Data} (2025). Full publication details are provided in the List of Publications.
 
 \begingroup
 \setlength{\emergencystretch}{2em}
@@ -37,34 +19,17 @@ This chapter is based on the accepted paper entitled \emph{CholecInstanceSeg: A 
 \providecommand{\secref}[1]{Section~\ref{#1}}
 \providecommand{\chaptref}[1]{Chapter~\ref{#1}}
 
-\input{chapters/papers/cholecinstanceseg/abstract}
 \input{chapters/papers/cholecinstanceseg/background_summary}
 \input{chapters/papers/cholecinstanceseg/methods}
 \input{chapters/papers/cholecinstanceseg/data_records}
 \input{chapters/papers/cholecinstanceseg/technical_validation}
 \input{chapters/papers/cholecinstanceseg/code_availability}
-
-\section*{Acknowledgements}
-\textbf{Data Sources}: We would like to thank the CAMMA research group at the University of Strasbourg for publishing the data sources without which CholecInstanceSeg would not be possible.
-\textbf{Funding Sources} This work was supported by core funding from the Wellcome/EPSRC [WT203148/Z/16/Z; NS/A000049/1] and , Tongji Fundamental Research Funds for the Central Universities. OA is supported by the EPSRC CDT
-[EP/S022104/1].
-For the purpose of open access, the authors have applied a CC BY public copyright licence to any Author Accepted Manuscript version arising from this submission.
-
-\section*{Author contributions statement}
-
-O.A. wrote the original draft, was the primary annotator, and conducted the experiments and tasks that led to this dataset, K.Z.T. was the secondary annotator for this project, assisted with quality control, and the creation of the annotation guide. Z.Z., C.B., M.S., T.V. were part of the annotation team and mediated ambiguous labels. M.S. and T.V. conceived and supervised this project.
-
-\section*{Competing interests}
-TV is a co-founder and shareholder of Hypervision Surgical Ltd, London, UK.
-The authors declare that they have no other conflict of interest.
-
 \input{chapters/papers/cholecinstanceseg/supplementary_material}
-\endgroup
 
-\section*{Chapter Summary}
-\addcontentsline{toc}{section}{Chapter Summary}
-\markright{Chapter Summary}
+\section{Conclusion}
+\markright{Conclusion}
 
 CholecInstanceSeg contributes instance-level instrument annotations across a large and clinically diverse collection of laparoscopic cholecystectomy videos. Its construction, quality-control process, recommended partitions, and baseline validation establish both a reusable dataset and the spatial foundation for the remaining technical chapters. The chapter demonstrates how individual instruments can be distinguished and localised, but localisation alone does not describe what each instrument is doing or which anatomy it affects.
 
 The next chapter therefore asks whether semantic interaction labels can be attached to these spatially resolved instances. It links individual instrument masks with surgical verbs and anatomical targets, transforming surgical action-triplet understanding from frame-level recognition into an instance-level grounding and segmentation problem.
+\endgroup

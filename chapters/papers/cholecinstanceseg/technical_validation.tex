@@ -1,11 +1,11 @@
-\section*{Technical Validation}
+\section{Technical Validation}
 We provide an in-depth technical validation of the CholecInstanceSeg dataset, demonstrating its reliability and effectiveness for use in research and development of instance segmentation models. We discuss the validation through three main aspects: Data Analysis, training of baseline models, label agreement statistics, and quality control measures.
 
-\subsection*{Data Analysis}
-\subsubsection*{Tool Class Distribution}
+\subsection{Data Analysis}
+\subsubsection{Tool Class Distribution}
 \figref{fig:instance_tool_spread_chart}(a) shows the distribution of tool classes across the entire dataset. Graspers are the most frequently used tools, followed by hooks. Tools like irrigators, clippers, scissors, and bipolars are used less frequently, with snares being the least used. This indicates a high imbalance in tool class occurrences.
 
-\subsubsection*{Tool Instance Distribution per Frame}
+\subsubsection{Tool Instance Distribution per Frame}
 \figref{fig:instance_tool_spread_chart}(b) illustrates the number of tool instances per frame. The majority of frames contain one or two tools, with a maximum of four tools in a single frame. Approximately 5,328 frames (about one-eighth of the dataset) contain no tools.
 
 \begin{figure}[ht]
@@ -16,7 +16,7 @@ We provide an in-depth technical validation of the CholecInstanceSeg dataset, de
 \end{figure}
 
 
-\subsubsection*{Partition and Sequence Analysis}
+\subsubsection{Partition and Sequence Analysis}
 \tabref{tab:dataset_partition_statistics} provides a summary of the number of sequences, number of frames and amount of annotated tools in each of the dataset partitions.  
 \figref{fig:partition_sequence_chart} provides an analysis of tool instances across different sequences and their partitions. Instance-CholecT50-full has the highest number of tool instances, whereas Instance-CholecT50-sparse has the fewest. This figure highlights the imbalance between densely and sparsely annotated sequences and the presence of a sequence with no tools in Instance-CholecSeg8k.
 
@@ -53,12 +53,12 @@ We provide an in-depth technical validation of the CholecInstanceSeg dataset, de
 
 
 
-\subsection*{Training and Evaluation of Baseline Models}
+\subsection{Training and Evaluation of Baseline Models}
 
-\subsubsection*{Models}
+\subsubsection{Models}
 To validate the usability of the CholecInstanceSeg dataset, two baseline instance segmentation models, The Mask R-CNN \cite{he2017mask} and the Mask2Former \cite{cheng2022masked} were trained. Since the objective was to establish benchmark performance metrics that future researchers can use for comparison, we decided to utilize more generalizable baseline models instead of optimized tool-specific models like \cite{baby2023forks,zhou2023text}. These models were trained using the training split of CholecInstanceSeg with each model's default hyperparameters. 
 
-\subsubsection*{Recommended Data Splits}
+\subsubsection{Recommended Data Splits}
 To facilitate effective training, validation, and testing of neural networks for instance segmentation, we divide CholecInstanceSeg into standard training, validation, and testing subsets. This division considers the partitions and shared sequences within the dataset.
 
 For the training dataset, we included the entire Instance-CholecT50-sparse partition, which consists of 35 sequences with 2,681 frames. This partition offers significant diversity in surgical scenes due to its varied sequence content. Additionally, 10 in Instance-CholecSeg8k and the 10 sequences in Instance-CholecT50 which come from the same video (shared) were included in the training dataset to avoid redundancy in the validation and testing subsets. 
@@ -79,7 +79,7 @@ A visual representation of the recommended dataset split can be seen in \figref{
 \end{figure}
 
 
-\subsubsection*{Recommended Metric}
+\subsubsection{Recommended Metric}
 To evaluate our models we used the standard COCO mean average precision metric  (COCO mAP 
  r\revnew{@[0.50:0.95]}).  \revdel{ and a sequence-aware variant, COCO sequence mean average precision (COCO smAP \revnew{@[0.50:0.95]}) }. \robustrevref{2}{4} 
 
@@ -117,7 +117,7 @@ We utilize the official COCO implementation present \href{https://github.com/coc
 
 
 
-\subsubsection*{Results}
+\subsubsection{Results}
 The performance results, presented in \revnew{\tabref{tab:baseline_models_map} and \tabref{tab:baseline_models_smap}}, validate the dataset’s effectiveness in training robust instance segmentation models.
 
  \robustrevref{2}{4}\revnew{Notably, the hook class achieved the highest segmentation performance across both models, likely due to its visually distinct features and higher frequency in the dataset. In contrast, the scissor class exhibited the lowest performance, reflecting its smaller representation and potential challenges in detecting this class. Interestingly, the scissor class demonstrated a higher sequence mAP (smAP) but with significant variability (high standard deviation), suggesting that model performance on this class varies considerably across different sequences.  Increasing the number and diversity of annotated sequences could improve dataset variability and enhance its applicability to a broader range of surgical scenarios, ensuring fewer seen instruments are better recognized by trained models. } 
@@ -185,17 +185,17 @@ The performance results, presented in \revnew{\tabref{tab:baseline_models_map} a
 
 
 
-\subsection*{Label Agreement}
+\subsection{Label Agreement}
 To ensure the accuracy and consistency of the annotations in CholecInstanceSeg, an analysis of label agreement statistics was conducted. Two types of label agreement were calculated. The inter-annotator agreement and manual vs semi-automatic agreement. 
 
-\subsubsection*{Inter-annotator Agreement}
+\subsubsection{Inter-annotator Agreement}
 The inter-annotator agreement was assessed using the Panoptic Quality Metric \cite{kirillov2019panoptic}. Two annotators independently annotated a subset of the dataset, and their annotations were compared. The analysis showed a high level of agreement, with a Panoptic Quality score of 91.2, indicating strong consistency between the annotators. The official implementation of the Panoptic Quality metric, available through the \href{https://github.com/cocodataset/panopticapi/tree/master}{panopticapi} repository, was utilized for this evaluation.
 
-\subsubsection*{Manual vs Semi-automatic Agreement}
+\subsubsection{Manual vs Semi-automatic Agreement}
 To validate the consistency of our semi-automatic annotation pipeline against the manual annotation process, we measured the agreement between the two methods using the Panoptic Quality Metric. This comparison was crucial to ensure that the increased speed of the semi-automatic pipeline did not compromise annotation quality. The results demonstrated a high level of agreement, with a Panoptic Quality score of 95.7, indicating that the semi-automatic annotations were consistent with the manual annotations.
 
 
-\subsection*{Quality Control}\hypertarget{sec:quality_control}{}
+\subsection{Quality Control}\hypertarget{sec:quality_control}{}
 Our quality control process involved a series of techniques designed to ensure the accuracy and consistency of the CholecInstanceSeg dataset. In addition to manual quality control and a secondary review by another annotator, we leveraged specific properties of CholecInstanceSeg and tool presence labels from Cholec80. The following steps were employed for quality control:
 \begin{enumerate}
     \item checking images with more than 3 tool instances: During annotation, we observed that the most crowded scenes typically included a maximum of three separate tool instances. Therefore, we reviewed all images with more than three tool instances to identify and correct any noise. This process revealed 26 frames with errors due to noise, which were subsequently rectified.

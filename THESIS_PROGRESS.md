@@ -9,6 +9,14 @@
 - Preserved the review methodology, technical survey, datasets, figures, tables, citations, and substantive discussion unchanged.
 - Verified a converged full-thesis build after the Chapter 2 integration; no LaTeX or Biber errors were introduced.
 
+### Chapter 3 milestone
+
+- Integrated CholecInstanceSeg as a thesis chapter: removed the repeated paper title block, chapter abstract, accepted-manuscript heading, acknowledgements, funding/open-access text, author-contribution statement, and competing-interest declaration.
+- Merged the thesis framing into a single numbered Introduction and converted the Scientific Data-style unnumbered scientific headings into numbered thesis sections and subsections.
+- Retained the S1--S8 annotation guidance as the end-of-chapter section `Detailed Annotation Guidelines for Challenging Cases`, followed by one thesis conclusion that motivates Chapter 4.
+- Preserved the dataset construction, data records, validation experiments, code availability, figures, tables, equations, citations, and annotation guidance; the archival `abstract.tex` remains in the repository but is no longer included.
+- Verified a converged full-thesis build after the Chapter 3 integration; no LaTeX or Biber errors were introduced.
+
 This file records the working state of the thesis. It should be updated whenever significant work is completed.
 
 ## Completed Tasks
