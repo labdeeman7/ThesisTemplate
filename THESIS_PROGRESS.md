@@ -8,6 +8,12 @@
 - Removed repeated single-seed emphasis from the abstract while retaining the important scope qualification that only Direct SFT was evaluated with predicted grounding.
 - Expanded the acknowledgements to recognise the supervisors' belief and encouragement and the support of the author's siblings, Tolu and Tomi.
 
+### Chapter 2 read-through milestone
+
+- Replaced the compressed landscape dataset summary with a portrait multipage table with repeated headers, preserving every dataset row and field while allowing descriptions and names to wrap legibly.
+- Clarified in the surgical action-triplet subsection that conventional triplet recognition is semantically fine-grained but primarily frame-level rather than strongly grounded to an individual physical instrument instance.
+- Added an explicit cross-reference to this distinction in the chapter conclusion, strengthening the motivation for CholecInstanceSeg and the grounded technical chapters.
+
 ## Supervisor integration pass (Chapters 2--5)
 
 ### Chapter 2 milestone
