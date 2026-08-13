@@ -1,5 +1,13 @@
 # Thesis Progress
 
+## Author read-through revisions
+
+### Front-matter milestone
+
+- Strengthened the abstract's opening logic by connecting the visual constraints of minimally invasive surgery to the need for structured computational scene understanding.
+- Removed repeated single-seed emphasis from the abstract while retaining the important scope qualification that only Direct SFT was evaluated with predicted grounding.
+- Expanded the acknowledgements to recognise the supervisors' belief and encouragement and the support of the author's siblings, Tolu and Tomi.
+
 ## Supervisor integration pass (Chapters 2--5)
 
 ### Chapter 2 milestone
