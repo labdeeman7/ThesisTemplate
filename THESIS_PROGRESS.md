@@ -218,6 +218,7 @@ This file records the working state of the thesis. It should be updated whenever
 - Abstract positioning: removed the implementation-scope caveat that foregrounded unevaluated predicted-grounding adaptations and recast the Chapter 5 contribution around the demonstrated viability of the complete two-stage system. Detailed experimental qualifications remain in Chapter 5 and the thesis conclusion rather than the abstract.
 - Chapter 2 workflow discussion: extended the review's account of progress from phases to action triplets with the thesis's complementary progression towards instance-level spatial grounding. The Chapter 2 conclusion now links this discussion alongside the detailed triplet review when motivating Chapters 3--5.
 - Review-PDF workflow: added a Windows PowerShell counterpart to Tom's shell compression utility. It discovers Ghostscript automatically, applies the same `/ebook`, font, colour, compression, and PDF bookmark settings, protects the full-quality input from accidental overwrite, and reports the resulting size reduction.
+- Overleaf/Git synchronisation: stopped tracking the generated 46 MB `Thesis.pdf`, which exceeded Overleaf's GitHub-import processing limit, and ignored both the full-quality build and compressed review copy. Both PDFs remain available locally; Overleaf now receives the LaTeX sources and generates its own PDF.
 
 ## Outstanding Issues
 
