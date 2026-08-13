@@ -212,6 +212,7 @@ This file records the working state of the thesis. It should be updated whenever
 - Chapter 6: aligned the synthesis with Chapter 5 by prioritising complete predicted-grounding evaluation, reducing repeated uncertainty language, and carrying the anatomical-target annotation scalability argument into the thesis-level discussion.
 - Final read-through verification: completed a forced Biber/LaTeX rebuild to convergence (239 pages), confirmed zero undefined citations or references, zero duplicate bibliography keys, and no LaTeX or Biber errors. Figure and equation inventories are unchanged; the only active table removed is the deliberately archived Chapter 5 optimisation-sensitivity table, while Chapter 2's former single landscape table is now one multipage `longtable`.
 - Chapter 2 scope framing: retained the complete accepted review and its generic MTL background, while stating explicitly in the opening and conclusion that the review supplied the broader lesson of connecting complementary scene information and that the thesis subsequently narrowed its technical focus to spatial grounding and instrument--tissue interaction modelling.
+- Abstract opening: adopted the clearer Chapter 2 progression from the benefits of minimally invasive surgery, through the challenge of indirect restricted vision, to the motivation for computer-aided intervention before introducing recent surgical-AI advances.
 
 ## Outstanding Issues
 
