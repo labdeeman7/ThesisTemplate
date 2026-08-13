@@ -201,7 +201,12 @@ This file records the working state of the thesis. It should be updated whenever
 
 ## Current Task
 
-- Complete the remaining front matter and final author-led reading pass; the impact-statement placeholder and provisional Chapter 5 qualitative figure have both been resolved.
+- Implement the author read-through notes chapter by chapter, compiling and committing each logical milestone.
+
+## Author Read-through Milestones
+
+- Chapter 2: replaced the compressed landscape dataset inventory with a readable multipage portrait table, and made the distinction between frame-level triplet recognition and instance-grounded interaction prediction explicit in the review and conclusion.
+- Chapter 3: compressed the repeated general motivation for minimally invasive computer assistance into a direct transition from the Chapter 2 gap to instrument instance segmentation, without changing the dataset motivation or accepted technical content.
 
 ## Outstanding Issues
 
