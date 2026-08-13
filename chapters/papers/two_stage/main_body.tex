@@ -45,7 +45,7 @@ Let $I\in\mathbb{R}^{H\times W\times3}$ denote a laparoscopic image. Stage~1 pro
     \mathcal{S}=\{s_i\}_{i=1}^{N}, \qquad s_i=(m_i,c_i,\mathrm{id}_i),
     \label{eq:c5:grounded-instances}
 \end{equation}
-where $m_i$ is the binary instrument mask, $c_i$ is its fixed instrument category, and $\mathrm{id}_i$ is an image-level identifier. Stage~2 predicts
+where $s_i$ denotes the $i$th physical instrument instance in the image, $m_i$ is its binary mask, $c_i$ is its fixed instrument category, and $\mathrm{id}_i$ is the within-image textual identifier used to associate the model output with that instance. Stage~2 predicts
 \begin{equation}
     f_{\theta}(I,\mathcal{S})\rightarrow\mathcal{Y}, \qquad
     \mathcal{Y}=\{(v_i,t_i)\}_{i=1}^{N},
@@ -79,19 +79,7 @@ The textual instruction lists the allowable verb and target labels and specifies
 
 Direct SFT trains Qwen3-VL-8B-Instruct to generate the structured \vtpair response directly from the grounded visual input and instruction. The base model is loaded with 4-bit NF4 quantisation and bfloat16 computation. QLoRA adapters are applied to the attention and MLP projection layers, with rank $r=64$, scaling factor $\alpha=128$, and dropout $0.05$; the vision encoder, multimodal projector, and base language model remain frozen. Supervised loss is computed only over assistant-response tokens.
 
-Training uses AdamW with an initial learning rate of $2\times10^{-4}$, weight decay $0.01$, a warm-up ratio of $0.03$, and linear decay to zero. Gradients are clipped to a maximum norm of $1.0$. A per-device batch size of one and gradient accumulation over 32 steps give an effective batch size of 32. Models are trained for at most five epochs using seed 42. Validation is performed every 5\% of the planned optimisation steps, with early-stopping patience of five validation evaluations, and the checkpoint with the lowest validation loss is reported. The official validation split is used for model selection and the test split is reserved for final evaluation. All experiments use the same total visual-token budget. Evaluation uses the same standard, unconstrained autoregressive generation procedure for every adaptation unless stated otherwise. A consolidated configuration summary follows below.
-
-\begingroup
-\cFiveSupplementfalse
-\cFiveTrainingtrue
-\cFiveErrorAnalysisfalse
-\input{chapters/papers/two_stage/appendix_body}
-\endgroup
-
-\subsection{Interaction-Prediction Adaptations}
-\label{sec:c5:adaptations}
-
-\figref{fig:c5:adaptation-motivation} summarises ambiguities motivating the controlled adaptations. These methods change the Stage~2 input or supervision while retaining the principal Direct SFT optimisation configuration.
+Figure~\ref{fig:c5:adaptation-motivation} illustrates representative ambiguities observed with this direct formulation. These cases motivated the controlled adaptations considered next: finer anatomical evidence, short-range temporal context, knowledge of valid label relationships, and richer supervision.
 
 \begin{figure}[htb!]
     \centering
@@ -99,6 +87,11 @@ Training uses AdamW with an initial learning rate of $2\times10^{-4}$, weight de
     \caption{Representative challenges motivating the Stage~2 adaptations: fine-grained anatomical ambiguity, temporal evidence absent from an isolated frame, plausible outputs outside the benchmark ontology, and cases in which the available image evidence is insufficient to distinguish neighbouring structures.}
     \label{fig:c5:adaptation-motivation}
 \end{figure}
+
+\subsection{Interaction-Prediction Adaptations}
+\label{sec:c5:adaptations}
+
+These methods change the Stage~2 input or supervision while retaining the principal Direct SFT optimisation configuration.
 
 \subsubsection{Sequential Dialogue Prediction}
 
@@ -144,6 +137,13 @@ Qwen3.7-Max, a closed-weight commercial teacher model, was prompted with the gro
 \end{figure}
 
 The Distilled Rationale Only model is trained exclusively to generate the complete rationale followed by the final structured prediction. The multitask model uses equal numbers of Direct SFT and distilled-rationale examples. The same trained multitask model is evaluated in two modes: \emph{Multitask---Direct SFT} requests the concise response, whereas \emph{Multitask---Distilled Rationale} requests the rationale before the final prediction. Only the final structured triplet is scored. Rationale and answer tokens have equal loss weight, so the longer rationale accounts for most supervised response tokens. All student models otherwise follow the Direct SFT configuration.
+
+\begingroup
+\cFiveSupplementfalse
+\cFiveTrainingtrue
+\cFiveErrorAnalysisfalse
+\input{chapters/papers/two_stage/appendix_body}
+\endgroup
 
 \section{Experimental Protocol}
 \label{sec:c5:experimental-protocol}
