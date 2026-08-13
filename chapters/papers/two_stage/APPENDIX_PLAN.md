@@ -24,7 +24,7 @@ The main chapter is intentionally concise. The following material should be adde
 ## E. Secondary and optimisation results
 
 - Completed: the full five-configuration optimisation-sensitivity study has been moved from the main chapter to `appendix_body.tex`, including all metrics and the warning that several variables change simultaneously.
-- Completed: row-normalised action and target confusion matrices for the official test-set predictions of Direct SFT, three-frame temporal context, and Multitask---Direct SFT evaluation, with descriptive interpretation and explicit single-seed caveats.
+- Completed: row-normalised action and target confusion matrices for the official test-set predictions of Direct SFT, three-frame temporal context, and Multitask---Direct SFT evaluation, with appropriately descriptive interpretation.
 - Optional secondary negative-result table if the main chapter is later shortened for journal submission.
 
 ## F. Additional qualitative material

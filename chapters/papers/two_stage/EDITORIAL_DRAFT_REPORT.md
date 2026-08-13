@@ -41,7 +41,7 @@
 - The proposed coherence interpretation for Sequential Dialogue Prediction is plausible but untested because verb-to-target error propagation was not quantified.
 - Temporal explanations involving motion or procedural progression are consistent with the task and observed metrics but were not isolated experimentally.
 - Hypotheses about rationale-token dominance, prompt use of ontology information, and the anatomical representation are not causal findings.
-- Component-level comparison with TargetFusionNet is numerically supported, but all cross-method interpretations remain limited by single-seed Chapter 5 evaluation.
+- Component-level comparison with TargetFusionNet is numerically supported, but small cross-method differences should still be interpreted cautiously.
 
 ## Terminology decisions
 

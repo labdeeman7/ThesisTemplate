@@ -201,7 +201,7 @@ This file records the working state of the thesis. It should be updated whenever
 
 ## Current Task
 
-- Implement the author read-through notes chapter by chapter, compiling and committing each logical milestone.
+- Author read-through notes implemented and verified; continue with the remaining author-led full-thesis reading and submission-specific front matter.
 
 ## Author Read-through Milestones
 
@@ -210,6 +210,7 @@ This file records the working state of the thesis. It should be updated whenever
 - Chapter 5 structure: clarified that each index denotes one physical instrument instance, moved the adaptation-motivation figure directly after Direct SFT, and placed the consolidated implementation/training configuration after all adaptation methods.
 - Chapter 5 emphasis: archived the uncontrolled optimisation-sensitivity study, reduced repetitive seed-related caveats, made complete predicted-grounding evaluation the immediate research priority, and added a measured discussion of why dense anatomical-target annotation is valuable but difficult to scale.
 - Chapter 6: aligned the synthesis with Chapter 5 by prioritising complete predicted-grounding evaluation, reducing repeated uncertainty language, and carrying the anatomical-target annotation scalability argument into the thesis-level discussion.
+- Final read-through verification: completed a forced Biber/LaTeX rebuild to convergence (239 pages), confirmed zero undefined citations or references, zero duplicate bibliography keys, and no LaTeX or Biber errors. Figure and equation inventories are unchanged; the only active table removed is the deliberately archived Chapter 5 optimisation-sensitivity table, while Chapter 2's former single landscape table is now one multipage `longtable`.
 
 ## Outstanding Issues
 
