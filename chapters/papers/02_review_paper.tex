@@ -985,7 +985,7 @@ All these methods \citep{ma2023segment,yue2023surgicalsam,paranjape2023adaptives
 \scriptsize
 \setlength{\tabcolsep}{2.2pt}
 \renewcommand{\arraystretch}{1.08}
-\begin{longtable}{|p{1.30cm}|p{3.00cm}|p{0.70cm}|p{2.00cm}|p{1.80cm}|p{2.30cm}|p{1.60cm}|}
+\begin{longtable}{|p{1.29cm}|p{3.00cm}|p{0.70cm}|p{2.00cm}|p{1.80cm}|p{2.30cm}|p{1.60cm}|}
 \caption{A summary of publically available multitask learning datasets for minimally invasive surgeries with information on the dataset characteristics and annotation characteristics. The column $N$ reports the number of procedures. Datasets annotated for a single task that may have been used in MTL research such as Endovis2017, Endovis2018 and Cholec80 are omitted from the table for clarity.} \label{table:dataset_summary}\\
   \hline
   Dataset   & Brief description & $N$ &
@@ -1002,15 +1002,15 @@ All these methods \citep{ma2023segment,yue2023surgicalsam,paranjape2023adaptives
 \endfoot
   \hline
 \endlastfoot
-  \multirow{4}{*}{\parbox{1.20cm}{
+  \multicolumn{1}{|l|}{\parbox{1.20cm}{\raggedright\hspace{0pt}
   \href{https://autolaparo.github.io/}{AutoLaparo}
-  }} & \multirow{4}{*}{\parbox{2.90cm}{A dataset for image-guided surgical automation in laparoscopic hysterectomy comprising three sub-datasets: surgical workflow recognition, laparoscope motion prediction, instrument and anatomy segmentation. } }
+  }} & \multicolumn{1}{|l|}{\parbox{2.90cm}{\raggedright\hspace{0pt}A dataset for image-guided surgical automation in laparoscopic hysterectomy comprising three sub-datasets: surgical workflow recognition, laparoscope motion prediction, instrument and anatomy segmentation. } }
   &
-  \multirow{4}{*}{\parbox{0.60cm}{21} }
+  \multicolumn{1}{|l|}{\parbox{0.60cm}{\raggedright\hspace{0pt}21} }
   & Phase recognition task
   & 1388 minutes of surgical videos  
   & 1388 minutes of phase labels 
-  & \multirow{2}{*}{\parbox{1.50cm}{\citep{autolaparo} }}  \\  \bluecline{4-6}
+  & \multicolumn{1}{|l|}{\parbox{1.50cm}{\raggedright\hspace{0pt}\citep{autolaparo} }}  \\  \bluecline{4-6}
   \arrayrulecolor{black}
   & &
   & Laparoscope motion prediction
@@ -1034,14 +1034,14 @@ All these methods \citep{ma2023segment,yue2023surgicalsam,paranjape2023adaptives
   \\ 
 
   \thickhline
-  \multirow{5}{*}{\parbox{1.20cm}{   \href{https://www.synapse.org/\#!Synapse:syn25101790/wiki/}{HeiSURF}
+  \multicolumn{1}{|l|}{\parbox{1.20cm}{\raggedright\hspace{0pt}   \href{https://www.synapse.org/\#!Synapse:syn25101790/wiki/}{Hei\-SURF}
   }} 
-  & \multirow{5}{*}{\parbox{2.90cm}{ A laparoscopic cholecystectomy designed for surgical activity recognition, full scene segmentation, and skill assessment. It is a parent dataset to the HeiChole dataset} }
-  & \multirow{5}{*}{\parbox{0.60cm}{33} }
+  & \multicolumn{1}{|l|}{\parbox{2.90cm}{\raggedright\hspace{0pt} A laparoscopic cholecystectomy designed for surgical activity recognition, full scene segmentation, and skill assessment. It is a parent dataset to the HeiChole dataset} }
+  & \multicolumn{1}{|l|}{\parbox{0.60cm}{\raggedright\hspace{0pt}33} }
   & Phase recognition
   & 23.3 hours of surgical videos
   & 23.3 hours of phase labels
-  & \multirow{2}{*}{\parbox{1.50cm}{\citep{heisurf}} }  \\  \bluecline{4-6}
+  & \multicolumn{1}{|l|}{\parbox{1.50cm}{\raggedright\hspace{0pt}\citep{heisurf}} }  \\  \bluecline{4-6}
   & &  
   & Full scene segmentation 
   & 827 keyframes 
@@ -1068,15 +1068,15 @@ All these methods \citep{ma2023segment,yue2023surgicalsam,paranjape2023adaptives
   \\ 
 
   \thickhline
-  \multirow{4}{*}{\parbox{1.20cm}{
+  \multicolumn{1}{|l|}{\parbox{1.20cm}{\raggedright\hspace{0pt}
   \href{https://github.com/BCV-Uniandes/TAPIR}{PSI-AVA}
   }} 
-  & \multirow{4}{*}{\parbox{2.90cm}{ A dataset of robot-assisted radical prostatectomy designed for research into the complementary nature of surgical activity recognition tasks.} }
-  & \multirow{4}{*}{\parbox{0.60cm}{ 8 } }
+  & \multicolumn{1}{|l|}{\parbox{2.90cm}{\raggedright\hspace{0pt} A dataset of robot-assisted radical prostatectomy designed for research into the complementary nature of surgical activity recognition tasks.} }
+  & \multicolumn{1}{|l|}{\parbox{0.60cm}{\raggedright\hspace{0pt} 8 } }
   & Phase recognition
   & 20.45 hours of surgical videos
   & 20.45 hours of phase labels
-  & \multirow{2}{*}{\parbox{1.50cm}{\citep{holistic_scene_understanding}} } \\  \bluecline{4-6}
+  & \multicolumn{1}{|l|}{\parbox{1.50cm}{\raggedright\hspace{0pt}\citep{holistic_scene_understanding}} } \\  \bluecline{4-6}
   & &  
   & Step recognition
   & 20.45 hours of surgical videos
@@ -1097,13 +1097,13 @@ All these methods \citep{ma2023segment,yue2023surgicalsam,paranjape2023adaptives
   \\ 
 
   \thickhline
-  \multirow{2}{*}{\parbox{1.20cm}{  \href{https://www.synapse.org/\#!Synapse:syn21903917/wiki/601992}{HeiCo}
-  }} & \multirow{2}{*}{\parbox{2.90cm}{ A dataset of three different colorectal procedures (proctocolectomy, rectal resection, and sigmoid resection procedures) with emphasis on dataset generalization and diversity.} }
-  & \multirow{2}{*}{\parbox{0.60cm}{30} }
+  \multicolumn{1}{|l|}{\parbox{1.20cm}{\raggedright\hspace{0pt}  \href{https://www.synapse.org/\#!Synapse:syn21903917/wiki/601992}{HeiCo}
+  }} & \multicolumn{1}{|l|}{\parbox{2.90cm}{\raggedright\hspace{0pt} A dataset of three different colorectal procedures (proctocolectomy, rectal resection, and sigmoid resection procedures) with emphasis on dataset generalization and diversity.} }
+  & \multicolumn{1}{|l|}{\parbox{0.60cm}{\raggedright\hspace{0pt}30} }
   & Phase recognition
   & 9.45 hours of surgical videos
   & 9.45 hours of phase labels
-  & \multirow{2}{*}{\parbox{1.50cm}{\citep{heico}} }\\  \bluecline{4-6}
+  & \multicolumn{1}{|l|}{\parbox{1.50cm}{\raggedright\hspace{0pt}\citep{heico}} }\\  \bluecline{4-6}
   & &  
   & Instrument instance segmentation
   & 10,040 keyframes 
@@ -1120,14 +1120,14 @@ All these methods \citep{ma2023segment,yue2023surgicalsam,paranjape2023adaptives
 
 
   \thickhline
-  \multirow{5}{*}{\parbox{1.20cm}{\href{https://www.synapse.org/\#!Synapse:syn21776936/wiki/601700}{MISAW} 
+  \multicolumn{1}{|l|}{\parbox{1.20cm}{\raggedright\hspace{0pt}\href{https://www.synapse.org/\#!Synapse:syn21776936/wiki/601700}{MISAW} 
   }} 
-  & \multirow{5}{*}{\parbox{2.90cm}{ A micro-surgical anastomosis dataset with a focus on evaluating the impact of learning multiple surgical activity recognition tasks together.} }
-  & \multirow{2}{*}{\parbox{0.60cm}{ 27 } }
+  & \multicolumn{1}{|l|}{\parbox{2.90cm}{\raggedright\hspace{0pt} A micro-surgical anastomosis dataset with a focus on evaluating the impact of learning multiple surgical activity recognition tasks together.} }
+  & \multicolumn{1}{|l|}{\parbox{0.60cm}{\raggedright\hspace{0pt} 27 } }
   & Phase recognition
   & 1.5 hours of surgical videos
   & 1.5 hours of phase labels
-  & \multirow{2}{*}{\parbox{1.50cm}{\citep{huaulme2021micro}} }\\  \bluecline{4-6}
+  & \multicolumn{1}{|l|}{\parbox{1.50cm}{\raggedright\hspace{0pt}\citep{huaulme2021micro}} }\\  \bluecline{4-6}
   & &  
   & Step recognition
   & 1.5 hours of surgical videos
@@ -1154,14 +1154,14 @@ All these methods \citep{ma2023segment,yue2023surgicalsam,paranjape2023adaptives
   \\ 
 
   \thickhline
-  \multirow{5}{*}{\parbox{1.20cm}{\href{https://www.synapse.org/\#!Synapse:syn25147789/wiki/}{PETRAW} 
+  \multicolumn{1}{|l|}{\parbox{1.20cm}{\raggedright\hspace{0pt}\href{https://www.synapse.org/\#!Synapse:syn25147789/wiki/}{PETRAW} 
   }} 
-  & \multirow{5}{*}{\parbox{2.90cm}{A dataset containing the peg transfer task in laparoscopic surgery training. It is designed for multiple surgical activity recognition tasks. This dataset is collected from a virtual reality simulator} }
-  & \multirow{2}{*}{\parbox{0.60cm}{ 150 } }
+  & \multicolumn{1}{|l|}{\parbox{2.90cm}{\raggedright\hspace{0pt}A dataset containing the peg transfer task in laparoscopic surgery training. It is designed for multiple surgical activity recognition tasks. This dataset is collected from a virtual reality simulator} }
+  & \multicolumn{1}{|l|}{\parbox{0.60cm}{\raggedright\hspace{0pt} 150 } }
   & Phase recognition
   & 5.86 hours of surgical videos
   & 5.86 hours of phase labels
-  & \multirow{2}{*}{\parbox{1.50cm}{\citep{huaulme2022peg}} } \\  \bluecline{4-6}
+  & \multicolumn{1}{|l|}{\parbox{1.50cm}{\raggedright\hspace{0pt}\citep{huaulme2022peg}} } \\  \bluecline{4-6}
   & &  
   & Step recognition
   & 5.86 hours of surgical videos
@@ -1188,14 +1188,14 @@ All these methods \citep{ma2023segment,yue2023surgicalsam,paranjape2023adaptives
   \\ 
 
   \thickhline 
-  \multirow{3}{*}{\parbox{1.20cm}{  \href{https://github.com/CAMMA-public/MultiBypass140}{Multi-Bypass140}
+  \multicolumn{1}{|l|}{\parbox{1.20cm}{\raggedright\hspace{0pt}  \href{https://github.com/CAMMA-public/MultiBypass140}{Multi-}\\\href{https://github.com/CAMMA-public/MultiBypass140}{Bypass}\\\href{https://github.com/CAMMA-public/MultiBypass140}{140}
   }} 
-  & \multirow{3}{*}{\parbox{2.90cm}{A phase and step recognition dataset, particularly focusing on datasets collected from different hospitals (multi-centric) and the importance of multi-centric datasets for generalization. } }
-  & \multirow{3}{*}{\parbox{0.60cm}{140} }
+  & \multicolumn{1}{|l|}{\parbox{2.90cm}{\raggedright\hspace{0pt}A phase and step recognition dataset, particularly focusing on datasets collected from different hospitals (multi-centric) and the importance of multi-centric datasets for generalization. } }
+  & \multicolumn{1}{|l|}{\parbox{0.60cm}{\raggedright\hspace{0pt}140} }
   & Phase recognition
   & 214hrs of surgical videos
   & 214hrs of phase labels
-  & \multirow{3}{*}{\parbox{1.50cm}{\citep{Lavanchy2024}} }  \\  \bluecline{4-6}
+  & \multicolumn{1}{|l|}{\parbox{1.50cm}{\raggedright\hspace{0pt}\citep{Lavanchy2024}} }  \\  \bluecline{4-6}
   & &  
   & Step recognition
   & 214hrs of videos
@@ -1211,15 +1211,15 @@ All these methods \citep{ma2023segment,yue2023surgicalsam,paranjape2023adaptives
   
 
   \thickhline
-  \multirow{2}{*}{\parbox{1.20cm}{
+  \multicolumn{1}{|l|}{\parbox{1.20cm}{\raggedright\hspace{0pt}
   \href{https://www.synapse.org/\#!Synapse:syn27618412/wiki/616881}{SAR-RARP50}
   }} 
-  & \multirow{2}{*}{\parbox{2.90cm}{A dataset of suturing segments of robotic assisted radical prostatectomy. The dataset focuses on tool segmentation and surgical action recognition.} }
-  & \multirow{2}{*}{\parbox{0.60cm}{50} }
+  & \multicolumn{1}{|l|}{\parbox{2.90cm}{\raggedright\hspace{0pt}A dataset of suturing segments of robotic assisted radical prostatectomy. The dataset focuses on tool segmentation and surgical action recognition.} }
+  & \multicolumn{1}{|l|}{\parbox{0.60cm}{\raggedright\hspace{0pt}50} }
   & Phase recognition
   & 3 hours of surgical videos
   & 3 hours of action labels
-  & \citep{psychogyios2023sar}\\  \bluecline{4-6}
+  & \parbox{1.50cm}{\raggedright\hspace{0pt}\citep{psychogyios2023sar}}\\  \bluecline{4-6}
   & &  
   & Instrument segmentation
   & 1000 keyframes
@@ -1234,15 +1234,15 @@ All these methods \citep{ma2023segment,yue2023surgicalsam,paranjape2023adaptives
   \\ 
 
   \thickhline
-  \multirow{3}{*}{\parbox{1.20cm}{
+  \multicolumn{1}{|l|}{\parbox{1.20cm}{\raggedright\hspace{0pt}
   \href{https://saras-mesad.grand-challenge.org/Home/}{SARAS-MESAD}
   }} 
-  & \multirow{3}{*}{\parbox{2.90cm}{A dataset containing both real and virtual human prostatectomy procedures for research into surgical activity recognition and instrument detection with a focus on cross-domain learning} }
-  & \multirow{3}{*}{\parbox{0.60cm}{9} }
+  & \multicolumn{1}{|l|}{\parbox{2.90cm}{\raggedright\hspace{0pt}A dataset containing both real and virtual human prostatectomy procedures for research into surgical activity recognition and instrument detection with a focus on cross-domain learning} }
+  & \multicolumn{1}{|l|}{\parbox{0.60cm}{\raggedright\hspace{0pt}9} }
   & Instrument detection
   & 59k frames
   & 59k frames with bounding boxes 
-  & \multirow{3}{*}{\parbox{1.50cm}{\citep{saras_mesad}} }  \\  \bluecline{4-6}
+  & \multicolumn{1}{|l|}{\parbox{1.50cm}{\raggedright\hspace{0pt}\citep{saras_mesad}} }  \\  \bluecline{4-6}
   & &  
   & Action recognition
   & 59k frames
@@ -1257,15 +1257,15 @@ All these methods \citep{ma2023segment,yue2023surgicalsam,paranjape2023adaptives
   \\ 
 
   \thickhline
-  \multirow{3}{*}{\parbox{1.20cm}{
-  \href{https://cholectriplet2021.grand-challenge.org/}{CholecT50}
+  \multicolumn{1}{|l|}{\parbox{1.20cm}{\raggedright\hspace{0pt}
+  \href{https://cholectriplet2021.grand-challenge.org/}{Cholec\allowbreak T50}
   }} 
-  & \multirow{3}{*}{\parbox{2.90cm}{The CholecT50 is designed for fine-grained action recognition and tool-tissue interaction in laparoscopic cholecystectomy surgeries. CholecT50 is the latest in the Cholec series of datasets. } }
-  & \multirow{4}{*}{\parbox{0.60cm}{ 50} }
+  & \multicolumn{1}{|l|}{\parbox{2.90cm}{\raggedright\hspace{0pt}The CholecT50 is designed for fine-grained action recognition and tool-tissue interaction in laparoscopic cholecystectomy surgeries. CholecT50 is the latest in the Cholec series of datasets. } }
+  & \multicolumn{1}{|l|}{\parbox{0.60cm}{\raggedright\hspace{0pt} 50} }
   & Tool presence recognition  
   & 100.9k frames  
   & 100.9k frames with tool presence labels 
-  & \multirow{2}{*}{\parbox{1.50cm}{\citep{NWOYE2022102433_rendevous}} } \\  \bluecline{4-6}
+  & \multicolumn{1}{|l|}{\parbox{1.50cm}{\raggedright\hspace{0pt}\citep{NWOYE2022102433_rendevous}} } \\  \bluecline{4-6}
   & &  
   & Action recognition
   & 100.9k frames
@@ -1284,15 +1284,15 @@ All these methods \citep{ma2023segment,yue2023surgicalsam,paranjape2023adaptives
 
 
   \thickhline
-  \multirow{3}{*}{\parbox{1.20cm}{
+  \multicolumn{1}{|l|}{\parbox{1.20cm}{\raggedright\hspace{0pt}
   \href{https://github.com/kamruleee51/ART-Net}{ART-Net}
   }} & 
-  \multirow{3}{*}{\parbox{2.90cm}{A non-robotic laparoscopic hysterectomy dataset designed for 3D graphics applications like 3D measurement and Augmented Reality~(AR). } }  
-  & \multirow{3}{*}{\parbox{0.60cm}{29} }
+  \multicolumn{1}{|l|}{\parbox{2.90cm}{\raggedright\hspace{0pt}A non-robotic laparoscopic hysterectomy dataset designed for 3D graphics applications like 3D measurement and Augmented Reality~(AR). } }  
+  & \multicolumn{1}{|l|}{\parbox{0.60cm}{\raggedright\hspace{0pt}29} }
   & Tool presence prediction
   & 1500 frames
   & 1500 frames with tool presence labels
-  & \multirow{2}{*}{\parbox{1.50cm}{\citep{art_net}} }  \\  \bluecline{4-6}
+  & \multicolumn{1}{|l|}{\parbox{1.50cm}{\raggedright\hspace{0pt}\citep{art_net}} }  \\  \bluecline{4-6}
   & &  
   & Binary instrument segmentation
   & 635 keyframes 
@@ -1309,14 +1309,14 @@ All these methods \citep{ma2023segment,yue2023surgicalsam,paranjape2023adaptives
 
 
   \thickhline 
-  \multirow{3}{*}{\parbox{1.20cm}{  \href{https://github.com/lalithjets/SurgicalGPT}{EndoVis-18-VQA}
+  \multicolumn{1}{|l|}{\parbox{1.20cm}{\raggedright\hspace{0pt}  \href{https://github.com/lalithjets/SurgicalGPT}{EndoVis-18-VQA}
   }} 
-  & \multirow{3}{*}{\parbox{2.90cm}{A dataset designed for advancing research in visual question answering using the Endovis2018 dataset. It contains classification-based questions about tissues, actions and tool locations. } }
-  & \multirow{3}{*}{\parbox{0.60cm}{14} }
+  & \multicolumn{1}{|l|}{\parbox{2.90cm}{\raggedright\hspace{0pt}A dataset designed for advancing research in visual question answering using the Endovis2018 dataset. It contains classification-based questions about tissues, actions and tool locations. } }
+  & \multicolumn{1}{|l|}{\parbox{0.60cm}{\raggedright\hspace{0pt}14} }
   & VQA
   & 11.7k questions
   & 2k frames  
-  & \multirow{3}{*}{\parbox{1.50cm}{\citep{seenivasan2022surgical}} }  \\  
+  & \multicolumn{1}{|l|}{\parbox{1.50cm}{\raggedright\hspace{0pt}\citep{seenivasan2022surgical}} }  \\  
   & &  
   & 
   & 
@@ -1332,14 +1332,14 @@ All these methods \citep{ma2023segment,yue2023surgicalsam,paranjape2023adaptives
   \hline 
 
   \thickhline 
-  \multirow{3}{*}{\parbox{1.20cm}{  \href{https://github.com/lalithjets/SurgicalGPT}{Cholec80-VQA}
+  \multicolumn{1}{|l|}{\parbox{1.20cm}{\raggedright\hspace{0pt}  \href{https://github.com/lalithjets/SurgicalGPT}{Cholec}\\\href{https://github.com/lalithjets/SurgicalGPT}{80-VQA}
   }} 
-  & \multirow{3}{*}{\parbox{2.90cm}{A Surgical VQA dataset based on the Cholec80 dataset. It contains classification-based questions about surgical phases and instrument presence. } }
-  & \multirow{3}{*}{\parbox{0.60cm}{40} }
+  & \multicolumn{1}{|l|}{\parbox{2.90cm}{\raggedright\hspace{0pt}A Surgical VQA dataset based on the Cholec80 dataset. It contains classification-based questions about surgical phases and instrument presence. } }
+  & \multicolumn{1}{|l|}{\parbox{0.60cm}{\raggedright\hspace{0pt}40} }
   & VQA
   & 43k questions
   & 21.6k frames  
-  & \multirow{3}{*}{\parbox{1.50cm}{\citep{seenivasan2022surgical}} }  \\  
+  & \multicolumn{1}{|l|}{\parbox{1.50cm}{\raggedright\hspace{0pt}\citep{seenivasan2022surgical}} }  \\  
   & &  
   & 
   & 
@@ -1355,14 +1355,14 @@ All these methods \citep{ma2023segment,yue2023surgicalsam,paranjape2023adaptives
   \hline  
 
   \thickhline 
-  \multirow{3}{*}{\parbox{1.20cm}{  \href{https://github.com/lalithjets/SurgicalGPT}{PSI-AVA-VQA}
+  \multicolumn{1}{|l|}{\parbox{1.20cm}{\raggedright\hspace{0pt}  \href{https://github.com/lalithjets/SurgicalGPT}{PSI-AVA-VQA}
   }} 
-  & \multirow{3}{*}{\parbox{2.90cm}{A Surgical VQA dataset based on the PSI-AVA dataset . It contains classification-based questions about the surgical phase, step, and location of surgical tools. } }
-  & \multirow{3}{*}{\parbox{0.60cm}{8} }
+  & \multicolumn{1}{|l|}{\parbox{2.90cm}{\raggedright\hspace{0pt}A Surgical VQA dataset based on the PSI-AVA dataset . It contains classification-based questions about the surgical phase, step, and location of surgical tools. } }
+  & \multicolumn{1}{|l|}{\parbox{0.60cm}{\raggedright\hspace{0pt}8} }
   & VQA
   & 10.3k questions
   & 2.2k frames
-  & \multirow{3}{*}{\parbox{1.50cm}{\citep{seenivasan2023surgicalgpt}} }  \\  
+  & \multicolumn{1}{|l|}{\parbox{1.50cm}{\raggedright\hspace{0pt}\citep{seenivasan2023surgicalgpt}} }  \\  
   & &  
   & 
   & 
@@ -1378,14 +1378,14 @@ All these methods \citep{ma2023segment,yue2023surgicalsam,paranjape2023adaptives
   \hline 
 
   \thickhline 
-  \multirow{4}{*}{\parbox{1.20cm}{  \href{https://github.com/CAMMA-public/SSG-VQA}{SSG-VQA}
+  \multicolumn{1}{|l|}{\parbox{1.20cm}{\raggedright\hspace{0pt}  \href{https://github.com/CAMMA-public/SSG-VQA}{SSG-VQA}
   }} 
-  & \multirow{4}{*}{\parbox{2.90cm}{A Surgical VQA dataset comprising images from the CholecT45 dataset. It contains complex questions about tool location and presence, tissue location and presence, instrument action, instrument targets, object colours, and their relationships } }
-  & \multirow{4}{*}{\parbox{0.60cm}{45} }
+  & \multicolumn{1}{|l|}{\parbox{2.90cm}{\raggedright\hspace{0pt}A Surgical VQA dataset comprising images from the CholecT45 dataset. It contains complex questions about tool location and presence, tissue location and presence, instrument action, instrument targets, object colours, and their relationships } }
+  & \multicolumn{1}{|l|}{\parbox{0.60cm}{\raggedright\hspace{0pt}45} }
   & VQA
   & 960k questions
   & 25k frames 
-  & \multirow{4}{*}{\parbox{1.50cm}{\citep{yuan2024advancing}} }  \\  
+  & \multicolumn{1}{|l|}{\parbox{1.50cm}{\raggedright\hspace{0pt}\citep{yuan2024advancing}} }  \\  
   & &  
   & 
   & 
@@ -1407,13 +1407,13 @@ All these methods \citep{ma2023segment,yue2023surgicalsam,paranjape2023adaptives
   \hline    
 
   \thickhline
-  \multirow{2}{*}{\parbox{1.20cm}{\href{https://cirl.lcsr.jhu.edu/research/hmm/datasets/jigsaws_release/}{JIGSAWS}}} 
-  & \multirow{3}{*}{\parbox{2.90cm}{An automatic gesture recognition and surgical skill assessment dataset containing videos of surgeons performing suturing, knot-tying and needle-passing on a bench-top model with a da Vinci. } }
-  & \multirow{3}{*}{\parbox{0.60cm}{ 104 } }
+  \multicolumn{1}{|l|}{\parbox{1.20cm}{\raggedright\hspace{0pt}\href{https://cirl.lcsr.jhu.edu/research/hmm/datasets/jigsaws_release/}{JIGSAWS}}} 
+  & \multicolumn{1}{|l|}{\parbox{2.90cm}{\raggedright\hspace{0pt}An automatic gesture recognition and surgical skill assessment dataset containing videos of surgeons performing suturing, knot-tying and needle-passing on a bench-top model with a da Vinci. } }
+  & \multicolumn{1}{|l|}{\parbox{0.60cm}{\raggedright\hspace{0pt} 104 } }
   & Surgical gesture classification
   & 208 minutes of surgical videos
   & 208 minutes of surgical gesture labels  
-  & \multirow{3}{*}{\parbox{1.50cm}{\citep{jigsaws}} }\\  \bluecline{4-6}
+  & \multicolumn{1}{|l|}{\parbox{1.50cm}{\raggedright\hspace{0pt}\citep{jigsaws}} }\\  \bluecline{4-6}
   & &  
   & Surgical skill-score prediction
   & 104 video clips 
@@ -1428,14 +1428,14 @@ All these methods \citep{ma2023segment,yue2023surgicalsam,paranjape2023adaptives
   \\   
 
   \thickhline 
-  \multirow{3}{*}{\parbox{1.20cm}{  \href{https://github.com/CAMMA-public/Endoscapes}{Endoscapes}
+  \multicolumn{1}{|l|}{\parbox{1.20cm}{\raggedright\hspace{0pt}  \href{https://github.com/CAMMA-public/Endoscapes}{Endoscapes}
   }} 
-  & \multirow{3}{*}{\parbox{2.90cm}{Endoscapes dataset was designed for advancing research on the Critical View of Safety (CVS), segmentation and object in Laparoscopic Cholecystectomy surgeries.} }
-  & \multirow{3}{*}{\parbox{0.60cm}{201} }
+  & \multicolumn{1}{|l|}{\parbox{2.90cm}{\raggedright\hspace{0pt}Endoscapes dataset was designed for advancing research on the Critical View of Safety (CVS), segmentation and object in Laparoscopic Cholecystectomy surgeries.} }
+  & \multicolumn{1}{|l|}{\parbox{0.60cm}{\raggedright\hspace{0pt}201} }
   & CVS prediction
   & 58.8k frames
   & 58.8k frames with CVS labels 
-  & \multirow{3}{*}{\parbox{1.50cm}{\citep{murali2023endoscapes}} }  \\  \bluecline{4-6}
+  & \multicolumn{1}{|l|}{\parbox{1.50cm}{\raggedright\hspace{0pt}\citep{murali2023endoscapes}} }  \\  \bluecline{4-6}
   & &  
   & Scene object detection
   & 11k frames
