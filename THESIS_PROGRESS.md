@@ -209,6 +209,7 @@ This file records the working state of the thesis. It should be updated whenever
 - Chapter 3: compressed the repeated general motivation for minimally invasive computer assistance into a direct transition from the Chapter 2 gap to instrument instance segmentation, without changing the dataset motivation or accepted technical content.
 - Chapter 5 structure: clarified that each index denotes one physical instrument instance, moved the adaptation-motivation figure directly after Direct SFT, and placed the consolidated implementation/training configuration after all adaptation methods.
 - Chapter 5 emphasis: archived the uncontrolled optimisation-sensitivity study, reduced repetitive seed-related caveats, made complete predicted-grounding evaluation the immediate research priority, and added a measured discussion of why dense anatomical-target annotation is valuable but difficult to scale.
+- Chapter 6: aligned the synthesis with Chapter 5 by prioritising complete predicted-grounding evaluation, reducing repeated uncertainty language, and carrying the anatomical-target annotation scalability argument into the thesis-level discussion.
 
 ## Outstanding Issues
 
