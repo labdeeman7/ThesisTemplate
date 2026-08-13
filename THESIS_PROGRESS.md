@@ -216,6 +216,7 @@ This file records the working state of the thesis. It should be updated whenever
 - Chapter 2 dataset-table repair: replaced fixed-span `multirow` cells with naturally expanding cells, enabled safe wrapping in narrow columns, and added explicit breaks for the few unbreakable linked dataset names. The portrait table now occupies pages 87--92, with every description contained within its dataset row group and zero table-specific horizontal or vertical overflow warnings.
 - Chapter 2 dataset-table grid repair: assigned each internal vertical boundary to exactly one spanning cell and replaced thick/adjacent dataset separators with single horizontal rules. All six rendered table pages were inspected after a converged build; the grid is continuous, the dataset/task/input/annotation/citation associations are unchanged, and no table content was removed or reassigned.
 - Abstract positioning: removed the implementation-scope caveat that foregrounded unevaluated predicted-grounding adaptations and recast the Chapter 5 contribution around the demonstrated viability of the complete two-stage system. Detailed experimental qualifications remain in Chapter 5 and the thesis conclusion rather than the abstract.
+- Chapter 2 workflow discussion: extended the review's account of progress from phases to action triplets with the thesis's complementary progression towards instance-level spatial grounding. The Chapter 2 conclusion now links this discussion alongside the detailed triplet review when motivating Chapters 3--5.
 
 ## Outstanding Issues
 
