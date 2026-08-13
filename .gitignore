@@ -28,7 +28,6 @@
 .build/
 *-SAVE-ERROR
 Thesis.pdf
-Thesis-review-compressed.pdf
 
 # Python bytecode and caches
 __pycache__/
