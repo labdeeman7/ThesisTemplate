@@ -219,6 +219,7 @@ This file records the working state of the thesis. It should be updated whenever
 - Chapter 2 workflow discussion: extended the review's account of progress from phases to action triplets with the thesis's complementary progression towards instance-level spatial grounding. The Chapter 2 conclusion now links this discussion alongside the detailed triplet review when motivating Chapters 3--5.
 - Review-PDF workflow: added a Windows PowerShell counterpart to Tom's shell compression utility. It discovers Ghostscript automatically, applies the same `/ebook`, font, colour, compression, and PDF bookmark settings, protects the full-quality input from accidental overwrite, and reports the resulting size reduction.
 - Overleaf/Git synchronisation: stopped tracking the generated 46 MB `Thesis.pdf`, which exceeded Overleaf's GitHub-import processing limit. The full-quality build remains local and ignored, while the 4.7 MB compressed review copy is tracked for convenient sharing; Overleaf can also generate its own PDF from the LaTeX sources.
+- Two-stage terminology: replaced the ambiguous phrase `specialist instrument grounding` with the implemented Stage 1 task, `instrument instance segmentation`, throughout the abstract, thesis introduction, chapter transitions, Chapter 5, and thesis conclusion. Broader references to spatial grounding remain where they describe the scientific objective rather than the model stage.
 
 ## Outstanding Issues
 
