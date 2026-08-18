@@ -666,9 +666,9 @@ The first decoder operates as a convolutional-based unit, with a dual purpose: i
 The class activation maps are concatenated with the features in the action and tissue target decoders. This approach is underpinned by the hypothesis that the instrument plays a pivotal role in interacting with the surgical environment to initiate actions on a desired target. By incorporating a weak localization guide indicating the instrument's current location, the authors expect to enhance the performance of both the action recognition and tissue target recognition tasks. A visual representation of the Tripnet structure can be found in \figref{fig:tripnet}.
 
 Furthermore, the authors observe that not all triplet combinations are feasible, and a data association problem arises as these components (predicted instruments, actions, and tissues) are interconnected. Instead of predicting each label separately, the authors opt for a joint prediction approach. The logits produced from each encoder ($I$ for Instrument, $V$ for action verb, and $T$ for tissue target) are used to create a 3D interaction space volume ($Y$) through an outer product operation:
-$$
+\[
     Y = \alpha I \otimes \beta V \otimes \gamma T 
-$$
+\]
 Here, $\alpha$, $\beta$, and $\gamma$ represent learnable weights. The 3D volume is quantized, with values above a chosen threshold accepted as valid triplets, while spaces in the 3D volume that can never form triplets are masked out. The loss function for this approach comprises the standard cross-entropy loss for all tasks, combined into a linear combination of losses.
 
 

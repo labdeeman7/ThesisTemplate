@@ -90,25 +90,25 @@ Hence we wanted to also have a metric that captured how well models are performi
 
 
 COCO smAP involves a slight modification of the COCO mAP metric. The sequence average precision(sAP) for a class $j$ over the whole dataset ($sAP_j$) in COCO smAP can be written as 
-$$
+\[
   sAP_j = \frac{\sum{_{s=0}^{N} \int_0^1 p_{seq=s}(j, r) \, dr} }{N}  
-$$
-
+\]
+%
 where $s$ represents the current sequence, $N$ represents the number of sequences evaluated, and  \( p_{seq=i}(j, r) \) represents the precision at recall \( r \) for class \( j \) over a sequence $s$. \revnew{Essentially $sAP_j$ is calculated by taking the mean of the COCO average precision for that class for each sequence.} 
 
 
  \robustrevref{2}{4}\revnew{To measure variability in performance across sequences, we introduced the standard deviation of sequence average precision ($\sigma_{sAP_j}$).  
-$$
+\[
 \sigma_{sAP_j} = \sqrt{\frac{1}{N} \sum_{s=0}^{N} \left( \left(\int_0^1 p_{seq=s}(j, r)\right) \, dr - sAP_j \right)^2}
-$$
-
+\]
+%
 where $s$ represents the current sequence, $N$ represents the number of sequences evaluated, and  \( p_{seq=i}(j, r) \) represents the precision at recall \( r \) for class \( j \) over a sequence $s$. $\sigma_{sAP_j}$ is calculated by taking the standard deviation of the COCO average precision for that class for each sequence.
 
 Finally, the COCO smAP is calculated as a mean of the sequence average precisions across all classes
-
-$$
+%
+\[
 smAP = \frac{1}{C} \sum_{j=1}^{C} sAP_j
-$$
+\]
 }
 
 

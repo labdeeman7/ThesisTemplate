@@ -45,7 +45,7 @@ The thesis addresses this target-prediction challenge through two complementary 
 The aim of this thesis is to advance surgical scene understanding in minimally invasive surgery by developing datasets, benchmarks, and models for spatially grounded interpretation of instrument--tissue interactions in laparoscopic video.
 
 This aim is addressed through the following research questions:
-
+%
 \begin{enumerate}
   \item How has surgical scene understanding progressed from individual perceptual tasks towards fine-grained interaction recognition, and what limitations prevent surgical action triplets from being spatially grounded to individual instrument instances?
   \item Can a large-scale instrument instance segmentation dataset be constructed for laparoscopic cholecystectomy by extending existing public surgical datasets?
@@ -97,7 +97,7 @@ The complete pipeline is evaluated using predicted instrument instances, rather 
 \section{Thesis Scope}
 \label{sec:introduction-scope}
 
-The thesis focuses on laparoscopic cholecystectomy, for which established public datasets make it possible to develop a coherent sequence of instance-segmentation, triplet-grounding, and interaction-prediction studies. The shared procedural setting allows the contributions to build upon Cholec80, CholecT50, and CholecSeg8k while maintaining consistent definitions of instruments, actions, and anatomical targets.
+From a clinical application perspective, the thesis focuses on laparoscopic cholecystectomy, for which established public datasets make it possible to develop a coherent sequence of instance-segmentation, triplet-grounding, and interaction-prediction studies. The shared procedural setting allows the contributions to build upon Cholec80, CholecT50, and CholecSeg8k while maintaining consistent definitions of instruments, actions, and anatomical targets.
 
 The thesis does not attempt to solve every aspect of surgical scene understanding. It does not provide exhaustive anatomical segmentation, model the complete temporal workflow of an operation, or validate a clinical decision-support system prospectively. Its focus is the more specific problem of connecting instrument instances to their actions and targets. Cholecystectomy provides the principal test bed; evaluating how well the formulation transfers to other procedures remains an important next step.
 

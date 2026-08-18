@@ -2,7 +2,7 @@
 \subsection{Prompt and Response Specifications}
 \label{sec:c5:appendix-prompts}
 
-All Stage~2 configurations combine one or more grounded visual inputs with textual instructions and autoregressively generate JSON-formatted predictions. The templates below reproduce the scientifically relevant prompt content while replacing sample-specific image names and instance lists with braces. Whitespace and Python-specific string escaping are omitted. The requested schemas are formatting instructions rather than decoding constraints: generation is not programmatically restricted to valid JSON or valid triplets.
+All Stage~2 configurations combine one or more grounded visual inputs with textual instructions and autoregressively generate JSON-formatted predictions. The templates below reproduce the scientifically relevant prompt content while replacing sample-specific image names and instance lists with braces. Whitespace and Python-specific string escaping are omitted for human readability. The requested schemas are formatting instructions rather than decoding constraints: generation is not programmatically restricted to valid JSON or valid triplets.
 
 \subsubsection{Shared label vocabulary and serialisation}
 
@@ -494,5 +494,5 @@ Target prediction remains more diffuse than action prediction. Frequent structur
     \label{fig:c5:multitask-direct-confusion}
 \end{figure}
 
-\clearpage
+%\clearpage
 \fi
