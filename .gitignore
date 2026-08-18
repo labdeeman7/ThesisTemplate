@@ -37,3 +37,6 @@ _*_.synctex.gz
 _*_.tex
 
 .#*
+
+phd_papers/artifacts/
+phd_papers/sample_thesis_format/
