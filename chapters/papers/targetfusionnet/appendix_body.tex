@@ -78,7 +78,7 @@ Total & 50 & 30,955 & 49,866  & 1.61 \\
 
 
 
-\paragraph{Class distribution.}
+\paragraph{Class Distribution.}
 The dataset exhibits a highly imbalanced (long-tailed) distribution, as shown in \figref{fig:dataset-class-distributions}. A few frequent triplets dominate the dataset, while many others occur only sparsely. This pattern is mirrored in the individual instrument, verb, and target class distributions.
 
 
@@ -152,17 +152,17 @@ The dataset exhibits a highly imbalanced (long-tailed) distribution, as shown in
 \section{EndoViT Weak Supervision Details}
 To complement the model description in the main text, we analyse the behaviour and alignment of the pseudo-anatomical signals provided by EndoViT. To guide grounded triplet prediction with spatial anatomical cues, we incorporate pseudo-target logits from EndoViT~\cite{batic2024endovit}, a segmentation model trained to identify nine laparoscopic structures (one instrument, two background classes, and six anatomical regions). Although EndoViT was not designed for our target taxonomy, its outputs provide coarse yet informative spatial priors. We opted to retain the full softmax logits during training to the model rather than filtering or masking, as missing logits could lead to more disruptive inconsistencies during training.
 
-\paragraph{Qualitative assessment of EndoViT outputs.}
+\paragraph{Qualitative Assessment of EndoViT Outputs.}
 \figref{fig:endovit-fusion-context}a illustrates both successful and failed examples of EndoViT’s anatomical predictions. We visualise the predictions by taking the \texttt{argmax} across softmax channels to identify the dominant class per pixel. Examples (a) and (b) demonstrate strong segmentation performance, particularly in distinguishing bladder, liver, fat, and abdominal wall with accurate boundaries. In contrast, examples (c) and (d) highlight failure modes: (c) shows a missed gallbladder due to its position at the image periphery, while (d) depicts the specimen bag misclassified as gallbladder due to EndoViT lacking a dedicated specimen bag class.
 
-\paragraph{Semantic alignment with CholecTriplet-Seg targets.}
+\paragraph{Semantic Alignment with CholecTriplet-Seg Targets.}
 To better understand the relevance of EndoViT predictions to our task, we manually constructed a semantic mapping between EndoViT’s tissue classes and CholecTriplet-Seg targets (\figref{fig:endovit-fusion-context}b). Some mappings are one-to-one (e.g., \textit{liver} to \textit{liver}), while others are approximate or partial overlaps (e.g., EndoViT’s background covering multiple target labels). These observations support our design choice of using gated attention, allowing the model to learn when to trust or ignore weak anatomical signals during decoding.
 
 
 \section{Implementation Details}
 More implementation details are provided here to aid reproducibility and replication. All experiments were implemented using the MMDetection framework, which offers modular training pipelines, flexible configuration management, and support for segmentation architectures such as Mask2Former. All major dependency versions are documented in the released codebase. Training and evaluation were conducted on a single NVIDIA A100 GPU (40GB VRAM).
 
-\paragraph{Model architecture.}
+\paragraph{Model Architecture.}
 Our model extends Mask2Former with two core additions: (1) a weak target encoder that processes soft pseudo-target logits from EndoViT, and (2) a gated target fusion module that integrates these features into the transformer decoder. The weak target encoder first applies a $1 \times 1$ convolution to match the transformer’s channel size, then downscales the features using a sequence of $3 \times 3$ convolutions with stride 2,  batch normalisation, and ReLU activations. These multi-scale features are then injected via gated cross-attention at each decoder stage. This can be found in \texttt{downsampler\_encoder.py}
 
 We also introduced new modules to handle fusion and target-specific processing, including: (i) a classification head (\texttt{Mask2FormerTargetFusionHead.py}), (ii) a fusion-aware decoder \newline (\texttt{targetfusionhybrid\_decoder.py}), and (iii) data preprocessing logic to handle EndoViT logits.
@@ -270,7 +270,7 @@ Early-concat (Multitask)        & 72.53 & 43.24 & \textbf{21.40} & 21.15 & \text
 \end{table*}
 
 
-\subsection {Multitask learning}
+\subsection{Multitask Learning}
 One natural alternative to 100-class triplet prediction is to decompose the task into three independent classification heads: one each for instrument, verb, and target. This aligns more closely with the compositional structure of triplets and could potentially alleviate long-tail issues, since many individual categories are more balanced than their combined triplet forms.
 
 To explore this idea, we implemented two multitask variants for our Mask2Former-Triplet baseline. The first, Mask2Former-Triplet (Multitask), replaces the single 100-class head with three separate heads. The second variant, Early-concat (Multitask), augments the input by concatenating EndoViT's weak target logits with the RGB channels before the backbone, but still uses multitask heads.
@@ -278,7 +278,7 @@ To explore this idea, we implemented two multitask variants for our Mask2Former-
 Results are shown in Table~\ref{tab:segmentation_results}. We observe that multitask learning improves instrument and verb segmentation scores, particularly in the absence of EndoViT signals. However, it fails to produce gains in triplet accuracy (\mAP$_{IVT}^{seg}$). In fact, combining multitask with weak anatomical signals (Early-concat) reduces performance even further. This suggests that multitask learning, while promising, struggles to enforce coherent triplet-level structure. For this reason, we retain the 100-class formulation as the default setting for TargetFusionNet and leave further exploration for future works.
 
 
-\subsection {Fusion depth ablations.}
+\subsection{Fusion Depth Ablations}
 We also evaluated variants of TargetFusionNet with the fusion module applied only to a subset of the transformer decoder layers. Since the anatomical logits from EndoViT are weak and potentially noisy, it may be beneficial to limit their influence to early layers, allowing later stages to rely more heavily on learned visual features. This ablation helps assess whether fusion depth affects performance. Specifically, we tested fusing at 3, 6, or all 9 decoder layers.
 Results in Table~\ref{tab:fusion_depth_results} show that using all 9 layers provides the best overall triplet segmentation accuracy, suggesting that continuous guidance from weak targets throughout the decoder helps the model better align instrument actions with anatomical context.
 
@@ -324,7 +324,7 @@ Mask2Former-Triplet     &  44.0 & 260 & 51.4 \\
 \end{tabular}
 \end{table}
 
-\section[Long-tailed triplet performance]{\revnew{Effect of Long-Tailed Triplet Distribution on Model Performance}}
+\section[Long-Tailed Triplet Performance]{\revnew{Effect of Long-Tailed Triplet Distribution on Model Performance}}
 
 \revnew{
 CholecTriplet-Seg exhibits a long-tailed distribution over clinically valid triplet combinations, with a small number of frequent triplets accounting for a large proportion of annotations and many triplets occurring only sparsely (\figref{fig:dataset-class-distributions}). To analyse the effect of this imbalance on triplet segmentation performance, we group triplet classes into three frequency categories based on their occurrence in the training set.

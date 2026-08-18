@@ -39,7 +39,7 @@ The remainder of this chapter is divided into five sections.
 
 
 
-\section{Review methodology and related work}\label{sec::review_methodology}
+\section{Review Methodology and Related Work}\label{sec::review_methodology}
 
 \begin{figure}[htbp!]
    \centering
@@ -48,7 +48,7 @@ The remainder of this chapter is divided into five sections.
 \end{figure}
 
 
-\subsection{Scope of the review} 
+\subsection{Scope of the Review}
 This review focuses on the application of multi-task learning (MTL) in minimally invasive surgeries (MIS). Specifically, we limit the scope to methods that utilize videos and/or images obtained from MIS cameras to address multiple tasks, where each task yields meaningful and relevant outputs. 
 Papers that primarily focus on one task, but include auxiliary tasks to guide the learning of the primary task, were also considered for inclusion.
 With the growing relevance of large models in medical research, we also review studies that leverage such models to address multiple tasks within the context of MIS.
@@ -57,37 +57,37 @@ These works introduce readers to deep multi-task learning techniques from the br
 
 Our review is structured as a narrative review, rather than a systematic one. This approach allows for greater flexibility in examining the literature, offering a more expansive view than that typically used in systematic reviews.
 
-\subsection{Search criteria }
+\subsection{Search Criteria }
 The works reviewed were identified through an initial search on Google Scholar using keywords "multitask learning surgical vision". Following this, we manually reviewed the references within the initially identified papers to discover additional relevant works. We also conducted author-specific searches to locate further research by key contributors in the field. Finally, thematic analysis was carried out on the studies that tend to have multiple tasks solved. Searches and selections were completed by July 2023.
 
 
-\subsection{Selection criteria}
+\subsection{Selection Criteria}
 In accordance with the scope of this review, we only included publications that presented methods validated on minimally invasive surgical imaging data. Hence, we excluded works that focus on robot kinematics information, and we excluded works that focused on data from open surgeries or external operating room camera setups. 
 MIS typically employs a single, small camera inserted through an incision, offering a narrow field of view on the surgical site to support precision in confined spaces. In contrast, open surgeries and external camera setups involve wide-field imaging, with good natural lighting and fewer distortions. The scene showed by  open surgeries and external camera setups have limited visual and semantic similarity to those seen in MIS. These differences make the challenges and research questions in MIS distinct from those in other types of surgery, which is why they were excluded from the review.
 
 Following the search and selection process, 47 studies were chosen for inclusion in this review.
 
-\subsection{Analysis of selected papers}
+\subsection{Analysis of Selected Papers}
 
 \figref{fig:applications_of_mtl_in_scene_tree_diagram} provides an overview of the selected studies, categorized by their application areas within surgical scene understanding where multitask learning (MTL) has been applied. In perceptual tasks, 11 studies focus on extracting visual information, such as segmentation and depth estimation, and combining tasks to improve accuracy and efficiency. MTL has also been applied to tracking and control of surgical instruments and cameras, with 7 studies addressing this. Surgical video workflow analysis, including phase recognition and action triplet learning, is explored in 13 studies, while 5 studies cover anticipation tasks, such as predicting upcoming instruments, phases and time to surgery end. 2 studies apply MTL to surgical skill assessment by predicting skill-related metrics, and 2 studies focus on surgical report generation using MTL. Finally, 7 studies investigate large models using prompts to solve multiple tasks.
 
-\subsection{Related reviews}
+\subsection{Related Reviews}
 To the best of our knowledge, our review is the first,  to focus specifically on multitask learning (MTL) techniques within the context of minimally invasive surgeries (MIS).
 While existing reviews, such as \citet{survey_simon} and \citet{zhao2023multi}, provide valuable insights into MTL applications in general computer vision and broader medical imaging, respectively, they do not offer a targeted analysis of the specific challenges and applications of MTL within the MIS domain. 
 
 In comparison to related reviews on deep learning in MIS, such as \citet{mis_survey} and \citet{demir2023deep}, our work delves deeply into each study that applies MTL within MIS. We highlight the multitask parameter sharing approach and optimization method employed in each work, providing a level of detail not covered by these broader reviews. While \citet{mis_survey} and \citet{demir2023deep} offer overviews of deep learning applications in MIS, including image analysis and surgical workflow recognition, they do not focus on works that utilize MTL specifically.
 
-\section{Common deep MTL methodologies in computer vision}\label{sec::multitask_learning_natural_images}
+\section{Common Deep MTL Methodologies in Computer Vision}\label{sec::multitask_learning_natural_images}
 
 
 This section presents a short introduction to widely used deep MTL techniques in the field of computer vision research. We present a short examination of these techniques and representative papers that showcase the utilization of each technique. By presenting the foundations and applications of MTL techniques, this section aims to equip readers with a basic understanding of the subject, setting the stage for the upcoming sections that analyze methods employed for solving multiple vision tasks in the context of MIS.
 
 
-\subsection{MTL concepts}
+\subsection{MTL Concepts}
 There are different ways of categorizing MTL core concepts. For our purpose, we focus on four concepts that recurrently emerge in the MTL literature for MIS: parameter sharing, optimization and task-balancing, auxiliary objectives, and data-efficient approaches.  
 
 
-\subsubsection{Parameter sharing and feature representation} \label{subsec::parameter_sharing}
+\subsubsection{Parameter Sharing and Feature Representation} \label{subsec::parameter_sharing}
 The mainstream multitask paradigm assumes that tasks are related as the knowledge required for solving these tasks is connected. Following this assumption, features produced for the same input sample on multiple tasks which are related should also be related. 
 Hence, common feature representation learnt for multiple tasks would have more informative and robust feature representations as they take into account multiple tasks~\citep{survey_zhang}.
 Additionally, each task acts as a regularization for other tasks, smoothening out noise, as features which are utilized for multiple different tasks are less likely to overfit to training samples \citep{survey_zhang}. 
@@ -121,7 +121,7 @@ Other examples of hard parameter-sharing architectures include  \citep{Xu_2018_C
 Cross-stitch network \citep{Misra_2016_CVPR} is a good example of soft parameter sharing. This paper is concerned with the design decision about when to split a network into task-specific networks and general/shared parameters. To solve this, the authors propose a unified splitting architecture, which is a type of soft parameter sharing architecture. Different separate networks are connected with the cross-stitch module across various layers of the separate networks. This is done by learning a linear combination of the input activation maps from both tasks. Other examples of soft parameter sharing architectures include \citep{gao2019nddr,ruder2019latent} 
 
 
-\subsubsection{Optimization and task balancing} \label{subsec::optimization_and_task_balancing}
+\subsubsection{Optimization and Task Balancing} \label{subsec::optimization_and_task_balancing}
 Designing networks with shared parameters and learning these parameters together raises an important question: What is the right way to optimise both tasks jointly?
 
 \figref{fig:task_balancing_and_optimization} provides a brief overview of the various methods of optimization methods discussed in this section. \href{https://github.com/median-research-group/LibMTL}{LibMTL}\citep{lin2023libmtl} is a python repository with adaptable code implementation for the common multitask architectures and optimization strategies discussed here.
@@ -181,12 +181,12 @@ PTML pushes this idea further by generalizing the mathematical formulations from
 
 
 
-\subsubsection{Auxiliary objectives} \label{sec::multitask_learning_natural_images::auxiliary_tasks}
+\subsubsection{Auxiliary Objectives} \label{sec::multitask_learning_natural_images::auxiliary_tasks}
 In MTL, auxiliary tasks are additional tasks that are learned simultaneously with the primary task to improve the overall performance of a model on the primary task. The idea behind auxiliary tasks is that they can provide helpful information or constraints to help the model learn a rich and robust representation of the input data, which in turn benefits the primary task \citep{liebel2018auxiliary}.
 \citet{zhang2014facial} proffer a method that optimizes a main task in their application, facial landmark detection, together with auxiliary tasks like head pose estimation, facial expression recognition and age estimation. The authors propose a deep network to extract shared features with different classifier heads for each task. 
 
 
-\subsubsection{Data efficient approaches}
+\subsubsection{Data-Efficient Approaches}
 Building large-scale computer vision datasets is resource intensive \citep{Liao_2021_CVPR}. This is even more noticeable for networks that use the MTL paradigm, which requires labelling for multiple different tasks per sample. There are few publically available datasets designed specifically for working with multiple tasks \citep{zamir2018taskonomy,yu2020meta}.
 Hence, problems such as limited annotations for multiple tasks and the availability of different task labels in different datasets, are often faced by researchers face when they want to utilize MTL. Consequently, there have been research works to develop MTL techniques to solve these challenges.   
 
@@ -206,7 +206,7 @@ The authors derive an upper bound of the loss for the joint probability problem.
   \label{fig:mtl_and_other_learning_paradigms}
 \end{figure}
 
-\subsection{MTL and other learning paradigms}
+\subsection{MTL and Other Learning Paradigms}
 MTL is a learning paradigm that trains a single model to perform multiple tasks simultaneously by sharing information across them, leading to better representations useful for all tasks.
 
 The idea of using information from a different task or different outputs to improve representation is not unique to MTL and shares similarities with other learning paradigms, which can make it challenging to differentiate between them. 
@@ -225,7 +225,7 @@ Despite their similarities, each paradigm has its unique features and objectives
 \emph{Multimodal learning} involves learning over diverse data modalities. Multimodal learning is usually done with a separate encoder for each different modality and a fusion module. Multitask learning can have inputs of different modalities.
 
 
-\section{Applications of MTL in surgical scene understanding} \label{sec::mtl_surgical}
+\section{Applications of MTL in Surgical Scene Understanding} \label{sec::mtl_surgical}
 
 This section delves into the applications of the multitask paradigm in the context of surgical scene understanding, where it tackles the challenge of simultaneously learning multiple subtasks to enhance both efficiency and accuracy.
 Additionally, it explores the utility of auxiliary tasks to augment primary tasks in surgical scene understanding. 
@@ -283,14 +283,14 @@ In the subsequent subsections, we describe the deployment of MTL for surgical sc
 
 
 
-\subsection{MTL for perceptual tasks} \label{section::perceptual}
+\subsection{MTL for Perceptual Tasks} \label{section::perceptual}
 In the context of this report, \emph{perceptual tasks} refer to tasks such as image segmentation, object detection, motion estimation, and depth estimation. These tasks are focused on extracting essential visual information from images or videos, with an emphasis on revealing the spatial layout, motion, semantic, and depth relationships of objects within the scene. Perceptual tasks provide valuable information about spatial layout, motion, and depth relationships in the scene. The outcomes of perceptual tasks play a critical role in providing insights into the surgical scene, serving as the foundational elements for more advanced computer vision processes, including action recognition and object tracking. By enhancing the performance of perceptual tasks, researchers can better prepare input data in a way that significantly eases and enhances the accuracy of subsequent higher-level tasks.
 \tabref{perceptual_tasks:table} summarizes the papers discussed in this subsection, highlighting the multiple tasks addressed, the optimization approaches adopted, the architectural strategies used for multitask learning, and the reported speeds for each study.
 
 
 
 
-\subsubsection{Combination of perceptual tasks}
+\subsubsection{Combination of Perceptual Tasks}
 MTL for perceptual tasks in minimally invasive scenes seeks to identify task combinations that can improve problem-solving accuracy \citep{simultaneous_depth_tool_seg,islam2020apmtl,scalable_joint_detection,multi_contour,multi_HOG,landmark_detection_submucosal} or efficiency, taking into account factors such as inference speed \citep{scalable_joint_detection,islam2020apmtl}, memory usage \citep{scalable_joint_detection,islam2020apmtl}, and annotation requirements \citep{scalable_joint_detection}. Furthermore, the existing body of literature demonstrates the presence of various distinct auxiliary tasks that can provide valuable guidance for optimizing perceptual tasks \citep{multi_contour,multi_HOG,landmark_detection_submucosal}.
 
 
@@ -341,7 +341,7 @@ Interestingly, the authors observed decreased performance when utilizing plain M
 
 
 
-\subsubsection{Perceptual tasks and auxiliary tasks}
+\subsubsection{Perceptual Tasks and Auxiliary Tasks}
 In the previous papers, the focus is on enhancing the performance of two or more tasks by training them together.
 However, an alternative approach is to prioritize one primary task and introduce another task as an auxiliary task \citep{multi_contour,multi_HOG,ss_depth_estimation_laparo,landmark_detection_submucosal}.
 The role of the auxiliary task is to guide the training of the primary perceptual task.
@@ -409,7 +409,7 @@ This approach stands out by introducing an auxiliary task for capturing the spat
 The authors propose a shape-aware relation network based on the U-Net architecture featuring multiple decoders. This network functions as an MTL system that predicts both landmark positions and the heatmap of landmark spatial relationships. Similar to \citet{ss_depth_estimation_laparo}, auxiliary tasks were used to incorporate domain knowledge into the network, yielding positive results.
 
 
-\subsection{MTL for tracking and control} \label{sec::mtl_surgical::pose_automatic_camera}
+\subsection{MTL for Tracking and Control} \label{sec::mtl_surgical::pose_automatic_camera}
 
 In this subsection, we explore multitask learning (MTL) applications in the context of tracking in the surgical scene and the control of instruments or minimally invasive cameras. We focus on two main areas within this context: pose estimation and camera motion prediction. Pose estimation involves determining the position and orientation of surgical instruments or anatomical structures within the surgical field. Camera motion prediction, on the other hand, deals with forecasting the correct movement of the minimally invasive camera based on the current and past states of the surgical environment.
 
@@ -417,7 +417,7 @@ In this subsection, we explore multitask learning (MTL) applications in the cont
 \tabref{tracking_and_control:table} summarizes the papers discussed in this subsection, highlighting the multiple tasks addressed, the optimization approaches adopted, the architectural strategies used for multitask learning, and the reported speeds for each study.
 
 
-\subsubsection{Pose estimation}
+\subsubsection{Pose Estimation}
 Pose estimation is the process of determining the spatial configuration of objects or entities within a given scene, with a focus on estimating their positions and orientations. Pose estimation can be categorized into two branches based on the coordinate system in which the pose is measured: 2D pose estimation and 3D pose estimation.
 2D pose estimation is particularly well-suited for scenarios where depth information is not essential or available. The goal is to accurately localize key points or landmarks that define the orientation of the object of interest within the image.
 On the other hand, 3D pose estimation involves estimating the full three-dimensional spatial configuration of objects in the scene. This estimation includes both the 2D position and depth information, along with orientation, making it a more challenging task.
@@ -452,7 +452,7 @@ As evident from the literature on instrument/camera tracking methods in MIS, suc
 
 Another closely related and prevalent task to surgical instrument pose estimation is motion prediction for cameras, which also plays a significant role in the context of tracking and control in minimally invasive surgeries.
 
-\subsubsection{Camera motion prediction}
+\subsubsection{Camera Motion Prediction}
 The motion prediction task for cameras has been explored along two primary avenues: scanpath prediction and camera imitation learning.
 Scanpath prediction involves forecasting the potential camera paths based on the most captivating elements within the camera's current field of view. It draws inspiration from a theory in human gaze fixation, which posits a direct connection between human gaze scanpath and the attentional priority of objects in an image, often referred to as object saliency. In simpler terms, humans tend to focus on the most vital information first before shifting their gaze to less significant details. In the context of MIS, scanpath prediction tasks are centred around predicting the most salient objects in a scene and plotting a path from the most salient to the least salient areas.
 \citet{Foulsham} provide a good reference for further insights on scanpaths, saliency, and their correlations.
@@ -548,7 +548,7 @@ The authors utilize the Neural-Guided Random Sample Consensus (NG-RANSAC) method
 Additionally, they apply the remote centre of motion constraint to optimize the pose estimation. The ground truth motion in the $x$, $y$, and $z$ directions is derived from different sequential poses.
 The inputs to the ConvLSTM model comprise estimated segmentation and optical flow obtained from off-the-shelf models. The model optimizes for correct outputs of the subsequent $N$ optical flow and segmentation results. The optical flow outputs are then passed through a laparoscopic action head to predict the camera's movements in the $x$, $y$, and $z$ coordinates. \citet{multi_fov} improve on their previous work \citep{li2021data} by focusing on proactive camera motion and learning the motion strategy from clinical videos instead of reactive motion prediction and instrument tracking. Additionally, \citet{multi_fov} directly predict in 3D space instead of generating results in 2D and scaling to 3D, making their approach unique among the methods reviewed.
 
-\subsection{MTL for surgical video workflow analysis}
+\subsection{MTL for Surgical Video Workflow Analysis}
 Surgical video workflow analysis is the systematic examination of videos recorded during surgical procedures, aiming to extract valuable insights into various facets of the surgery. This analysis serves multiple critical purposes, including providing context-aware intraoperative assistance, enhancing surgeon training, facilitating procedure planning, supporting research endeavours, and enabling retrospective analysis \citep{lalys2014surgical}.
 
 The analysis process involves breaking down a surgical procedure video into distinct segments, which are categorized based on the surgeon's various activities. Different surgeries can be divided into specific activities, which can be examined at multiple levels of granularity. 
@@ -573,7 +573,7 @@ In this section, we explore the literature which applies MTL to solve the surgic
 \tabref{workflow:table} summarizes the papers discussed in this subsection, highlighting the multiple tasks addressed, the optimization approaches adopted, the architectural strategies used for multitask learning, and the reported speeds for each study. 
 
 
-\subsubsection{Phase and instrument detection}
+\subsubsection{Phase and Instrument Detection}
 Early research in surgical activity recognition with MTL primarily centred on phase recognition \citep{EndoNet,tecno,Sanchez-Matilla2022_data_centric,multi_task_recurrent_conv}. 
 phase recognition was usually predicted alongside instrument recognition specifically tool presence detection. The rationale for focusing on instrument recognition is rooted in the understanding that surgical instruments are the means by which surgeons interact with the surgical scene. Assuming standard surgical practices are followed, a substantial correlation exists between the choice of specific tools and the corresponding activities undertaken during a surgical procedure. 
 
@@ -637,7 +637,7 @@ Each step and phase requires very specific actions performed on specific tissues
 
 
 
-\subsubsection{Surgical action triplet learning}
+\subsubsection{Surgical Action Triplet Learning}
 \label{sec:review-triplet-learning}
 More recent literature has compellingly argued against the exclusive prediction of surgical workflow either directly or solely based on tool presence. It has been contended that such an approach proves inadequate for a comprehensive understanding of surgical scenes. Instead, these works shift their focus towards the more granular action recognition task, striving to establish connections between three crucial elements before attempting to predict activities with longer sequences: the specific instrument in use, the action being performed, and the target anatomy undergoing the procedure, often collectively represented as three distinct labels, $<$instrument, action, target$>$.
 This predictive task illustrated in \figref{fig:triplet_example} and involving these three distinct labels is often referred to as the `surgical triplet prediction task' \citep{laproscopic_rule_based_action_triplets}.
@@ -733,7 +733,7 @@ The authors emphasize that they train each subnetwork in different stages, as at
 The surgical action triplet task is evolving in complexity. Initially framed as a multilabel multiclassification task for \textlangle{}instrument, verb, target\textrangle{} by \citet{1nywoye_rec_action_triplets,NWOYE2022102433_rendevous}, it now includes bounding box detection and segmentation of instruments \citep{sharma2023surgical} and video-based analysis \citep{1nywoye_rec_action_triplets}. The multilabel multiclassification task and its progression is similar to fields such as human-object interaction \citep{kim2021hotr} and panoptic scene generation \citep{yang2022panoptic} in computer vision, reflecting an increasing emphasis on spatial tasks and comprehensive scene understanding.
 
 
-\subsubsection{Multi-granularity activity detection}
+\subsubsection{Multi-Granularity Activity Detection}
 A comprehensive understanding of temporal relationships in MIS hinges on a network's ability to grasp the concept that multiple actions are required to complete a step and that multiple steps collectively constitute phases. This interconnection of granularities in surgical activities can serve as valuable signals for training deep neural networks in surgical activity recognition.
 Despite the limited available datasets, there is a growing interest in multi-granularity surgical activity learning, spurred by the recent introduction of multiple datasets providing labels for various granularities \citep{autolaparo,huaulme2021micro,holistic_scene_understanding}. 
 
@@ -785,7 +785,7 @@ The authors use a concatenation approach to combine the insights from these two 
 
 
 
-\subsection{MTL for anticipation in surgical workflow optimization}
+\subsection{MTL for Anticipation in Surgical Workflow Optimization}
 Optimizing surgical workflows is critical for enhancing the efficiency and safety of procedures in the Operating Room (OR) \cite{yuan2022anticipation}. Multitask learning (MTL) has been employed to improve various aspects of surgical workflow, such as predicting future instrument usage, phase transitions or time till the end of the ongoing surgery. This subsection reviews four studies that utilize MTL for predicting future instruments and phases to optimize surgical workflows in MIS.
 \tabref{workflow_optimization_tasks:table} summarizes the papers discussed in this subsection, highlighting the multiple tasks addressed, the optimization approaches adopted, the architectural strategies used for multitask learning, and the reported speeds for each study.
 
@@ -830,7 +830,7 @@ While phase anticipation is valuable, it would also be beneficial to test these 
 
 
 
-\subsection{MTL for surgical skill assessment}
+\subsection{MTL for Surgical Skill Assessment}
 
 Traditionally, surgical skill assessment involves senior surgeons observing and evaluating less experienced counterparts using standardized rating checklists such as the Objective Structured Assessment of Technical Skills (OSATS) \citep{osats}. However, the demand for training more doctors exceeds the number of experienced surgeons, making an automated system for scoring a surgeon's skill invaluable for trainees.
 In this subsection, we discuss works that utilized multitask learning for surgical skill assessment. The JHU-ISI Gesture and Skill Assessment Working Set (JIGSAWS) dataset \citep{jigsaws} is the standard benchmark for training and evaluating surgical gestures and skills \cite{lam2022machine} in minimally invasive surgeries. Common metrics used in these evaluations are accuracy for gesture recognition and Spearman's correlation ($\rho_{GRS}$ and $\rho_{OSATS}$) for skill scores.
@@ -877,7 +877,7 @@ The second stage focuses on the task of predicting skill assessment for the gest
 
 Both \citet{accurate_skill_assessment_gesture} and \citet{jian2020multitask} demonstrate improvements over single-task surgical skill assessment models. However, the JIGSAWS dataset, released in 2014, remains the standard benchmark for surgical skill assessment \cite{lam2022machine}. Given its relatively small size compared to contemporary deep learning datasets, there is a need for larger and more comprehensive datasets in the field.
 
-\subsection{MTL for surgical report generation} \label{sec::report_generation}
+\subsection{MTL for Surgical Report Generation} \label{sec::report_generation}
 
 The automatic generation of surgical reports can free surgeons and nurses from the tedious task of document entry, allowing them to focus more on patients and post-operative interventions \citep{xu2021class,lin2022sgt}. 
 Currently, in the existing literature, the approach to the surgical report generation task primarily revolves around frame-by-frame scene captioning \citep{xu2021class,lin2022sgt,seenivasan2022global,mobarakol_task_aware}.
@@ -941,14 +941,14 @@ Recognizing the challenge of model generalization to target domains and the need
 
 The surgical reporting task is still in its early stages. While the EndoVis2018-with-interactions dataset, which incorporates sentence templates and classification questions, has been useful, it may not fully capture the complexity of natural language used in real-world surgical reports. Consequently, the relevance of captioning metrics and tasks based on this dataset can be questioned. Developing a dataset based on actual surgical reports generated by surgeons in day-to-day procedures would likely provide more valuable insights and improve the robustness of surgical report generation systems.
 
-\subsection{Large models for solving multiple tasks}
+\subsection{Large Models for Solving Multiple Tasks}
 Large models pretrained on extensive datasets, such as GPT-2 \cite{radford2021learning} and SAM \cite{kirillov2023segment}, have demonstrated remarkable generalization capabilities. They exhibit emergent properties, such as the ability to solve multiple tasks by utilizing task-promptable engineering \cite{radford2019language,kirillov2023segment}. Task-promptable engineering allows these models to adapt to various tasks based on given prompts, making them highly versatile and generalizable backbones capable of zero-shot learning or fine-tuning for different downstream applications \cite{su2024stem}. In the current literature, large models exhibit this capability of solving multiple tasks in surgical scene understanding, with fields such as task-promptable segmentation, and visual question answering being explored.
 
 \tabref{large_models:table} summarizes the papers discussed in this subsection, highlighting the multiple tasks addressed, the optimization approaches adopted, the architectural strategies used for multitask learning, and the reported speeds for each study.
 
 
 
-\subsubsection{Visual question answering}
+\subsubsection{Visual Question Answering}
 \citet{seenivasan2022surgical} introduce the problem of visual question answering (VQA) in the context of surgery. They develop a large model capable of providing textual answers to a wide range of questions, including tasks such as tissue presence recognition, instrument localization, tool presence recognition, and action recognition. To achieve this, they expand the EndoVis2018 and Cholec80 datasets by adding sentence-based and classification-based answers to a predefined set of questions. The authors propose two models based on the VisualBERT architecture \citep{li2019visualbert} for classification-based and sentence-based answering in surgical VQA. They improve the VisualBERT encoder by introducing cross-token and cross-channel submodules to enhance the interaction between visual and text tokens. For the classification-based model, they utilize linear classifiers, with initial sentence classification determining the appropriate linear layer. The sentence-based model employs a standard transformer decoder.
 
 In subsequent work, SurgicalGPT \citep{seenivasan2023surgicalgpt} for the surgical VQA task, the authors replace the VisualBERT architecture with GPT-2 \citep{radford2019language}, enhancing it with a vision encoder. They concatenate tokens from the text and vision encoders before feeding them to the GPT decoder, which they refer to as LV-GPT. Additionally, they change the unidirectional attention to a bidirectional attention model in the GPT decoder. Notably, they report improved performance compared to \citet{seenivasan2022surgical}. 
@@ -956,7 +956,7 @@ In subsequent work, SurgicalGPT \citep{seenivasan2023surgicalgpt} for the surgic
 \citet{seenivasan2022surgical,seenivasan2023surgicalgpt} generated multiple VQA datasets by converting existing interaction-based minimally invasive surgery datasets, such as Endovis-with-interaction, Cholec80, and PSI-AVA, into Visual Question Answering (VQA) datasets. They demonstrated improvements over state-of-the-art VQA models for medical applications using these datasets.
 Models trained on classification-based VQA datasets perform tasks such as counting, interaction recognition, localization, and classification by utilizing text prompts. However, it would be interesting to see these models applied to more complex VQA datasets with more complex answers, that require a really deep understanding of the surgical scene.  
 
-\subsubsection{Promptable segmentation}
+\subsubsection{Promptable Segmentation}
 Another application of the concept of generalizable tasks is \emph{promptable segmentation}, which primarily focuses on binary segmentation for ideas represented in various forms, including text \citep{zhou2023text}, points \citep{kirillov2023segment}, bounding boxes \citep{kirillov2023segment}, and reference images \citep{lueddecke22_cvpr}. This approach allows for the execution of binary segmentation, instance segmentation, part segmentation, and instrument-type segmentation, provided that suitable prompts are provided.
 
 
@@ -979,7 +979,7 @@ AdaptiveSAM \citep{paranjape2023adaptivesam} addresses the bounding box requirem
 All these methods \citep{ma2023segment,yue2023surgicalsam,paranjape2023adaptivesam} report significant improvement over the vanilla SAM approach when applied to surgical segmentation datasets over various segmentation tasks.
 
 
-\section{Public datasets for MTL in MIS} \label{sec::datasets}
+\section{Public Datasets for MTL in MIS} \label{sec::datasets}
 
 \begingroup
 \scriptsize
@@ -1457,53 +1457,53 @@ we do not detail these single task datasets in this section.  Moreover, there ar
 For a quick overview of datasets designed for multiple tasks, along with information such as the amount of of images and labels, and other relevant information, readers can refer to \tabref{table:dataset_summary}.
 We do not include private datasets (e.g. ByPass40 \citep{Ramesh2021_phase_step_gastric_bypass}). For more information about surgical tool datasets, including non-multitask learning datasets, we recommend the following online resource: \href{ https://github.com/luiscarlosgph/list-of-surgical-tool-datasets}{https://github.com/luiscarlosgph/list-of-surgical-tool-datasets}.   
 
-\subsection{Integrated Multi-tasks for 
-Image-guided Surgical Automation in Laparoscopic Hysterectomy Dataset (AutoLaparo)}
+\subsection{Integrated Multi-Tasks for
+Image-Guided Surgical Automation in Laparoscopic Hysterectomy Dataset (AutoLaparo)}
 The \href{https://autolaparo.github.io/}{AutoLaparo} dataset \citep{autolaparo} supports image-guided surgical automation in laparoscopic hysterectomy, offering three sub-datasets: phase recognition, laparoscope motion prediction, and instrument segmentation with key anatomy annotation. The 21 procedures are recorded at 25 fps with a resolution of 1920x1080 pixels. These procedures are annotated with phase labels (7 phases). The laparoscope motion prediction sub-dataset consists of 300 clips, extracted from phases 2-4 of recorded procedures, each annotated with one of seven motion modes (up, down, left, right, zoom-in and zoom-out). The segmentation sub-dataset includes instruments (4 instruments) and key anatomy (1 anatomy) segmentation for keyframes in the motion prediction clips.
 
 
 
-\subsection{Augmented Reality Tool Network dataset (ART-Net)}
+\subsection{Augmented Reality Tool Network Dataset (ART-Net)}
 The \href{https://github.com/kamruleee51/ART-Net}{ART-Net} dataset \citep{art_net} is tailored for non-robotic laparoscopic hysterectomy, emphasizing 3D graphics applications. Annotations cover tool presence detection, binary tool segmentation, and 2D pose estimation. Extracted from 29 procedures, the dataset provides frames with and without instruments, annotating these frames for tool presence. Keyframes are annotated for binary tool segmentation and 2D pose in the form of geometric primitives (tool-tip, midline and instrument shaft heatmaps).
 
 
 
-\subsection{HeiChole Surgical Workflow Analysis and Full Scene Segmentation dataset (HeiSURF)}
+\subsection{HeiChole Surgical Workflow Analysis and Full Scene Segmentation Dataset (HeiSURF)}
 The \href{https://www.synapse.org/#!Synapse:syn25101790/wiki/}{HeiSURF} dataset \citep{heisurf} for day-to-day laparoscopic cholecystectomy includes annotations for phase recognition, full scene segmentation, action recognition, instrument presence detection, and skill assessment. Each procedure in the dataset is annotated for phase (7 phases), and keyframes are annotated for full scene segmentation and actions. Three videos per procedure are extracted and annotated with 5 skill annotations. The HeiSURF dataset is a parent dataset of an earlier dataset - the HeiChole dataset (This did not contain segmentation information) \citep{WAGNER2023102770}.
 
 
 
-\subsection{Phase, Step, Instrument, and Atomic Visual Action recognition dataset (PSI-AVA)}
+\subsection{Phase, Step, Instrument, and Atomic Visual Action Recognition Dataset (PSI-AVA)}
 The \href{https://github.com/BCV-Uniandes/TAPIR}{PSI-AVA} dataset \citep{holistic_scene_understanding} focuses on robot-assisted radial prostatectomy for phase recognition, step recognition, instrument presence, instrument bounding boxes, and action recognition. The whole dataset is labelled for phase (11 phases) and step (21 steps) recognition. Keyframes annotated with bounding boxes provide detailed instrument detection (7 instruments) and corresponding actions (16 actions).
 
 
-\subsection{The Heidelberg Colorectal Dataset for Surgical Data Science in the Sensor Operating Room dataset (HeiCo)}
+\subsection{The Heidelberg Colorectal Dataset for Surgical Data Science in the Sensor Operating Room Dataset (HeiCo)}
 The \href{https://www.synapse.org/#!Synapse:syn21903917/wiki/601992}{HeiCo} \citep{heico} dataset features colorectal procedures for instrument segmentation and phase recognition. The dataset, derived from 30 procedures, covers proctocolectomy, rectal resection, and sigmoid resection. Phase recognition (14 phases) annotations are provided for the whole dataset. Keyframes with instance segmentation labels are also provided. A 10-second video snippet preceding each annotated keyframe is provided for temporal context. HeiCo contains data on surgical workflow analysis from the sensorOR challenge \citep{heico} and data from the Robust-MIS segmentation dataset \citep{robustmis2019}. 
 
 
 
-\subsection{The John Hopkins University - Intuitive Surgical Inc. Gesture and Skill Assessment Working Set dataset (JIGSAWS)}
+\subsection{The John Hopkins University - Intuitive Surgical Inc. Gesture and Skill Assessment Working Set Dataset (JIGSAWS)}
 \href{https://cirl.lcsr.jhu.edu/research/hmm/datasets/jigsaws_release/}{JIGSAWS} dataset \citep{jigsaws} contains annotations for manipulator gestures and surgical skills collected from recorded trials of eight medical doctors with varying skill levels performing suturing, knot-tying, and needle-passing task with the da Vinci Robot Surgical System (DSS). The dataset includes kinematic data (76D vector capturing the position, orientation, velocity and angle of the manipulator and camera), synchronized stereo video recordings (each at 30fps for approximately 2 minutes), and annotations for automatic gesture recognition (15 gestures) and skill assessment (a modified form of OSATS \citep{osats}). 
 
 
-\subsection{The MIcro-Surgical Anastomose Workflow recognition on training sessions dataset (MISAW)}
+\subsection{The MIcro-Surgical Anastomose Workflow Recognition on Training Sessions Dataset (MISAW)}
 \href{https://www.synapse.org/#!Synapse:syn21776936/wiki/601700}{MISAW} dataset \citep{huaulme2021micro} focuses on multi-granularity surgical activity recognition in micro-surgical anastomosis. The dataset consists of 27 sequences recorded using a stereo-microscope, along with annotations for phase (2 phases), step (6 steps), action (17 actions), instrument presence (1 instrument), and instrument tissue targets (9 targets) for each frame. Synchronized kinematic data are also provided.
 
-\subsection{PEg TRAnsfer Workflow recognition by different modalities dataset (PETRAW)}
+\subsection{PEg TRAnsfer Workflow Recognition by Different Modalities Dataset (PETRAW)}
 The \href{https://www.synapse.org/#!Synapse:syn25147789/wiki/}{PETRAW} dataset \citep{huaulme2022peg} is designed for workflow recognition in peg transfer training sessions. The dataset comprises 150 sequences of peg transfer sessions recorded on a virtual reality simulator, kinematic data, videos, and annotations for semantic segmentation (2 targets and 1 instrument), phase (2 phases), step (12 steps), and action annotations (6 actions). 
 
 
-\subsection{Surgical Instrumentation Segmentation and Action Recognition on Robot-Assisted Radical Prostatectomy dataset (SAR-RARP50)}
+\subsection{Surgical Instrumentation Segmentation and Action Recognition on Robot-Assisted Radical Prostatectomy Dataset (SAR-RARP50)}
 The \href{https://www.synapse.org/#!Synapse:syn27618412/wiki/616881}{SAR-RARP50} dataset \citep{psychogyios2023sar} is designed to address data-scarcity challenges in surgical action recognition and tool segmentation for in vivo Robotic Assisted Radical Prostatectomy. The dataset comprises of 50 suturing segments acquired with a DaVinci Si Robot that features a stereo endoscope. The dataset is annotated for instrument segmentation (9 instruments) at keyframes and action (8 actions) for the whole dataset.
 
 
 
 
-\subsection{The CholecT50 dataset}
+\subsection{The CholecT50 Dataset}
 CholecT50 \citep{NWOYE2022102433_rendevous} is a dataset for furthering the research of tool-tissue interactions, formalized as action triplets \textlangle{}instrument, action, target\textrangle{} for laparoscopic cholecystectomy procedures. 
 It consists of 50 laparoscopic cholecystectomy procedures annotated with action triplets. As it is a subset of the Cholec120 dataset, it also contains relevant annotations from Cholec120 such as phase recognition, and tool presence labels for the relevant procedures. CholecT50 is the most comprehensive iteration of action triplet datasets released by the CAMMA research group which also includes  CholecT40 \citep{1nywoye_rec_action_triplets}, and \href{https://github.com/CAMMA-public/cholect45}{CholecT45}. \citet{nwoye2022data} gives in-depth information about the CholecT50 and related datasets, the benchmarks, metrics, and other relevant information.
 
-\subsection{Multi-centric Multi-activity Dataset laparoscopic Roux-en-Y gastric bypass (LRYGB) dataset(MultiBypass140)}
+\subsection{Multi-Centric Multi-Activity Dataset Laparoscopic Roux-en-Y Gastric Bypass (LRYGB) Dataset (MultiBypass140)}
 The \href{https://github.com/CAMMA-public/MultiBypass140}{MultiBypass140} dataset \citep{Lavanchy2024} is designed for phase and step recognition, particularly focusing on datasets collected from different hospitals (multi-centric) and the importance of multi-centric datasets for generalization. 
 The dataset comprises 140 sequences of laparoscopic Roux-en-Y gastric bypass (LRYGB) surgeries performed at two medical centres and annotations for phase (12 phases), and steps (46 steps). MultiBypass140 is an extension of the Bypass40 \cite{Ramesh2021_phase_step_gastric_bypass} dataset.
 
@@ -1513,12 +1513,12 @@ The dataset comprises 201 videos and annotations for CVS(3 labels), bounding box
 
 
 
-\subsection{SARAS challenge on Multi-domain Endoscopic Surgeon Action Detection dataset (SARAS-MESAD)}
+\subsection{SARAS Challenge on Multi-Domain Endoscopic Surgeon Action Detection Dataset (SARAS-MESAD)}
 \href{https://saras-mesad.grand-challenge.org/Home/}{SARAS-MESAD} dataset \citep{saras_mesad} facilitates surgical activity recognition research and cross-domain learning. It includes MESAD-Real and MESAD-Phantom sub-datasets, offering annotated frames for instrument detection and action recognition for human prostatectomy and phantom surgeries. This dataset builds on the previous \href{https://saras-esad.grand-challenge.org/}{SARAS-ESAD} dataset \citep{bawa2021saras}.
 
 
 
-\subsection{The EndoVis-18-VQA dataset} \label{sec:endovis_2018_vqa_dataset}
+\subsection{The EndoVis-18-VQA Dataset} \label{sec:endovis_2018_vqa_dataset}
 The \href{https://github.com/lalithjets/SurgicalGPT}{EndoVis-18-VQA} dataset  \citep{seenivasan2022surgical} was designed for advancing research in visual question answering using the Endovis2018 dataset. 
 The dataset comprises images from the 14 sequences in the Endovis2018 dataset and contains classification-based questions and answers about tissues, actions and tool locations from the Endovis2018 annotations. This dataset is the more recent version of Endovis2018-with-interactions discussed in \secref{sec::report_generation}
 
@@ -1531,17 +1531,17 @@ The dataset comprises images from 40 sequences in the Cholec80 dataset and conta
 The \href{https://github.com/lalithjets/SurgicalGPT}{PSI-AVA-VQA} dataset was designed for advancing research in visual question answering using the PSI-AVA dataset \citep{seenivasan2023surgicalgpt}. 
 The dataset comprises images from 8 sequences in the PSI-AVA dataset and contains classification-based questions on surgical phase, step, and location annotations from the PSI-AVA annotations.
 
-\subsection{Surgical Scene Graph-based dataset (SSG-VQA)}
+\subsection{Surgical Scene Graph-Based Dataset (SSG-VQA)}
 The \href{https://github.com/CAMMA-public/SSG-VQA}{SSG-VQA} dataset was designed for advancing research in visual question answering, in laparoscopic cholecystectomy surgeries \citep{yuan2024advancing}. 
 The dataset comprises images from the 45 sequences of the CholecT45 dataset \citep{NWOYE2022102433_rendevous}, interaction labels(\textlangle{}instrument, action, target\textrangle) from the CholecT45 dataset, bounding boxes generated by pseudo-labelling using models trained on m2cai16-tool-locations \citep{jin2018tool} and CholecSeg8k \citep{cholecseg8k}, and questions for various tasks such as questions on spatial locations of instruments and tissues, relationships between objects in a scene,  generated by a well-curated question template engine with strategies to address the class imbalance and remove poorly formulated questions that are not challenging. Questions were designed to be more complex than other surgical VQA datasets available. 
 
 
 
-\section{Discussion and conclusion} \label{sec::discussions_and_conclusions}
+\section{Discussion and Conclusion} \label{sec::discussions_and_conclusions}
 In this section, we consolidate our insights and observations from the MIS-related papers in \secref{sec::mtl_surgical} and connect them with generic MTL techniques for natural images introduced in \secref{sec::multitask_learning_natural_images}.
 We also draw parallels with recent trends in the deep learning community.
 
-\subsection{  Learning multiple tasks together in the MIS domain }
+\subsection{Learning Multiple Tasks Together in the MIS Domain}
 
 A prominent observation from the reviewed papers in \secref{sec::mtl_surgical} is that there are successful applications of MTL in minimally invasive surgeries (MIS). . We have observed several methodologies for learning perceptual tasks together in this context 
 \cite{simultaneous_depth_tool_seg,scalable_joint_detection,islam2020apmtl,baby2023forks,zhao2022trasetr,das2023multi,msdesis}. While most reported positive outcomes \cite{simultaneous_depth_tool_seg,scalable_joint_detection,islam2020apmtl,baby2023forks,zhao2022trasetr,das2023multi}, others indicate negative transfer effects or negligible improvements \cite{msdesis}, demonstrating the need for in-depth investigations on which tasks assist each other or regularly cause negative transfer, similar to the work of \citet{standley2020tasks}.  Furthermore, we found a lack of studies focusing on learning perceptual tasks like motion flow, and normal estimation, suggesting an unexplored research direction or that these tasks may not work well in the multitask learning framework. 
@@ -1574,7 +1574,7 @@ Another noteworthy point is that only a few works among the reviewed surgical vi
 
 
 
-\subsection{Multitask learning for automatic camera control}
+\subsection{Multitask Learning for Automatic Camera Control}
 The discussion on automatic camera control in the context of MIS raises some interesting points. While the scanpath prediction task has been a significant development, it may not provide a comprehensive solution for automating camera movements in these surgeries. The approach of focusing primarily on surgical instruments \citep{learning_look_tracking,Islam2020_ST_MTL}, while valuable, may overlook the importance of capturing the surgical field comprehensively, including tissues and organs. Surgical procedures often involve dynamic movements where instruments enter and exit the field of view, and the camera's focus may need to adapt to these changes, as detailed by \citet{prostatectomy_video}. This highlights the complexity of the task, where understanding the surgical context and deciding what to focus on is crucial.
 
 An emerging approach to automating camera control is camera imitation and surgical intent learning \citep{10.1007/978-3-031-43996-4_21,multi_fov}. While this field is still relatively new, and there are only a handful of papers exploring it, it holds promise for improving camera control in minimally invasive surgeries. The release of datasets like AutoLaparo is expected to drive more interest and research in this area. Incorporating MTL into camera control, where tasks include predicting future segmentation and motion for the camera, is great. The future development of this field may involve adding more tasks, such as predicting ongoing and future actions, surgical steps and phases, to provide a holistic solution for camera control.
@@ -1583,7 +1583,7 @@ An emerging approach to automating camera control is camera imitation and surgic
 As the field of automatic camera control in MIS matures, it will be fascinating to see how researchers tackle the challenges of understanding and target domain generalization of surgical scenes to enhance camera movements and, ultimately, improve the surgical experience and outcomes.
 
 
-\subsection{Multitask learning for surgical video workflow analysis}
+\subsection{Multitask Learning for Surgical Video Workflow Analysis}
 \label{sec:review-workflow-discussion}
 
 The evolution of  surgical video workflow analysis from phase detection to action triplets and multi-granular activity detection is a notable development. This progression underscores the importance of understanding the intricate relationships between different aspects of surgical activities, leading to improved recognition of complex surgical procedures and their contextual understanding. \tabref{evolution_activity:table} presents the reviewed studies in surgical video workflow analysis (along with the publication year), dataset used, tasks addressed, and architectural choice.
@@ -1638,7 +1638,7 @@ The exploration of multi-granularity research, as exemplified by the PSI-AVA and
 
 As the field of surgical activity recognition continues to evolve, addressing the challenge of adapting models to different surgeries and achieving broader generalization is essential. Future research may focus on creating more versatile models that can understand and recognize surgical activities across various surgical procedures, improving the practical utility of these techniques in clinical settings.
 
-\subsection{Multitask learning for report generation}
+\subsection{Multitask Learning for Report Generation}
 The application of MTL to surgical report generation is a promising avenue for improving the documentation and record-keeping aspects of minimally invasive surgeries. This complex task requires the generation of detailed and organized information about the events and procedures that occur in the intra- or pre-operative period.
 
 Two approaches have been explored as discussed in \secref{sec::report_generation} : one involving training scene graphs with segmentation models to obtain reports \citep{seenivasan2022global}  and the other incorporating scene graphs and frame captioning techniques to generate reports \citep{mobarakol_task_aware}. These approaches are initial steps towards addressing the challenge of surgical report generation, and they have shown potential for producing structured information from surgical data.
@@ -1646,21 +1646,21 @@ Two approaches have been explored as discussed in \secref{sec::report_generation
 However, a more sophisticated dataset that captures the intricacies of real-life surgical reports and allows for a transition from frame-to-frame inferences to full video inferences is essential for advancing this field, as the currently used dataset, EndoVis2018-with-interactions, is limited by its reliance solely on pixel-level information from the images in EndoVis2018, as described in \secref{sec:endovis_2018_vqa_dataset}
 
 
-\subsection{Datasets, Unification and Ethics.}
+\subsection{Datasets, Unification and Ethics}
 For multitask problems like surgical action triplets, there exists a standard benchmark dataset—the CholecT50. Designed for solving multiple tasks together, CholecT50 is large, encompassing over 100k frames across 50 surgeries, and includes metrics for evaluating both single tasks and relationships between tasks. It also provides a  \href{https://github.com/CAMMA-public/ivtmetrics}{metrics library} , facilitating easy comparison between methods and lowering entry barriers. The CholecT50 dataset is part of the Cholec series, which features similar annotation styles, shared images, and metrics, making it easily extendable.
 
 As large models that solve multiple tasks become more prevalent in the field, the creation of more extensive multitask datasets will be essential. We encourage collaboration within the community to build comprehensive, unified datasets, benchmarks, and metrics. This collaborative effort will enhance the robustness and comparability of research outcomes.
 
 Creating larger datasets involves challenges such as data collection, privacy, patient safety, and regulatory concerns.  Collaboration with surgeons, institutions, regulatory bodies and the general public is crucial to address these issues. More initiatives that inform the public about data usage, its potential to improve healthcare, and the associated ethical concerns, and solutions need to be raised. Addressing regulatory concerns involves ensuring compliance with data protection laws and ethical guidelines, which can be facilitated through robust anonymization processes and transparent collaboration with regulatory bodies to establish clear protocols for data usage and sharing.  Programs like the \href{https://www.cvschallenge.org/data-donation-video}{SAGES video donation program}, which promotes the donation and anonymization of surgical videos and fosters collaboration among researchers, surgeons, and hospitals, are recommended.
 
-\subsection{Large models in surgical scene understanding}
+\subsection{Large Models in Surgical Scene Understanding}
 The trend towards large models with the capacity to solve multiple problems by predicting a universal task is an intriguing development in the field of computer vision. Language models like the GPT series \citep{radford2019language}  have demonstrated the potential of understanding the nature of language through a single pretext task (next-token prediction) and subsequently applying that understanding to various language-related tasks. This notion of having a universal pretext task that can be leveraged for solving diverse problems is both promising and efficient.
 
 While the concept of universal pretext tasks has gained traction in natural language processing, it is noteworthy that the vision domain is yet to have a similarly unified and versatile framework. Recent efforts, such as the SAM \citep{kirillov2023segment} and models derived from SAM, bridge this gap for segmentation, but this is just a single visual task. Looking forward, it is possible that developing a universal vision task and devising efficient methods for querying this universal task for specific applications could become a foundational approach for visual models. This paradigm would allow for a more streamlined and versatile way of addressing multiple vision-related challenges and potentially lead to breakthroughs in the field and, by extension, the computer vision for the MIS.
 
 The generalizability of large models for multiple tasks is great. However, a main issue with large models in the surgical scenario is that for the networks to be utilized in Operating rooms (ORs), they need to perform inference in real-time and fit into devices and computers in the OR, which would be a cost-inefficient solution.
 
-\subsection{Real-time deployment}
+\subsection{Real-Time Deployment}
 The deployment of artificial intelligence (AI) in surgery is in its nascent stages compared to fields like radiology \citep{maier2022surgical}. Despite the potential benefits, there have been relatively few clinical trials exploring AI for intraoperative assistance \citep{varghese2024artificial,auloge2020augmented,mascagni2024early}.
 
 The primary challenges hindering the widespread adoption of AI in surgery are multifaceted. Technically, collecting and managing large volumes of surgical data, ensuring real-time processing, and achieving low-latency inference are significant hurdles. Integrating these AI systems into existing surgical workflows without disruption is also a considerable challenge \citep{auloge2020augmented}. Moreover, regulatory and ethical challenges, including ensuring compliance with stringent medical standards, addressing ethical concerns, and maintaining data privacy, require careful consideration. Operational challenges, such as training surgical staff, managing costs, and upgrading infrastructure, further complicate the deployment of AI in surgery.

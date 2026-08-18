@@ -4,7 +4,7 @@
 
 All Stage~2 configurations combine one or more grounded visual inputs with textual instructions and autoregressively generate JSON-formatted predictions. The templates below reproduce the scientifically relevant prompt content while replacing sample-specific image names and instance lists with braces. Whitespace and Python-specific string escaping are omitted for human readability. The requested schemas are formatting instructions rather than decoding constraints: generation is not programmatically restricted to valid JSON or valid triplets.
 
-\subsubsection{Shared label vocabulary and serialisation}
+\subsubsection{Shared Label Vocabulary and Serialisation}
 
 The prompts use the six instrument labels, ten action strings, and fifteen target strings inherited from CholecTriplet-Seg:
 
@@ -22,7 +22,7 @@ Targets = ["gallbladder", "cystic plate", "cystic duct", "cystic artery",
 
 The literal strings \texttt{no action} and \texttt{no target} are the serialised forms of the \texttt{null\_verb} and \texttt{null\_target} categories used elsewhere in the thesis. Similarly, labels are rendered as natural-language strings with spaces, such as \texttt{cystic duct}, rather than internal identifiers such as \texttt{cystic\_duct}. Although the generated object repeats the instrument class, Stage~2 does not revise the supplied grounding identity; this field serialises the complete triplet associated with the instance identifier.
 
-\subsubsection{Direct supervised fine-tuning}
+\subsubsection{Direct Supervised Fine-Tuning}
 
 The Direct SFT system instruction defines the response object and the handling of inactive instruments:
 
@@ -270,7 +270,7 @@ The generated supervision follows this schema:
 
 For student supervision, the generated rationale and final triplet are used as the assistant response. The student receives the grounded image and instance identifiers but not the reference triplet supplied to the teacher. In Distilled Rationale Only evaluation, the student is instructed to generate the structured rationale followed by \texttt{final\_triplet}; only the latter is extracted for metric computation. The term \emph{distilled rationale} describes the source and form of supervision and does not imply that the teacher's explanations were clinically validated.
 
-\subsubsection{Multitask prompts}
+\subsubsection{Multitask Prompts}
 
 The multitask training set contains equal numbers of two supervision types. Direct SFT examples use the Direct SFT prompt and concise \texttt{predictions} response schema above. Distilled-rationale examples use the grounded student instruction and the structured rationale response ending in \texttt{final\_triplet}. No additional multitask-specific prompt is introduced.
 
@@ -281,7 +281,7 @@ At evaluation, \emph{Multitask---Direct SFT} uses the Direct SFT prompt and requ
 
 The Anatomical Context Prior experiment converts dense EndoViT predictions into a compact textual summary local to each grounded instrument. It uses the EndoViT checkpoint and anatomical label space described in Chapter~\ref{chap:triplet-grounding}; the procedure below concerns only localisation of the context region and construction of the text supplied to Stage~2.
 
-\subsubsection{Laparoscopic field and instrument-base estimation}
+\subsubsection{Laparoscopic Field and Instrument-Base Estimation}
 
 For an RGB image, pixels whose maximum channel intensity exceeds 12 are treated as belonging to the visible laparoscopic field. If these pixels occupy less than 10\% of the image, the field estimate is rejected. Otherwise, the field centre is defined by the median horizontal and vertical coordinates of the valid pixels. The field radius is the 98th percentile of their Euclidean distances from this centre. Estimates containing fewer than 100 valid pixels or having radius below 20 pixels are rejected.
 
@@ -301,7 +301,7 @@ where \(\mathcal{B}_i\) denotes the selected boundary pixels for instance \(i\).
 \end{equation}
 No separate shaft-orientation model is used. If no boundary candidate is available, tip estimation fails and no anatomical text prior is supplied for that instance. This deliberately conservative behaviour avoids substituting an arbitrary mask centroid for an uncertain entry point.
 
-\subsubsection{Local anatomical distribution}
+\subsubsection{Local Anatomical Distribution}
 
 A disk centred on \(\hat{\mathbf{p}}_i\) defines the local context region. Its radius is
 \begin{equation}
@@ -320,7 +320,7 @@ EndoViT logits are converted to per-pixel class probabilities, after which every
 \end{equation}
 where \(\mathcal{R}_i\) is the valid disk region after removal of instrument pixels and excluded channels. Thus, the values are argmax-label proportions, not averages of the raw class probabilities. The three classes with the largest proportions are inserted into the prompt. If tip estimation, EndoViT loading, or valid-region construction fails, the prior is omitted rather than replaced with a fabricated value.
 
-\subsubsection{Textual prior supplied to Stage 2}
+\subsubsection{Textual Prior Supplied to Stage 2}
 
 The anatomy block is appended to the standard Direct SFT user instruction during both training and evaluation. A representative instance is formatted as follows:
 
@@ -389,7 +389,7 @@ Test-set use & Final evaluation only \\
 
 No manually enforced text sequence-length limit is reported because the recovered launch configuration does not establish that such a limit affected the final experiments. The same fixed total visual-token budget is used throughout. A single-frame experiment allocates this budget to one image, whereas the three- and five-frame configurations share it across the images in their temporal window. Consequently, increasing the number of frames does not increase the overall visual allocation.
 
-\subsubsection{Adaptation-specific changes}
+\subsubsection{Adaptation-Specific Changes}
 
 \begin{table}[htb!]
 \centering

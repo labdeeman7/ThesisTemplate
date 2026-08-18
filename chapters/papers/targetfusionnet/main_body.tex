@@ -36,16 +36,16 @@ Our key contributions are as follows:
 
 
 
-\section{Related work}\label{sec::related_works}
+\section{Related Work}\label{sec::related_works}
 
-\mysubsection{Surgical triplet recognition (classification)} 
+\mysubsection{Surgical Triplet Recognition (Classification)}
 Most prior works treat triplet recognition as a frame-level multi-label classification task, focusing on identifying which triplets are present rather than which instrument executes the action. 
 TripNet \cite{1nywoye_rec_action_triplets} and Rendezvous (RDV) \cite{NWOYE2022102433_rendevous} introduced attention-based models guided by weak spatial priors from class activation maps (CAMs), achieving strong frame-level recognition but lacking spatial grounding. 
 Later studies explored disentangled classification \cite{chen2023surgical}, self-distillation \cite{multi_self_distillation}, and temporal reasoning \cite{sharma2022RendezvousInTime}, yet none localise which instrument performs each action. 
 Existing datasets such as CholecT50 \cite{NWOYE2022102433_rendevous} remain limited to frame-level triplet labels without explicit spatial alignment. 
 
 
-\mysubsection{Surgical triplet detection (bounding box grounding)}
+\mysubsection{Surgical Triplet Detection (Bounding Box Grounding)}
 Triplet detection extends recognition by introducing bounding box spatial grounding. 
 The CholecTriplet2022 Challenge~\cite{nwoye2023cholectriplet2022} formalised this via bounding-box localisation from weak supervision. 
 Subsequent work focused on refining frame-level recognition through disentangled classification \cite{chen2023surgical}, self-distillation \cite{multi_self_distillation}, and temporal reasoning \cite{sharma2022RendezvousInTime,pei2025instrument} , but spatial grounding remains coarse since triplets are not explicitly linked to instrument instances. 
@@ -75,21 +75,21 @@ CholecTriplet-Seg (Ours) & 50 & Triplet + instance (aligned) & 30,955 \\
 \label{tab:dataset_overview}
 \end{table*}
 
-\mysubsection{Instrument instance segmentation datasets}
+\mysubsection{Instrument Instance Segmentation Datasets}
 Research on surgical instrument segmentation has progressed from early binary or semantic labelling towards large-scale datasets offering fine-grained, instance-level annotations \cite{ahmed2024deep}. Recent efforts such as PhaKIR \cite{rueckert2025comparative}, GraSP \cite{ayobi2024pixelwise}, and CholecInstanceSeg \cite{cholecinstanceseg} have established comprehensive resources for training and benchmarking instrument instance segmentation models. 
 Among these, CholecInstanceSeg provides high-quality instrument masks aligned with CholecT50 \cite{NWOYE2022102433_rendevous}, forming the foundation for our CholecTriplet-Seg dataset that unifies instance segmentation with verb–target labels for grounded triplet analysis.
 
 
 
-\section{Material: The CholecTriplet-Seg dataset}\label{sec::cholectriplet_seg_dataset}
+\section{Material: The CholecTriplet-Seg Dataset}\label{sec::cholectriplet_seg_dataset}
 CholecTriplet-Seg is a dataset of laparoscopic cholecystectomy videos with instrument-instance-grounded \ivttriplet annotations. 
 It is created by combining frame-level triplet labels from CholecT50 \cite{NWOYE2022102433_rendevous} with dense instrument masks from CholecInstanceSeg \cite{cholecinstanceseg}, synchronising corresponding frames and linking each instrument instance to its verb and target labels (see~\tabref{tab:dataset_overview}). 
 
-\mysubsection{Triplet schema}
+\mysubsection{Triplet Schema}
 CholecT50 defines an annotation schema of six instruments, ten verbs, and fifteen targets, with 100 clinically valid triplet combinations established through expert consensus; we directly adopt this schema for CholecTriplet-Seg.
 
 
-\mysubsection{Alignment and quality control and ethics approval}
+\mysubsection{Alignment and Quality Control and Ethics Approval}
 Frames from both datasets are aligned using timestamps to associate each instrument mask with a corresponding \ivttriplet label. 
 Automatic alignment was refined through manual verification to correct missing or ambiguous mappings, add absent masks and triplets, and ensure consistent assignments. 
 Two rounds of visual inspection confirmed annotation quality, with additional statistics and \robustrevref{6}{1}\revnew{discussion of dataset design trade-offs and expected sources of annotation ambiguity} provided later in this chapter.
@@ -115,7 +115,7 @@ To address this, we propose TargetFusionNet, a model that improves target classi
 
 Targets represent anatomical structures (e.g., liver, gallbladder, cystic duct) that lack the clear boundaries and distinctive features of surgical instruments. Pixel-level target annotations for our triplet categories are unavailable because producing them would require extensive expert labelling and consensus-building. Without explicit target masks, target classification remains a major source of error.
 
-\mysubsection{\Anatprior priors}
+\mysubsection{\Anatprior Priors}
 We incorporate coarse anatomical cues using inference logits from EndoViT~\cite{batic2024endovit}, trained on CholecSeg8k \cite{cholecseg8k} for tissue segmentation in cholecystectomy surgeries. EndoViT predicts six broad tissue classes that only partially overlap with the 15 anatomical target categories in our triplets, introducing class mismatches and noisy predictions. Nevertheless, these logits capture useful spatial context, such as rough anatomical boundaries (e.g., distinguishing liver regions from the gallbladder). We treat them as noisy priors rather than ground truth and integrate them into TargetFusionNet to guide target prediction.
 \robustrevref{5}{1}\revnew{EndoViT is not used as a pretrained backbone but as a source of weak anatomical priors, providing coarse regional cues rather than enhanced visual features.}
 
@@ -156,7 +156,7 @@ We enhance its architecture with a target-aware fusion mechanism with three comp
 
 
 
-\mysubsection{Triplet output and loss}
+\mysubsection{Triplet Output and Loss}
 Following \citet{NWOYE2022102433_rendevous}, we represent each \ivttriplet combination as a single class within a 100-way classification space defined by the clinically valid triplets of CholecT50.
 For each predicted instance mask $M_k$, TargetFusionNet directly outputs a single triplet label $c_k \in {[1; \dots; 100]}$, where each class $c_k$ uniquely corresponds to a specific triplet combination. 
 Each transformer query predicts one triplet label, while mask generation still follows the standard Mask2Former query–pixel interaction. The target-fusion gate acts only on the query embeddings before classification, enriching triplet semantics without altering the mask prediction process.
@@ -177,7 +177,7 @@ The following models are used for comparison:
 \end{itemize}
 
 
-\mysubsection{Evaluation protocol}
+\mysubsection{Evaluation Protocol}
 Performance is assessed across triplet recognition (classification), triplet detection (bounding box grounding), and triplet segmentation settings to capture both triplet correctness and spatial grounding. Following the CholecT50 protocol~\cite{nwoye2023datasplitsmetricsmethod}, we report the standard recognition and detection mAP (bounding box based). 
 %
 To enable instance segmentation level evaluation, we introduce a new \emph{triplet segmentation mAP} metric, which extends existing triplet evaluation to the pixel level by requiring both correct triplet classification and accurate mask localisation. This metric provides a unified framework for comparing models across frame, box, and mask-level grounding, thereby establishing the first benchmark for spatially grounded triplet segmentation.
@@ -247,7 +247,7 @@ and
 %
 Additional analyses later in this chapter compare the standard Mask2Former loss with multitask loss variants and evaluate how many decoder layers benefit from target fusion.
 
-\mysubsection{Implementation details}
+\mysubsection{Implementation Details}
 TargetFusionNet was trained in the MMDetection \cite{mmdetection} framework with a ResNet-50 \cite{resnet} backbone pretrained for instrument segmentation on data derived from CholecTriplet-Seg, using the AdamW optimiser \cite{loshchilov2017decoupled}. Input images were resized to 1024×1024 with data augmentation comprising random horizontal flipping, cropping, and scaling. Training was performed on a single NVIDIA A100 GPU for 300k iterations, and the best checkpoint was selected based on validation mask mAP. 
 
 
@@ -282,7 +282,7 @@ Looking at the proposed ablations, as shown in \tabref{tab:ablation_seg}, Target
 \end{figure}
 
 
-\mysubsection{Qualitative evaluation}
+\mysubsection{Qualitative Evaluation}
 \label{sec:qualitative}
 To complement the quantitative analysis, \figref{fig:qualitative_results} compares predictions from RDV-Det \cite{NWOYE2022102433_rendevous}, RDV-Det + Mask2Former, Mask2Former-Triplet, and our TargetFusionNet across diverse scenarios. The examples highlight both strengths and remaining limitations. In case (a) and (c) where there is  a single \triplet{Grasper}{Retract}{Gallbladder} or \triplet{Hook}{Dissect}{Gallbladder} respectively, all models perform reliably, except RDV-Det which has weak localization ability. However, in complex scenes such as (b), (d) and (e) involving multiple active instruments, occlusions, or rare targets, TargetFusionNet achieves more consistent spatial grounding and correct instrument–target linkage. For instance in (d), it successfully distinguishes a \triplet{Clipper}{Clip}{Cystic Duct} from the visually similar cystic artery, and in (e), it recognises the  \triplet{Irrigator}{Aspirate}{Fluid} where baselines misclassify the tool as a hook. These examples illustrate the advantages of target-aware fusion for robust triplet grounding.
 A short video comparing all evaluated methods (RDV-Det, RDV-Det + Mask2Former, Mask2Former-Triplet, and TargetFusionNet) with the ground truth is provided in the Supplementary Material.
@@ -292,7 +292,7 @@ A short video comparing all evaluated methods (RDV-Det, RDV-Det + Mask2Former, M
 
 \input{chapters/papers/targetfusionnet/appendix_body}
 
-\section{Discussion and conclusion}
+\section{Discussion and Conclusion}
 %
 In this chapter, we introduced the task of triplet segmentation, released the CholecTriplet-Seg benchmark, and proposed TargetFusionNet, which combines strong instance supervision with weak anatomical priors for fine-grained and interpretable surgical scene understanding.
 %
