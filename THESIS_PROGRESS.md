@@ -221,6 +221,7 @@ This file records the working state of the thesis. It should be updated whenever
 - Overleaf/Git synchronisation: stopped tracking the generated 46 MB `Thesis.pdf`, which exceeded Overleaf's GitHub-import processing limit. The full-quality build remains local and ignored, while the 4.7 MB compressed review copy is tracked for convenient sharing; Overleaf can also generate its own PDF from the LaTeX sources.
 - Two-stage terminology: replaced the ambiguous phrase `specialist instrument grounding` with the implemented Stage 1 task, `instrument instance segmentation`, throughout the abstract, thesis introduction, chapter transitions, Chapter 5, and thesis conclusion. Broader references to spatial grounding remain where they describe the scientific objective rather than the model stage.
 - Research-question wording: removed the redundant `\ivttriplet` notation from Research Question 3 while retaining Research Question 1 unchanged because its linked progression-and-gap formulation reflects the scope of the literature review.
+- Supervisor-review revisions: rewrote the abstract's final synthesis in more direct language, stating explicitly that the thesis grounds instrument--tissue interactions to individual instrument instances and avoiding broad or formulaic claims.
 
 ## Outstanding Issues
 
