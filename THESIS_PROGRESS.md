@@ -228,7 +228,7 @@ This file records the working state of the thesis. It should be updated whenever
 - Chapter 3 table follow-up: shortened three crowded headers to `Setting`, `Procedures`, and `Frames`; the caption retains the complete definitions of the reported quantities.
 - Chapter 3 table follow-up: transferred additional width from `Frames` to `Procedures` so that the full header clears its right-hand border at the retained larger font size.
 - Chapter 5 supervisor revisions: made the introduction more direct; cited Mask2Former and linked the architecture overview; described mask overlays as visual prompts; defined Direct supervised fine-tuning before using `Direct SFT`; and explained the three-response Sequential Dialogue Prediction sequence in plain language.
-- Chapter 5 related-work integration: folded the short standalone review into the chapter introduction and positioned MCIT-IG as the closest graph-based alternative for instance-associated triplet prediction, distinguishing its weakly supervised interaction graph from the mask-prompted MLLM formulation without diminishing its grounding capability.
+- Chapter 5 related-work revision: retained a standalone Related Work section so that the chapter's motivation remains distinct from literature positioning; added MCIT-IG as the closest graph-based alternative for instance-associated triplet prediction and distinguished its weakly supervised interaction graph from the mask-prompted MLLM formulation without diminishing its grounding capability.
 
 ## Outstanding Issues
 
