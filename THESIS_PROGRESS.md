@@ -224,6 +224,7 @@ This file records the working state of the thesis. It should be updated whenever
 - Supervisor-review revisions: rewrote the abstract's final synthesis in more direct language, stating explicitly that the thesis grounds instrument--tissue interactions to individual instrument instances and avoiding broad or formulaic claims.
 - Heading consistency: standardised front-matter, chapter, section, subsection, and chapter-specific supplementary headings to title case throughout the active thesis. Publication titles, figure/table captions, bibliography metadata, and scientific prose retain their source capitalisation.
 - Supervisor-review revisions: attributed the Cholec80 and CholecT dataset progression explicitly to CAMMA in the thesis introduction, distinguishing Cholec80's phase/instrument-presence role from CholecT50's action-triplet benchmark role.
+- Supervisor-review revisions: rebuilt the Chapter 3 surgical tool dataset comparison as a readable fixed-width portrait table, replacing whole-table scaling with wrapped columns and a true `\small` font while preserving all data and citations.
 
 ## Outstanding Issues
 

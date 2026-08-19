@@ -20,10 +20,19 @@ CholecInstanceSeg represents the most extensive surgical tool instance segmentat
 
 \begin{table}[ht]
   \centering
-  \resizebox{\linewidth}{!}{%
-  \begin{tabular}{|l|l|l|l|l|l|l|} 
+  \small
+  \setlength{\tabcolsep}{3pt}
+  \renewcommand{\arraystretch}{1.2}
+  \begin{tabular}{|
+    >{\raggedright\arraybackslash}m{2.85cm}|
+    >{\centering\arraybackslash}m{1.25cm}|
+    >{\centering\arraybackslash}m{2.15cm}|
+    >{\centering\arraybackslash}m{1.55cm}|
+    >{\centering\arraybackslash}m{1.7cm}|
+    >{\centering\arraybackslash}m{1.55cm}|
+    >{\centering\arraybackslash}m{1.4cm}|}
     \hline
-     \textbf{Dataset} & \textbf{Patient} & \textbf{Environment} & \textbf{Procedures} & \textbf{Annotations} &  \textbf{Semantic} & \textbf{Instance} \\
+     \textbf{Dataset} & \textbf{Patient} & \textbf{Environment} & \textbf{\makecell{No. of\\procedures}} & \textbf{\makecell{Annotated\\frames}} & \textbf{\makecell{Semantic\\classes}} & \textbf{\makecell{Instance\\labels}} \\
     \hline
     Endovis2015 \cite{bodenstedt2018comparative}  & Human & Ex-vivo and In-vivo & 8 & 10k &  3 classes  & No \\
     \hline
@@ -42,7 +51,6 @@ CholecInstanceSeg represents the most extensive surgical tool instance segmentat
     CholecInstanceSeg (Ours) & Human & In-vivo & 85 & 41.9k & 8 classes & Yes\greencheck   \\
     \hline
   \end{tabular}
-  }
   \caption{Comparison of popular datasets used in tool segmentation research, indicating the type of surgeries, the number of surgical procedures, the number of frames annotated, the semantic classes annotated, and whether each dataset contains instance information.}
   \label{tab:compare_datasets}
 \end{table}
