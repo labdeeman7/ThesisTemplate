@@ -223,6 +223,7 @@ This file records the working state of the thesis. It should be updated whenever
 - Research-question wording: removed the redundant `\ivttriplet` notation from Research Question 3 while retaining Research Question 1 unchanged because its linked progression-and-gap formulation reflects the scope of the literature review.
 - Supervisor-review revisions: rewrote the abstract's final synthesis in more direct language, stating explicitly that the thesis grounds instrument--tissue interactions to individual instrument instances and avoiding broad or formulaic claims.
 - Heading consistency: standardised front-matter, chapter, section, subsection, and chapter-specific supplementary headings to title case throughout the active thesis. Publication titles, figure/table captions, bibliography metadata, and scientific prose retain their source capitalisation.
+- Supervisor-review revisions: attributed the Cholec80 and CholecT dataset progression explicitly to CAMMA in the thesis introduction, distinguishing Cholec80's phase/instrument-presence role from CholecT50's action-triplet benchmark role.
 
 ## Outstanding Issues
 
