@@ -227,6 +227,7 @@ This file records the working state of the thesis. It should be updated whenever
 - Supervisor-review revisions: rebuilt the Chapter 3 surgical tool dataset comparison as a readable fixed-width portrait table, replacing whole-table scaling with wrapped columns and a true `\small` font while preserving all data and citations.
 - Chapter 3 table follow-up: shortened three crowded headers to `Setting`, `Procedures`, and `Frames`; the caption retains the complete definitions of the reported quantities.
 - Chapter 3 table follow-up: transferred additional width from `Frames` to `Procedures` so that the full header clears its right-hand border at the retained larger font size.
+- Chapter 5 supervisor revisions: made the introduction more direct; cited Mask2Former and linked the architecture overview; described mask overlays as visual prompts; defined Direct supervised fine-tuning before using `Direct SFT`; and explained the three-response Sequential Dialogue Prediction sequence in plain language.
 
 ## Outstanding Issues
 
