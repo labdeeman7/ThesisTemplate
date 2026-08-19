@@ -226,6 +226,7 @@ This file records the working state of the thesis. It should be updated whenever
 - Supervisor-review revisions: attributed the Cholec80 and CholecT dataset progression explicitly to CAMMA in the thesis introduction, distinguishing Cholec80's phase/instrument-presence role from CholecT50's action-triplet benchmark role.
 - Supervisor-review revisions: rebuilt the Chapter 3 surgical tool dataset comparison as a readable fixed-width portrait table, replacing whole-table scaling with wrapped columns and a true `\small` font while preserving all data and citations.
 - Chapter 3 table follow-up: shortened three crowded headers to `Setting`, `Procedures`, and `Frames`; the caption retains the complete definitions of the reported quantities.
+- Chapter 3 table follow-up: transferred additional width from `Frames` to `Procedures` so that the full header clears its right-hand border at the retained larger font size.
 
 ## Outstanding Issues
 
