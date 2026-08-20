@@ -230,6 +230,7 @@ This file records the working state of the thesis. It should be updated whenever
 - Chapter 5 supervisor revisions: made the introduction more direct; cited Mask2Former and linked the architecture overview; described mask overlays as visual prompts; defined Direct supervised fine-tuning before using `Direct SFT`; and explained the three-response Sequential Dialogue Prediction sequence in plain language.
 - Chapter 5 related-work revision: retained a standalone Related Work section so that the chapter's motivation remains distinct from literature positioning; added MCIT-IG as the closest graph-based alternative for instance-associated triplet prediction and distinguished its weakly supervised interaction graph from the mask-prompted MLLM formulation without diminishing its grounding capability.
 - Chapter 5 architecture clarification: replaced Figure 5.1 with a revised diagram that ends Stage 1 at instrument instance segmentation and places mask-based visual prompt construction within Stage 2; explained why ground-truth grounding is required for controlled Stage 2 evaluation and documented the single-image visual-prompt design choice.
+- Chapter 5 terminology follow-up: replaced the ambiguous phrase `image-level index` with `within-frame instance ID` and clarified its scope and lack of semantic meaning.
 
 ## Outstanding Issues
 
