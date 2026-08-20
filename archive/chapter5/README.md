@@ -22,3 +22,7 @@ These snapshots preserve the exact prior thesis framing for comparison.
 - `config.txt` is an unrelated SSH configuration file that was not used by the manuscript or its experiments.
 
 The active manuscript's class, bibliography style, documentation, history, local bibliography, and README remain beside the authoritative source because they support independent manuscript compilation.
+
+## `superseded_figures/`
+
+- `two_stage_pipeline_previous.pdf` is the former Chapter 5 architecture overview. It was replaced after supervisor review because its layout could imply that the instance-overlay image was produced by Stage 1. The revised active figure places mask-based visual prompt construction explicitly within Stage 2.
