@@ -235,6 +235,7 @@ This file records the working state of the thesis. It should be updated whenever
 - Chapter 5 adaptation-method clarification: added an explicit scientific motivation for each controlled adaptation; defined Sequential Dialogue Prediction as three question--response exchanges using the Direct SFT token loss; clarified temporal centre-frame instructions and text-only anatomical priors; motivated ontology guidance from the restricted triplet label space; and distinguished offline fixed-teacher rationale generation, student training, and evaluation-time parsing.
 - Refined the Sequential Dialogue Prediction motivation to state its intended divide-and-discern decomposition into smaller conditional subtasks, while avoiding an unsupported claim that the model's internal reasoning was independently validated.
 - Removed the historical cached-feature prototype note from the active temporal-context methodology because the implementation is not part of the reported study.
+- Clarified in the instrument-tip figure caption that its markers, regions, and anatomical labels are explanatory visualisations only; the MLLM receives the derived anatomical distribution as text and not as an additional annotated image.
 - Updated ROBUST-MIPS to its published Scientific Data record and added primary references for rationale distillation and learning from explanation traces.
 
 ## Outstanding Issues
