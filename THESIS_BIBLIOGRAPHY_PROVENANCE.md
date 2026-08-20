@@ -1,5 +1,16 @@
 # Thesis Bibliography Provenance
 
+## `budd2023contentarea`
+
+- **DOI:** 10.1080/21681163.2022.2156393
+- **Title:** Rapid and Robust Endoscopic Content Area Estimation: A Lean GPU-Based Pipeline and Curated Benchmark Dataset
+- **Authors:** Budd, Charlie; Garcia-Peraza Herrera, Luis C.; Huber, Martin; Ourselin, Sebastien; Vercauteren, Tom
+- **Year:** 2023
+- **Source records:** Added from the final journal publication metadata to support the Chapter 5 discussion of established laparoscopic content-area estimation.
+- **Duplicate keys replaced:** None
+- **Metadata differences:** None
+- **Decision:** The final Computer Methods in Biomechanics and Biomedical Engineering: Imaging & Visualization record is canonical.
+
 ## `hsieh2023distilling`
 
 - **DOI:** 10.18653/v1/2023.findings-acl.507
@@ -44,7 +55,7 @@
 - **Metadata differences:** None
 - **Decision:** Added as the canonical thesis record because Chapter 5 uses Qwen3-VL-8B-Instruct and the consolidated bibliography previously contained no Qwen3-VL technical-report entry.
 
-Canonical bibliography: **321** publications, including 317 records consolidated from 377 manuscript source records and four later authoritative records added directly for Chapters 5 and 6.
+Canonical bibliography: **322** publications, including 317 records consolidated from 377 manuscript source records and five later authoritative records added directly for Chapters 5 and 6.
 
 Records are grouped by normalized DOI, or?without a DOI?by normalized title plus matching year or overlapping author identity. No `ids` aliases are used. Thesis-integrated sources use one canonical key.
 
@@ -1172,14 +1183,14 @@ Records are grouped by normalized DOI, or?without a DOI?by normalized title plus
 
 ## `gruijthuijsen2022robotic`
 
-- **DOI:** Not supplied
+- **DOI:** 10.3389/frobt.2022.832208
 - **Title:** Robotic endoscope control via autonomous instrument tracking
 - **Authors:** Gruijthuijsen, Caspar and Garcia-Peraza-Herrera, Luis C and Borghesan, Gianni and Reynaerts, Dominiek and Deprest, Jan and Ourselin, Sebastien and Vercauteren, Tom and Vander Poorten, Emmanuel
 - **Year:** 2022
 - **Source records:** `phd_papers/sources/Multitask_Learning_in_Minimally_Invasive_Surgical_Vision__A_Review_submitted/refs.bib` (`gruijthuijsen2022robotic`)
 - **Duplicate keys replaced:** None
-- **Metadata differences:** None
-- **Decision:** Canonical key selected from the earliest source in thesis order; metadata selected from `phd_papers/sources/Multitask_Learning_in_Minimally_Invasive_Surgical_Vision__A_Review_submitted/refs.bib` as the most complete record.
+- **Metadata differences:** The consolidated source record omitted the DOI; the final Frontiers DOI has now been added.
+- **Decision:** The existing canonical key and publication metadata are retained, supplemented by the authoritative journal DOI.
 
 ## `gui2023mt4mtl`
 
