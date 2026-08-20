@@ -92,7 +92,7 @@ Experiments on CholecTriplet-Seg demonstrate the importance of strong instance s
 
 Finally, the thesis formulates surgical triplet segmentation as a two-stage problem. An instrument instance segmentation model first localises the visible instrument instances, after which an MLLM predicts the corresponding \vtpair interactions. Direct supervised fine-tuning establishes a viable second-stage baseline, while sequential dialogue prediction and short-range temporal context provide promising alternative formulations. Anatomical context, ontology guidance, longer temporal input, and distilled rationale supervision are also examined to determine whether additional structure or context consistently improves interaction prediction.
 
-The complete pipeline is evaluated using predicted instrument instances, rather than only idealised ground-truth grounding. The results establish the viability of specialised grounding followed by multimodal interaction prediction and expose the effect of first-stage errors on the complete system. This chapter represents a forward-looking continuation of the dataset and grounded-modelling contributions, rather than replacing their central role in the thesis.
+The complete pipeline is evaluated using predicted instrument instances, rather than only ground-truth instrument prompting. The results establish the viability of instrument instance segmentation followed by multimodal interaction prediction and expose the effect of first-stage errors on the complete system. This chapter represents a forward-looking continuation of the dataset and grounded-modelling contributions, rather than replacing their central role in the thesis.
 
 \section{Thesis Scope}
 \label{sec:introduction-scope}

@@ -412,7 +412,7 @@ Multitask & Equal numbers of Direct SFT and distilled-rationale examples are com
 \end{tabular}
 \end{table}
 
-All configurations use the same official training, validation, and test partitions. In the complete predicted-grounding evaluation, frames for which Stage~1 produces no retained instrument instances provide no Stage~2 input because there is no detected instance for which an interaction can be predicted. Checkpoint selection is based exclusively on the official validation split; the test split is not used for early stopping or model selection.
+All configurations use the same official training, validation, and test partitions. In the complete evaluation with predicted instrument prompting, frames for which Stage~1 produces no retained instrument instances provide no Stage~2 input because there is no detected instance for which an interaction can be predicted. Checkpoint selection is based exclusively on the official validation split; the test split is not used for early stopping or model selection.
 
 \fi
 \ifcFiveSupplement
@@ -474,7 +474,7 @@ Target prediction remains more diffuse than action prediction, as shown by the l
     \includegraphics[width=0.70\textwidth]{chapters/papers/two_stage/figures/error_analysis/direct_action_confusion.png}
     \par\vspace{-0.8\baselineskip}
     \includegraphics[width=0.70\textwidth]{chapters/papers/two_stage/figures/error_analysis/direct_target_confusion.png}
-    \caption{Row-normalised confusion matrices for Direct SFT under ground-truth instrument grounding. The upper matrix reports actions and the lower matrix reports targets. Rows denote ground-truth classes and columns denote predicted classes.}
+    \caption{Row-normalised confusion matrices for Direct SFT under ground-truth instrument prompting. The upper matrix reports actions and the lower matrix reports targets. Rows denote ground-truth classes and columns denote predicted classes.}
     \label{fig:c5:direct-confusion}
 \end{figure}
 
@@ -483,7 +483,7 @@ Target prediction remains more diffuse than action prediction, as shown by the l
     \includegraphics[width=0.70\textwidth]{chapters/papers/two_stage/figures/error_analysis/temporal_action_confusion.png}
     \par\vspace{-0.8\baselineskip}
     \includegraphics[width=0.70\textwidth]{chapters/papers/two_stage/figures/error_analysis/temporal_target_confusion.png}
-    \caption{Row-normalised confusion matrices for three-frame temporal context under ground-truth instrument grounding. The upper matrix reports actions and the lower matrix reports targets. Rows denote ground-truth classes and columns denote predicted classes.}
+    \caption{Row-normalised confusion matrices for three-frame temporal context under ground-truth instrument prompting. The upper matrix reports actions and the lower matrix reports targets. Rows denote ground-truth classes and columns denote predicted classes.}
     \label{fig:c5:temporal-confusion}
 \end{figure}
 
@@ -492,7 +492,7 @@ Target prediction remains more diffuse than action prediction, as shown by the l
     \includegraphics[width=0.70\textwidth]{chapters/papers/two_stage/figures/error_analysis/multitask_direct_action_confusion.png}
     \par\vspace{-0.8\baselineskip}
     \includegraphics[width=0.70\textwidth]{chapters/papers/two_stage/figures/error_analysis/multitask_direct_target_confusion.png}
-    \caption{Row-normalised confusion matrices for the multitask model evaluated with the Direct SFT response instruction under ground-truth instrument grounding. The upper matrix reports actions and the lower matrix reports targets. Rows denote ground-truth classes and columns denote predicted classes.}
+    \caption{Row-normalised confusion matrices for the multitask model evaluated with the Direct SFT response instruction under ground-truth instrument prompting. The upper matrix reports actions and the lower matrix reports targets. Rows denote ground-truth classes and columns denote predicted classes.}
     \label{fig:c5:multitask-direct-confusion}
 \end{figure}
 

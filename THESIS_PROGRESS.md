@@ -238,6 +238,8 @@ This file records the working state of the thesis. It should be updated whenever
 - Clarified in the instrument-tip figure caption that its markers, regions, and anatomical labels are explanatory visualisations only; the MLLM receives the derived anatomical distribution as text and not as an additional annotated image.
 - Clarified that distilled-rationale evaluation computes every reported AP measure only from the final structured triplet, and removed the duplicated token-weighting interpretation from the Methods subsection because it is discussed with the results.
 - Addressed supervisor comments in the Chapter 5 detailed methodology and error analysis: justified the laparoscopic-field heuristic, cited established content-area and instrument-localisation alternatives, clarified the no-detection case under predicted grounding, and linked quantitative confusion observations to their exact matrices.
+- Revised Chapter 5 results and discussion terminology from ground-truth grounding to ground-truth instrument prompting, explicitly documenting that only instrument masks, classes, IDs, and instance count are supplied. Clarified the Chapter 4 TargetFusionNet comparison, constrained decoding, EndoViT's training and taxonomy limitations, the rationale for incomplete predicted-instrument evaluation, and the practical AP treatment of malformed outputs.
+- Verified these revisions in a converged 246-page thesis build with no undefined citations, undefined references, duplicate bibliography keys, or LaTeX/Biber errors.
 - Updated ROBUST-MIPS to its published Scientific Data record and added primary references for rationale distillation and learning from explanation traces.
 
 ## Outstanding Issues

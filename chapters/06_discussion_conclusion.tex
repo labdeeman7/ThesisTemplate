@@ -106,7 +106,7 @@ The fourth research question is therefore answered conditionally: weak anatomica
 
 Chapter~\ref{chap:two-stage-interaction} demonstrates that a fine-tuned MLLM can act as a viable second-stage interaction predictor when instrument instances are supplied. Direct SFT establishes the principal baseline, while sequential factorisation and short temporal context provide promising directions for further development. When predicted masks are used, the complete pipeline remains competitive with TargetFusionNet despite the additional errors introduced by Stage~1.
 
-The fifth research question is therefore answered affirmatively at the level of formulation: MLLM-based interaction prediction is viable as part of a two-stage grounded system. Continued work is required to assess the strongest adaptations under predicted grounding and determine how well the formulation transfers beyond cholecystectomy. These next steps extend, rather than invalidate, the evidence established in the chapter.
+The fifth research question is therefore answered affirmatively at the level of formulation: MLLM-based interaction prediction is viable as part of a two-stage grounded system. Continued work is required to assess the strongest adaptations using predicted instrument prompts and determine how well the formulation transfers beyond cholecystectomy. These next steps extend, rather than invalidate, the evidence established in the chapter.
 
 \section{Principal Scientific and Technical Insights}
 \label{sec:discussion-implications}
@@ -179,7 +179,7 @@ The task definition grounds an interaction through the instrument mask because d
 
 No model in the thesis fully resolves anatomical target prediction or the long tail of grounded triplets. TargetFusionNet depends on weak anatomical predictions, while the two-stage system propagates missed or incorrect instrument instances into Stage~2. Temporal information is investigated only in the final technical chapter and is not yet connected to temporally associated predicted instances across frames.
 
-Chapter~\ref{chap:two-stage-interaction} establishes MLLM viability but represents an active continuation of the research. Most adaptations are evaluated under ground-truth grounding, so the strongest sequential and temporal formulations require broader evaluation within the complete predicted-grounding system. This qualification limits comparative claims but does not alter the demonstrated feasibility of the two-stage formulation.
+Chapter~\ref{chap:two-stage-interaction} establishes MLLM viability but represents an active continuation of the research. Most adaptations are evaluated under ground-truth instrument prompting, so the strongest sequential and temporal formulations require broader evaluation within the complete system using predicted instrument prompts. This qualification limits comparative claims but does not alter the demonstrated feasibility of the two-stage formulation.
 
 \section{Ethical and Responsible Dataset Considerations}
 \label{sec:discussion-ethics}
@@ -210,12 +210,12 @@ Expanding grounded interaction datasets manually is expensive. Foundation segmen
 
 Future target modelling should investigate learned instrument--tissue contact localisation and richer use of dense anatomical predictions. The Chapter~\ref{chap:two-stage-interaction} textual prior compresses the local anatomy into three class proportions and depends on a heuristic tip estimate; alternative representations could retain spatial structure and learn which anatomical evidence is relevant to each instrument and action.
 
-Temporal modelling should similarly move beyond independently rendered frames sharing a fixed visual-token budget. Consistent association of instrument instances across time would allow the model to connect motion and interaction progression to the same actor. This is particularly relevant to actions such as aspiration and irrigation, or grasping and retraction, that may be difficult to distinguish from a still image. Evaluation under predicted grounding will require tracking, mask propagation, or another means of maintaining instance correspondence across neighbouring frames.
+Temporal modelling should similarly move beyond independently rendered frames sharing a fixed visual-token budget. Consistent association of instrument instances across time would allow the model to connect motion and interaction progression to the same actor. This is particularly relevant to actions such as aspiration and irrigation, or grasping and retraction, that may be difficult to distinguish from a still image. Evaluation using predicted instrument prompts will require tracking, mask propagation, or another means of maintaining instance correspondence across neighbouring frames.
 
 \subsection{Continued Development of Multimodal Interaction Prediction}
 \label{sec:discussion-mllm-future}
 
-The sequential and three-frame formulations in Chapter~\ref{chap:two-stage-interaction} provide the most immediate candidates for further study. The first priority is to evaluate them within the complete predicted-grounding pipeline, both separately and in controlled combinations; repeated runs should then support more reliable comparison of the resulting systems. Sequential prediction could be made more robust to an incorrect first-turn verb, while curriculum-style adaptation could initialise specialised variants from a converged Direct SFT model rather than independently from the base MLLM.
+The sequential and three-frame formulations in Chapter~\ref{chap:two-stage-interaction} provide the most immediate candidates for further study. The first priority is to evaluate them within the complete pipeline using predicted instrument prompts, both separately and in controlled combinations; repeated runs should then support more reliable comparison of the resulting systems. Sequential prediction could be made more robust to an incorrect first-turn verb, while curriculum-style adaptation could initialise specialised variants from a converged Direct SFT model rather than independently from the base MLLM.
 
 Structured-output reliability also warrants attention. Constrained generation or lightweight ontology-aware validation may reduce malformed or incompatible predictions, provided that such processing is evaluated transparently rather than silently correcting outputs. If distilled-rationale supervision is revisited, answer-token weighting and systematic rationale quality control would be necessary to avoid allowing long, unverified explanations to dominate the objective.
 
