@@ -1,5 +1,27 @@
 # Thesis Bibliography Provenance
 
+## `hsieh2023distilling`
+
+- **DOI:** 10.18653/v1/2023.findings-acl.507
+- **Title:** Distilling Step-by-Step! Outperforming Larger Language Models with Less Training Data and Smaller Model Sizes
+- **Authors:** Hsieh, Cheng-Yu; Li, Chun-Liang; Yeh, Chih-Kuan; Nakhost, Hootan; Fujii, Yasuhisa; Ratner, Alexander; Krishna, Ranjay; Lee, Chen-Yu; Pfister, Tomas
+- **Year:** 2023
+- **Source records:** Added from the official ACL Anthology record to support the Chapter 5 rationale-supervision methodology.
+- **Duplicate keys replaced:** None
+- **Metadata differences:** None
+- **Decision:** The ACL Findings publication record is the canonical source.
+
+## `mukherjee2023orca`
+
+- **DOI:** 10.48550/arXiv.2306.02707
+- **Title:** Orca: Progressive Learning from Complex Explanation Traces of GPT-4
+- **Authors:** Mukherjee, Subhabrata; Mitra, Arindam; Jawahar, Ganesh; Agarwal, Sahaj; Palangi, Hamid; Awadallah, Ahmed
+- **Year:** 2023
+- **Source records:** Added from the authors' arXiv record and Microsoft Research publication page to support the Chapter 5 explanation-trace methodology.
+- **Duplicate keys replaced:** None
+- **Metadata differences:** None
+- **Decision:** The authors' public preprint record is canonical because no archival proceedings record was identified.
+
 ## `prostatd`
 
 - **DOI:** Not supplied
@@ -22,7 +44,7 @@
 - **Metadata differences:** None
 - **Decision:** Added as the canonical thesis record because Chapter 5 uses Qwen3-VL-8B-Instruct and the consolidated bibliography previously contained no Qwen3-VL technical-report entry.
 
-Canonical bibliography: **319** publications, including 317 records consolidated from 377 manuscript source records and two later authoritative records added directly for Chapters 5 and 6.
+Canonical bibliography: **321** publications, including 317 records consolidated from 377 manuscript source records and four later authoritative records added directly for Chapters 5 and 6.
 
 Records are grouped by normalized DOI, or?without a DOI?by normalized title plus matching year or overlapping author identity. No `ids` aliases are used. Thesis-integrated sources use one canonical key.
 
@@ -1183,14 +1205,14 @@ Records are grouped by normalized DOI, or?without a DOI?by normalized title plus
 
 ## `han2025robust`
 
-- **DOI:** Not supplied
+- **DOI:** 10.1038/s41597-026-06938-5
 - **Title:** {ROBUST-MIPS}: A Combined Skeletal Pose and Instance Segmentation Dataset for Laparoscopic Surgical Instruments
 - **Authors:** Han, Zhe and Budd, Charlie and Zhang, Gongyu and Tian, Huanyu and Bergeles, Christos and Vercauteren, Tom
-- **Year:** 2025
+- **Year:** 2026
 - **Source records:** `phd_papers/sources/Surgical Action Triplet Segmentation IPCAI/sn-bibliography.bib` (`han2025robust`)
 - **Duplicate keys replaced:** None
-- **Metadata differences:** None
-- **Decision:** Canonical key selected from the earliest source in thesis order; metadata selected from `phd_papers/sources/Surgical Action Triplet Segmentation IPCAI/sn-bibliography.bib` as the most complete record.
+- **Metadata differences:** The manuscript bibliography contained the 2025 arXiv preprint; the canonical record now uses the published 2026 Scientific Data metadata.
+- **Decision:** The final Scientific Data publication supersedes the preprint metadata while retaining the established thesis citation key.
 
 ## `hassler2023laparoscopic`
 

@@ -232,6 +232,8 @@ This file records the working state of the thesis. It should be updated whenever
 - Chapter 5 architecture clarification: replaced Figure 5.1 with a revised diagram that ends Stage 1 at instrument instance segmentation and places mask-based visual prompt construction within Stage 2; explained why ground-truth grounding is required for controlled Stage 2 evaluation and documented the single-image visual-prompt design choice.
 - Chapter 5 terminology follow-up: replaced the ambiguous phrase `image-level index` with `within-frame instance ID` and clarified its scope and lack of semantic meaning.
 - Chapter 5 Direct SFT clarification: introduced and motivated the textual instruction, added a representative JSON response schema using a `verb` field, documented inference-time parsing, and defined the teacher-forced assistant-token cross-entropy objective and its relationship to structured prediction.
+- Chapter 5 adaptation-method clarification: added an explicit scientific motivation for each controlled adaptation; defined Sequential Dialogue Prediction as three question--response exchanges using the Direct SFT token loss; clarified temporal centre-frame instructions and text-only anatomical priors; motivated ontology guidance from the restricted triplet label space; and distinguished offline fixed-teacher rationale generation, student training, and evaluation-time parsing.
+- Updated ROBUST-MIPS to its published Scientific Data record and added primary references for rationale distillation and learning from explanation traces.
 
 ## Outstanding Issues
 

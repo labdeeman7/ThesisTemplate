@@ -116,7 +116,7 @@ Assistant response:
 }
 \end{lstlisting}
 
-During training, the complete three-stage dialogue is supplied with the reference assistant response at each stage. During inference, the generated verb and target responses remain in the conversation before the final request. Only the final triplet response is evaluated.
+During training, the complete three-stage dialogue is supplied with the reference model response at each stage, and the token-level cross-entropy in Equation~\ref{eq:c5:sft-loss} is applied to all three responses. During inference, the questions are asked in sequence and the generated verb and target responses remain in the conversation before the final request. Only the final triplet response is parsed for evaluation.
 
 \subsubsection{Ontology-Guided Prompting}
 
