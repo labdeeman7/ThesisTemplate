@@ -6,13 +6,13 @@ All Stage~2 configurations combine one or more grounded visual inputs with textu
 
 \subsubsection{Shared Label Vocabulary and Serialisation}
 
-The prompts use the six instrument labels, ten action strings, and fifteen target strings inherited from CholecTriplet-Seg:
+The prompts use the six instrument labels, ten verb strings, and fifteen target strings inherited from CholecTriplet-Seg:
 
 \begin{lstlisting}[style=c5prompt]
 Instruments = ["Grasping Forceps", "Bipolar Forceps", "Monopolar Hook",
                "Laparoscopic Scissors", "Clip Applier", "Suction-Irrigator"]
-Actions = ["grasp", "retract", "dissect", "coagulate", "clip", "cut",
-           "aspirate", "irrigate", "pack", "no action"]
+Verbs = ["grasp", "retract", "dissect", "coagulate", "clip", "cut",
+         "aspirate", "irrigate", "pack", "no action"]
 Targets = ["gallbladder", "cystic plate", "cystic duct", "cystic artery",
            "cystic pedicle", "blood vessel", "fluid",
            "abdominal wall cavity", "liver", "adhesion", "omentum",
@@ -29,7 +29,7 @@ The Direct SFT system instruction defines the response object and the handling o
 \begin{lstlisting}[style=c5prompt]
 Return ONLY valid JSON. Output an object with a single key "predictions",
 containing a list of items. Each item must have keys: id, instrument,
-action, target. Use only the allowed labels. If idle: action="no action",
+verb, target. Use only the allowed labels. If idle: verb="no action",
 target="no target". No text outside JSON.
 \end{lstlisting}
 
@@ -41,19 +41,19 @@ The image contains multiple surgical instrument instances predicted by a
 neural network. Each instance is marked in the image with a name and ID
 (e.g. grasper_1, hook_2).
 
-For EACH instance ID, assign exactly one (instrument, action, target)
+For EACH instance ID, assign exactly one (instrument, verb, target)
 triplet using visual evidence.
 
 Allowed labels:
-{shared instrument, action, and target vocabularies}
+{shared instrument, verb, and target vocabularies}
 
 Required output format (example):
 {
   "predictions": [
     {"id": "grasper_1", "instrument": "Grasping Forceps",
-     "action": "retract", "target": "gallbladder"},
+     "verb": "retract", "target": "gallbladder"},
     {"id": "hook_2", "instrument": "Monopolar Hook",
-     "action": "dissect", "target": "cystic plate"}
+     "verb": "dissect", "target": "cystic plate"}
   ]
 }
 
@@ -69,7 +69,7 @@ Every training response follows the same schema, with one object per grounded in
     {
       "id": "grasper_1",
       "instrument": "Grasping Forceps",
-      "action": "retract",
+      "verb": "retract",
       "target": "gallbladder"
     }
   ]
@@ -78,17 +78,17 @@ Every training response follows the same schema, with one object per grounded in
 
 \subsubsection{Sequential Dialogue Prediction}
 
-Sequential Dialogue Prediction uses the same grounded image throughout a three-stage dialogue. An earlier instrument-identification turn was not used in the reported experiment. The first retained turn requests the action for each instance:
+Sequential Dialogue Prediction uses the same grounded image throughout a three-stage dialogue. An earlier instrument-identification turn was not used in the reported experiment. The first retained turn requests the verb for each instance:
 
 \begin{lstlisting}[style=c5prompt]
 System: You are a surgical scene understanding assistant.
         Return valid JSON only.
 
 User: For each labelled instrument instance in this image, identify the
-      action being performed. Return JSON only.
+      verb describing the action being performed. Return JSON only.
 
 Assistant response:
-{"predictions": [{"id": "grasper_1", "action": "retract"}]}
+{"predictions": [{"id": "grasper_1", "verb": "retract"}]}
 \end{lstlisting}
 
 The target turn is conditioned on the preceding dialogue response:
@@ -105,22 +105,22 @@ The final turn requests the complete serialised prediction:
 
 \begin{lstlisting}[style=c5prompt]
 User: For each labelled instrument instance, predict the final
-      instrument-action-target triplet. Return JSON only.
+      instrument-verb-target triplet. Return JSON only.
 
 Assistant response:
 {
   "predictions": [
     {"id": "grasper_1", "instrument": "Grasping Forceps",
-     "action": "retract", "target": "gallbladder"}
+     "verb": "retract", "target": "gallbladder"}
   ]
 }
 \end{lstlisting}
 
-During training, the complete three-stage dialogue is supplied with the reference assistant response at each stage. During inference, the generated action and target responses remain in the conversation before the final request. Only the final triplet response is evaluated.
+During training, the complete three-stage dialogue is supplied with the reference assistant response at each stage. During inference, the generated verb and target responses remain in the conversation before the final request. Only the final triplet response is evaluated.
 
 \subsubsection{Ontology-Guided Prompting}
 
-Ontology-Guided Prompting retains the Direct SFT user instruction and response schema but extends the system instruction with the valid action--target combinations associated with each instrument class. The complete ontology supplied to the model is:
+Ontology-Guided Prompting retains the Direct SFT user instruction and response schema but extends the system instruction with the valid verb--target combinations associated with each instrument class. The complete ontology supplied to the model is:
 
 \begin{lstlisting}[style=c5prompt]
 Valid Combinations (Instrument: {Action: [Targets]}):
@@ -174,7 +174,7 @@ Suction-Irrigator:
   retract: [gallbladder, liver, omentum]
   no action: [no target]
 
-Each predicted (instrument, action, target) MUST exactly match one of the
+Each predicted (instrument, verb, target) MUST exactly match one of the
 allowed triplets listed above. Do NOT output any combination outside this
 list.
 \end{lstlisting}
@@ -222,7 +222,7 @@ trace. Use the provided triplet only as the label being justified.
 
 Brevity rules:
 - contact_evidence: exactly 2 observations, each <= 15 words
-- action support: 1 sentence, <= 15 words
+- verb support: 1 sentence, <= 15 words
 - primary target rationale: 1 sentence, <= 15 words
 - contrastive rationale: 1 sentence, <= 12 words
 - contrastive rejection: 1 sentence, <= 15 words
@@ -243,8 +243,8 @@ The generated supervision follows this schema:
       "instrument": "Grasping Forceps",
       "reasoning": {
         "contact_evidence": ["...", "..."],
-        "action_evidence": {
-          "primary_action": "retract",
+        "verb_evidence": {
+          "primary_verb": "retract",
           "support": "..."
         },
         "primary_target_hypothesis": {
@@ -260,7 +260,7 @@ The generated supervision follows this schema:
       },
       "final_triplet": {
         "instrument": "Grasping Forceps",
-        "action": "retract",
+        "verb": "retract",
         "target": "gallbladder"
       }
     }
@@ -399,11 +399,11 @@ No manually enforced text sequence-length limit is reported because the recovere
 \toprule
 Configuration & Change relative to Direct SFT \\
 \midrule
-Sequential Dialogue Prediction & Three supervised assistant responses predict the action, target, and final triplet in sequence; preceding reference responses are supplied through teacher forcing during training. \\
+Sequential Dialogue Prediction & Three supervised assistant responses predict the verb, target, and final triplet in sequence; preceding reference responses are supplied through teacher forcing during training. \\
 Three-frame temporal context & Ordered inputs $(t-1,t,t+1)$ share the common total visual-token budget; only frame $t$ is supervised. \\
 Five-frame temporal context & Ordered inputs $(t-2,t-1,t,t+1,t+2)$ share the same total visual-token budget; only frame $t$ is supervised. \\
 Anatomical Context Prior & The EndoViT-derived local anatomy block is appended to the Direct SFT prompt during training and evaluation. \\
-Ontology-Guided Prompting & Valid action--target combinations are appended to the prompt during training and evaluation; decoding remains unconstrained. \\
+Ontology-Guided Prompting & Valid verb--target combinations are appended to the prompt during training and evaluation; decoding remains unconstrained. \\
 Distilled Rationale Only & The assistant target contains the complete teacher-generated structured rationale followed by the final triplet. \\
 Multitask & Equal numbers of Direct SFT and distilled-rationale examples are combined in one training set; the resulting model is evaluated using either response instruction. \\
 \bottomrule
@@ -429,8 +429,8 @@ The following example is reproduced from the final structured-rationale dataset 
           "Hook tip contacts dark, vascularized tissue fold adjacent to liver edge.",
           "Instrument applies traction to separate this tissue from underlying structures."
         ],
-        "action_evidence": {
-          "primary_action": "dissect",
+        "verb_evidence": {
+          "primary_verb": "dissect",
           "support": "Mechanical separation of tissue planes via hook traction and potential cautery."
         },
         "primary_target_hypothesis": {
@@ -446,7 +446,7 @@ The following example is reproduced from the final structured-rationale dataset 
       },
       "final_triplet": {
         "instrument": "Monopolar Hook",
-        "action": "dissect",
+        "verb": "dissect",
         "target": "omentum"
       }
     }

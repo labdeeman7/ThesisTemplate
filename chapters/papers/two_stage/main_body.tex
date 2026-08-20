@@ -76,12 +76,32 @@ Mask-based visual prompt construction converts the grounded instances into the v
 
 Each instance additionally receives a bounding box and a textual identifier formed from its instrument category and a within-frame instance ID, such as \texttt{hook\_1} or \texttt{grasper\_2}. Instrument categories have fixed colours; multiple instances of the same category share a colour and are distinguished by their identifiers. Instance IDs follow the order in which instances are received from the annotation or detector, are unique only within the frame, and have no semantic meaning. The same mask-based visual prompt construction is used for ground-truth and predicted grounding; only the source of the masks, categories, and instance count differs.
 
-The textual instruction lists the allowable verb and target labels and specifies a structured response containing an identifier, verb, and target for every supplied instance. The label vocabulary includes the \texttt{null\_verb} and \texttt{null\_target} categories introduced in \chapref{chap:triplet-grounding}. All instances in an image are processed jointly in one autoregressive response. Generation is unconstrained: Direct SFT does not enforce valid triplets during decoding or apply ontology-based filtering. Malformed outputs, invalid labels, duplicate identifiers, and omitted instances are treated as missing predictions and receive no credit.
+As Qwen3-VL is an instruction-tuned generative model, the mask-based visual prompt is paired with a textual instruction that defines the interaction-prediction task. The instruction lists the permitted verb and target labels, identifies the instrument instances that must be labelled, and requests a predefined JSON response schema. This converts otherwise open-ended generation into structured fixed-vocabulary prediction, although the output is not constrained programmatically during decoding. A single-instance response has the form:
+
+\begin{lstlisting}[style=c5prompt]
+{
+  "predictions": [
+    {"id": "grasper_1", "instrument": "Grasping Forceps",
+     "verb": "retract", "target": "gallbladder"}
+  ]
+}
+\end{lstlisting}
+
+The instrument category is repeated to serialise the complete triplet, but it is supplied by Stage~1 and cannot be revised by Stage~2. The label vocabulary includes the \texttt{null\_verb} and \texttt{null\_target} categories introduced in \chapref{chap:triplet-grounding}. All instances in an image are processed jointly in one autoregressive response. At inference, the generated JSON is parsed, predictions are matched to grounded instances using the \texttt{id} field, and the \texttt{verb} and \texttt{target} strings are mapped to the corresponding evaluation labels. Generation remains unconstrained: Direct SFT does not enforce valid triplets during decoding or apply ontology-based filtering. Parsing and AP evaluation occur after generation and are not part of the training objective. Malformed objects, invalid labels, duplicate identifiers, and omitted instances are treated as missing predictions and receive no credit. Complete instructions and response schemas are provided in Section~\ref{sec:c5:appendix-prompts}.
 
 \subsection{Direct Supervised Fine-Tuning}
 \label{sec:c5:direct-sft}
 
-Direct SFT trains Qwen3-VL-8B-Instruct to generate the structured \vtpair response directly from the grounded visual input and instruction. The base model is loaded with 4-bit NF4 quantisation and bfloat16 computation. QLoRA adapters are applied to the attention and MLP projection layers, with rank $r=64$, scaling factor $\alpha=128$, and dropout $0.05$; the vision encoder, multimodal projector, and base language model remain frozen. Supervised loss is computed only over assistant-response tokens.
+Direct SFT trains Qwen3-VL-8B-Instruct through autoregressive next-token prediction. Let $y_1,\ldots,y_T$ denote the tokenised ground-truth JSON response, $I_{\mathrm{prompt}}$ the mask-based visual prompt, and $x_{\mathrm{text}}$ the textual instruction. The supervised objective is the mean token-level cross-entropy
+\begin{equation}
+    \mathcal{L}_{\mathrm{SFT}}
+    =-\frac{1}{T}\sum_{t=1}^{T}
+    \log p_{\theta}\!\left(y_t\mid I_{\mathrm{prompt}},x_{\mathrm{text}},y_{<t}\right).
+    \label{eq:c5:sft-loss}
+\end{equation}
+During training, each response token is predicted while the preceding ground-truth response tokens $y_{<t}$ are supplied as context, the standard procedure known as teacher forcing. Only assistant-response tokens contribute to the loss; textual instruction tokens are masked. The structured labels are therefore learned through their textual serialisation rather than through a separate classification head or a differentiable JSON parser. Gradients update the QLoRA adapters, whereas response parsing and metric computation are used only during evaluation.
+
+The base model is loaded with 4-bit NF4 quantisation and bfloat16 computation. QLoRA adapters are applied to the attention and MLP projection layers, with rank $r=64$, scaling factor $\alpha=128$, and dropout $0.05$; the vision encoder, multimodal projector, and base language model remain frozen.
 
 Figure~\ref{fig:c5:adaptation-motivation} illustrates representative ambiguities observed with this direct formulation. These cases motivated the controlled adaptations considered next: finer anatomical evidence, short-range temporal context, knowledge of valid label relationships, and richer supervision.
 
