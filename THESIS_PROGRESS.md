@@ -242,6 +242,7 @@ This file records the working state of the thesis. It should be updated whenever
 - Verified these revisions in a converged 246-page thesis build with no undefined citations, undefined references, duplicate bibliography keys, or LaTeX/Biber errors.
 - Updated ROBUST-MIPS to its published Scientific Data record and added primary references for rationale distillation and learning from explanation traces.
 - Revised the thesis-level discussion and conclusion following supervisor feedback: foregrounded the original CholecInstanceSeg labelling effort, framed CholecTriplet-Seg and spatial grounding positively, supported the role of benchmark datasets with Cholec80/CholecT50 examples, connected exact AP to top-$k$ and semantically informed evaluation, explained structured-output failures concretely, removed defensive and repetitive prose, and deleted the redundant penultimate conclusion paragraph. Added a primary reference on hierarchy-aware error severity and learning objectives. Verified the changes in a converged 248-page build with no undefined citations or references, duplicate bibliography keys, or LaTeX/Biber errors.
+- Prepared the submission PDF: removed historical ignored LaTeX verification artefacts, rebuilt the current thesis to a converged 248-page PDF, and regenerated `Thesis-review-compressed.pdf` with Ghostscript `/ebook` compression (44.20 MB to 4.55 MB; 89.7% reduction). The compressed file was independently confirmed to contain all 248 pages.
 
 ## Outstanding Issues
 
