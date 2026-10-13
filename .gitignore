@@ -30,6 +30,8 @@
 Thesis.pdf
 
 # Python bytecode and caches
+.venv/
+.tools/
 __pycache__/
 *.pyc
 

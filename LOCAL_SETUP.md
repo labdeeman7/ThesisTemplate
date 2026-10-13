@@ -2,6 +2,38 @@
 
 This repository is set up around `Thesis.tex` as the main LaTeX file.
 
+## Home-system setup (6 October 2026)
+
+A project-local portable MiKTeX installation is available under `.tools/miktex`.
+It includes pdfLaTeX and Biber. `.tools/` is ignored by Git and stays on this
+computer. The official installer and standalone setup utility were downloaded
+from MiKTeX and checked against the SHA-256 values on its download page.
+
+Verified on this system: pdfLaTeX (MiKTeX 25.12 Portable), Biber 2.21,
+and a successful full build of the 248-page thesis with the bibliography.
+
+Build from the repository root with:
+
+```powershell
+powershell -NoProfile -ExecutionPolicy Bypass -File tools\build-thesis.ps1
+```
+
+The execution-policy setting applies only to this invocation. The script adds
+the portable executables to its own process PATH, runs pdfLaTeX, Biber, and
+three final pdfLaTeX passes, and writes `.build/Thesis.pdf`. It does not require
+Perl or a permanent system PATH change. Missing-package installation is enabled;
+the first build needs Internet access to fetch packages beyond the basic set.
+
+The older `latexmk` workflow below remains an option if you install Perl and
+`latexmk`. It is not required by `tools/build-thesis.ps1`.
+
+Official references: [MiKTeX downloads](https://miktex.org/download),
+[portable setup options](https://docs.miktex.org/manual/miktexsetup.html),
+and [automatic package installation](https://docs.miktex.org/manual/autoinstall.html).
+
+The ten-slide talk is in `presentations/Thesis_overview_10min.pptx` and
+`presentations/Thesis_overview_10min.pdf`; neither needs LaTeX to present.
+
 ## Recommended Workflow
 
 Use GitHub as the canonical repository, and connect Overleaf to GitHub when possible. That gives three useful places to work:

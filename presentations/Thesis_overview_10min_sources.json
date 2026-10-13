@@ -1,0 +1,86 @@
+[
+  {
+    "slide": 1,
+    "title": "Towards fine-grained surgical scene understanding",
+    "sources": [
+      "Thesis.tex",
+      "Abstract.tex"
+    ]
+  },
+  {
+    "slide": 2,
+    "title": "Recognising an action does not identify its actor",
+    "sources": [
+      "chapters/01_introduction.tex",
+      "figs/triplet_grounding/instance_recognition_triplet_segmentation.pdf",
+      "IPCAI deck, slides 3–4"
+    ]
+  },
+  {
+    "slide": 3,
+    "title": "The review maps how surgical vision tasks connect",
+    "sources": [
+      "chapters/papers/02_review_paper.tex",
+      "TPC presentation.pptx, slides 5–9"
+    ]
+  },
+  {
+    "slide": 4,
+    "title": "The review exposes a missing spatial connection",
+    "sources": [
+      "chapters/papers/02_review_paper.tex, conclusion",
+      "chapters/01_introduction.tex, research gap"
+    ]
+  },
+  {
+    "slide": 5,
+    "title": "CholecInstanceSeg: distinguish individual instruments",
+    "sources": [
+      "Abstract.tex",
+      "chapters/papers/cholecinstanceseg/methods.tex",
+      "chapters/papers/cholecinstanceseg/technical_validation.tex",
+      "poster_presentation.pptx"
+    ]
+  },
+  {
+    "slide": 6,
+    "title": "CholecTriplet-Seg: link masks to surgical interactions",
+    "sources": [
+      "Abstract.tex",
+      "chapters/papers/targetfusionnet/main_body.tex",
+      "IPCAI deck, slides 4–5"
+    ]
+  },
+  {
+    "slide": 7,
+    "title": "TargetFusionNet adds weak anatomical context",
+    "sources": [
+      "chapters/papers/targetfusionnet/main_body.tex",
+      "Abstract.tex",
+      "IPCAI deck, slides 7–8"
+    ]
+  },
+  {
+    "slide": 8,
+    "title": "Two stages separate localisation from interaction prediction",
+    "sources": [
+      "chapters/papers/two_stage/main_body.tex",
+      "phd_papers/sources/Two_Stage_Surgical_Triplet_Segmentation/figures/two_stage_pipeline.pdf"
+    ]
+  },
+  {
+    "slide": 9,
+    "title": "Better components do not guarantee better complete triplets",
+    "sources": [
+      "chapters/papers/two_stage/main_body.tex, principal-adaptations and predicted-grounding tables"
+    ]
+  },
+  {
+    "slide": 10,
+    "title": "Grounding makes surgical interactions spatially explicit",
+    "sources": [
+      "chapters/06_discussion_conclusion.tex",
+      "chapters/papers/two_stage/main_body.tex, limitations"
+    ]
+  }
+]
